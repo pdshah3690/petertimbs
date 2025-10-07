@@ -1,0 +1,99 @@
+.hide {
+	display: none !important;
+}
+.create-order-main {
+	width: 95%;
+    padding: 40px 20px;
+    background-color: #fff;
+    margin: 20px 0;
+}
+.create-order-main .product-table-wrapper {
+	width: 100%;
+	display: block;
+	padding-right: 18px;
+}
+.create-order-main .all-products {
+	width: 100%;
+}
+.create-order-main table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.create-order-main table th,
+.create-order-main table td {
+	border: 1px solid #000;
+	padding: 5px;
+}
+.create-order-main table td .remove_item {
+	padding: 2px 7px 7px 7px;
+	border: 1px solid #D12027;
+	background-color: #D12027;
+	color: #fff;
+	cursor: pointer;
+	font-weight: bold;
+}
+.create-order-main table .order_sub_tr td:first-child {
+	text-align: right;
+	font-weight: bold;
+}
+.create_order {
+	background-color: #007bff;
+	border: 1px solid #007bff;
+	color: #fff;
+	border-radius: 3px;
+	padding: 5px 10px;
+	cursor: pointer;
+	margin: 0 auto;
+}
+.create-order-main .customer-billing-details {
+	width: 49%;
+	display: inline-block;
+	margin: 10px 0;
+	float: left;
+}
+.create-order-main .notes {
+	width: 49%;
+	display: inline-block;
+	margin: 10px 0;
+	float: right;
+}
+
+.input-row-wide {
+	padding: 5px 0;
+}
+.input-row-wide input,
+.input-row-wide textarea  {
+	width: 100%;
+    margin: 10px 0;
+    height: 35px;
+}
+.input-row-first {
+	display: inline-block;
+	width: 50%;
+	float: left;
+}
+.input-row-first input {
+	width: 95%;
+    margin: 10px 0;
+}
+.input-row-last {
+    display: inline-block;
+    width: 50%;
+    float: right;
+}
+.input-row-last input {
+    margin: 10px 0;
+    width: 95%;
+    float: right;
+}
+.input-row-wide.has-error,
+.input-row-first.has-error, 
+.input-row-last.has-error {
+	color: #f00;
+}
+
+.input-row-wide.has-error input,
+.input-row-first.has-error input, 
+.input-row-last.has-error input{
+	color: #f00;
+}

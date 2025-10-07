@@ -1,0 +1,16 @@
+.wpurp-meal-plan-add-recipe-container,
+.wpurp-meal-plan-date-change,
+.wpurp-meal-plan-actions,
+.wpurp-meal-plan-selected-recipe,
+.wpurp-meal-plan-button,
+.wpurp-shopping-list-close {
+  display: none !important; }
+
+.wpurp-meal-plan-calendar[data-start-date="20000101"] .wpurp-meal-plan-date-weekend {
+  background-color: white !important; }
+
+.wpurp-meal-plan-calendar[data-start-date="20000101"] .wpurp-meal-plan-date, .wpurp-meal-plan-calendar[data-start-date="20000101"] .wpurp-meal-plan-date-readable {
+  display: none !important; }
+
+.wpurp-meal-plan-calendar[data-start-date="20000101"] .wpurp-meal-plan-date-readable.wpurp-meal-plan-date-readable-numbers {
+  display: inline !important; }
