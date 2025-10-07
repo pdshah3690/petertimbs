@@ -1,0 +1,206 @@
+#butcher-box-data-tab label,
+#site-product-data-tab label,
+#app-product-data-tab label,
+#shipping-type-data-tab label {
+    float: none;
+    margin: 0;
+}
+
+#butcher-box-data-tab .butcher-box-input,
+#prepare-time-data-tab .prepare-time-input,
+#site-product-data-tab .site-product-input,
+#app-product-data-tab .app-product-input,
+#shipping-type-data-tab .shipping-type-input,
+#atria_data_panel .shipping-type-input {
+    width: 24%;
+    display: inline-block;
+    float: left;
+}
+
+#prepare-time-data-tab .prepare-time-input .variable-product input,
+#site-product-data-tab .site-product-input .variable-product input,
+#app-product-data-tab .app-product-input .variable-product input {
+	float: inherit;
+	width: 100%;
+}
+
+#prepare-time-data-tab .prepare-time-input .simple-product input,
+#site-product-data-tab .site-product-input .simple-product input,
+#app-product-data-tab .app-product-input .simple-product input {
+	float: inherit;
+	margin-left: 5px;
+	width: 60px;
+}
+
+.customer-report-main {
+	background-color: #fff;
+	margin-top: 20px;
+}
+.customer-report-content-wrapper .table tr th {
+	text-align: left;
+}
+.customer-report-content-wrapper .table td {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #000;
+}
+.customer-report-content-wrapper .table {
+	width: 90%;
+	margin: 0 auto;
+}
+#customer_product_sale_table_wrapper div.dt-buttons {
+	float: right;
+	margin-top: 15px;
+}
+.notification-main {
+    display: block;
+    width: 90%;
+    padding: 20px 40px;
+    background-color: #fff;
+    box-shadow: 5px 5px 5px #ddd;
+    border-radius: 10px;
+}
+#notification {
+	border-collapse: collapse;
+	width: 100%;
+}
+#notification thead td{
+	font-weight: bold;
+}
+#notification td, #notification th {
+	border: 1px solid #ddd;
+	padding: 8px;
+/*	text-align: center;*/
+}
+
+#notification tr:nth-child(even){background-color: #f2f2f2;}
+
+#notification tr:hover {background-color: #ddd;}
+
+#notification th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #04AA6D;
+	color: white;
+}
+.delete_notification:hover{
+	cursor: pointer;
+}
+.all_delete_notification:hover {
+	cursor: pointer;
+}
+.view_notification:hover {
+	cursor: pointer;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.notification_list{
+border-collapse: collapse;
+	width: 100%;
+}
+
+.notification_list thead td {
+	font-weight: bold;
+}
+
+.notification_list td,
+.notification_list th {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+.notification_list tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.notification_list tr:hover {
+	background-color: #ddd;
+}
+
+.notification_list th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #04AA6D;
+	color: white;
+}
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	/* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	margin-left: 190px;
+	width: 80%;
+	/* Could be more or less, depending on screen size */
+}
+
+.modal-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 1rem 1rem;
+	border-bottom: 1px solid #282828;
+	border-top-left-radius: calc(0.3rem - 1px);
+	border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.modal-title {
+	margin-bottom: 0;
+	line-height: 1.5;
+}
+
+.modal-header .close {
+	margin: -1rem -1rem -1rem auto;
+}
+
+.modal-body {
+	position: relative;
+	flex: 1 1 auto;
+	padding: 1rem;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.butchers_kitchen_img_div{
+	margin: 10px;
+}
+.butchers_kitchen_img_div .uploaded_image{
+	width: 200px;
+}
+.notification-main {
+    background: #fff;
+    width: 97%;
+    padding: 5px 10px;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px #ccc;
+}
