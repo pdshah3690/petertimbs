@@ -19,9 +19,8 @@
 <div id="" class="petertimbs-settings-container">
 	<form method="POST" action="options.php" enctype="multipart/form-data">
 		<?php
-			settings_fields($this->name);
-			do_settings_sections('petertimbs-settings-page');
-			do_settings_sections('petertimbs-settings-delivery');
+			settings_fields($this->name."_gss");
+			do_settings_sections('pt-gss-settings');
 			submit_button();
 		?>
 	</form>

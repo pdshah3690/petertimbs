@@ -16,6 +16,7 @@ require_once 'classes/class-petertimbs-product-filters.php';
 require_once 'classes/class-petertimbs-meals-filter.php';
 require_once 'classes/class-butcher-kitchen-public.php';
 require_once 'classes/class-custom-widget.php';
+require_once 'classes/class-pt-gss-public.php';
 // require_once 'classes/class-atria-function.php';
 
 add_action( 'wp_enqueue_scripts', 'salient_child_enqueue_styles', 100);
