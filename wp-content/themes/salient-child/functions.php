@@ -28,10 +28,10 @@ function set_default_time_zone() {
 
 function salient_child_enqueue_styles() {
 
-	$nectar_theme_version = nectar_get_theme_version();
+    $nectar_theme_version = nectar_get_theme_version();
 
     wp_enqueue_style( 'datetime', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css', '', $nectar_theme_version );
-	wp_enqueue_style( 'salient-child-style', get_stylesheet_directory_uri() . '/style.css', '', $nectar_theme_version );
+    wp_enqueue_style( 'salient-child-style', get_stylesheet_directory_uri() . '/style.css', '', $nectar_theme_version );
     wp_enqueue_style( 'salient-child-custom', get_stylesheet_directory_uri() . '/css/custom.css', '', $nectar_theme_version );
 
     wp_deregister_script('nectar_woo_quick_view_js');
@@ -48,7 +48,7 @@ function salient_child_enqueue_styles() {
     $now = strtotime("now");
     $cut_off = strtotime($cut_off);
     $disabled_dates = get_deliery_cut_off_dates();
-    $pickup_disabled_dates = ["2023/12/18", "2023/12/19", "2023/12/20", "2023/12/21", "2023/12/22", "2023/12/23", "2023/12/24", "2023/12/25", "2023/12/26","2024/01/02","2024/02/06", "2024/03/29", "2024/04/01", "2024/06/03", "2024/06/28", "2024/10/28", "2024/11/15", "2024/12/25", "2024/12/26" ];
+    $pickup_disabled_dates = [date("Y/m/d")];
     // $is_disabled = 1;
     // if($cut_off_day == 0 && $cut_off < $now) {
     $disabled_dates[] = date("Y/m/d");
@@ -95,10 +95,10 @@ function salient_child_enqueue_styles() {
         "pick_up_range_from"  => $from,
         "pick_up_range_to"  => $to
     ]);
-    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom1.js', array('jquery'), '1.1', true);
+    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom1.js', array('jquery'), '2.2', true);
     if ( is_rtl() ) {
-   		wp_enqueue_style(  'salient-rtl',  get_template_directory_uri(). '/rtl.css', array(), '1', 'screen' );
-	}
+        wp_enqueue_style(  'salient-rtl',  get_template_directory_uri(). '/rtl.css', array(), '1', 'screen' );
+    }
 }
 
 add_action('admin_enqueue_scripts', 'salient_child_admin_enqueue_scripts');
@@ -480,7 +480,7 @@ function _calculate_pickup_datetime($total_prep_time) {
         }
     }
 
-   	// $total_prep_time = $total_prep_time + $peter_timbs['preparation_buffer_time'];
+    // $total_prep_time = $total_prep_time + $peter_timbs['preparation_buffer_time'];
 
     if(date("H") < 13) {
         $total_prep_time = $total_prep_time + 720;
@@ -915,7 +915,7 @@ function update_user_custom_meta($user_id) {
     update_user_meta($user_id, "loyalty_card_number", $loyalty_card_number);
 }
 function measure_distance_from_store($dest) {
-	$option = get_option("peter_timbs");
+    $option = get_option("peter_timbs");
     $origin = "70+Edgeware+Rd+Edgeware+Christchurch+NZ";
     $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={$origin}&destinations={$dest}&mode=driving&key=AIzaSyAYyxEGB5J4cZGFf9TWu4N0gy0KQDWtFeI&unit=metric";
     $response = file_get_contents($url);
@@ -971,7 +971,7 @@ function get_deliery_cut_off_dates() {
                     ON p.ID = pm.post_id AND pm.meta_key = '_order_delivery_date'
                 WHERE p.post_type = 'shop_order' AND pm.meta_value >= CURDATE()  GROUP BY pm.meta_value";
     $orders = $wpdb->get_results($sql, ARRAY_A);
-    $dates = ["2023/12/18", "2023/12/19", "2023/12/20", "2023/12/21", "2023/12/22", "2023/12/23", "2023/12/24", "2023/12/25", "2023/12/26","2024/01/02","2024/02/06", "2024/03/29", "2024/04/01", "2024/06/03", "2024/06/28", "2024/10/28", "2024/11/15", "2024/12/25", "2024/12/26" ];
+    $dates = [];
     foreach ($orders as $o) {
         $day = strtolower(date("l", strtotime($o['date'])));
         $cut_off = $option[$day."_delivery_cut_off"];
@@ -1017,7 +1017,7 @@ function check_meal( $passed, $product_id, $quantity, $variation_id = '', $varia
             $item_id = $cart_items['product_id'];
             $item_cat = has_term('meals', 'product_cat', $item_id);
             $item_cat_is_merchandise = has_term('merchandise', 'product_cat', $item_id);
-            
+
             if($current_product_cat) {
                 if($check_is_meal == $item_cat && $check_is_merchandise == false){
                     if ($check_is_meal == false && $item_cat == false && $item_cat_is_merchandise == false) {
@@ -1054,13 +1054,13 @@ function check_meal( $passed, $product_id, $quantity, $variation_id = '', $varia
                 }
 
             } else {
-                
+
                 if ($check_is_merchandise == true && $item_cat_is_merchandise == true){
-                    return $passed;                    
+                    return $passed;
                 }else{
                     if($item_cat_is_merchandise == true && $check_is_merchandise == false){
                         $passed = false;
-                        wc_add_notice(sprintf(__( 'Merchandise cannot be purchased with other items', 'error' )));        
+                        wc_add_notice(sprintf(__( 'Merchandise cannot be purchased with other items', 'error' )));
                         return $passed;
                     }else{
                         return $passed;
@@ -1087,10 +1087,10 @@ function cart_reset( $that, $false ){
             WC()->session->__unset('is_meal');
             $shipping_type = get_post_meta($item_id, "_shipping_type", 1);
             $shipping_type = empty($shipping_type) ? "both" : $shipping_type;
-            WC()->session->set('cart_type', $shipping_type);       
+            WC()->session->set('cart_type', $shipping_type);
         }
     }
-    
+
 }
 
 add_action( 'init', 'create_tag_taxonomies', 0 );
@@ -1142,7 +1142,7 @@ function return_to_peter_timbs_meats_menu_show() {
 $ignore = ["meals", "butchers-box", "deli-products", "grazing-boxes", "pies", "ready-to-eat-meals", "ready-to-heat-meals", "salads"];
 $terms_slug = get_queried_object()->slug;
 $taxonomy_slug = get_query_var( 'taxonomy' );
-if ( is_shop()) 
+if ( is_shop())
     {
         ?>
         <style type="text/css">
@@ -1162,7 +1162,7 @@ if ( is_page( 'butchers-kitchen' ) ) {
             display:none !important;
         }
         nav ul #menu-item-21119,
-	    nav ul #menu-item-5845{
+        nav ul #menu-item-5845{
             display:flex !important;
         }
         .menu{
@@ -1179,7 +1179,7 @@ if ( is_page( 'butchers-kitchen' ) ) {
         #page-header-bg .span_6 h1{
             font-size: 70px;
         }
-        
+
 
   </style>
  <?php
@@ -1280,7 +1280,7 @@ if ( is_page( 'butchers-kitchen' ) ) {
     </style>
         <?php
         }
-             
+
     }
 }
 add_action('wp_head', 'return_to_peter_timbs_meats_menu_show');
@@ -1310,13 +1310,13 @@ if( !function_exists('script_attributes') )
 
 // add_action( 'woocommerce_checkout_update_order_meta', 'bbloomer_save_new_checkout_field' );
 // function bbloomer_save_new_checkout_field( $order_id ) {
-// 	$order = wc_get_order($order_id);
-// 	$total_points = 0;
-// 	foreach ($order->get_items() as $item_id => $items) {
+//  $order = wc_get_order($order_id);
+//  $total_points = 0;
+//  foreach ($order->get_items() as $item_id => $items) {
 //         $product_id = empty($items->get_variation_id()) ? $items->get_product_id() : $items->get_variation_id();
-// 		$point = get_post_meta($product_id, "_atria_points", 1);
-// 		$total_points = $total_points + ($point*$items->get_quantity());
-// 	}
+//      $point = get_post_meta($product_id, "_atria_points", 1);
+//      $total_points = $total_points + ($point*$items->get_quantity());
+//  }
 //     if ( $_POST['final_delivery'] ) update_post_meta( $order_id, '_final_delivery', esc_attr( $_POST['final_delivery'] ) );
 //    // _dd($total_points);
 // }

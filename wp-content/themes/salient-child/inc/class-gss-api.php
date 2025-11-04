@@ -20,10 +20,16 @@ class PT_GSS_Api {
 
 	public function create_customer_order($wc_order)
 	{
+		$delivery_fees = "";
 		$order_type = $wc_order->get_meta("_order_type");
 		if( $order_type !== "delivery") {
 			return true;
 		}
+
+		foreach($wc_order->get_data()['fee_lines'] as $item_fee) {
+			$delivery_fees .= $item_fee->get_name() . " - $" . $item_fee->get_amount() . "\r\n";
+		}
+
 		$order_items = $this->get_wc_order_items($wc_order);
 		$address_array = $wc_order->get_address();
 		$country = $address_array['country'];
@@ -55,7 +61,7 @@ class PT_GSS_Api {
 			"rawaddress"		=> $full_address,
 			"products"		=> $order_items,
 			"customField1Value" => "PROCESSING",
-			"customField2Value" => ""
+			"customField2Value" => $delivery_fees
 		];
 		$this->post("customerorders", [$data]);
 	}
@@ -71,7 +77,6 @@ class PT_GSS_Api {
 		    'body' => json_encode( $data ),
 		    'headers' => $headers,
 		);
-
 		$response = wp_remote_request($url, $args);
 		_dd($response);
 	}
@@ -91,8 +96,8 @@ class PT_GSS_Api {
 				"countryofManufacture" => "NZ",
 				"imageurl" => $image[0],
 				"currency" => "NZD",
-				"alreadySent"	=> $i["total"],
-				"fulfilledQty"	=> $i["quantity"],
+				"alreadySent"	=> 0,
+				"fulfilledQty"	=> 0,
 				"linetotal"		=> $i["total"],
 				"bin"	=> "",
 			];

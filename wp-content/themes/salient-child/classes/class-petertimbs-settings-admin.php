@@ -168,7 +168,7 @@ class PeterTimbs_Settings_Admin {
 //                     $order = wc_get_order($order_id);
 //                     $order_data = $order->get_data();
 //                     $post_code = $order_data['billing']['postcode'];
-					$post_code = get_user_meta($user->ID, "billing_postcode", 1);
+                    $post_code = get_user_meta($user->ID, "billing_postcode", 1);
                     if(in_array($post_code,$zonePostCode)) {
                         $userId[]   = $user->ID;
                     }
@@ -445,10 +445,10 @@ class PeterTimbs_Settings_Admin {
 
         add_settings_field('saturday_delivery_cut_off', 'Saturday Max Delivery Orders', [$this, 'saturday_delivery_cut_off'], 'petertimbs-settings-delivery', 'peter_timbs_main');
 
-        add_settings_field('zone_one', 'Zone One Postcodes', [$this, 'zone_one'], 'petertimbs-settings-delivery', 'peter_timbs_main');
-        add_settings_field('zone_two', 'Zone Two Postcodes', [$this, 'zone_two'], 'petertimbs-settings-delivery', 'peter_timbs_main');
-        add_settings_field('zone_three', 'Zone Three Postcodes', [$this, 'zone_three'], 'petertimbs-settings-delivery', 'peter_timbs_main');
-        add_settings_field('zone_four', 'Zone Four Postcodes', [$this, 'zone_four'], 'petertimbs-settings-delivery', 'peter_timbs_main');
+        add_settings_field('zone_one', 'Short Haul Postcodes', [$this, 'zone_one'], 'petertimbs-settings-delivery', 'peter_timbs_main');
+        add_settings_field('zone_two', 'Long Haul Postcodes', [$this, 'zone_two'], 'petertimbs-settings-delivery', 'peter_timbs_main');
+        add_settings_field('zone_three', 'Outer Area Postcodes', [$this, 'zone_three'], 'petertimbs-settings-delivery', 'peter_timbs_main');
+        add_settings_field('zone_four', 'Inter Island Postcodes', [$this, 'zone_four'], 'petertimbs-settings-delivery', 'peter_timbs_main');
         add_settings_field('north_island_postcodes', 'North Island Postcodes', [$this, 'north_island_postcodes'], 'petertimbs-settings-delivery', 'peter_timbs_main');
         add_settings_field('south_island_postcodes', 'South Island Postcodes', [$this, 'south_island_postcodes'], 'petertimbs-settings-delivery', 'peter_timbs_main');
 
