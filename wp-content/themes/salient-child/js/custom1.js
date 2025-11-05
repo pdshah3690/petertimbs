@@ -42,11 +42,13 @@
 
         $("#pickup_date_time").datetimepicker({
             timepicker:true,
-            format : 'Y-m-d H:00',
+            format : 'Y-m-d H:i',
             disabledWeekDays: [0, 1],
             disabledDates: pickup_disabled_dates,
             minDate : minDate,
             maxDate : maxDate,
+            defaultDate: minDate,
+            defaultTime: "08:00",
             allowTimes:[
                 '08:00', '08:15', '08:30', '08:45',
                 '09:00', '09:15', '09:30', '09:45',
@@ -144,9 +146,7 @@
                                 // $("#delivery_date_field").removeClass("hide");
                                 // $(".only_delivery_field").removeClass("hide");
                                 // $("#pickup_date_time_field").addClass("hide");
-                                console.log("before if");
                                 if($(".only_delivery_type_radio").length > 0) {
-                                    console.log("if");
                                     $("#delivery_type_pick_up").prop('checked', false);
                                     $("#delivery_type_delivery").prop('checked', true);
                                     add_cart_fee('delivery');
@@ -193,13 +193,9 @@
         });
 
         var add_cart_fee = function(type) {
-            console.log(type);
-            if(zone_fee != 0)
-            {
+            if(zone_fee != 0) {
                 zone_fee = zone_fee;
             }
-            console.log('zone_fee',zone_fee);
-
             $.ajax({
                 url : woocommerce_params.ajax_url,
                 data: {

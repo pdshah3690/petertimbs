@@ -95,7 +95,7 @@ function salient_child_enqueue_styles() {
         "pick_up_range_from"  => $from,
         "pick_up_range_to"  => $to
     ]);
-    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom1.js', array('jquery'), '2.2', true);
+    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom1.js', array('jquery'), '2.5', true);
     if ( is_rtl() ) {
         wp_enqueue_style(  'salient-rtl',  get_template_directory_uri(). '/rtl.css', array(), '1', 'screen' );
     }
