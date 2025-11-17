@@ -14,7 +14,6 @@ class PT_GSS_Public {
 		$gss = new PT_GSS_Api();
 		$order = wc_get_order($order_id);
 		$gss_order = $gss->create_customer_order($order);
-		_dd($gss_order);
 	}
 }
 

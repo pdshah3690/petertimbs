@@ -10,9 +10,6 @@ class PT_GSS_Api {
 
 	public function __construct()
 	{
-		// John Doe
-		// test@jadecreative.co.nz
-		// 287 Durham Street North, Christchurch Central City, Christchurch, 8013
 		$gss_settings = get_option('peter_timbs_gss');
 		$this->api_key = $gss_settings['gss_api_key'];
 		$this->site_id = $gss_settings['gss_site_id'];
@@ -78,7 +75,6 @@ class PT_GSS_Api {
 		    'headers' => $headers,
 		);
 		$response = wp_remote_request($url, $args);
-		_dd($response);
 	}
 
 	private function get_wc_order_items($wc_order)

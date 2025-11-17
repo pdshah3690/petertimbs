@@ -48,7 +48,8 @@ function salient_child_enqueue_styles() {
     $now = strtotime("now");
     $cut_off = strtotime($cut_off);
     $disabled_dates = get_deliery_cut_off_dates();
-    $pickup_disabled_dates = [date("Y/m/d")];
+    $pickup_disabled_dates = [date("Y/m/d"), "2025/01/02", "2025/02/06", "2025/03/29", "2025/04/01", "2025/06/03", "2025/06/28", "2025/10/28", "2025/11/15", "2025/12/25", "2025/12/26"];
+
     // $is_disabled = 1;
     // if($cut_off_day == 0 && $cut_off < $now) {
     $disabled_dates[] = date("Y/m/d");
@@ -435,7 +436,7 @@ function display_pickup_date_info() {
 }
 function get_earlier_pickup_time() {
     $cart = WC()->cart->get_cart();
-    $total_prep_time = 0;
+    $total_prep_time = 1440;
     foreach ($cart as $item) {
         if(!empty($item['bb_items'])) {
             $bb_items = unserialize($item['bb_items']);
@@ -479,8 +480,6 @@ function _calculate_pickup_datetime($total_prep_time) {
             break;
         }
     }
-
-    // $total_prep_time = $total_prep_time + $peter_timbs['preparation_buffer_time'];
 
     if(date("H") < 13) {
         $total_prep_time = $total_prep_time + 720;
@@ -971,7 +970,7 @@ function get_deliery_cut_off_dates() {
                     ON p.ID = pm.post_id AND pm.meta_key = '_order_delivery_date'
                 WHERE p.post_type = 'shop_order' AND pm.meta_value >= CURDATE()  GROUP BY pm.meta_value";
     $orders = $wpdb->get_results($sql, ARRAY_A);
-    $dates = [];
+    $dates = ["2025/01/02", "2025/02/06", "2025/03/29", "2025/04/01", "2025/06/03", "2025/06/28", "2025/10/28", "2025/11/15", "2025/12/25", "2025/12/26", "2025/12/23", "2025/12/24", "2025/12/27"];
     foreach ($orders as $o) {
         $day = strtolower(date("l", strtotime($o['date'])));
         $cut_off = $option[$day."_delivery_cut_off"];
