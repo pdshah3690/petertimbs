@@ -46,7 +46,7 @@ class PT_GSS_Api {
 			"consignee" => $full_name,
 			"address1"	=> $wc_order->get_billing_address_1(),
 			"address2"	=> $wc_order->get_billing_address_2(),
-			"suburb" 	=> $wc_order->get_billing_state(),
+			"suburb" 	=> $wc_order->get_billing_address_2(),
 			"city"		=> $wc_order->get_billing_city(),
 			"postcode"	=> $wc_order->get_billing_postcode(),
 			"country"	=> $wc_order->get_billing_country(),

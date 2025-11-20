@@ -1301,8 +1301,15 @@ if( !function_exists('script_attributes') )
 }
 
 
-
-
+// Make the second address line a required "Suburb" field
+add_filter( 'woocommerce_default_address_fields', function( $fields ) {
+    if ( isset( $fields['address_2'] ) ) {
+        $fields['address_2']['label']       = __( 'Suburb', 'woocommerce' );
+        $fields['address_2']['placeholder'] = __( 'Suburb', 'woocommerce' );
+        $fields['address_2']['required']    = true;
+    }
+    return $fields;
+});
 
 //Test Product Code
 
