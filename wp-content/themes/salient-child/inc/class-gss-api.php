@@ -41,8 +41,14 @@ class PT_GSS_Api {
 		];
 		$full_address = str_replace( ", ,", ",",  implode(", ", $full_address) );
 		$full_name = $wc_order->get_billing_first_name() . " " . $wc_order->get_billing_last_name();
+		$prefix = "";
+		if($_SERVER['SERVER_NAME']  === "www.petertimbsmeats.co.nz" || $_SERVER['SERVER_NAME']  === "petertimbsmeats.co.nz" ) {
+			$prefix = "";
+		} else {
+			$prefix = "stage-";
+		}
 		$data = [
-			"packingslipno" => $wc_order->get_id(),
+			"packingslipno" => $prefix . $wc_order->get_id(),
 			"consignee" => $full_name,
 			"address1"	=> $wc_order->get_billing_address_1(),
 			"address2"	=> $wc_order->get_billing_address_2(),
@@ -60,7 +66,8 @@ class PT_GSS_Api {
 			"customField1Value" => "PROCESSING",
 			"customField2Value" => $delivery_fees
 		];
-		$this->post("customerorders", [$data]);
+		$response = $this->post("customerorders", [$data]);
+		return $response;
 	}
 
 	private function post($endpoint, $data, $headers = [])
@@ -75,6 +82,7 @@ class PT_GSS_Api {
 		    'headers' => $headers,
 		);
 		$response = wp_remote_request($url, $args);
+		return $response;
 	}
 
 	private function get_wc_order_items($wc_order)
