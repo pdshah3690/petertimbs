@@ -50,10 +50,20 @@ function salient_child_enqueue_styles() {
     $disabled_dates = get_deliery_cut_off_dates();
     $pickup_disabled_dates = [
         date("Y/m/d"),
+        "2025/12/16",
+        "2025/12/17",
+        "2025/12/18",
+        "2025/12/19",
+        "2025/12/20",
+        "2025/12/21",
+        "2025/12/22",
         "2025/12/23",
+        "2025/12/24",
         "2025/12/25",
         "2025/12/26",
         "2025/12/27",
+        "2026/01/01",
+        "2026/01/02",
         "2026/01/03",
         "2026/02/06",
         "2026/04/18",
@@ -113,7 +123,7 @@ function salient_child_enqueue_styles() {
         "pick_up_range_from"  => $from,
         "pick_up_range_to"  => $to
     ]);
-    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom1.js', array('jquery'), '2.5', true);
+    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom1.js', array('jquery'), '2.8', true);
     if ( is_rtl() ) {
         wp_enqueue_style(  'salient-rtl',  get_template_directory_uri(). '/rtl.css', array(), '1', 'screen' );
     }
@@ -988,12 +998,20 @@ function get_deliery_cut_off_dates() {
                 WHERE p.post_type = 'shop_order' AND pm.meta_value >= CURDATE()  GROUP BY pm.meta_value";
     $orders = $wpdb->get_results($sql, ARRAY_A);
     $dates = [
-        "2025/01/02",
+        "2025/12/16",
+        "2025/12/17",
+        "2025/12/18",
+        "2025/12/19",
+        "2025/12/20",
+        "2025/12/21",
+        "2025/12/22",
         "2025/12/23",
         "2025/12/24",
         "2025/12/25",
         "2025/12/26",
         "2025/12/27",
+        "2026/01/01",
+        "2026/01/02",
         "2026/01/03",
         "2026/02/06",
         "2026/04/18",
