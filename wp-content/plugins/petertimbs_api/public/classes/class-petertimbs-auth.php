@@ -18,10 +18,10 @@ class Petertimbs_Auth {
 
     /* Constructor */
     public function __construct() {
-        $this->twilio_sid =  "AC15bdc49a2d02a5077e66a252b71f6af5";
-        $this->twilio_auth_token = "e5c4f768519f880506618b4ddf7f59e5";
+        $this->twilio_sid =  TWILIO_SID;
+        $this->twilio_auth_token = TWILIO_AUTH_TOKEN
 
-        $this->twilio_from_number = "+19143068990";
+        $this->twilio_from_number = TWILIO_FROM_NUMBER;
     }
 
     /**

@@ -109,9 +109,6 @@ class Petertimbs_Product_Meals {
 
 
         $data = new WP_Query($args);
-        // echo "<pre>";
-        // print_r($data);
-     	// exit;
     	$response['success'] = true;
     	$response['total_products'] = $data->found_posts;
     	$response['max_num_pages'] = $data->max_num_pages;
@@ -122,10 +119,7 @@ class Petertimbs_Product_Meals {
             $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_ID() ), 'woocommerce_gallery_thumbnail' );
             $image = empty($image) ? "" : $image[0];
             $stock_status = $product->get_stock_status();
-            // $price = html_entity_decode(strip_tags($product->get_price_html()));
-            // $price = html_entity_decode(get_woocommerce_currency_symbol().$product->get_regular_price());
-			// $sale_price = html_entity_decode(get_woocommerce_currency_symbol().$product->get_sale_price());
-			$price = empty($product->get_regular_price()) ? html_entity_decode(get_woocommerce_currency_symbol().$product->get_variation_regular_price()) : html_entity_decode(get_woocommerce_currency_symbol().$product->get_regular_price());
+            $price = html_entity_decode(strip_tags($product->get_price_html()));
 			$sale_price = empty($product->get_sale_price()) ? "" : html_entity_decode(get_woocommerce_currency_symbol().$product->get_sale_price());
             $is_meal = false;
 			if (has_term( 'meals', 'product_cat',  $product->get_ID())){
