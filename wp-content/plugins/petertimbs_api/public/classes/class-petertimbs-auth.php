@@ -19,7 +19,7 @@ class Petertimbs_Auth {
     /* Constructor */
     public function __construct() {
         $this->twilio_sid =  TWILIO_SID;
-        $this->twilio_auth_token = TWILIO_AUTH_TOKEN
+        $this->twilio_auth_token = TWILIO_AUTH_TOKEN;
 
         $this->twilio_from_number = TWILIO_FROM_NUMBER;
     }

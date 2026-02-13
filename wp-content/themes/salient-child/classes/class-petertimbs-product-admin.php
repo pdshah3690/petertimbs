@@ -28,8 +28,7 @@ Class Petertimbs_Product_Admin {
     }
 
     public function preparetime_admin_scripts() {
-
-        wp_enqueue_script( 'prepare-time-admin', get_stylesheet_directory_uri()."/js/prepare-time-admin.js", array(), null, true );
+        wp_enqueue_script( 'prepare-time-admin-1', get_stylesheet_directory_uri()."/js/prepare-time-admin.js", array('jquery'), '1.0.0', false );
     }
 
     public function preparetime_woocommerce_data_tab($tabs) {
@@ -526,4 +525,4 @@ Class Petertimbs_Product_Admin {
     }
 }
 
-$product_admin = new Petertimbs_Product_Admin();
+new Petertimbs_Product_Admin();
