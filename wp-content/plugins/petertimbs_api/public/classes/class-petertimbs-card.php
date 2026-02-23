@@ -113,7 +113,7 @@ class Petertimbs_Card {
 			$where = [
 				"payment_token_id" => $post['token_id']
 			];
-			$deleted = $wpdb->delete($wpdb->prefix."woocommerce_payment_tokenmeta", $where);			
+			$deleted = $wpdb->delete($wpdb->prefix."woocommerce_payment_tokenmeta", $where);
 		}
 		$response = [
 			"success" => true,
