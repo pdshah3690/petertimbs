@@ -474,7 +474,7 @@ class Petertimbs_Order {
 
 	public function _get_stripe_source() {
 
-		$stripe = new \Stripe\StripeClient('sk_test_NEQj0FuNa2V3siWiRamqDrYB00PYvY3EVS');
+		$stripe = new \Stripe\StripeClient('sk_test_***');
 
 		$fields = [
 			'type' => 'card',
