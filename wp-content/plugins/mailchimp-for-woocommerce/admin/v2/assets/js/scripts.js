@@ -47,17 +47,19 @@
 			let tags_vals_array = [];
 			let tag_vals_str = String(tag);
 
+			// if we have tags
 			if (tags_hidden_vals) {
+				// split them into an array
 				tags_vals_array = tags_hidden_vals.split(', ');
 
 				// Check if the tag is in the tag list
 				if ($.inArray(tag, tags_vals_array) !== -1) {
 					return;
 				}
-
-				tags_vals_array.push(tag);
-				tag_vals_str = tags_vals_array.join(', ');
 			}
+
+			tags_vals_array.push(tag);
+			tag_vals_str = tags_vals_array.join(', ');
 
 			let eleTagged = '<div><span class="mc-wc-tag-text">' + tag + '</span><span class="mc-wc-tag-icon-del" data-value="' + tag + '"></span></div>'
 			if (show_tagged.html().trim() === '') {
@@ -121,9 +123,12 @@
 			let notice_content = $('#mc_notice_text');
 			let content = $('.mc-wc-tab-content');
 
-			//content.addClass('loading');
+			let checkbox = $("#mailchimp_woocommerce_options").find("input[type=checkbox]");
+			$.each(checkbox, function(key, val) {
+				formData.append($(val).attr('name'), $(val).is(':checked') ? '1' : '0');
+			});
 
-			notice.removeClass('error success');
+			notice.fadeOut(1000).removeClass('error success');
 			notice_content.text('');
 
 			$.ajax({
@@ -152,6 +157,49 @@
 				}
 			});
 		}
+
+		// promo stuff
+		const plans = {
+			500: {send_up_to: 6000, regular_price: 20, promo_first_month_price: 1},
+			1500: {send_up_to: 18000, regular_price: 45, promo_first_month_price: 1},
+			2500: {send_up_to: 30000, regular_price: 60, promo_first_month_price: 1},
+			5000: {send_up_to: 60000, regular_price: 100, promo_first_month_price: 1},
+			10000: {send_up_to: 120000, regular_price: 135, promo_first_month_price: 1},
+			15000: {send_up_to: 180000, regular_price: 230, promo_first_month_price: 1},
+			20000: {send_up_to: 240000, regular_price: 285, promo_first_month_price: 1},
+			25000: {send_up_to: 300000, regular_price: 310, promo_first_month_price: 1},
+			30000: {send_up_to: 360000, regular_price: 340, promo_first_month_price: 1},
+			40000: {send_up_to: 480000, regular_price: 410, promo_first_month_price: 1},
+			50000: {send_up_to: 600000, regular_price: 450, promo_first_month_price: 1},
+			75000: {send_up_to: 900000, regular_price: 630, promo_first_month_price: 1},
+			100000: {send_up_to: 1200000, regular_price: 800, promo_first_month_price: 1}
+		};
+
+		function onPlanSelectorChanged (e) {
+			const selected = $('#mailchimp_plan_selector option:selected')?.val() || 0;
+			const found = plans[Number(selected)] || null;
+			if (!found) {
+				//console.log('plan value not found', selected);
+				return;
+			}
+			console.log('plan found', found);
+			$('.mc_contacts').text(Number(selected).toLocaleString());
+			$('.mc_send_up_to').text(found.send_up_to.toLocaleString());
+			$('.mc_regular_price').text('$'+found.regular_price.toString());
+			$('.mc_promo_first_month_price').text('$'+found.promo_first_month_price.toString());
+		}
+
+		$('#mailchimp_plan_selector').change(onPlanSelectorChanged);
+
+		$('.promo.mc-wc-tooltipper').on('click', function() {
+			$(this).parent().find('.mc-wc-tooltipper-text').css('visibility', 'visible').fadeIn();
+		});
+
+		$('.tooltip__close').on('click', function() {
+			$(this).closest('.mc-wc-tooltipper-text').fadeOut();
+		});
+
+		onPlanSelectorChanged();
 	});
 })( jQuery );
 

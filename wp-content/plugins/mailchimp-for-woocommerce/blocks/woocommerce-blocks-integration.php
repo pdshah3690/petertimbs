@@ -132,11 +132,20 @@ class Mailchimp_Woocommerce_Newsletter_Blocks_Integration implements Integration
         );
         $data['gdprStatus'] = $this->getOptinStatus();
 
-        $data['checkboxSettings'] = array(
-            [ 'label' => 'Visible, checked by default', 'value' => 'check' ],
-            [ 'label' => 'Visible, unchecked by default', 'value' => 'uncheck' ],
-            [ 'label' => 'Hidden, unchecked by default', 'value' => 'hide' ],
+        if (is_user_logged_in()) {
+            $subscribed = is_user_logged_in() && get_user_meta(get_current_user_id(), 'mailchimp_woocommerce_is_subscribed', true);
+        } else {
+            $subscribed = false;
+        }
+
+        $data['userSubscribed'] = $subscribed === true || $subscribed === '1';
+
+        $checkbox_settings = array(
+            [ 'label' => esc_html__( 'Checked by default', 'mailchimp-for-woocommerce' ), 'value' => 'check' ],
+            [ 'label' => esc_html__( 'Unchecked by default', 'mailchimp-for-woocommerce' ), 'value' => 'uncheck' ],
         );
+
+        $data['checkboxSettings'] = apply_filters('mailchimp_checkout_opt_in_options', $checkbox_settings);;
 
         if (!empty($gdpr)) {
             $data['gdprHeadline'] = __( 'Please select all the ways you would like to hear from us', 'mailchimp-newsletter' );
@@ -200,6 +209,9 @@ class Mailchimp_Woocommerce_Newsletter_Blocks_Integration implements Integration
         // this should allow us to do the same thing as previous without the javascript hook
         $service = MailChimp_Service::instance();
         $service->set_user_from_block_checkout($order->get_billing_email());
+        // hook the identity in here
+        MailChimp_WooCommerce_Pixel_Tracking::instance()->track_identity($order->get_billing_email());
+        // handle the cart update.
         $service->handleCartUpdated();
     }
 
@@ -258,8 +270,13 @@ class Mailchimp_Woocommerce_Newsletter_Blocks_Integration implements Integration
             // submit this if there's a proper user ID and is a subscriber.
             if ( (bool) $optin ) {
                 // probably need to add the GDPR fields and language in to this submission next.
-                $language = null;
-                mailchimp_handle_or_queue(
+				$language = get_user_meta($user_id, 'locale', true);
+				if (strpos($language, '_') !== false) {
+					$languageArray = explode('_', $language);
+					$language = $languageArray[0];
+				}
+
+				mailchimp_handle_or_queue(
                     new MailChimp_WooCommerce_User_Submit(
                         $user_id,
                         '1',
@@ -308,7 +325,7 @@ class Mailchimp_Woocommerce_Newsletter_Blocks_Integration implements Integration
             }
         }
 
-        return $status === true ? 'check' : 'uncheck';
+        return $status === true || $status === '1' ? 'check' : 'uncheck';
     }
 
     /**
