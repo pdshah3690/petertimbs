@@ -98,6 +98,9 @@ class GF_Honeypot_Handler {
 	 * @return array Returns a form object with the new honeypot field appended to the fields array.
 	 */
 	public function maybe_add_honeypot_field( $form ) {
+		if ( ! is_array( $form['fields'] ) ) {
+			return $form;
+		}
 
 		if ( rgar( $form, 'enableHoneypot' ) ) {
 			$form['fields'][] = $this->get_honeypot_field( $form );
@@ -251,7 +254,8 @@ class GF_Honeypot_Handler {
 		// 1- honeypot is not enabled by this form in form settings.
 		// 2- the form is submitted from preview.
 		// 3- the form is submitted from the WP dashboard.
-		$is_disabled = ! rgar( $form, 'enableHoneypot' ) || \GFCommon::is_preview() || is_admin();
+		$is_wp_dashboard = is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX );
+		$is_disabled     = ! rgar( $form, 'enableHoneypot' ) || \GFCommon::is_preview() || $is_wp_dashboard;
 
 		return ! $is_disabled;
 	}
