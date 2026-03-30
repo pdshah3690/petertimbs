@@ -1,5 +1,12 @@
 <?php
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+wp_enqueue_style( 'nectar-element-morphing-outline' );
+
 $title = $el_class = $value = $label_value= $units = '';
 
 extract(shortcode_atts(array(

@@ -1,15 +1,25 @@
-<?php 
+<?php
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$el_color_list = array(
+    esc_html__( "Default (inherit from row Text Color)", "salient-core") => "Default",
+	esc_html__( "Accent Color", "salient-core") => "Accent-Color",
+	esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
+	esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",
+	esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
+);
+$custom_colors = apply_filters('nectar_additional_theme_colors', array());
+$el_color_list = array_merge($el_color_list, $custom_colors);
+
 return array(
 	"name" => esc_html__("Milestone", "salient-core"),
 	"base" => "milestone",
 	"icon" => "icon-wpb-milestone",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Content', 'salient-core'),
 	"description" => esc_html__('Add an animated milestone', 'salient-core'),
 	"params" => array(
 		array(
@@ -75,32 +85,43 @@ return array(
 			'save_always' => true,
 			"description" => esc_html__("Please select amount of padding you would like your subject to have", "salient-core")
 		),
-		
+
 		array(
 			"type" => "dropdown",
 			"heading" => esc_html__("Color", "salient-core"),
 			"param_name" => "color",
-			"value" => array(
-				esc_html__( "Default (inherit from row Text Color)", "salient-core") => "Default",
-				esc_html__( "Accent Color", "salient-core") => "Accent-Color",
-				esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
-				esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
-				esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
-			),
+			"value" => $el_color_list,
 			'save_always' => true,
-			'description' => esc_html__('Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+			'description' => esc_html__('Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
 		),
-		
+
 		array(
 			"type" => "dropdown",
 			"heading" => esc_html__("Animation Effect", "salient-core"),
 			"param_name" => "effect",
 			"value" => array(
 				esc_html__( "Count To Value", "salient-core") => "count",
-				esc_html__( "Motion Blur Slide In", "salient-core") => "motion_blur"
+				esc_html__( "Motion Blur Slide In", "salient-core") => "motion_blur",
+				esc_html__( "None", "salient-core") => "none"
 			),
 			'save_always' => true,
 			"description" => esc_html__("Please select the animation you would like your milestone to have", "salient-core")
+		),
+		array(
+			"type" => 'checkbox',
+			"heading" => esc_html__('Single Decimal Place', "salient-core"),
+			"param_name" => "single_decimal_place",
+			"value" => Array(esc_html__("Yes, please", "salient-core") => 'true'),
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
+			"dependency" => array('element' => "effect", 'value' => array('count')),
+		),
+		array(
+			"type" => "textfield",
+			"class" => "",
+			"heading" => esc_html__("Animation Delay", "salient-core"),
+			"param_name" => "effect_delay",
+			"admin_label" => false,
+			"description" => esc_html__("Enter delay (in milliseconds) if needed e.g. 150.", "salient-core")
 		),
 		array(
 			"type" => "textfield",
@@ -129,7 +150,7 @@ return array(
 			"description" => esc_html__("Please select the alignment you desire for your symbol.", "salient-core"),
 			"dependency" => Array('element' => "symbol", 'not_empty' => true)
 		),
-		
+
 		array(
 			"type" => "dropdown",
 			"heading" => esc_html__("Milestone Text Alignment", "salient-core"),
@@ -142,7 +163,7 @@ return array(
 			'save_always' => true,
 			"description" => esc_html__("Please select the alignment for your overall milestone.", "salient-core"),
 		)
-		
+
 	)
 );
 

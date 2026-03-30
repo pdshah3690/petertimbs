@@ -5,11 +5,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$el_color_list = array(
+    esc_html__( "Accent Color", "salient-core") => "accent-color",
+	esc_html__( "Extra Color 1", "salient-core") => "extra-color-1",
+	esc_html__( "Extra Color 2", "salient-core") => "extra-color-2",	
+	esc_html__( "Extra Color 3", "salient-core") => "extra-color-3",
+	esc_html__( "Color Gradient 1", "salient-core") => "extra-color-gradient-1",
+	esc_html__( "Color Gradient 2", "salient-core") => "extra-color-gradient-2"
+);
+$custom_colors = apply_filters('nectar_additional_theme_colors', array());
+$el_color_list = array_merge($el_color_list, $custom_colors);
+
 return array(
 	"name" => esc_html__("Flip Box", "salient-core"),
 	"base" => "nectar_flip_box",
 	"icon" => "icon-wpb-nectar-flip-box",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Interactive', 'salient-core'),
 	"description" => esc_html__('Add a flip box element', 'salient-core'),
 	"params" => array(
 		array(
@@ -40,10 +51,12 @@ return array(
 			"type" => 'checkbox',
 			"heading" => esc_html__("BG Color overlay on BG Image", "salient-core"),
 			"param_name" => "bg_color_overlay",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"group" => esc_html__('Front Side', 'salient-core'),
 			"description" => esc_html__("Checking this will overlay your BG color on your BG image", "salient-core"),
 			"value" => Array(esc_html__("Yes", "salient-core") => 'true')
 		),
+		
 		array(
 			"type" => "dropdown",
 			"class" => "",
@@ -65,16 +78,26 @@ return array(
 				__( 'Iconsmind', 'js_composer' ) => 'iconsmind',
 				__( 'Linea', 'js_composer' ) => 'linea',
 				__( 'Steadysets', 'js_composer' ) => 'steadysets',
+				esc_html__( 'Additional Brands', 'salient-core' ) => 'nectarbrands',
 			),
 			'param_name' => 'icon_family',
 			'description' => __( 'Select icon library.', 'js_composer' ),
+		),
+		array(
+			'type' => 'iconpicker',
+			'heading' => esc_html__( 'Icon', 'salient-core' ),
+			'param_name' => 'icon_nectarbrands',
+			"group" => esc_html__('Front Side', 'salient-core'),
+			'settings' => array( 'type' => 'nectarbrands', 'emptyIcon' => true, 'iconsPerPage' => 240 ),
+			'dependency' => Array( 'element' => 'icon_family', 'value' => 'nectarbrands' ),
+			'description' => esc_html__( 'Select icon from library.', 'salient-core' )
 		),
 		array(
 			"type" => "iconpicker",
 			"heading" => esc_html__("Icon Above Title", "salient-core"),
 			"param_name" => "icon_fontawesome",
 			"group" => esc_html__('Front Side', 'salient-core'),
-			"settings" => array( "emptyIcon" => true, "iconsPerPage" => 4000),
+			"settings" => array( "emptyIcon" => true, "iconsPerPage" => 240),
 			"dependency" => Array('element' => "icon_family", 'value' => 'fontawesome'),
 			"description" => esc_html__("Select icon from library.", "js_composer")
 		),
@@ -83,7 +106,7 @@ return array(
 			"heading" => esc_html__("Icon", "js_composer"),
 			"param_name" => "icon_iconsmind",
 			"group" => esc_html__('Front Side', 'salient-core'),
-			"settings" => array( 'type' => 'iconsmind', 'emptyIcon' => false, "iconsPerPage" => 4000),
+			"settings" => array( 'type' => 'iconsmind', 'emptyIcon' => false, "iconsPerPage" => 240),
 			"dependency" => array('element' => "icon_family", 'value' => 'iconsmind'),
 			"description" => esc_html__("Select icon from library.", "js_composer")
 		),
@@ -92,7 +115,7 @@ return array(
 			"heading" => esc_html__("Icon Above Title", "js_composer"),
 			"param_name" => "icon_linea",
 			"group" => esc_html__('Front Side', 'salient-core'),
-			"settings" => array( 'type' => 'linea', "emptyIcon" => true, "iconsPerPage" => 4000),
+			"settings" => array( 'type' => 'linea', "emptyIcon" => true, "iconsPerPage" => 240),
 			"dependency" => Array('element' => "icon_family", 'value' => 'linea'),
 			"description" => esc_html__("Select icon from library.", "js_composer")
 		),
@@ -101,7 +124,7 @@ return array(
 			"heading" => esc_html__("Icon", "js_composer"),
 			"param_name" => "icon_steadysets",
 			"group" => esc_html__('Front Side', 'salient-core'),
-			"settings" => array( 'type' => 'steadysets', 'emptyIcon' => false, "iconsPerPage" => 4000),
+			"settings" => array( 'type' => 'steadysets', 'emptyIcon' => false, "iconsPerPage" => 240),
 			"dependency" => array('element' => "icon_family", 'value' => 'steadysets'),
 			"description" => esc_html__("Select icon from library.", "js_composer")
 		),
@@ -112,15 +135,8 @@ return array(
 			"heading" => esc_html__("Icon Color", "salient-core"),
 			"param_name" => "icon_color",
 			"group" => esc_html__('Front Side', 'salient-core'),
-			"value" => array(
-				esc_html__( "Accent Color", "salient-core") => "accent-color",
-				esc_html__( "Extra Color 1", "salient-core") => "extra-color-1",
-				esc_html__( "Extra Color 2", "salient-core") => "extra-color-2",	
-				esc_html__( "Extra Color 3", "salient-core") => "extra-color-3",
-				esc_html__( "Color Gradient 1", "salient-core") => "extra-color-gradient-1",
-				esc_html__( "Color Gradient 2", "salient-core") => "extra-color-gradient-2"
-			),
-			'description' => esc_html__( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+			"value" => $el_color_list,
+			'description' => esc_html__( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
 		),
 		array(
 			"type" => "textfield",
@@ -159,6 +175,7 @@ return array(
 			"type" => 'checkbox',
 			"heading" => esc_html__("BG Color overlay on BG Image", "salient-core"),
 			"param_name" => "bg_color_overlay_2",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"group" =>  esc_html__("Back Side", "salient-core"),
 			"description" => esc_html__("Checking this will overlay your BG color on your BG image", "salient-core"),
 			"value" => Array(esc_html__("Yes", "js_composer") => 'true')
@@ -181,7 +198,7 @@ return array(
 			"param_name" => "min_height",
 			"admin_label" => false,
 			"group" => esc_html__("General Settings", "salient-core"),
-			"description" => esc_html__("Please enter the minimum height you would like for you box. Enter in number of pixels - Don't enter \"px\", default is \"300\"", "salient-core")
+			"description" => esc_html__("Please enter the minimum height you would like for you box.", "salient-core")
 		),
 		
 		array(
@@ -210,6 +227,21 @@ return array(
 				"Bottom" => "bottom"
 			)
 		),
+		
+		array(
+      "type" => "dropdown",
+      "class" => "",
+      'save_always' => true,
+      "heading" => esc_html__("Image Loading", "salient-core"),
+      "param_name" => "image_loading",
+			"group" => esc_html__("General Settings", "salient-core"),
+      "value" => array(
+        "Default" => "default",
+				"Lazy Load" => "lazy-load",
+      ),
+			"description" => esc_html__("Determine whether to load the image on page load or to use a lazy load method for higher performance.", "salient-core"),
+      'std' => 'default',
+    ),
 		
 		array(
 			"type" => "dropdown",

@@ -1,10 +1,10 @@
-<?php 
-  
+<?php
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-  
+
 $order_by_values = array(
   '',
   esc_html__('Date', 'salient-core' ) => 'date',
@@ -35,15 +35,15 @@ $blog_options = array("All" => "all");
 if($is_admin) {
 	foreach ($blog_types as $type) {
 		if(isset($type->name) && isset($type->slug)) {
-			$blog_options[htmlspecialchars($type->name)] = htmlspecialchars($type->slug);
+			$blog_options[htmlspecialchars($type->slug)] = htmlspecialchars($type->slug);
     }
 	}
 } else {
 	$blog_options['All'] = 'all';
 }
-    
-    
-    
+
+
+
 $woo_args = array(
 	'taxonomy' => 'product_cat',
 );
@@ -51,15 +51,15 @@ $woo_args = array(
 global $woocommerce;
 
 if($woocommerce) {
-  
+
   $post_types["Products"] = 'products';
-  
+
   $woo_types   = ($is_admin) ? get_categories($woo_args) : array('All' => 'all');
   $woo_options = array("All" => "all");
 
   if( $is_admin ) {
   	foreach ($woo_types as $type) {
-  		$woo_options[$type->name] = $type->slug;
+  		$woo_options[$type->slug] = $type->slug;
   	}
   } else {
   	$woo_options['All'] = 'all';
@@ -74,7 +74,7 @@ return array(
   'name' => __( 'Category Grid', 'salient-core' ),
   'base' => 'nectar_category_grid',
   'icon' => 'icon-wpb-portfolio',
-  "category" => esc_html__('Nectar Elements', 'salient-core'),
+  "category" => esc_html__('Query', 'salient-core'),
   'description' => esc_html__('Show categories in a stylish grid', 'salient-core' ),
   'params' => array(
     array(
@@ -106,12 +106,12 @@ return array(
       "dependency" => array('element' => "post_type", 'value' => 'posts'),
       "description" => esc_html__("Please select the categories you would like to display for your blog. You can select multiple categories too (ctrl + click on PC and command + click on Mac).", "salient-core")
     ),
-    
-    
+
     array(
       'type' => 'dropdown',
       'heading' => esc_html__( 'Text Content Alignment', 'salient-core' ),
       'param_name' => 'text_content_alignment',
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
       'value' => array(
         esc_html__('Top Left', 'salient-core') => 'top_left',
         esc_html__('Top Middle', 'salient-core') => 'top_middle',
@@ -124,7 +124,21 @@ return array(
       'save_always' => true,
       'description' => esc_html__( 'Select the alignment of your text content.', 'salient-core')
     ),
-    
+
+		array(
+      "type" => "dropdown",
+      "class" => "",
+      'save_always' => true,
+      "heading" => esc_html__("Category Title Heading Tag", "salient-core"),
+      "param_name" => "heading_tag",
+      "value" => array(
+        "Default" => "default",
+				"Heading 2" => "h2",
+				"Heading 3" => "h3",
+				"Heading 4" => "h4",
+      ),
+      'std' => 'default',
+    ),
     array(
       'type' => 'dropdown',
       'heading' => esc_html__( 'Subtext', 'salient-core' ),
@@ -145,12 +159,13 @@ return array(
       "dependency" => array('element' => "subtext", 'value' => 'custom'),
       "description" => esc_html__("Enter custom text that will be shown below each category title", "salient-core")
     ),
-    
-    
+
+
     array(
       'type' => 'dropdown',
       'heading' => esc_html__( 'Columns', 'salient-core' ),
       'param_name' => 'columns',
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
       'value' => array(
         '4' => '4',
         '3' => '3',
@@ -160,10 +175,10 @@ return array(
       'std' => '4',
       'save_always' => true
     ),
-    
+
     array(
       "type" => "dropdown",
-      "heading" => esc_html__("Grid Item Spacing", "salient-core"),
+      "heading" => esc_html__("Item Spacing", "salient-core"),
       "param_name" => "grid_item_spacing",
       'save_always' => true,
       "value" => array(
@@ -173,32 +188,62 @@ return array(
         "15px" => "15px",
         "25px" => "25px"
       ),
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
       "description" => esc_html__("Please select the spacing you would like between your items. ", "salient-core")
     ),
-    
+
+
     array(
       "type" => 'checkbox',
       "heading" => esc_html__("Masonry Layout", "salient-core"),
       "param_name" => "enable_masonry",
-      "description" => esc_html__("This will allow your portfolio items to display in a masonry layout as opposed to a fixed grid", "salient-core"),
-      "value" => Array(esc_html__("Yes, please", "salient-core") => 'yes')
+      'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
+      "description" => esc_html__("This will allow your category items to display in a masonry layout as opposed to a fixed grid", "salient-core"),
+      "value" => Array(esc_html__("Yes, please", "salient-core") => 'yes'),
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
     ),
-    
-    
-    array(
-      "type" => "colorpicker",
-      "class" => "",
-      "group" => esc_html__("Grid Item Coloring/Style", "salient-core"),
-      "heading" => "Color Overlay",
-      "param_name" => "color_overlay",
-      "value" => "",
-      "description" => esc_html__("Use this to set a BG color that will be overlaid on your grid items", "salient-core"),
-    ),
-    
+
     array(
       "type" => "dropdown",
       "class" => "",
-      "group" => esc_html__("Grid Item Coloring/Style", "salient-core"),
+      'save_always' => true,
+      "heading" => esc_html__("Image Loading", "salient-core"),
+      "param_name" => "image_loading",
+      "value" => array(
+        "Default" => "default",
+				"Lazy Load" => "lazy-load",
+      ),
+			"description" => esc_html__("Determine whether to load all images on page load or to use a lazy load method for higher performance.", "salient-core"),
+      'std' => 'default',
+    ),
+
+		array(
+			'type' => 'dropdown',
+			'heading' => esc_html__( 'Grid Style', 'salient-core' ),
+			'param_name' => 'grid_style',
+			'value' => array(
+				esc_html__('Content Overlaid on Featured Image', 'salient-core') => 'content_overlaid',
+				esc_html__('Featured Image Mouse Follow on Hover', 'salient-core') => 'mouse_follow_image',
+			),
+			'save_always' => true,
+			"group" => esc_html__("Item Coloring/Style", "salient-core"),
+		),
+
+    array(
+      "type" => "colorpicker",
+      "class" => "",
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
+      "heading" => "Color Overlay",
+      "param_name" => "color_overlay",
+      "value" => "",
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
+      "description" => esc_html__("Use this to set a BG color that will be overlaid on your grid items", "salient-core"),
+    ),
+
+    array(
+      "type" => "dropdown",
+      "class" => "",
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
       'save_always' => true,
       "heading" => esc_html__("Color Overlay Opacity", "salient-core"),
       "param_name" => "color_overlay_opacity",
@@ -215,13 +260,14 @@ return array(
         "0.9" => "0.9",
         "1" => "1"
       ),
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
       'std' => '0.3',
     ),
-    
+
     array(
       "type" => "dropdown",
       "class" => "",
-      "group" => esc_html__("Grid Item Coloring/Style", "salient-core"),
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
       'save_always' => true,
       "heading" => esc_html__("Color Overlay Hover Opacity", "salient-core"),
       "param_name" => "color_overlay_hover_opacity",
@@ -238,14 +284,31 @@ return array(
         "0.9" => "0.9",
         "1" => "1"
       ),
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
       'std' => '0.4',
     ),
-    
-    
+
+		array(
+      "type" => "dropdown",
+      "class" => "",
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
+      'save_always' => true,
+      "heading" => esc_html__("Image Aspect Ratio", "salient-core"),
+			"dependency" => array('element' => "grid_style", 'value' => 'mouse_follow_image'),
+      "param_name" => "image_aspect_ratio",
+      "value" => array(
+        "1:1" => "1-1",
+				"16:9" => "16-9",
+				"4:3" => "4-3",
+        "4:5" => "4-5",
+      ),
+      'std' => '1-1',
+    ),
+
     array(
       "type" => "dropdown",
       "class" => "",
-      "group" => esc_html__("Grid Item Coloring/Style", "salient-core"),
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
       'save_always' => true,
       "heading" => esc_html__("Text Color", "salient-core"),
       "param_name" => "text_color",
@@ -255,11 +318,11 @@ return array(
       ),
       'std' => 'light',
     ),
-    
+
     array(
       "type" => "dropdown",
       "class" => "",
-      "group" => esc_html__("Grid Item Coloring/Style", "salient-core"),
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
       'save_always' => true,
       "heading" => "Text Color Hover",
       "param_name" => "text_color_hover",
@@ -269,29 +332,31 @@ return array(
       ),
       'std' => 'light',
     ),
-    
+
     array(
       "type" => 'checkbox',
       "heading" => esc_html__("Shadow on Hover", "salient-core"),
       "param_name" => "shadow_on_hover",
-      "group" => esc_html__("Grid Item Coloring/Style", "salient-core"),
+			"dependency" => array('element' => "grid_style", 'value' => 'content_overlaid'),
+      'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
       "description" => esc_html__("This will add a shadow effect on hover to your grid items", "salient-core"),
       "value" => Array(esc_html__("Yes, please", "salient-core") => 'yes')
     ),
-    
+
     array(
       'type' => 'dropdown',
       'heading' => esc_html__( 'Subtext Visibility', 'salient-core' ),
       'param_name' => 'subtext_visibility',
-      "group" => esc_html__("Grid Item Coloring/Style", "salient-core"),
+      "group" => esc_html__("Item Coloring/Style", "salient-core"),
       'value' => array(
         'Always Shown' => 'always',
         'Shown on Hover' => 'on_hover',
       ),
       'save_always' => true
     ),
-    
-    
+
+
   ),
 );
 

@@ -1,5 +1,10 @@
 <?php
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
    extract(shortcode_atts(array(
 	  "type" => 'full_width_background',
 	  'image_url'=> '', 
@@ -41,22 +46,24 @@
 		
 		if( !preg_match('/^\d+$/',$image_url) ){
 				
-			$bg_props .= 'background-image: url('. $image_url . '); ';
-			$bg_props .= 'background-position: '. $bg_pos .'; ';
+			$bg_props .= 'background-image: url('. esc_attr($image_url) . '); ';
+			$bg_props .= 'background-position: '. esc_attr($bg_pos) .'; ';
 		
 		} else {
 			$bg_image_src = wp_get_attachment_image_src($image_url, 'full');
 			
-			$bg_props .= 'background-image: url('. $bg_image_src[0]. '); ';
-			$bg_props .= 'background-position: '. $bg_pos .'; ';
+			if( false !== $bg_image_src ) {
+				$bg_props .= 'background-image: url('. esc_attr($bg_image_src[0]). '); ';
+				$bg_props .= 'background-position: '. esc_attr($bg_pos) .'; ';
+			}
 		}
 		
 		// For pattern bgs.
 		if( strtolower($bg_repeat) === 'repeat' ){
-			$bg_props .= 'background-repeat: '. strtolower($bg_repeat) .'; ';
+			$bg_props .= 'background-repeat: '. esc_attr(strtolower($bg_repeat)) .'; ';
 			$etxra_class = 'no-cover';
 		} else {
-			$bg_props .= 'background-repeat: '. strtolower($bg_repeat) .'; ';
+			$bg_props .= 'background-repeat: '. esc_attr(strtolower($bg_repeat)) .'; ';
 			$etxra_class = null;
 		}
 
@@ -64,10 +71,10 @@
 	}
 	
 	if( !empty($background_color) ) {
-		$bg_props .= 'background-color: '. $background_color.'; ';
+		$bg_props .= 'background-color: '. esc_attr($background_color).'; ';
 		if($exclude_row_header_color_inherit !== 'true') {
-      $using_bg_color_class = 'using-bg-color';
-    }
+      		$using_bg_color_class = 'using-bg-color';
+    	}
 	}
 	
 	if( strtolower($parallax_bg) === 'true' ){
@@ -76,8 +83,11 @@
 		$parallax_class = 'standard_section';
 	}
 	
-	if( strtolower($vertically_center_columns) === 'true' ){
-		$vertically_center_class = 'vertically-align-columns';
+  $equal_height_class = '';
+	if( strtolower($vertically_center_columns) === 'true') {
+    // v11 uses CSS for vertical center option instead of JS.
+    $equal_height_class = ' vc_row vc_row-o-equal-height vc_row-flex vc_row-o-content-middle ';
+    $vertically_center_class = null;
 	} else {
 		$vertically_center_class = null;
 	}
@@ -87,13 +97,13 @@
 	
 	if( $page_full_screen_rows !== 'on' ) {
 
-		$style .= 'padding-top: '. $top_padding .'px; ';
-		$style .= 'padding-bottom: '. $bottom_padding .'px; ';
+		$style .= 'padding-top: '. esc_attr($top_padding) .'px; ';
+		$style .= 'padding-bottom: '. esc_attr($bottom_padding) .'px; ';
 
 	}
 	
 	if( !empty($custom_text_color) ) {
-		$style .= 'color: '. $custom_text_color .'; ';
+		$style .= 'color: '. esc_attr($custom_text_color) .'; ';
 		$using_custom_text_color = 'data-using-ctc="true"';
 	}
 	
@@ -117,7 +127,7 @@
   }
 
 
-  echo'<div id="'.uniqid("fws_").'" class="wpb_row vc_row-fluid '. $main_class . $parallax_class . ' ' . $vertically_center_class . ' ' . $class . ' " '.$using_custom_text_color.' style="'.$style.'">';
+  echo'<div id="'.uniqid("fws_").'" class="wpb_row legacy vc_row-fluid '. $main_class . $equal_height_class . $parallax_class . ' ' . $vertically_center_class . ' ' . $class . ' " '.$using_custom_text_color.' style="'.$style.'">';
 	
 	if( $page_full_screen_rows === 'on' ) {
     echo '<div class="full-page-inner-wrap-outer"><div class="full-page-inner-wrap" data-name="'.esc_attr($row_name).'" data-content-pos="'.esc_attr($full_screen_row_position).'"><div class="full-page-inner">';
@@ -129,10 +139,12 @@
 	// Video bg.
 	if($video_bg) {
 		
+		$video_image_src = '';
+			
 		// Parse video image.
-		if(strpos($video_image, "http://") !== false){
+		if(strpos($video_image, "http") !== false){
 			$video_image_src = $video_image;
-		} else {
+		} else if( preg_match('/^\d+$/', $video_image) ) {
 			$video_image_src = wp_get_attachment_image_src($video_image, 'full');
 			$video_image_src = $video_image_src[0];
 		}

@@ -16,7 +16,7 @@ return array(
 	"show_settings_on_create" => true,
 	"is_container" => true,
 	"icon" => "icon-wpb-page-submenu",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Structure', 'salient-core'),
 	"description" => esc_html__('Great for animated anchors', 'salient-core'),
 	"params" => array( 
 		array(
@@ -34,6 +34,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => "Sticky?",
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "sticky",

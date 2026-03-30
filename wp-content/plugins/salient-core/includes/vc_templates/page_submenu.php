@@ -1,5 +1,12 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+wp_enqueue_style( 'nectar-element-page-submenu' );
+
 extract(shortcode_atts(array(
   "alignment" => "center", 
   "sticky" => "false", 
@@ -14,7 +21,7 @@ echo '<div class="page-submenu" data-bg-color="'.esc_attr($bg_color).'" data-sti
 if($wrapping_class === 'full-width-section') {
   echo '<div class="container">';
 }
-echo '<a href="#" class="mobile-menu-link"><i class="salient-page-submenu-icon"></i>'. esc_html__('Menu','salient') .'</a><ul style="background-color:'.esc_attr($bg_color).'; color: '.esc_attr($link_color).';">'.do_shortcode($content).'</ul>';
+echo '<a href="#" class="mobile-menu-link"><i class="salient-page-submenu-icon"></i>'. esc_html__('Menu','salient') .'</a><ul style="background-color:'.esc_attr($bg_color).'; color: '.esc_attr($link_color).';">'.do_shortcode(wp_kses_post($content)).'</ul>';
 if($wrapping_class === 'full-width-section') {
   echo '</div>';
 }

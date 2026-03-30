@@ -1,4 +1,11 @@
 <?php 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+wp_enqueue_style( 'nectar-element-pricing-table' );
+
 extract(shortcode_atts(array(
 	"el_class" => '', 
 	'style' => 'default'), $atts));

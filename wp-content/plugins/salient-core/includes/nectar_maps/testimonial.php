@@ -25,6 +25,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => "Add Shadow To Image",
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "add_image_shadow",
@@ -69,7 +70,7 @@ return array(
 				"1 Stars" => "20%",
 			),
 			'save_always' => true,
-			"description" => esc_html__("Please select the star raing you would like to show for your testimonial", "salient-core")
+			"description" => esc_html__("Please select the star rating you would like to show for your testimonial", "salient-core")
 		),
 		array(
 			"type" => "tab_id",

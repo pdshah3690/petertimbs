@@ -1,8 +1,14 @@
 <?php 
 
-add_action('add_meta_boxes_page', 'nectar_metabox_salient_headers_page');
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-function nectar_metabox_salient_headers_page() {
+
+add_action('add_meta_boxes', 'nectar_metabox_salient_headers_page');
+
+function nectar_metabox_salient_headers_page($post_type) {
   
   
   if( defined( 'NECTAR_THEME_NAME' ) ) {
@@ -13,63 +19,135 @@ function nectar_metabox_salient_headers_page() {
     );
   }
   
-  function nectar_metabox_salient_page_callback($post,$meta_box) {
-    nectar_create_meta_box( $post, $meta_box["args"] );
+  if( !function_exists('nectar_metabox_salient_page_callback')) {
+    function nectar_metabox_salient_page_callback($post,$meta_box) {
+      nectar_create_meta_box( $post, $meta_box["args"] );
+    }
   }
   
-  
-  
+
   /**
    * Header navigation transparency.
    */
+	 $header_nav_trans_post_types = array('page');
+	 if( has_filter('nectar_metabox_post_types_navigation_transparency') ) {
+		 $header_nav_trans_post_types = apply_filters('nectar_metabox_post_types_navigation_transparency', $header_nav_trans_post_types);
+	 }
+	 
    $meta_box = array(
      'id' => 'nectar-metabox-header-nav-transparency',
-     'title' => esc_html__('Navigation Transparency', 'salient-core'),
-     'description' => esc_html__('Configure the header navigation transparency.', 'salient-core'),
-     'post_type' => 'page',
+     'title' => esc_html__('Header Navigation', 'salient-core'),
+     'description' => esc_html__('Configure options related to the header navigation.', 'salient-core'),
+     'post_type' => $header_nav_trans_post_types,
      'context' => 'normal',
      'priority' => 'high',
      'fields' => array(
-       array( 
-         'name' =>  esc_html__('Disable Transparency From Navigation', 'salient-core'),
-         'desc' => esc_html__('You can use this option to force your navigation header to stay a solid color even if it qualifies to trigger the','salient-core') . '<a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'"> transparent effect</a> ' . esc_html__('you have activated in the Salient options panel.', 'salient-core'),
-         'id' => '_disable_transparent_header',
-         'type' => 'checkbox',
-         'std' => ''
-       ),
-       array( 
-         'name' =>  esc_html__('Force Transparency On Navigation', 'salient-core'),
-         'desc' => esc_html__('You can use this option to force your navigation header to start transparent even if it does not qualify to trigger the','salient-core') . '<a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'"> transparent effect</a> ' . esc_html__('you have activated in the Salient options panel.', 'salient-core'),
-         'id' => '_force_transparent_header',
-         'type' => 'checkbox',
-         'std' => ''
-       ),
-       array( 
-         'name' => esc_html__('Transparent Header Navigation Color', 'salient-core'),
-         'desc' => esc_html__('Choose your header navigation logo & color scheme that will be used at the top of the page when the transparent effect is active. This option pulls from the settings "Header Starting Dark Logo" & "Header Dark Text Color" in the','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'">transparency tab</a>.',
-         'id' => '_force_transparent_header_color',
-         'type' => 'select',
-         'std' => 'light',
-         'options' => array(
-           "light" => esc_html__("Light (default)", "salient-core"),
-           "dark" => esc_html__("Dark", "salient-core")
+      array( 
+        'name' => esc_html__('Header Navigation Entrance Animation', 'salient-core'),
+        'desc' => esc_html__('Optionally specify an entrance animation for your header navigation.', 'salient-core'),
+        'id' => '_header_nav_entrance_animation',
+        'type' => 'select',
+        'std' => 'none',
+        'options' => array(
+          "none" => esc_html__("None", "salient-core"),
+          "fade-in" => esc_html__("Fade In", "salient-core"),
+          "fade-in-from-top" => esc_html__("Fade In From Top", "salient-core")
          )
-       )
+        ),
+        array( 
+          'name' => esc_html__('Header Navigation Entrance Animation Delay', 'salient-core'),
+          'desc' => esc_html__('Optionally specify a delay in milliseconds to wait before triggering the header animation e.g. 500', 'salient-core'),
+          'id' => '_header_nav_entrance_animation_delay',
+          'type' => 'text',
+          'std' => ''
+        ),
+        array( 
+          'name' => esc_html__('Header Navigation Entrance Animation Easing', 'salient-core'),
+          'desc' => esc_html__('Optionally specify a custom easing for the header animation.', 'salient-core'),
+          'id' => '_header_nav_entrance_animation_easing',
+          'type' => 'select',
+          'std' => '',
+          'options' => array(
+            'default' => esc_html__("Inherit From Theme Options", "salient-core"),
+            'easeInQuad'=>'easeInQuad',
+            'easeOutQuad' => 'easeOutQuad',
+            'easeInOutQuad'=>'easeInOutQuad',
+            'easeInCubic'=>'easeInCubic',
+            'easeOutCubic'=>'easeOutCubic',
+            'easeInOutCubic'=>'easeInOutCubic',
+            'easeInQuart'=>'easeInQuart',
+            'easeOutQuart'=>'easeOutQuart',
+            'easeInOutQuart'=>'easeInOutQuart',
+            'easeInQuint'=>'easeInQuint',
+            'easeOutQuint'=>'easeOutQuint',
+            'easeInOutQuint'=>'easeInOutQuint',
+            'easeInExpo'=>'easeInExpo',
+            'easeOutExpo'=>'easeOutExpo',
+            'easeInOutExpo'=>'easeInOutExpo',
+            'easeInSine'=>'easeInSine',
+            'easeOutSine'=>'easeOutSine',
+            'easeInOutSine'=>'easeInOutSine',
+            'easeInCirc'=>'easeInCirc',
+            'easeOutCirc'=>'easeOutCirc',
+            'easeInOutCirc'=>'easeInOutCirc'
+           )
+        ),
      )
    );
+   
+   $salient_options_panel_text = esc_html__('you have activated in the Salient options panel.', 'salient-core');
+   if ( class_exists('NectarThemeManager') && 
+     property_exists('NectarThemeManager', 'custom_theme_name') &&
+     NectarThemeManager::$custom_theme_name ) {
+      $salient_options_panel_text = esc_html__('you have activated in the') . ' ' . esc_html(NectarThemeManager::$custom_theme_name) . ' ' . esc_html__('options panel.', 'salient-core');
+   }
+
+   if( isset($nectar_options['transparent-header']) && $nectar_options['transparent-header'] === '1' ) {
+    $meta_box['fields'][] = array( 
+      'name' =>  esc_html__('Disable Transparency From Navigation', 'salient-core'),
+      'desc' => esc_html__('You can use this option to force your navigation header to stay a solid color even if it qualifies to trigger the','salient-core') . '<a target="_blank" href="'. esc_url(admin_url('?page='.NectarThemeInfo::$theme_options_name.'&tab=18')) .'"> transparent effect</a> ' . $salient_options_panel_text,
+      'id' => '_disable_transparent_header',
+      'type' => 'checkbox',
+      'std' => ''
+    );
+    $meta_box['fields'][] = array( 
+      'name' =>  esc_html__('Force Transparency On Navigation', 'salient-core'),
+      'desc' => esc_html__('You can use this option to force your navigation header to start transparent even if it does not qualify to trigger the','salient-core') . '<a target="_blank" href="'. esc_url(admin_url('?page='.NectarThemeInfo::$theme_options_name.'&tab=18')) .'"> transparent effect</a> ' . $salient_options_panel_text,
+      'id' => '_force_transparent_header',
+      'type' => 'checkbox',
+      'std' => ''
+    );
+    $meta_box['fields'][] = array( 
+      'name' => esc_html__('Transparent Header Navigation Color', 'salient-core'),
+      'desc' => esc_html__('Choose your header navigation logo & color scheme that will be used at the top of the page when the transparent effect is active. This option pulls from the settings "Header Starting Dark Logo" & "Header Dark Text Color" in the','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url('?page='.NectarThemeInfo::$theme_options_name.'&tab=17')) .'">transparency tab</a>.',
+      'id' => '_force_transparent_header_color',
+      'type' => 'select',
+      'std' => 'light',
+      'options' => array(
+        "light" => esc_html__("Light (default)", "salient-core"),
+        "dark" => esc_html__("Dark", "salient-core")
+       )
+      );
+   }
+   
 	
-  if( defined( 'NECTAR_THEME_NAME' ) && !empty($nectar_options['transparent-header']) && $nectar_options['transparent-header'] === '1' ) {
+  if( defined( 'NECTAR_THEME_NAME' ) ) {
     nectar_reg_meta_box( $meta_box['id'], $meta_box['title'], 'nectar_metabox_salient_page_callback', $meta_box['post_type'], $meta_box['context'], $meta_box['priority'], $meta_box );
   }
   
   /**
    * Page full screen rows.
    */
+	 $page_full_screen_rows_post_types = array('page');
+	 if( has_filter('nectar_metabox_post_types_fullscreen_rows') ) {
+		 $page_full_screen_rows_post_types = apply_filters('nectar_metabox_post_types_fullscreen_rows', $page_full_screen_rows_post_types);
+	 }
+	 
    $meta_box = array(
      'id' => 'nectar-metabox-fullscreen-rows',
      'title' => esc_html__('Page Full Screen Rows', 'salient-core'),
      'description' => esc_html__('Configure your page full screen rows.', 'salient-core'),
-     'post_type' => 'page',
+     'post_type' => $page_full_screen_rows_post_types,
      'context' => 'normal',
      'priority' => 'high',
      'fields' => array(
@@ -93,6 +171,7 @@ function nectar_metabox_salient_headers_page() {
          'std' => 'none',
          'options' => array(
            "none" => esc_html__("Default Scroll", "salient-core"),
+           /*"free-scroll" => esc_html__("Free Scroll", "salient-core"),*/
            "zoom-out-parallax" => esc_html__("Zoom Out + Parallax", "salient-core"),
            "parallax" => esc_html__("Parallax", "salient-core")
          )
@@ -196,11 +275,17 @@ function nectar_metabox_salient_headers_page() {
   /**
    * Page Header Settings
    */
+	 
+	 $page_header_post_types = array('page');
+	 if( has_filter('nectar_metabox_post_types_page_header') ) {
+		 $page_header_post_types = apply_filters('nectar_metabox_post_types_page_header', $page_header_post_types);
+	 }
+	 
    $meta_box = array(
      'id' => 'nectar-metabox-page-header',
      'title' => esc_html__('Page Header Settings', 'salient-core'),
      'description' => esc_html__('Here you can configure how your page header will appear. For a full width background image behind your header text, simply upload the image below. To have a standard header just fill out the fields below and don\'t upload an image.', 'salient-core'),
-     'post_type' => 'page',
+     'post_type' => $page_header_post_types,
      'context' => 'normal',
      'priority' => 'high',
      'fields' => array(
@@ -247,7 +332,7 @@ function nectar_metabox_salient_headers_page() {
        ),
        array( 
          'name' => esc_html__('Preview Image', 'salient-core'),
-         'desc' => esc_html__('This is the image that will be seen in place of your video on mobile devices & older browsers before your video is played.', 'salient-core'),
+         'desc' => esc_html__('This is the image that will be seen in place of your video on mobile devices if you have disabled mobile video playback in the theme options > general settings > functionality tab.', 'salient-core'),
          'id' => '_nectar_slider_preview_image',
          'type' => 'file',
          'std' => ''
@@ -275,6 +360,13 @@ function nectar_metabox_salient_headers_page() {
          'extra' => 'last',
          'std' => ''
        ),
+       array(
+        'name' =>  esc_html__('Box Roll Header Disable on Mobile', 'salient-core'),
+        'desc' => '',
+        'id' => '_nectar_header_box_roll_disable_mobile',
+        'type' => 'checkbox',
+        'std' => ''
+      ),
        array( 
          'name' => esc_html__('Page Header Height', 'salient-core'),
          'desc' => esc_html__('How tall do you want your header? Don\'t include "px" in the string. e.g. 350 This only applies when you are using an image/bg color.', 'salient-core'),

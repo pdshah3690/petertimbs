@@ -31,6 +31,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => esc_html__("Vetical Align Columns", "salient-core"),
 			"value" => array("Make all columns in this row vertically aligned?" => "true" ),
 			"param_name" => "vertically_center_columns",
@@ -77,6 +78,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => esc_html__("Parallax Background", "salient-core"),
 			"value" => array("Enable Parallax Background?" => "true" ),
 			"param_name" => "parallax_bg",
@@ -94,6 +96,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => esc_html__("Video Background", "salient-core"),
 			"value" => array("Enable Video Background?" => "use_video" ),
 			"param_name" => "video_bg",
@@ -102,6 +105,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => esc_html__("Video Color Overlay", "salient-core"),
 			"value" => array("Enable a color overlay ontop of your video?" => "true" ),
 			"param_name" => "enable_video_color_overlay",

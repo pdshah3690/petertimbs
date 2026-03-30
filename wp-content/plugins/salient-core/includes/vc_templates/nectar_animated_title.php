@@ -1,4 +1,12 @@
 <?php
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+wp_enqueue_style( 'nectar-element-animated-title' );
+
 $text = $heading_tag = $color = '';
 extract(shortcode_atts(array(
 	'heading_tag' => 'h6',

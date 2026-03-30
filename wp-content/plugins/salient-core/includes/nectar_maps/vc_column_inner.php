@@ -19,6 +19,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => "Enable Animation",
 			"value" => array("Enable Column Animation?" => "true" ),
 			"param_name" => "enable_animation",
@@ -64,6 +65,7 @@ return array(
 			"heading" => esc_html__("Boxed Column", "salient-core"),
 			"value" => array("Boxed Style" => "true" ),
 			"param_name" => "boxed",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => ""
 		),
 		
@@ -82,6 +84,7 @@ return array(
 			"heading" => esc_html__("Scale Background Image To Column", "salient-core"),
 			"value" => array("Enable" => "true" ),
 			"param_name" => "enable_bg_scale",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => "",
 			"dependency" => array('element' => "background_image", 'not_empty' => true)
 		),
@@ -173,6 +176,7 @@ return array(
 			"heading" => esc_html__("Centered Content", "salient-core"),
 			"value" => array("Centered Content Alignment" => "true" ),
 			"param_name" => "centered_text",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => ""
 		),
 		

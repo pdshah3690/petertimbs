@@ -10,21 +10,19 @@ return array(
 	"base" => "morphing_outline",
 	"icon" => "icon-wpb-morphing-outline",
 	"allowed_container_element" => 'vc_row',
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Content', 'salient-core'),
 	"description" => esc_html__('Wrap some text in a unqiue way to grab attention', 'salient-core'),
 	"params" => array(
 		array(
 			"type" => "textarea",
-			"holder" => "div",
 			"heading" => esc_html__("Text Content", "salient-core"),
 			"param_name" => "content",
 			"value" => '',
 			"description" => esc_html__("Enter the text that will be wrapped here", "salient-core"),
-			"admin_label" => false
+			"admin_label" => true
 		),
 		array(
 			"type" => "textfield",
-			"holder" => "div",
 			"class" => "",
 			"heading" => esc_html__("Border Thickness", "salient-core"),
 			"param_name" => "border_thickness",

@@ -1,5 +1,10 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $top = $left = $position = '';
 extract(shortcode_atts(array(
 	'top' => '',
@@ -26,7 +31,7 @@ if( $nectar_using_VC_front_end_editor ) {
 
 $tooltip_content_class = (empty($content)) ? 'empty-tip' : null;
 
-echo '<div class="nectar_hotspot_wrap" style="top: '.esc_attr($top).'; left: '.esc_attr($left).';"><div class="nectar_hotspot '.$click_class.'"><span>'.$hotspot_icon.'</span></div><div class="nttip '.$tooltip_content_class.'" data-tooltip-position="'.esc_attr($position).'"><div class="inner">'.$content.'</div></div></div>';
+echo '<div class="nectar_hotspot_wrap" style="top: '.esc_attr($top).'; left: '.esc_attr($left).';"><div class="nectar_hotspot '.$click_class.'"><span>'.wp_kses_post($hotspot_icon).'</span></div><div class="nttip '.$tooltip_content_class.'" data-tooltip-position="'.esc_attr($position).'"><div class="inner">'.wp_kses_post($content).'</div></div></div>';
 
 if( ! $nectar_using_VC_front_end_editor) {
 	$GLOBALS['nectar-image_hotspot-count']++;

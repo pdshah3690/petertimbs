@@ -1,5 +1,12 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+wp_enqueue_style( 'nectar-element-clients' );
+
 extract(shortcode_atts(array(
 	"carousel" => "false", 
 	"additional_padding" => "", 
@@ -39,7 +46,7 @@ if( $carousel === "true" ) :
 	
 	<div class="carousel-wrap">
 		<div class="row carousel clients <?php echo esc_attr($carousel_classes); ?>" data-he="<?php echo esc_attr($hover_effect); ?>" data-additional_padding="<?php echo esc_attr($additional_padding); ?>" data-max="<?php echo esc_attr($columns); ?>">
-			<?php echo do_shortcode($content); ?>
+			<?php echo do_shortcode(wp_kses_post($content)); ?>
 		</div>
 	</div>
 	
@@ -48,7 +55,7 @@ if( $carousel === "true" ) :
 	<?php $client_classes = $column_class . $animation; ?>
 	
 	<div class="clients no-carousel <?php echo esc_attr($client_classes); ?>" data-he="<?php echo esc_attr($hover_effect); ?>" data-additional_padding="<?php echo esc_attr($additional_padding); ?>">
-		<?php echo do_shortcode($content); ?>
+		<?php echo do_shortcode(wp_kses_post($content)); ?>
 	</div>
 	
 <?php endif; ?>

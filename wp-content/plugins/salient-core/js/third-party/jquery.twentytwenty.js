@@ -35,9 +35,9 @@
   var // Number of pixels a pressed pointer travels before movestart
       // event is fired.
       threshold = 6,
-  
+
       add = jQuery.event.add,
-  
+
       remove = jQuery.event.remove,
 
       // Just sugar, so we can have arguments in the same order as
@@ -62,20 +62,20 @@
           }
         );
       })(),
-      
+
       ignoreTags = {
         textarea: true,
         input: true,
         select: true,
         button: true
       },
-      
+
       mouseevents = {
         move: 'mousemove',
         cancel: 'mouseup dragstart',
         end: 'mouseup'
       },
-      
+
       touchevents = {
         move: 'touchmove',
         cancel: 'touchend',
@@ -84,12 +84,12 @@
 
 
   // Constructors
-  
+
   function Timer(fn){
     var callback = fn,
         active = false,
         running = false;
-    
+
     function trigger(time) {
       if (active){
         callback();
@@ -101,17 +101,17 @@
         running = false;
       }
     }
-    
+
     this.kick = function(fn) {
       active = true;
       if (!running) { trigger(); }
     };
-    
+
     this.end = function(fn) {
       var cb = callback;
-      
+
       if (!fn) { return; }
-      
+
       // If the timer is not running, simply call the end callback.
       if (!running) {
         fn();
@@ -121,9 +121,9 @@
       // just the end callback.
       else {
         callback = active ?
-          function(){ cb(); fn(); } : 
+          function(){ cb(); fn(); } :
           fn ;
-        
+
         active = true;
       }
     };
@@ -131,23 +131,23 @@
 
 
   // Functions
-  
+
   function returnTrue() {
     return true;
   }
-  
+
   function returnFalse() {
     return false;
   }
-  
+
   function preventDefault(e) {
     e.preventDefault();
   }
-  
+
   function preventIgnoreTags(e) {
     // Don't prevent interaction with form elements.
     if (ignoreTags[ e.target.tagName.toLowerCase() ]) { return; }
-    
+
     e.preventDefault();
   }
 
@@ -163,13 +163,13 @@
     if (touchList.identifiedTouch) {
       return touchList.identifiedTouch(id);
     }
-    
+
     // touchList.identifiedTouch() does not exist in
     // webkit yet… we must do the search ourselves...
-    
+
     i = -1;
     l = touchList.length;
-    
+
     while (++i < l) {
       if (touchList[i].identifier === id) {
         return touchList[i];
@@ -193,7 +193,7 @@
 
 
   // Handlers that decide when the first movestart is triggered
-  
+
   function mousedown(e){
     var data;
 
@@ -232,7 +232,7 @@
     if (ignoreTags[ e.target.tagName.toLowerCase() ]) { return; }
 
     touch = e.changedTouches[0];
-    
+
     // iOS live updates the touch objects whereas Android gives us copies.
     // That means we can't trust the touchstart object to stay the same,
     // so we must copy the data. This object acts as a template for
@@ -323,7 +323,7 @@
     // The _handled method is fired to tell the default movestart
     // handler that one of the move events is bound.
     template._handled = handled;
-      
+
     // Pass the touchmove event so it can be prevented if or when
     // movestart is handled.
     template._preventTouchmoveDefault = function() {
@@ -351,7 +351,7 @@
   function activeMouseend(e) {
     var event = e.data.event,
         timer = e.data.timer;
-    
+
     removeActiveMouse();
 
     endEvent(event, timer, function() {
@@ -412,7 +412,7 @@
     event.distY =  touch.pageY - event.startY;
     event.deltaX = touch.pageX - event.pageX;
     event.deltaY = touch.pageY - event.pageY;
-    
+
     // Average the velocity of the last few events using a decay
     // curve to even out spurious jumps in values.
     event.velocityX = 0.3 * event.velocityX + 0.7 * event.deltaX / time;
@@ -426,7 +426,7 @@
       event.type = 'moveend';
 
       trigger(event.target, event);
-      
+
       return fn && fn();
     });
   }
@@ -437,49 +437,49 @@
   function setup(data, namespaces, eventHandle) {
     // Stop the node from being dragged
     //add(this, 'dragstart.move drag.move', preventDefault);
-    
+
     // Prevent text selection and touch interface scrolling
     //add(this, 'mousedown.move', preventIgnoreTags);
-    
+
     // Tell movestart default handler that we've handled this
     add(this, 'movestart.move', flagAsHandled);
 
     // Don't bind to the DOM. For speed.
     return true;
   }
-  
+
   function teardown(namespaces) {
     remove(this, 'dragstart drag', preventDefault);
     remove(this, 'mousedown touchstart', preventIgnoreTags);
     remove(this, 'movestart', flagAsHandled);
-    
+
     // Don't bind to the DOM. For speed.
     return true;
   }
-  
+
   function addMethod(handleObj) {
     // We're not interested in preventing defaults for handlers that
     // come from internal move or moveend bindings
     if (handleObj.namespace === "move" || handleObj.namespace === "moveend") {
       return;
     }
-    
+
     // Stop the node from being dragged
     add(this, 'dragstart.' + handleObj.guid + ' drag.' + handleObj.guid, preventDefault, undefined, handleObj.selector);
-    
+
     // Prevent text selection and touch interface scrolling
     add(this, 'mousedown.' + handleObj.guid, preventIgnoreTags, undefined, handleObj.selector);
   }
-  
+
   function removeMethod(handleObj) {
     if (handleObj.namespace === "move" || handleObj.namespace === "moveend") {
       return;
     }
-    
+
     remove(this, 'dragstart.' + handleObj.guid + ' drag.' + handleObj.guid);
     remove(this, 'mousedown.' + handleObj.guid);
   }
-  
+
   jQuery.event.special.movestart = {
     setup: setup,
     teardown: teardown,
@@ -488,7 +488,7 @@
 
     _default: function(e) {
       var event, data;
-      
+
       // If no move events were bound to any ancestors of this
       // target, high tail it out of here.
       if (!e._handled()) { return; }
@@ -522,7 +522,7 @@
         touch: undefined,
         timeStamp: undefined
       };
-      
+
       if (e.identifier === undefined) {
         // We're dealing with a mouse
         // Stop clicks from propagating during a move
@@ -546,19 +546,19 @@
       // setup that decides whether other move events are fired.
       add(this, 'movestart.move', jQuery.noop);
     },
-    
+
     teardown: function() {
       remove(this, 'movestart.move', jQuery.noop);
     }
   };
-  
+
   jQuery.event.special.moveend = {
     setup: function() {
       // Bind a noop to movestart. Why? It's the movestart
       // setup that decides whether other move events are fired.
       add(this, 'movestart.moveend', jQuery.noop);
     },
-    
+
     teardown: function() {
       remove(this, 'movestart.moveend', jQuery.noop);
     }
@@ -571,11 +571,11 @@
   // object, if they are not already listed. But only do the ones we
   // really need. IE7/8 do not have Array#indexOf(), but nor do they
   // have touch events, so let's assume we can ignore them.
-  if (typeof Array.prototype.indexOf === 'function') {
+  if (typeof jQuery !== 'undefined' && jQuery.event && jQuery.event.props && typeof Array.prototype.indexOf === 'function') {
     (function(jQuery, undefined){
       var props = ["changedTouches", "targetTouches"],
           l = props.length;
-      
+
       while (l--) {
         if (jQuery.event.props.indexOf(props[l]) === -1) {
           jQuery.event.props.push(props[l]);
@@ -597,8 +597,8 @@
       var sliderOrientation = options.orientation;
       var beforeDirection = (sliderOrientation === 'vertical') ? 'down' : 'left';
       var afterDirection = (sliderOrientation === 'vertical') ? 'up' : 'right';
-      
-      
+
+
       container.wrap("<div class='twentytwenty-wrapper twentytwenty-" + sliderOrientation + "'></div>");
       container.append("<div class='twentytwenty-overlay'></div>");
       var beforeImg = container.find("img:first");
@@ -610,7 +610,7 @@
       container.addClass("twentytwenty-container");
       beforeImg.addClass("twentytwenty-before");
       afterImg.addClass("twentytwenty-after");
-      
+
       var overlay = container.find(".twentytwenty-overlay");
       overlay.append("<div class='twentytwenty-before-label'></div>");
       overlay.append("<div class='twentytwenty-after-label'></div>");
@@ -648,7 +648,7 @@
 
       var offsetX = 0;
       var imgWidth = 0;
-      
+
       slider.on("movestart", function(e) {
         if (((e.distX > e.distY && e.distX < -e.distY) || (e.distX < e.distY && e.distX > -e.distY)) && sliderOrientation !== 'vertical') {
           e.preventDefault();
@@ -659,8 +659,8 @@
         container.addClass("active");
         offsetX = container.offset().left;
         offsetY = container.offset().top;
-        imgWidth = beforeImg.width(); 
-        imgHeight = beforeImg.height();          
+        imgWidth = beforeImg.width();
+        imgHeight = beforeImg.height();
       });
 
       slider.on("moveend", function(e) {

@@ -1,5 +1,10 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 extract(shortcode_atts(array(
 	"icon_type" => "numerical", 
 	'icon_family' => 'fontawesome', 
@@ -7,7 +12,9 @@ extract(shortcode_atts(array(
 	'icon_linea' => '', 
 	'icon_iconsmind' => '', 
 	'icon_steadysets' => '', 
+	'icon_nectarbrands' => '',
 	"header" => "", 
+	"text_full_html" => 'simple',
 	"text" => ""), $atts));
 
 if( isset($_GET['vc_editable']) ) {
@@ -22,6 +29,7 @@ $icon_markup = null;
 switch($icon_family) {
 	case 'fontawesome':
 		$icon = $icon_fontawesome;
+    wp_enqueue_style( 'font-awesome' );
 		break;
 	case 'steadysets':
 		$icon = $icon_steadysets;
@@ -31,6 +39,9 @@ switch($icon_family) {
 		break;
 	case 'iconsmind':
 		$icon = $icon_iconsmind;
+		break;
+	case 'nectarbrands':
+		$icon = $icon_nectarbrands;
 		break;
 	default:
 		$icon = '';
@@ -50,21 +61,21 @@ if( $icon_type === 'numerical' ) {
 
 if( !empty($icon) ) {
  	
-	// Check if iconsmind SVGs exist.
-	$svg_iconsmind = ( defined('NECTAR_THEME_DIRECTORY') && file_exists( NECTAR_THEME_DIRECTORY . '/css/fonts/svg-iconsmind/Aa.svg.php' ) ) ? true : false;
-	
-	if( $icon_family === 'iconsmind' && $svg_iconsmind ) {
+	if( $icon_family === 'iconsmind' ) {
 		
 		// SVG iconsmind.
 		$icon_id        = 'nectar-iconsmind-icon-'.uniqid();
 		$icon_markup    = '<span class="im-icon-wrap" data-color="'.strtolower($icon_color) .'"><span>';
 		$converted_icon = str_replace('iconsmind-', '', $icon);
 		
-		ob_start();
-	
-		get_template_part( 'css/fonts/svg-iconsmind/'. $converted_icon .'.svg' );
-		
-		$icon_markup .=  ob_get_contents();
+    require_once( SALIENT_CORE_ROOT_DIR_PATH.'includes/icons/class-nectar-icon.php' );
+
+    $nectar_icon_class = new Nectar_Icon(array(
+    'icon_name' => $converted_icon,
+    'icon_library' => 'iconsmind',
+    ));
+  
+    $icon_markup .= $nectar_icon_class->render_icon();
 		
 		
 		// Gradient.
@@ -88,24 +99,18 @@ if( !empty($icon) ) {
 				
 			  $icon_markup .= '<svg style="height:0;width:0;position:absolute;" aria-hidden="true" focusable="false">
 				  <linearGradient id="'.$icon_id.'" x2="1" y2="1">
-				    <stop offset="0%" stop-color="'.$accent_gradient_from.'" />
-				    <stop offset="100%" stop-color="'.$accent_gradient_to.'" />
+				    <stop offset="0%" stop-color="'.esc_attr($accent_gradient_from).'" />
+				    <stop offset="100%" stop-color="'.esc_attr($accent_gradient_to).'" />
 				  </linearGradient>
 				</svg>';
 		} 
-		 
-		ob_end_clean();
 		
 		$icon_markup .= '</span></span>';
 	} 
 	
 	else {
 		
-		if( $icon_family === 'iconsmind' && $icon_type !== 'numerical' ) {
-			wp_enqueue_style( 'iconsmind' );
-		}
-		
-		$icon_markup = '<i class="icon-default-style '.$icon.'" data-color="'.$icon_color.'"></i>';
+		$icon_markup = '<i class="icon-default-style '.esc_attr($icon).'" data-color="'.esc_attr($icon_color).'"></i>';
 	}
 	
 	
@@ -114,8 +119,19 @@ if( !empty($icon) ) {
 
 $icon_output = ($icon_type === 'numerical') ? $icon_number : $icon_markup;
 
+$text_markup = $text;
+if( 'html' === $text_full_html ) {
+	$text_markup = do_shortcode($content);
+}
 
-echo '<div class="nectar-icon-list-item"><div class="list-icon-holder" data-icon_type="'.esc_attr($icon_type).'">'.$icon_output.'</div><div class="content"><h4>'.wp_kses_post($header).'</h4>'.wp_kses_post($text).'</div></div>';
+// Dynamic style classes.
+if( function_exists('nectar_el_dynamic_classnames') ) {
+	$dynamic_el_styles = nectar_el_dynamic_classnames('nectar_icon_list_item', $atts);
+} else {
+	$dynamic_el_styles = '';
+}
+
+echo '<div class="nectar-icon-list-item'.esc_attr($dynamic_el_styles).'"><div class="list-icon-holder" data-icon_type="'.esc_attr($icon_type).'">'.$icon_output.'</div><div class="content"><h4>'.wp_kses_post($header).'</h4>'.wp_kses_post($text_markup).'</div></div>';
 
 if( !$nectar_using_VC_front_end_editor ) {
 	$GLOBALS['nectar-list-item-count']++;

@@ -16,7 +16,7 @@ return array(
 	"show_settings_on_create" => false,
 	"is_container" => true,
 	"icon" => "icon-wpb-clients",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Content', 'salient-core'),
 	"description" => esc_html__('Show off your clients!', 'salient-core'),
 	"params" => array(
 		array(
@@ -63,6 +63,7 @@ return array(
 			"heading" => esc_html__("Fade In One By One?", "salient-core"),
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "fade_in_animation",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => ""
 		),
 		array(
@@ -71,6 +72,7 @@ return array(
 			"heading" => esc_html__("Turn Into Carousel", "salient-core"),
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "carousel",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => ""
 		),
 		array(
@@ -79,6 +81,7 @@ return array(
 			"heading" => esc_html__("Disable Autorotate", "salient-core"),
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "disable_autorotate",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"dependency" => Array('element' => "carousel", 'not_empty' => true),
 			"description" => ""
 		)

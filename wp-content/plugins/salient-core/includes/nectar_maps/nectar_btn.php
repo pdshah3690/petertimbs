@@ -1,19 +1,38 @@
-<?php 
+<?php
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$el_color_list = array(
+    esc_html__( "Accent Color", "salient-core") => "Accent-Color",
+	esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
+	esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",
+	esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
+	esc_html__( "Color Gradient 1", "salient-core") => "extra-color-gradient-1",
+	esc_html__( "Color Gradient 2", "salient-core") => "extra-color-gradient-2"
+);
+$custom_colors = apply_filters('nectar_additional_theme_colors', array());
+$el_color_list = array_merge($el_color_list, $custom_colors);
+
 return array(
-	"name" => esc_html__("Button", "salient-core"),
+	"name" => esc_html__("Legacy Button", "salient-core"),
 	"base" => "nectar_btn",
 	"icon" => "icon-wpb-btn",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
-	"weight" => 1,
+	"category" => esc_html__('Interactive', 'salient-core'),
+	"weight" => 9,
 	"description" => esc_html__('Add a button', 'salient-core'),
 	"params" => array(
-		
+
+		array(
+			"type" => "textfield",
+			"heading" => esc_html__("Text", "salient-core"),
+			"param_name" => "text",
+			"admin_label" => true,
+			"description" => esc_html__("The text for your button." , "salient-core")
+		),
+
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Size', 'salient-core' ),
@@ -29,26 +48,97 @@ return array(
 			'description' => __( 'Select your button size.', 'salient-core' ),
 		),
 		array(
+			"type" => "nectar_numerical",
+			"heading" => esc_html__("Margin", "salient-core") . "<span>" . esc_html__("Top", "salient-core") . "</span>",
+			"param_name" => "margin_top",
+			"placeholder" => esc_html__("Top",'salient-core'),
+			"edit_field_class" => "col-md-2 no-device-group constrain_group_1",
+			"description" => ''
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => esc_html__( 'Constrain 1', 'salient-core' ),
+			'param_name' => 'constrain_group_1',
+			'description' => '',
+			"edit_field_class" => "no-device-group constrain-icon",
+			'value' => array( esc_html__( 'Yes', 'salient-core' ) => 'yes' ),
+		),
+		array(
+			"type" => "nectar_numerical",
+			"heading" => "<span>" . esc_html__("Bottom", "salient-core") . "</span>",
+			"param_name" => "margin_bottom",
+			"placeholder" => esc_html__("Bottom",'salient-core'),
+			"edit_field_class" => "col-md-2 no-device-group constrain_group_1",
+			"description" => ''
+		),
+		array(
+			"type" => "nectar_numerical",
+			"heading" => "<span>" . esc_html__("Left", "salient-core") . "</span>",
+			"param_name" => "margin_left",
+			"placeholder" => esc_html__("Left",'salient-core'),
+			"edit_field_class" => "col-md-2 no-device-group constrain_group_2",
+			"description" => ''
+		),
+		array(
+			'type' => 'checkbox',
+			'heading' => esc_html__( 'Constrain 2', 'salient-core' ),
+			'param_name' => 'constrain_group_2',
+			'description' => '',
+			"edit_field_class" => "no-device-group constrain-icon",
+			'value' => array( esc_html__( 'Yes', 'salient-core' ) => 'yes' ),
+		),
+		array(
+			"type" => "nectar_numerical",
+			"heading" => "<span>" . esc_html__("Right", "salient-core") . "</span>",
+			"param_name" => "margin_right",
+			"placeholder" => esc_html__("Right",'salient-core'),
+			"edit_field_class" => "col-md-2 no-device-group constrain_group_2",
+			"description" => ''
+		),
+
+		array(
+		 "type" => "nectar_group_header",
+		 "class" => "",
+		 "heading" => esc_html__("Link", "salient-core" ),
+		 "param_name" => "group_header_1",
+		 "edit_field_class" => "",
+		 "value" => ''
+	 ),
+
+		array(
 			"type" => "textfield",
 			"heading" => esc_html__("Link URL", "salient-core"),
 			"param_name" => "url",
 			"description" => esc_html__("The link for your button." , "salient-core")
 		),
 		array(
-			"type" => "textfield",
-			"heading" => esc_html__("Text", "salient-core"),
-			"param_name" => "text",
-			"admin_label" => true,
-			"description" => esc_html__("The text for your button." , "salient-core")
-		),
-		array(
 			"type" => "checkbox",
 			"class" => "",
 			"heading" => esc_html__("Open Link In New Tab?", "salient-core"),
 			"param_name" => "open_new_tab",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"value" => Array(esc_html__("Yes", "salient-core") => 'true'),
 			"description" => ""
 		),
+
+		array(
+			"type" => "textfield",
+			"class" => "",
+			"heading" => esc_html__("Aria Label Text", "salient-core"),
+			"param_name" => "aria_label_text",
+			"admin_label" => false,
+			"description" => 'Optional text to describe the link that will be used for screen reader accessibility.',
+		),
+
+		array(
+		 "type" => "nectar_group_header",
+		 "class" => "",
+		 "heading" => esc_html__("Styling", "salient-core" ),
+		 "param_name" => "group_header_2",
+		 "edit_field_class" => "",
+		 "value" => ''
+	 ),
+
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Style', 'salient-core' ),
@@ -59,7 +149,7 @@ return array(
 				esc_html__( 'See Through Solid On Hover', 'salient-core' ) => 'see-through-2',
 				esc_html__( 'See Through Solid On Hover Alt', 'salient-core' ) => 'see-through-3',
 				esc_html__( 'See Through 3D', 'salient-core' ) => 'see-through-3d',
-			),		
+			),
 			'save_always' => true,
 			'param_name' => 'button_style',
 			'description' => __( 'Select your button style.', 'salient-core' ),
@@ -70,7 +160,7 @@ return array(
 			'value' => array(
 				esc_html__( "Accent Color", "salient-core") => "Accent-Color",
 				esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
-				esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
+				esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",
 				esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
 			),
 			'dependency' => array(
@@ -79,26 +169,19 @@ return array(
 			),
 			'save_always' => true,
 			'param_name' => 'button_color',
-			'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+			'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
 		),
 		array(
 			'type' => 'dropdown',
 			'heading' => __( 'Button Color', 'salient-core' ),
-			'value' => array(
-				esc_html__( "Accent Color", "salient-core") => "Accent-Color",
-				esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
-				esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
-				esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
-				esc_html__( "Color Gradient 1", "salient-core") => "extra-color-gradient-1",
-				esc_html__( "Color Gradient 2", "salient-core") => "extra-color-gradient-2"
-			),
+			'value' => $el_color_list,
 			'save_always' => true,
 			'dependency' => array(
 				'element' => 'button_style',
 				'value' => array('regular','see-through'),
 			),
 			'param_name' => 'button_color_2',
-			'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+			'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
 		),
 		array(
 			"type" => "colorpicker",
@@ -106,7 +189,7 @@ return array(
 			"heading" => "Button Color Override",
 			"param_name" => "color_override",
 			"value" => "",
-			"description" => "won't take effect on gradient colored btns",	
+			"description" => "won't take effect on gradient colored btns",
 		),
 		array(
 			"type" => "colorpicker",
@@ -152,6 +235,7 @@ return array(
 				esc_html__( 'Iconsmind', 'salient-core' ) => 'iconsmind',
 				esc_html__( 'Steadysets', 'salient-core' ) => 'steadysets',
 				esc_html__( 'Linecons', 'salient-core' ) => 'linecons',
+				esc_html__( 'Additional Brands', 'salient-core' ) => 'nectarbrands',
 			),
 			'save_always' => true,
 			'param_name' => 'icon_family',
@@ -162,15 +246,23 @@ return array(
 			"type" => "iconpicker",
 			"heading" => esc_html__("Icon", "salient-core"),
 			"param_name" => "icon_fontawesome",
-			"settings" => array( "iconsPerPage" => 4000),
+			"settings" => array( "iconsPerPage" => 240),
 			"dependency" => array('element' => "icon_family", 'emptyIcon' => false, 'value' => 'fontawesome'),
 			"description" => esc_html__("Select icon from library.", "salient-core")
+		),
+		array(
+			'type' => 'iconpicker',
+			'heading' => esc_html__( 'Icon', 'salient-core' ),
+			'param_name' => 'icon_nectarbrands',
+			'settings' => array( 'type' => 'nectarbrands', 'emptyIcon' => true, 'iconsPerPage' => 240 ),
+			'dependency' => Array( 'element' => 'icon_family', 'value' => 'nectarbrands' ),
+			'description' => esc_html__( 'Select icon from library.', 'salient-core' )
 		),
 		array(
 			"type" => "iconpicker",
 			"heading" => esc_html__("Icon", "salient-core"),
 			"param_name" => "icon_iconsmind",
-			"settings" => array( 'type' => 'iconsmind', 'emptyIcon' => false, "iconsPerPage" => 4000),
+			"settings" => array( 'type' => 'iconsmind', 'emptyIcon' => false, "iconsPerPage" => 240),
 			"dependency" => array('element' => "icon_family", 'value' => 'iconsmind'),
 			"description" => esc_html__("Select icon from library.", "salient-core")
 		),
@@ -178,7 +270,7 @@ return array(
 			"type" => "iconpicker",
 			"heading" => esc_html__("Icon", "salient-core"),
 			"param_name" => "icon_linecons",
-			"settings" => array( 'type' => 'linecons', 'emptyIcon' => false, "iconsPerPage" => 4000),
+			"settings" => array( 'type' => 'linecons', 'emptyIcon' => false, "iconsPerPage" => 240),
 			"dependency" => array('element' => "icon_family", 'value' => 'linecons'),
 			"description" => esc_html__("Select icon from library.", "salient-core")
 		),
@@ -186,38 +278,29 @@ return array(
 			"type" => "iconpicker",
 			"heading" => esc_html__("Icon", "salient-core"),
 			"param_name" => "icon_steadysets",
-			"settings" => array( 'type' => 'steadysets', 'emptyIcon' => false, "iconsPerPage" => 4000),
+			"settings" => array( 'type' => 'steadysets', 'emptyIcon' => false, "iconsPerPage" => 240),
 			"dependency" => array('element' => "icon_family", 'value' => 'steadysets'),
 			"description" => esc_html__("Select icon from library.", "salient-core")
 		),
+
+
 		array(
-			"type" => "textfield",
-			"heading" => esc_html__("Margin", "salient-core") . "<span>" . esc_html__("Top", "salient-core") . "</span>",
-			"param_name" => "margin_top",
-			"edit_field_class" => "col-md-2",
-			"description" => ''
-		),
-		array(
-			"type" => "textfield",
-			"heading" => "<span>" . esc_html__("Right", "salient-core") . "</span>",
-			"param_name" => "margin_right",
-			"edit_field_class" => "col-md-2",
-			"description" => ''
-		),
-		array(
-			"type" => "textfield",
-			"heading" => "<span>" . esc_html__("Bottom", "salient-core") . "</span>",
-			"param_name" => "margin_bottom",
-			"edit_field_class" => "col-md-2",
-			"description" => ''
-		),
-		array(
-			"type" => "textfield",
-			"heading" => "<span>" . esc_html__("Left", "salient-core") . "</span>",
-			"param_name" => "margin_left",
-			"edit_field_class" => "col-md-2",
-			"description" => ''
-		),
+		 "type" => "nectar_group_header",
+		 "class" => "",
+		 "heading" => esc_html__("Advanced", "salient-core" ),
+		 "param_name" => "group_header_3",
+		 "edit_field_class" => "",
+		 "value" => ''
+	 ),
+	 array(
+		 "type" => "checkbox",
+		 "class" => "",
+		 "heading" => esc_html__("Nofollow Link", "salient-core"),
+		 "param_name" => "nofollow",
+		 'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
+		 "value" => Array(esc_html__("Yes", "salient-core") => 'true'),
+		 "description" => ""
+	 ),
 		array(
 			"type" => "textfield",
 			"class" => "",

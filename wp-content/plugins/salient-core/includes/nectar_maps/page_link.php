@@ -31,6 +31,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => "Open Link In New Tab",
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "link_new_tab",

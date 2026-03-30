@@ -1,5 +1,10 @@
 <?php
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $title = $el_class = $value = $label_value= $units = '';
 
 extract(shortcode_atts(array(
@@ -14,8 +19,13 @@ extract(shortcode_atts(array(
 wp_enqueue_script('vc_pie');
 
 $el_class = $this->getExtraClass( $el_class );
-$css_class =  apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'vc_pie_chart wpb_content_element'.$el_class, $this->settings['base']);
-$output = "\n\t".'<div class= "'.esc_attr($css_class).'" data-pie-value="'.esc_attr($value).'" data-pie-label-value="'.esc_attr($label_value).'" data-pie-units="'.esc_attr($units).'" data-pie-color="'.htmlspecialchars(hex2rgba($color, 1)).'">';
+$css_class =  apply_filters(VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'vc_pie_chart wpb_content_element'.esc_attr($el_class), $this->settings['base'], $atts);
+
+$pie_value = strip_tags(htmlspecialchars_decode($value));
+$pie_label_value = strip_tags(htmlspecialchars_decode($label_value));
+$pie_units = strip_tags(htmlspecialchars_decode($units));
+
+$output = "\n\t".'<div class= "'.esc_attr($css_class).'" data-pie-value="'.esc_attr($pie_value).'" data-pie-label-value="'.esc_attr($pie_label_value).'" data-pie-units="'.esc_attr($pie_units).'" data-pie-color="'.htmlspecialchars(hex2rgba($color, 1)).'">';
 $output .= "\n\t\t".'<div class="wpb_wrapper">';
     $output .= "\n\t\t\t".'<div class="vc_pie_wrapper '.esc_attr(strtolower($color)).'">';
         $output .= "\n\t\t\t".'<span style="border-color: '.htmlspecialchars(hex2rgba($color, 1)).';" class="vc_pie_chart_back"></span>';
@@ -26,7 +36,7 @@ $output .= "\n\t\t".'<div class="wpb_wrapper">';
       $output .= '<h4 class="wpb_heading wpb_pie_chart_heading">'.wp_kses_post($title).'</h4>';
     }
 
-$output .= "\n\t\t".'</div>'.$this->endBlockComment('.wpb_wrapper');
-$output .= "\n\t".'</div>'.$this->endBlockComment('.wpb_pie_chart')."\n";
+$output .= "\n\t\t".'</div>';
+$output .= "\n\t".'</div>'."\n";
 
 echo $output; // WPCS: XSS ok.

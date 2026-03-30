@@ -10,13 +10,25 @@ $vc_is_wp_version_3_6_more = version_compare(preg_replace('/^([\d\.]+)(\-.*$)/',
 $tab_id_1 = time().'-1-'.rand(0, 100);
 $tab_id_2 = time().'-2-'.rand(0, 100);
 
+$el_color_list = array(
+    esc_html__( "Default (inherit from row Text Color)", "salient-core") => "default",
+	esc_html__( "Accent Color", "salient-core") => "Accent-Color",
+	esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
+	esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
+	esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
+	esc_html__( "Color Gradient 1", "salient-core") => "extra-color-gradient-1",
+	esc_html__( "Color Gradient 2", "salient-core") => "extra-color-gradient-2"
+);
+$custom_colors = apply_filters('nectar_additional_theme_colors', array());
+$el_color_list = array_merge($el_color_list, $custom_colors);
+
 return array(
 	"name"  => esc_html__("Icon List", "salient-core"),
 	"base" => "nectar_icon_list",
 	"show_settings_on_create" => false,
 	"is_container" => true,
 	"icon" => "icon-wpb-fancy-ul",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Content', 'salient-core'),
 	"description" => esc_html__('Create an icon list', 'salient-core'),
 	"params" => array(
 		
@@ -26,6 +38,7 @@ return array(
 			"heading" => "Animate Element?",
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "animate",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => ""
 		),
 		array(
@@ -33,17 +46,9 @@ return array(
 			"class" => "",
 			"heading" => "Icon Color",
 			"param_name" => "color",
-			"value" => array(
-				esc_html__( "Default (inherit from row Text Color)", "salient-core") => "default",
-				esc_html__( "Accent Color", "salient-core") => "Accent-Color",
-				esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
-				esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
-				esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
-				esc_html__( "Color Gradient 1", "salient-core") => "extra-color-gradient-1",
-				esc_html__( "Color Gradient 2", "salient-core") => "extra-color-gradient-2"
-			),
+			"value" => $el_color_list,
 			'save_always' => true,
-			'description' => esc_html__( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+			'description' => esc_html__( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
 		),
 		array(
 			"type" => "dropdown",

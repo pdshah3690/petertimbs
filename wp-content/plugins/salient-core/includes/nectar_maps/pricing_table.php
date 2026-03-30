@@ -15,7 +15,7 @@ return array(
 	"show_settings_on_create" => false,
 	"is_container" => true,
 	"icon" => "icon-wpb-pricing-table",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Content', 'salient-core'),
 	"description" => esc_html__('Stylish pricing tables', 'salient-core'),
 	"params" => array(
 		array(
@@ -26,7 +26,6 @@ return array(
 		),
 		array(
 			"type" => "dropdown",
-			"holder" => "div",
 			"admin_label" => false,
 			"class" => "",
 			"heading" => "Style",

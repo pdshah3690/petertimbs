@@ -28,6 +28,17 @@ return array(
 			"description" => esc_html__("Add an optional link to your client", "salient-core")
 		),
 		array(
+			"type" => "dropdown",
+			"class" => "",
+			'save_always' => true,
+			"heading" => esc_html__("URL Target", "salient-core"),
+			"param_name" => "url_target",
+			"value" => array(
+				"Open in new window" => "_blank",
+				"Open in same window" => "_self",
+			),
+	),
+		array(
 			"admin_label" => true,
 			"type" => "textfield",
 			"heading" => esc_html__("Client Name", "salient-core"),

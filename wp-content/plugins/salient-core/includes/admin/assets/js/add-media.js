@@ -6,6 +6,7 @@ jQuery(document).ready(function($) {
   $(".nectar-add-btn").on('click', function(e) {
     
     var $that = $(this);  
+    var storeID = $(this).hasClass('store-id');
     
     e.preventDefault();
     
@@ -20,17 +21,31 @@ jQuery(document).ready(function($) {
       }
     });
     
+    image_add_frame.on( "close" ,function(){
+      $('body').removeClass('page-header-edit');
+    });
+    
     image_add_frame.on( "select", function() {
       
       var image_attachment = image_add_frame.state().get("selection").first();
       var image_attachment_url = image_attachment.attributes.url;
       
       $that.parent().find('.nectar-media-preview').attr('src', image_attachment_url);
-      $('#' + $that.attr('rel-id') ).val(image_attachment_url).trigger('change');
+      
+      if( storeID ) {
+        $('.' + $that.attr('rel-id') + '-url' ).val(image_attachment.attributes.url).trigger('change');
+        $('.' + $that.attr('rel-id') + '-id' ).val(image_attachment.attributes.id).trigger('change');
+      } 
+      else {
+        $('#' + $that.attr('rel-id') ).val(image_attachment_url).trigger('change');
+      }
+      
       
       $that.parent().find('.nectar-add-btn').hide();
       $that.parent().find('.nectar-media-preview').show();
       $that.parent().find('.nectar-remove-btn').show();
+      
+      $('body').removeClass('page-header-edit');
       
       toggleParallaxOption();
       
@@ -38,13 +53,23 @@ jQuery(document).ready(function($) {
     
     image_add_frame.open();
     
+    $('body').addClass('page-header-edit');
+    
   });
   
   $(".nectar-remove-btn").on('click', function(e) {
     
     e.preventDefault();
     
-    $('#' + $(this).attr('rel-id')).val('');
+    var storeID = $(this).hasClass('store-id');
+    
+    if( storeID ) {
+      $('.' + $(this).attr('rel-id') + '-url' ).val('');
+      $('.' + $(this).attr('rel-id') + '-id' ).val('');
+    } else {
+      $('#' + $(this).attr('rel-id')).val('');
+    }
+
     $(this).prev().fadeIn();
     
     $(this).parent().find('.nectar-media-preview').fadeOut();
@@ -64,7 +89,7 @@ jQuery(document).ready(function($) {
     
     var $that = $(this);  
     var custom_file_frame = null;
-    
+
     custom_file_frame = wp.media.frames.customHeader = wp.media({
       title: $(this).data("choose"),
       library: {

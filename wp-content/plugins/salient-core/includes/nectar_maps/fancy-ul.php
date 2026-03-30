@@ -5,6 +5,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$el_color_list = array(
+    "Accent Color" => "Accent-Color",
+	"Extra Color 1" => "Extra-Color-1",
+	"Extra Color 2" => "Extra-Color-2",	
+	"Extra Color 3" => "Extra-Color-3"
+);
+$custom_colors = apply_filters('nectar_additional_theme_colors', array());
+$el_color_list = array_merge($el_color_list, $custom_colors);
+
  $fa_icons = array(
 		    'icon-glass' => 'icon-glass',
 			  'icon-music' => 'icon-music',
@@ -842,93 +851,133 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $icon_arr = array_merge($fa_icons, $steadysets, $linecons);
 
+$fancy_ul_params = array(
+	array(
+	  "type" => "dropdown",
+	  "heading" => esc_html__("Icon Type", "salient-core"),
+	  "param_name" => "icon_type",
+	  "admin_label" => false,
+	  'save_always' => true,
+	  "value" => array(
+		 "Standard Dash" => "standard_dash",
+		 "Standard Dot" => "standard_dot",
+		 "Standard Check" => "standard_check",
+		 "None" => "none",
+		 "Font Icon" => "font_icon",
+	   ),
+	  "description" => esc_html__("Please select type of icon you would like for your fancy list", "salient-core")
+	),
+	array(
+	  "type" => "dropdown",
+	  "heading" => esc_html__("Icon", "salient-core"),
+	  "param_name" => "icon",
+	  "admin_label" => false,
+	  "value" => $icon_arr,
+	  'save_always' => true,
+	  "description" => esc_html__("Please select the icon you wish to use", "salient-core"),
+	  "dependency" => Array('element' => "icon_type", 'value' => array('font_icon'))
+	),
+   array(
+	  "type" => "dropdown",
+	  "heading" => esc_html__("Color", "salient-core"),
+	  "param_name" => "color",
+	  "admin_label" => false,
+	  'save_always' => true,
+	  "value" => $el_color_list,
+	  "dependency" => Array('element' => "icon_type", 'value' => array('font_icon','standard_dash','standard_check')),
+	 'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+	),
+	array(
+	  "type" => "dropdown",
+	  "heading" => esc_html__("Alignment", "salient-core"),
+	  "param_name" => "alignment",
+	  "admin_label" => false,
+	  'save_always' => true,
+	  "value" => array(
+		 "Left" => "left",
+		 "Center" => "center",
+		 "Right" => "right",
+	   ),
+	  "description" => esc_html__("Please select alignment you desire", "salient-core")
+	),
+	array(
+	  "type" => "dropdown",
+	  "heading" => esc_html__("Spacing", "salient-core"),
+	  "param_name" => "spacing",
+	  "admin_label" => false,
+	  'save_always' => true,
+	  "value" => array(
+		 "Default" => "default",
+		 "5px" => "5px",
+		 "10px" => "10px",
+		 "15px" => "15px",
+		 "20px" => "20px",
+		 "25px" => "25px",
+	   ),
+	  "description" => esc_html__("Please select alignment you desire", "salient-core")
+	),
+	
+	array(
+		"type" => "checkbox",
+		"class" => "",
+		'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
+		"heading" => esc_html__("Enable Animation", "salient-core"),
+		"value" => array("Enable Animation?" => "true" ),
+		"param_name" => "enable_animation",
+		"description" => esc_html__("This will cause your list items to animate in one by one", "salient-core"),
+	),
+
+	array(
+		"type" => "textfield",
+		"class" => "",
+		"heading" => esc_html__("Animation Delay", "salient-core"),
+		"param_name" => "delay",
+		"admin_label" => false,
+		"description" => "",
+		"dependency" => Array('element' => "enable_animation", 'not_empty' => true)
+	),
+
+	array(
+	  "type" => "textarea_html",
+	  "admin_label" => true,
+	  "heading" => esc_html__("Text Content", "salient-core"),
+	  "param_name" => "content",
+	  "value" => '',
+	  "description" => esc_html__("Please use the Unordered List button", "salient-core") . "<img src='".get_template_directory_uri() ."/nectar/assets/img/icons/ul.png' alt='unordered list' />" . esc_html__("on the editor to create the points of your fancy list.", "salient-core")
+	)
+);
+
+$font_size_group = SalientWPbakeryParamGroups::font_sizing_group();
+
+$imported_groups = array($font_size_group);
+
+foreach ($imported_groups as $group) {
+
+    foreach ($group as $option) {
+        $fancy_ul_params[] = $option;
+    }
+}
+
+$fancy_ul_params[] = array(
+	"type" => "dropdown",
+	"heading" => esc_html__("Link Hover Style", "salient-core"),
+	"param_name" => "link_style",
+	"admin_label" => false,
+	'save_always' => true,
+	"value" => array(
+	   esc_html__("Default",  "salient-core") => "default",
+	   esc_html__("Opacity Change",  "salient-core") => "opacity",
+	   esc_html__("Animated Underline",  "salient-core") => "underline",
+	 ),
+	"description" => ''
+);
+
 return array(
 	  "name" => esc_html__("Fancy Unordered List", "salient-core"),
 	  "base" => "fancy-ul",
 	  "icon" => "icon-wpb-fancy-ul",
-	  "category" => esc_html__('Nectar Elements', 'salient-core'),
-	  "weight" => 1,
+	  "category" => esc_html__('Content', 'salient-core'),
+	  "weight" => 2,
 	  "description" => esc_html__('Make your lists appealing', 'salient-core'),
-	  "params" => array(
-	    array(
-		  "type" => "dropdown",
-		  "heading" => esc_html__("Icon Type", "salient-core"),
-		  "param_name" => "icon_type",
-		  "admin_label" => false,
-		  'save_always' => true,
-		  "value" => array(
-			 "Standard Dash" => "standard_dash",
-			 "None" => "none",
-			 "Font Icon" => "font_icon",
-		   ),
-		  "description" => esc_html__("Please select type of icon you would like for your fancy list", "salient-core")
-		),
-		array(
-		  "type" => "dropdown",
-		  "heading" => esc_html__("Icon", "salient-core"),
-		  "param_name" => "icon",
-		  "admin_label" => false,
-		  "value" => $icon_arr,
-		  'save_always' => true,
-		  "description" => esc_html__("Please select the icon you wish to use", "salient-core"),
-		  "dependency" => Array('element' => "icon_type", 'value' => array('font_icon'))
-		),
-	     array(
-		  "type" => "dropdown",
-		  "heading" => esc_html__("Color", "salient-core"),
-		  "param_name" => "color",
-		  "admin_label" => false,
-		  'save_always' => true,
-		  "value" => array(
-			 "Accent Color" => "Accent-Color",
-			 "Extra Color 1" => "Extra-Color-1",
-			 "Extra Color 2" => "Extra-Color-2",	
-			 "Extra Color 3" => "Extra-Color-3"
-		   ),
-		  "dependency" => Array('element' => "icon_type", 'value' => array('font_icon','standard_dash')),
-		 'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
-		),
-		array(
-		  "type" => "dropdown",
-		  "heading" => esc_html__("Alignment", "salient-core"),
-		  "param_name" => "alignment",
-		  "admin_label" => false,
-		  'save_always' => true,
-		  "value" => array(
-			 "Left" => "left",
-			 "Center" => "center",
-			 "Right" => "right",
-		   ),
-		  "description" => esc_html__("Please select alignment you desire", "salient-core")
-		),
-		array(
-			"type" => "checkbox",
-			"class" => "",
-			"heading" => esc_html__("Enable Animation", "salient-core"),
-			"value" => array("Enable Animation?" => "true" ),
-			"param_name" => "enable_animation",
-			"description" => esc_html__("This will cause your list items to animate in one by one", "salient-core"),
-		),
-
-		array(
-			"type" => "textfield",
-			"class" => "",
-			"heading" => esc_html__("Animation Delay", "salient-core"),
-			"param_name" => "delay",
-			"admin_label" => false,
-			"description" => "",
-			"dependency" => Array('element' => "enable_animation", 'not_empty' => true)
-		),
-
-		array(
-	      "type" => "textarea_html",
-	      "holder" => "div",
-	      "heading" => esc_html__("Text Content", "salient-core"),
-	      "param_name" => "content",
-	      "value" => '',
-	      "description" => esc_html__("Please use the Unordered List button", "salient-core") . "<img src='".get_template_directory_uri() ."/nectar/assets/img/icons/ul.png' alt='unordered list' />" . esc_html__("on the editor to create the points of your fancy list.", "salient-core")
-	    )
-	  )
-	);
-
-?>
+	  "params" => $fancy_ul_params
+);

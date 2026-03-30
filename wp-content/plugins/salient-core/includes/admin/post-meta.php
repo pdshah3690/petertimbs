@@ -1,8 +1,14 @@
 <?php 
 
-add_action('add_meta_boxes_post', 'nectar_metabox_salient_headers_post');
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-function nectar_metabox_salient_headers_post() {
+
+add_action('add_meta_boxes', 'nectar_metabox_salient_headers_post');
+
+function nectar_metabox_salient_headers_post($post_type) {
 	
 	if( defined( 'NECTAR_THEME_NAME' ) && function_exists('get_nectar_theme_options') ) {
 		$nectar_options = get_nectar_theme_options(); 
@@ -14,9 +20,11 @@ function nectar_metabox_salient_headers_post() {
 		);
 	}
 	
-	function nectar_metabox_salient_post_callback($post,$meta_box) {
-		nectar_create_meta_box( $post, $meta_box["args"] );
-	}
+  if( !function_exists('nectar_metabox_salient_post_callback') ) {
+    function nectar_metabox_salient_post_callback($post,$meta_box) {
+      nectar_create_meta_box( $post, $meta_box["args"] );
+    }
+  }
 	
 	
 	/**
@@ -195,6 +203,13 @@ function nectar_metabox_salient_headers_post() {
 		/**
 		* Header navigation transparency.
 		*/
+		$salient_options_panel_text = esc_html__('you have activated in the Salient options panel.', 'salient-core');
+		if ( class_exists('NectarThemeManager') && 
+			property_exists('NectarThemeManager', 'custom_theme_name') &&
+			NectarThemeManager::$custom_theme_name ) {
+			$salient_options_panel_text = esc_html__('you have activated in the') . ' ' . esc_html(NectarThemeManager::$custom_theme_name) . ' ' . esc_html__('options panel.', 'salient-core');
+		}
+
 		$meta_box = array(
 			'id' => 'nectar-metabox-header-nav-transparency',
 			'title' => esc_html__('Navigation Transparency', 'salient-core'),
@@ -205,14 +220,14 @@ function nectar_metabox_salient_headers_post() {
 			'fields' => array(
 				array( 
 					'name' =>  esc_html__('Disable Transparency From Navigation', 'salient-core'),
-					'desc' => esc_html__('You can use this option to force your navigation header to stay a solid color even if it qualifies to trigger the','salient-core') . '<a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'"> transparent effect</a> ' . esc_html__('you have activated in the Salient options panel.', 'salient-core'),
+					'desc' => esc_html__('You can use this option to force your navigation header to stay a solid color even if it qualifies to trigger the','salient-core') . '<a target="_blank" href="'. esc_url(admin_url('?page='.NectarThemeInfo::$theme_options_name.'&tab=18')) .'"> transparent effect</a> ' . $salient_options_panel_text,
 					'id' => '_disable_transparent_header',
 					'type' => 'checkbox',
 					'std' => ''
 				),
 				array( 
 					'name' => esc_html__('Transparent Header Navigation Color', 'salient-core'),
-					'desc' => esc_html__('Choose your header navigation logo & color scheme that will be used at the top of the page when the transparent effect is active. This option pulls from the settings "Header Starting Dark Logo" & "Header Dark Text Color" in the','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'">transparency tab</a>.',
+					'desc' => esc_html__('Choose your header navigation logo & color scheme that will be used at the top of the page when the transparent effect is active. This option pulls from the settings "Header Starting Dark Logo" & "Header Dark Text Color" in the','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url('?page='.NectarThemeInfo::$theme_options_name.'&tab=17')) .'">transparency tab</a>.',
 					'id' => '_force_transparent_header_color',
 					'type' => 'select',
 					'std' => 'light',
@@ -232,6 +247,23 @@ function nectar_metabox_salient_headers_post() {
 		/**
 		* Header settings
 		*/
+
+    $post_header_bg_color = array( 
+      'name' => esc_html__('Page Header Background Color', 'salient-core'),
+      'desc' => esc_html__('Set your desired page header background color if not using an image', 'salient-core'),
+      'id' => '_nectar_header_bg_color',
+      'type' => 'color',
+      'std' => ''
+    );
+
+    $post_header_font_color = array( 
+      'name' => esc_html__('Page Header Font Color', 'salient-core'),
+      'desc' => esc_html__('Set your desired page header font color - will only be used if using a header bg image/color', 'salient-core'),
+      'id' => '_nectar_header_font_color',
+      'type' => 'color',
+      'std' => ''
+    );
+
 		if( !empty($nectar_options['blog_header_type']) && $nectar_options['blog_header_type'] === 'fullscreen' ) {
 			
 			$header_height = null;
@@ -251,7 +283,7 @@ function nectar_metabox_salient_headers_post() {
 				'std' => 1
 			);
 			
-		} else {
+		} else if( !empty($nectar_options['blog_header_type']) && $nectar_options['blog_header_type'] != 'image_under' ) {
 			$header_height = array( 
 				'name' => esc_html__('Page Header Height', 'salient-core'),
 				'desc' => esc_html__('How tall do you want your header? Don\'t include "px" in the string. e.g. 350 This only applies when you are using an image/bg color.', 'salient-core'),
@@ -261,12 +293,24 @@ function nectar_metabox_salient_headers_post() {
 			);
 			$bg_overlay = null;
 			$bg_bottom_shad = null;
-		}
+		} 
+    else {
+      $header_height = null;
+      $bg_overlay = null;
+			$bg_bottom_shad = null;
+      $post_header_font_color = null;
+      $post_header_bg_color = null;
+    }
+		
+		$post_header_post_types = array('post');
+ 	  if( has_filter('nectar_metabox_post_types_post_header') ) {
+ 		  $post_header_post_types = apply_filters('nectar_metabox_post_types_post_header', $post_header_post_types);
+ 	  }
 		$meta_box = array(
 			'id' => 'nectar-metabox-page-header',
 			'title' => esc_html__('Post Header Settings', 'salient-core'),
 			'description' => esc_html__('Here you can configure how your page header will appear. ', 'salient-core'),
-			'post_type' => 'post',
+			'post_type' => $post_header_post_types,
 			'context' => 'normal',
 			'priority' => 'high',
 			'fields' => array(
@@ -290,27 +334,15 @@ function nectar_metabox_salient_headers_post() {
 					'desc' => esc_html__('Please choose how you would like your header background to be aligned', 'salient-core'),
 					'id' => '_nectar_page_header_bg_alignment',
 					'type' => 'select',
-					'std' => 'top',
+					'std' => 'center',
 					'options' => array(
 						"top" => esc_html__("Top", 'salient-core'),
 						"center" => esc_html__("Center", 'salient-core'),
 						"bottom" => esc_html__("Bottom", 'salient-core')
 					)
 				),
-				array( 
-					'name' => esc_html__('Page Header Background Color', 'salient-core'),
-					'desc' => esc_html__('Set your desired page header background color if not using an image', 'salient-core'),
-					'id' => '_nectar_header_bg_color',
-					'type' => 'color',
-					'std' => ''
-				),
-				array( 
-					'name' => esc_html__('Page Header Font Color', 'salient-core'),
-					'desc' => esc_html__('Set your desired page header font color - will only be used if using a header bg image/color', 'salient-core'),
-					'id' => '_nectar_header_font_color',
-					'type' => 'color',
-					'std' => ''
-				),
+				$post_header_bg_color,
+				$post_header_font_color,
 				$bg_overlay,
 				$bg_bottom_shad
 			)

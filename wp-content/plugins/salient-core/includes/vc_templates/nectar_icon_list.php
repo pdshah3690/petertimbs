@@ -1,5 +1,12 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+wp_enqueue_style( 'nectar-element-icon-list' );
+
 extract(shortcode_atts(array(
   "columns" => "", 
   "direction" => 'vertical', 

@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 return array(
 	"name" => esc_html__("Food Menu Item", "salient-core"),
 	"base" => "nectar_food_menu_item",
-	"icon" => "icon-wpb-pricing-table",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"icon" => "icon-wpb-food-menu",
+	"category" => esc_html__('Content', 'salient-core'),
 	"description" => esc_html__('Create restaurant menus', 'salient-core'),
 	"params" => array(
 		array(

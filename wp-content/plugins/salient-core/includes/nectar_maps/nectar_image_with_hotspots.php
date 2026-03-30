@@ -5,12 +5,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$el_color_list = array(
+    esc_html__( "Accent Color", "salient-core") => "Accent-Color",
+	esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
+	esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
+	esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
+);
+$custom_colors = apply_filters('nectar_additional_theme_colors', array());
+$el_color_list = array_merge($el_color_list, $custom_colors);
+
 return array(
 	"name" => esc_html__("Image With Hotspots", "salient-core"),
 	"base" => "nectar_image_with_hotspots",
-	"weight" => 2,
+	"weight" => 1,
 	"icon" => "icon-wpb-nectar-image-withhotspots",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Interactive', 'salient-core'),
 	"description" => esc_html__('Add Hotspots On Your Image', 'salient-core'),
 	"params" => array(
 		
@@ -43,13 +52,8 @@ return array(
 			"heading" => "Color",
 			"admin_label" => true,
 			"param_name" => "color_1",
-			'description' => esc_html__( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
-			"value" => array(
-				esc_html__( "Accent Color", "salient-core") => "Accent-Color",
-				esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
-				esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
-				esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
-			)
+			'description' => esc_html__( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+			"value" => $el_color_list
 		),
 		array(
 			"type" => "dropdown",
@@ -91,6 +95,7 @@ return array(
 		),
 		array(
 			"type" => 'checkbox',
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => esc_html__("Enable Animation", "salient-core"),
 			"param_name" => "animation",
 			"group" => esc_html__( "Style", "salient-core"),

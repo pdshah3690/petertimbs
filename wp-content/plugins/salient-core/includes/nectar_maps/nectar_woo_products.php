@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,7 +45,7 @@ return array(
   "base" => "nectar_woo_products",
   "weight" => 8,
   "icon" => "icon-wpb-recent-products",
-  "category" => esc_html__('Nectar Elements', 'salient-core'),
+  "category" => esc_html__('Content', 'salient-core'),
   "description" => esc_html__('Display your products', 'salient-core'),
   "params" => array(
   	array(
@@ -86,6 +86,21 @@ return array(
 	  "description" => esc_html__("Please select the number of columns you would like to display. \"Dynamic\" will only be used on flickity full width carousels", "salient-core")
 	),
 	array(
+		'type' => 'dropdown',
+		'heading' => __( 'Mobile Column Width', 'salient-core' ),
+		'param_name' => 'flickity_mobile_column_width',
+		'value' => array(
+			'100%' => '100%',
+			'75%' => '75%',
+			'66%' => '66%',
+			'50%' => '50%',
+		),
+		'std' => '100%',
+		'save_always' => true,
+		"dependency" => array('element' => "script", 'value' => "flickity"),
+		'description' => '',
+	),
+	array(
       "type" => "textfield",
       "heading" => esc_html__("Number Of Products", "salient-core"),
       "param_name" => "per_page",
@@ -114,14 +129,16 @@ return array(
       "type" => 'checkbox',
       "heading" => esc_html__("Enable Pagination", "salient-core"),
       "param_name" => "pagination",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
       "description" => esc_html__("Would you like to enable pagination for this product display? (requires WooCommerce 3.2+)", "salient-core"),
       "value" => Array(esc_html__("Yes, please", "salient-core") => true),
     ),
-		
+
     array(
       "type" => 'checkbox',
       "heading" => esc_html__("Enable Carousel Display", "salient-core"),
       "param_name" => "carousel",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
       "description" => esc_html__("This will override your column choice - Will not be used when Enable Pagination is on.", "salient-core"),
       "value" => Array(esc_html__("Yes, please", "salient-core") => true),
     ),
@@ -132,11 +149,35 @@ return array(
 			'save_always' => true,
 			"param_name" => "script",
 			"value" => array(
+				"Flickity" => "flickity",
 				"carouFredSel" => "carouFredSel",
-				"Flickity" => "flickity"
 			),
 			"dependency" => array('element' => "carousel", 'value' => "1"),
-			"description" => esc_html__("Flickity is reccomended over carouFredSel - however carouFredSel is still available for legacy users who prefer it." , "salient-core")
+			"description" => '<strong>' . esc_html__('Flickity is reccomended over carouFredSel', 'salient-core') . '</strong> ' . esc_html__('however, carouFredSel is still available for legacy users who prefer it.' , 'salient-core')
+		),
+		array(
+			"type" => "dropdown",
+			"class" => "",
+			"heading" => "Carousel Wrap Products",
+			'save_always' => true,
+			"param_name" => "flickity_wrap",
+			"value" => array(
+				"Wrap" => "wrap",
+				"No Wrap" => "no-wrap"
+			),
+			"dependency" => Array('element' => "script", 'value' => "flickity"),
+			"description" => esc_html('At the end of the items, determine if they should wrap-around to the other end for an infinite loop.','salient-core')
+		),
+		array(
+			  "type" => "dropdown",
+			  "heading" => esc_html__("Carousel Overflow Visibility", "salient-core"),
+			  "param_name" => "flickity_overflow",
+			  "value" => array(
+				    "Hidden" => "hidden",
+				    "Visible" => "visible",
+				),
+			  'save_always' => true,
+			  "dependency" => Array('element' => "script", 'value' => "flickity"),
 		),
 		array(
 			"type" => "dropdown",
@@ -145,17 +186,57 @@ return array(
 			'save_always' => true,
 			"param_name" => "flickity_controls",
 			"value" => array(
-				"Bottom Pagination" => "bottom-pagination",
-				"Next/Prev Arrows and Text" => "arrows-and-text"
+				esc_html__("Bottom Pagination",'salient-core') => "bottom-pagination",
+				esc_html__("Next/Prev Arrows and Text",'salient-core') => "arrows-and-text",
+				esc_html__("Next/Prev Arrows Overlaid",'salient-core') => "arrows-overlaid",
+				esc_html__("Touch Indicator",'salient-core') => 'touch_indicator'
 			),
 			"dependency" => Array('element' => "script", 'value' => "flickity"),
 			"description" => ''
 		),
 		array(
+			"type" => "dropdown",
+			"class" => "",
+			"heading" => "Carousel Group Items",
+			'save_always' => true,
+			"param_name" => "flickity_group_cells",
+			"value" => array(
+				esc_html__("Default",'salient-core') => "default",
+				esc_html__("Display Columns With No Overflow",'salient-core') => "no-overflow",
+				esc_html__("Display Columns With Overflow",'salient-core') => "overflow",
+			),
+			"dependency" => Array('element' => "script", 'value' => "flickity"),
+			"description" => esc_html__("Control how your columns with align within the carousel.",'salient-core')
+		),
+		array(
+				 "type" => 'checkbox',
+				 "heading" => esc_html__("Carousel Subtle Item Scale When Dragging", "salient-core"),
+				 "param_name" => "flickity_image_scale_on_drag",
+				 "description" => esc_html__("Will cause your carousel items to shrink slightly when dragging.", "salient-core"),
+				 "value" => Array(esc_html__("Yes, please", "salient-core") => 'true'),
+				 'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
+				 "dependency" => Array('element' => "script", 'value' => "flickity"),
+		 ),
+		array(
+			'type' => 'dropdown',
+			'heading' => __( 'Carousel Animation', 'salient-core' ),
+			'param_name' => 'flickity_item_animation',
+			"dependency" => Array('element' => "script", 'value' => "flickity"),
+			'value' => array(
+				'None' => 'none',
+				'Fade In Side' => 'fade-in-side',
+				'Fade In Bottom' => 'fade-in-bottom',
+			),
+			'std' => 'DESC',
+			'save_always' => true,
+			'description' => esc_html__( 'Optionally choose to animate your products when scrolled into view.', 'salient-core' ),
+		),
+		array(
 			"type" => "checkbox",
 			"class" => "",
-			"heading" => esc_html__("Autorotate?", "salient-core"),
+			"heading" => esc_html__("Carousel Autorotate", "salient-core"),
 			"param_name" => "autorotate",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"value" => Array(esc_html__("Yes", "salient-core") => 'true'),
 			"dependency" => Array('element' => "script", 'value' => "flickity"),
 			"description" => ""
@@ -182,7 +263,7 @@ return array(
 		"heading" => "Carousel Heading Tag",
 		"param_name" => "flickity_heading_tag",
 		"dependency" => Array('element' => "flickity_controls", 'value' => "arrows-and-text"),
-		"value" => array(		
+		"value" => array(
 			"H2" => "h2",
 			"H3" => "h3",
 			"H4" => "h4",
@@ -209,6 +290,7 @@ return array(
       "type" => 'checkbox',
       "heading" => esc_html__("Add Item Shadow", "salient-core"),
       "param_name" => "item_shadow",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
       "dependency" => Array('element' => "script", 'value' => "flickity"),
       "description" => esc_html__("This will add a small shadow to each item within the carousel", "salient-core"),
       "value" => Array(esc_html__("Yes, please", "salient-core") => true),
@@ -217,6 +299,7 @@ return array(
       "type" => 'checkbox',
       "heading" => esc_html__("Enable Controls On Hover", "salient-core"),
       "param_name" => "controls_on_hover",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
       "dependency" => Array('element' => "script", 'value' => "carouFredSel"),
       "description" => esc_html__("This will add buttons for additional user control over your product carousel", "salient-core"),
       "value" => Array(esc_html__("Yes, please", "salient-core") => true),

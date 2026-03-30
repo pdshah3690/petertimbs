@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -7,11 +7,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $vc_is_wp_version_3_6_more = version_compare(preg_replace('/^([\d\.]+)(\-.*$)/', '$1', get_bloginfo('version')), '3.6') >= 0;
 
+$el_color_list = array(
+    esc_html__( "Accent Color", "salient-core") => "Accent-Color",
+	esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
+	esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",
+	esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
+);
+$custom_colors = apply_filters('nectar_additional_theme_colors', array());
+$el_color_list = array_merge($el_color_list, $custom_colors);
+
 return array(
 	"name" => esc_html__("Pricing Column", "salient-core"),
 	"base" => "pricing_column",
-	"allowed_container_element" => 'vc_row',
-	"is_container" => true,
+	"allowed_container_element" => 'pricing_table',
+	// "is_container" => true,
 	"content_element" => false,
 	"params" => array(
 		array(
@@ -42,6 +51,7 @@ return array(
 		array(
 			"type" => "checkbox",
 			"class" => "",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"heading" => esc_html__("Highlight Column?", "salient-core"),
 			"value" => array("Yes, please" => "true" ),
 			"param_name" => "highlight",
@@ -56,18 +66,13 @@ return array(
 		),
 		array(
 			"type" => "dropdown",
-			"holder" => "div",
+			"admin_label" => true,
 			"class" => "",
 			"heading" => "Color",
 			"param_name" => "color",
-			"value" => array(
-				esc_html__( "Accent Color", "salient-core") => "Accent-Color",
-				esc_html__( "Extra Color 1", "salient-core") => "Extra-Color-1",
-				esc_html__( "Extra Color 2", "salient-core") => "Extra-Color-2",	
-				esc_html__( "Extra Color 3", "salient-core") => "Extra-Color-3",
-			),
+			"value" => $el_color_list,
 			'save_always' => true,
-			'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(admin_url()) .'?page=Salient&tab=6"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
+			'description' => __( 'Choose a color from your','salient-core') . ' <a target="_blank" href="'. esc_url(NectarThemeInfo::global_colors_tab_url()) .'"> ' . esc_html__('globally defined color scheme','salient-core') . '</a>',
 		),
 		array(
 			"type" => "textarea_html",

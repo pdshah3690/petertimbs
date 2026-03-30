@@ -9,7 +9,7 @@ return array(
 	"name" => esc_html__("Image Comparison", "salient-core"),
 	"base" => "nectar_image_comparison",
 	"icon" => "icon-wpb-single-image",
-	"category" => esc_html__('Nectar Elements', 'salient-core'),
+	"category" => esc_html__('Media', 'salient-core'),
 	"description" => esc_html__('Shows differences in two images', 'salient-core'),
 	"params" => array(
 		array(
