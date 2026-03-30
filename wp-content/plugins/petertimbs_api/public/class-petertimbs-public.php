@@ -50,71 +50,85 @@ class Petertimbs_Public {
         $auth_obj = new Petertimbs_Auth;
 
         register_rest_route('api/v1', '/verify-email', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "verify_email"],
         ]);
 
         register_rest_route('api/v1', '/send-otp', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "send_otp"],
         ]);
 
         register_rest_route('api/v1', '/auth', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "login"],
         ]);
 
         register_rest_route('api/v1', '/singup', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "singup"],
         ]);
 
         register_rest_route('api/v1', '/verify-otp', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "verify_otp"],
         ]);
 
         register_rest_route('api/v1', '/forgot-password', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "forgot_password"],
         ]);
 
         register_rest_route('api/v1', '/profile', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$auth_obj, "get_profile"],
         ]);
 
         register_rest_route('api/v1', '/get-address', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$auth_obj, "get_address"],
         ]);
 
         register_rest_route('api/v1', '/profile', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "update_profile"],
         ]);
 
         register_rest_route('api/v1', '/update-phone', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "update_phone"],
         ]);
 
         register_rest_route('api/v1', '/notification/index', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$auth_obj, "notification_index"],
         ]);
 
         register_rest_route('api/v1', '/notification/seen', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "notification_seen"],
         ]);
 
         register_rest_route('api/v1', '/delete-account', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "delete_account"],
         ]);
 
         register_rest_route('api/v1', '/guest-login', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$auth_obj, "guest_login"],
         ]);
@@ -126,16 +140,19 @@ class Petertimbs_Public {
         $general_obj = new Petertimbs_General;
 
         register_rest_route('api/v1', '/home', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$general_obj, "home"],
         ]);
 
         register_rest_route('api/v1', '/home/search', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$general_obj, "search"],
         ]);
 
         register_rest_route('api/v1', '/cart/view', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$general_obj, "view_cart"],
         ]);
@@ -147,16 +164,19 @@ class Petertimbs_Public {
         $product_obj = new Petertimbs_Product;
 
         register_rest_route('api/v1', '/products/index', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$product_obj, "index"],
         ]);
 
         register_rest_route('api/v1', '/products/filters', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$product_obj, "filters"],
         ]);
 
         register_rest_route('api/v1', '/products/(?P<id>\d+)/view', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$product_obj, "view"],
         ]);
@@ -168,16 +188,19 @@ class Petertimbs_Public {
         $recipe_obj = new Petertimbs_Recipe;
 
         register_rest_route('api/v1', '/recipes/index', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$recipe_obj, "index"],
         ]);
 
         register_rest_route('api/v1', '/recipes/filters', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$recipe_obj, "filters"],
         ]);
 
         register_rest_route('api/v1', '/recipes/(?P<id>\d+)/view', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$recipe_obj, "view"],
         ]);
@@ -188,26 +211,31 @@ class Petertimbs_Public {
         $order_obj = new Petertimbs_Order;
 
         register_rest_route('api/v1', '/orders/index', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$order_obj, "index"],
         ]);
 
         register_rest_route('api/v1', '/orders/create', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$order_obj, "create"],
         ]);
 
         register_rest_route('api/v1', '/orders/source', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$order_obj, "_get_stripe_source"],
         ]);
 
         register_rest_route('api/v1', '/orders/(?P<id>\d+)/view', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$order_obj, "view"],
         ]);
 
         register_rest_route('api/v1', '/orders/(?P<id>\d+)/repeat', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$order_obj, "repeat"],
         ]);
@@ -219,16 +247,19 @@ class Petertimbs_Public {
         $card_obj = new Petertimbs_Card;
 
         register_rest_route('api/v1', '/cards/index', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$card_obj, "index"],
         ]);
 
         register_rest_route('api/v1', '/cards/create', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$card_obj, "create"],
         ]);
 
         register_rest_route('api/v1', '/cards/delete', [
+            "permission_callback" => "__return_true",
             "methods" => "POST",
             "callback" => [$card_obj, "delete"],
         ]);
@@ -240,16 +271,19 @@ class Petertimbs_Public {
         $product_meals_obj = new Petertimbs_Product_Meals;
 
         register_rest_route('api/v1', '/meals/index', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$product_meals_obj, "index"],
         ]);
 
         register_rest_route('api/v1', '/meals/filters', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$product_meals_obj, "filters"],
         ]);
 
         register_rest_route('api/v1', '/meals/(?P<id>\d+)/view', [
+            "permission_callback" => "__return_true",
             "methods" => "GET",
             "callback" => [$product_meals_obj, "view"],
         ]);

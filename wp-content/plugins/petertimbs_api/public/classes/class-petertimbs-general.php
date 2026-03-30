@@ -17,7 +17,9 @@ class Petertimbs_General {
     private $user;
 
     public function __construct() {
-        define( 'SHORTINIT', true );
+        if( !defined("SHORTINIT")) {
+            define( 'SHORTINIT', true );
+        }
     }
 
     public function home($request) {

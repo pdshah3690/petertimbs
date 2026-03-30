@@ -16,11 +16,16 @@ use Twilio\Rest\Client;
 
 class Petertimbs_Auth {
 
+    private $twilio_sid;
+
+    private $twilio_auth_token;
+
+    private $twilio_from_number;
+
     /* Constructor */
     public function __construct() {
         $this->twilio_sid =  TWILIO_SID;
         $this->twilio_auth_token = TWILIO_AUTH_TOKEN;
-
         $this->twilio_from_number = TWILIO_FROM_NUMBER;
     }
 

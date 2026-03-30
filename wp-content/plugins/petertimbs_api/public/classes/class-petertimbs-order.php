@@ -473,48 +473,7 @@ class Petertimbs_Order {
 	}
 
 	public function _get_stripe_source() {
-
-		$stripe = new \Stripe\StripeClient('sk_test_***');
-
-		$fields = [
-			'type' => 'card',
-			'currency' => 'nzd',
-			'amount' => 13965,
-			'owner' => [
-				'email' => "support@jadecreative.co.nz"
-			],
-			'card' => [
-				'exp_month' => 2,
-				'exp_year'	=> 28,
-				'number'    => '4242424242424242',
-				'cvc' 		=> 123
-			]
-		];
-
-		// Create a Source
-		// $source = $stripe->sources->create($fields);
-
-		$paymentMethod = $stripe->paymentMethods->create([
-		    'type' => 'card',
-		    'card' => [
-		        'number' => '4242424242424242',
-		        'exp_month' => 12,
-		        'exp_year' => 2026,
-		        'cvc' => '123',
-		    ],
-		]);
-
-		echo $paymentMethod->id;
-
-		// echo "Source ID: " . $source->id;
-
-
-		// $stripe = new BaseStripeClient();
-		// $response = $stripe->request('post', 'sources', $fields);
-		// $response = WC_Stripe_API::request( $fields, 'sources' );
-		wp_send_json($response);
 		wp_die();
-		// return $response->id;
 	}
 
 	public function repeat($request) {
