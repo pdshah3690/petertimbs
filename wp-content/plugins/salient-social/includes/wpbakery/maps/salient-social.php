@@ -4,7 +4,7 @@ return array(
 	  "name" => esc_html__("Social Buttons", "salient-social"),
 	  "base" => "social_buttons",
 	  "icon" => "icon-wpb-social-buttons",
-	  "category" => esc_html__('Nectar Elements', 'salient-social'),
+	  "category" => esc_html__('Content', 'salient-social'),
 	  "description" => esc_html__('Add social buttons to any page', 'salient-social'),
 	  "params" => array(
 			array(

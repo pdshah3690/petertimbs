@@ -23,7 +23,7 @@ jQuery(document).ready(function ($) {
     this.nectarLove();
     
     // Fixed to bottom social sharing style.
-    if( $('body').find('.nectar-social.fixed') ) {
+    if( $('body').find('.nectar-social.fixed').length > 0 ) {
       this.fixedStyle();
     }
     
@@ -35,6 +35,8 @@ jQuery(document).ready(function ($) {
     this.$body.on('click', '#single-below-header .nectar-social a', function () {
       return false;
     });
+    
+    $('body.single-product .nectar-social').addClass('woo');
     
     this.$body.on('click', '.facebook-share:not(.inactive)', this.facebookShare);
     this.$body.on('click', '.nectar-social:not(".woo") .twitter-share:not(.inactive)', this.twitterShare);
@@ -97,31 +99,17 @@ jQuery(document).ready(function ($) {
     // Click triggered on mobile
     else {
       
-      this.$body.on('click', '#single-meta .meta-share-count, #project-meta .meta-share-count', function () {
-        clearTimeout($socialTimeout);
+      this.$body.on('click', '.nectar-social.hover .share-btn', function () {
         
-        if ($(this).parents('[id*="single-meta"]').length > 0 && $('[data-tab-pos="fullwidth"]').length === 0)
-        $(this).find('.nectar-social').show().stop(true).animate({
-          'opacity': 1,
-          'right': '0px'
-        }, 0);
-        else
-        $(this).find('.nectar-social').show().stop(true).animate({
-          'opacity': 1,
-          'left': '0px'
-        }, 0);
+        // Hide other sibling items when needed.
+        if( $(this).parents('[id*="-meta"]').length > 0 ) {
+          $(this).parents('[id*="-meta"]').addClass('social-hovered');
+        }
+        if( $(this).parents('#single-below-header').length > 0 ) {
+          $(this).parents('#single-below-header').addClass('social-hovered');
+        }
         
-        $(this).parents('[id*="-meta"]').addClass('social-hovered');
-        
-        $(this).parents('[id*="-meta"]').find('.n-shortcode a, .meta-comment-count a, .meta-share-count > a ').stop(true).animate({
-          'opacity': 0
-        }, 250);
-        $(this).find('.nectar-social a').each(function (i) {
-          $(this).stop(true).delay(i * 40).animate({
-            'opacity': 1,
-            'left': '0px'
-          }, 150);
-        });
+        $(this).parent().addClass('visible');
         
         return false;
       });
@@ -133,16 +121,10 @@ jQuery(document).ready(function ($) {
   
   
   
-  NectarSocial.prototype.facebookShare = function() {
-    var windowLocation = window.location.href.replace(window.location.hash, '');
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + windowLocation, "facebookWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
-    return false;
-  };
-  
   
   NectarSocial.prototype.facebookShare = function() {
     var windowLocation = window.location.href.replace(window.location.hash, '');
-    window.open('https://www.facebook.com/sharer/sharer.php?u=' + windowLocation, "facebookWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(windowLocation), "facebookWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
     return false;
   };
   
@@ -156,13 +138,13 @@ jQuery(document).ready(function ($) {
     } else {
       $pageTitle = encodeURIComponent($(document).find("title").text());
     }
-    window.open('http://twitter.com/intent/tweet?text=' + $pageTitle + ' ' + windowLocation, "twitterWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
+    window.open('https://twitter.com/intent/tweet?text=' + $pageTitle + ' ' + windowLocation, "twitterWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
     return false;
   };
   
   NectarSocial.prototype.wooTwitterShare = function() {
     var windowLocation = window.location.href.replace(window.location.hash, '');
-    window.open('http://twitter.com/intent/tweet?text=' + $("h1.product_title").text() + ' ' + windowLocation, "twitterWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
+    window.open('https://twitter.com/intent/tweet?text=' + $("h1.product_title").text() + ' ' + encodeURIComponent(windowLocation), "twitterWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
     return false;
   };
   
@@ -175,19 +157,22 @@ jQuery(document).ready(function ($) {
     } else {
       $pageTitle = encodeURIComponent($(document).find("title").text());
     }
-    window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + windowLocation + '&title=' + $pageTitle + '', "linkedInWindow", "height=480,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
+    window.open('https://www.linkedin.com/sharing/share-offsite/?mini=true&url=' + encodeURIComponent(windowLocation) + '&title=' + $pageTitle + '', "linkedInWindow", "height=480,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
     return false;
   };
   
   NectarSocial.prototype.woolinkedInShare = function() {
     var windowLocation = window.location.href.replace(window.location.hash, '');
-    window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + windowLocation + '&title=' + $("h1.product_title").text(), "twitterWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
+    window.open('https://www.linkedin.com/sharing/share-offsite/?mini=true&url=' + encodeURIComponent(windowLocation) + '&title=' + $("h1.product_title").text(), "twitterWindow", "height=380,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
     return false;
   };
   
   NectarSocial.prototype.pinterestShare = function() {
     var windowLocation = window.location.href.replace(window.location.hash, '');
     var $sharingImg = ($('.single-portfolio').length > 0 && $('div[data-featured-img]').attr('data-featured-img') != 'empty') ? $('div[data-featured-img]').attr('data-featured-img') : $('#ajax-content-wrap img').first().attr('src');
+    if ( $sharingImg ) {
+      $sharingImg = encodeURIComponent($sharingImg);
+    }
     var $pageTitle;
     
     if ($(".section-title h1").length > 0) {
@@ -196,14 +181,17 @@ jQuery(document).ready(function ($) {
       $pageTitle = encodeURIComponent($(document).find("title").text());
     }
     
-    window.open('http://pinterest.com/pin/create/button/?url=' + windowLocation + '&media=' + $sharingImg + '&description=' + $pageTitle, "pinterestWindow", "height=640,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
+    window.open('https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(windowLocation) + '&media=' + $sharingImg + '&description=' + $pageTitle, "pinterestWindow", "height=640,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
     return false;
   };
   
   NectarSocial.prototype.wooPinterestShare = function () {
     var $imgToShare = ($('img.attachment-shop_single').length > 0) ? $('img.attachment-shop_single').first().attr('src') : $('.single-product-main-image img').first().attr('src');
+    if ( $imgToShare ) {
+      $imgToShare = encodeURIComponent($imgToShare);
+    }
     var windowLocation = window.location.href.replace(window.location.hash, '');
-    window.open('http://pinterest.com/pin/create/button/?url=' + windowLocation + '&media=' + $imgToShare + '&description=' + $('h1.product_title').text(), "pinterestWindow", "height=640,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
+    window.open('https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(windowLocation) + '&media=' + $imgToShare + '&description=' + $('h1.product_title').text(), "pinterestWindow", "height=640,width=660,resizable=0,toolbar=0,menubar=0,status=0,location=0,scrollbars=0");
     return false;
   };
   
@@ -282,29 +270,32 @@ jQuery(document).ready(function ($) {
       
     }
     
-    
-    if ( $(window).width() < 1000 && $('.nectar-social.fixed').length > 0) {
-      if ( $(window).scrollTop() > 150) {
-        $(window).on('scroll', hideFixedSharing);
-      } else {
-        $(window).on('scroll', showFixedSharing);
+    if( $('.nectar-social.fixed').length > 0 ) {
+      
+      if ( $(window).width() < 1000 ) {
+        if ( $(window).scrollTop() > 150) {
+          $(window).on('scroll', hideFixedSharing);
+        } else {
+          $(window).on('scroll', showFixedSharing);
+        }
       }
+      
+      $(window).on('smartresize',function () {
+        
+        if ( $(window).width() > 1000) {
+          $('.nectar-social.fixed').addClass('visible');
+        } else if ( $(window).scrollTop() < 150) {
+          $(window).off('scroll', hideFixedSharing);
+          $(window).on('scroll', showFixedSharing);
+          $('.nectar-social.fixed').removeClass('visible');
+        } else {
+          $(window).off('scroll', showFixedSharing);
+          $(window).on('scroll', hideFixedSharing);
+        }
+        
+      });
+      
     }
-    
-    $(window).on('smartresize',function () {
-      
-      if ( $(window).width() > 1000) {
-        $('.nectar-social.fixed').addClass('visible');
-      } else if ( $(window).scrollTop() < 150) {
-        $(window).off('scroll', hideFixedSharing);
-        $(window).on('scroll', showFixedSharing);
-        $('.nectar-social.fixed').removeClass('visible');
-      } else {
-        $(window).off('scroll', showFixedSharing);
-        $(window).on('scroll', hideFixedSharing);
-      }
-      
-    });
     
   };
   

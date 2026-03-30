@@ -84,7 +84,7 @@ function salient_social_register_theme_customizer( $wp_customize ) {
 	);
 	$wp_customize->add_control( 'salient_social_use_twitter', array(
 			'section'     => 'salient_social_options',
-			'label'       => esc_html__( 'Use Twitter Button', 'salient-social' ),
+			'label'       => esc_html__( 'Use X (Twitter) Button', 'salient-social' ),
 			'type'        => 'checkbox'
 		)
 	);
@@ -113,6 +113,20 @@ function salient_social_register_theme_customizer( $wp_customize ) {
   $wp_customize->add_control( 'salient_social_use_pinterest', array(
       'section'     => 'salient_social_options',
       'label'       => esc_html__( 'Use Pinterest Button', 'salient-social' ),
+      'type'        => 'checkbox'
+    )
+  );
+  
+  // Remove Nectar Love.
+  $wp_customize->add_setting( 'salient_social_remove_love', array(
+      'type'              => 'option',
+      'default'    	      => '',
+      'sanitize_callback' => 'salient_social_sanitize_input',
+    )
+  );
+  $wp_customize->add_control( 'salient_social_remove_love', array(
+      'section'     => 'salient_social_options',
+      'label'       => esc_html__( 'Remove Nectar Love Button', 'salient-social' ),
       'type'        => 'checkbox'
     )
   );

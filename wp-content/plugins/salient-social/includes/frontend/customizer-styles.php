@@ -21,7 +21,8 @@ function salient_social_colors() {
   .sharing-default-minimal .nectar-love.loved,
   body .nectar-social[data-color-override="override"].fixed > a:before, 
   body .nectar-social[data-color-override="override"].fixed .nectar-social-inner a,
-  .sharing-default-minimal .nectar-social[data-color-override="override"] .nectar-social-inner a:hover {
+  .sharing-default-minimal .nectar-social[data-color-override="override"] .nectar-social-inner a:hover,
+  .nectar-social.vertical[data-color-override="override"] .nectar-social-inner a:hover {
     background-color: '.$salient_social_color.';
   }';
   

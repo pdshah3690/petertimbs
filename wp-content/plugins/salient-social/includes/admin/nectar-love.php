@@ -108,16 +108,19 @@ global $nectar_love;
 $nectar_love = new NectarLove();
 
 // get the ball rollin'
-function nectar_love( $return = '' ) {
+if( !function_exists('nectar_love') ) {
+	
+	function nectar_love( $return = '' ) {
 
-	global $nectar_love;
+		global $nectar_love;
 
-	if ( $return === 'return' ) {
-		return $nectar_love->add_love();
-	} else {
-		echo $nectar_love->add_love(); // WPCS: XSS ok.
+		if ( $return === 'return' ) {
+			return $nectar_love->add_love();
+		} else {
+			echo $nectar_love->add_love(); // WPCS: XSS ok.
+		}
+
 	}
-
+	
 }
-
 

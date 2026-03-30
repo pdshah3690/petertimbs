@@ -15,6 +15,10 @@
   margin-right: 14px;
 }
 
+#single-below-header .nectar-social.hover[data-rm-love="1"] {
+  margin-right: 0;
+}
+
 .nectar-social.hover {
   position :relative;
 }
@@ -26,16 +30,16 @@
   display: inline-block;
 }
 
-#ajax-content-wrap .nectar-social.hover .nectar-love-button span { 
+#ajax-content-wrap .nectar-social.hover .nectar-love-button span {
   padding-left: 0;
 }
 
-.nectar-social.hover .share-btn i { 
-  -webkit-transition: none; 
-  transition: none; 
+.nectar-social.hover .share-btn i {
+  -webkit-transition: none;
+  transition: none;
 }
 
-.nectar-social.hover .share-btn, 
+.nectar-social.hover .share-btn,
 .nectar-social.hover > div span,
 body .nectar-social.hover .nectar-love .nectar-love-count {
   font-size: 14px;
@@ -47,13 +51,13 @@ body .nectar-social.hover .nectar-love .nectar-love-count {
   transition: color .45s cubic-bezier(0.25,1,0.33,1);
 }
 
-.nectar-social.hover .share-btn, 
+.nectar-social.hover .share-btn,
 .nectar-social.hover > div a > span {
   cursor: pointer;
   -webkit-transition: color .45s cubic-bezier(0.25,1,0.33,1);
   transition: color .45s cubic-bezier(0.25,1,0.33,1);
 }
-.nectar-social.hover .share-btn, 
+.nectar-social.hover .share-btn,
 .nectar-social.hover > div a {
   display: inline-block;
   border: 2px solid rgba(0,0,0,0.1);
@@ -73,7 +77,7 @@ body .nectar-social.hover .nectar-love .nectar-love-count {
    padding-left: 20px;
 }
 
-.nectar-social.hover .share-btn:hover, 
+.nectar-social.hover .share-btn:hover,
 .nectar-social.hover > div a:hover {
   border-color: rgba(0,0,0,0.5);
 }
@@ -115,8 +119,22 @@ body .nectar-social.hover .nectar-love .nectar-love-count {
   text-align: center;
   line-height: 43px;
 }
+.portfolio-items .col .custom-content .nectar-social.hover .nectar-social-inner a {
+  width: 45px;
+}
+.portfolio-items .col .custom-content .nectar-social.hover .nectar-social-inner a {
+  margin: 0 14px 14px 0;
+}
+.portfolio-items .col .custom-content .nectar-social.hover.visible .share-btn,
+.portfolio-items .col .custom-content .nectar-social.hover.visible .nectar-love-button,
+.portfolio-items .col .custom-content .nectar-social.hover:not(.visible) .nectar-social-inner a {
+  opacity: 0!important;
+}
+.portfolio-items .custom-content .nectar-social.hover .nectar-love {
+  height: auto;
+}
 
-.nectar-social.hover[data-position="right"] .nectar-social-inner a { 
+.nectar-social.hover[data-position="right"] .nectar-social-inner a {
   transform: translateX(20px);
 }
 
@@ -132,16 +150,16 @@ body .nectar-social.hover .nectar-love .nectar-love-count {
 }
 
 .nectar-social.hover.visible .nectar-social-inner a:not(:hover):nth-child(2) {
-  transition-delay: 0.03s; 
+  transition-delay: 0.03s;
 }
 .nectar-social.hover.visible .nectar-social-inner a:not(:hover):nth-child(3) {
- transition-delay: 0.06s; 
+ transition-delay: 0.06s;
 }
 .nectar-social.hover.visible .nectar-social-inner a:not(:hover):nth-child(4) {
- transition-delay: 0.09s; 
+ transition-delay: 0.09s;
 }
 .nectar-social.hover.visible .nectar-social-inner a:not(:hover):nth-child(5) {
- transition-delay: 0.12s; 
+ transition-delay: 0.12s;
 }
 
 .nectar-social.hover .share-btn,
@@ -269,7 +287,7 @@ body .nectar-social.hover .nectar-love .nectar-love-count {
     -webkit-transition:all 0.45s cubic-bezier(.15,0.2,.1,1);
     transition:all 0.45s cubic-bezier(.15,0.2,.1,1)
 }
-.nectar-social.fixed >a:after, 
+.nectar-social.fixed >a:after,
 .nectar-social.fixed .nectar-social-inner a:after{
    background-color:#fff;
     position:absolute;
@@ -475,19 +493,23 @@ body .nectar-social.fixed .nectar-social-inner a i,
 
 /* Minimal coloring */
 .sharing-default-minimal .nectar-social .facebook-share:hover,
-.nectar-social.fixed .facebook-share {
+.nectar-social.fixed .facebook-share,
+.nectar-social.vertical .nectar-social-inner a.facebook-share:hover {
    background-color:#6a75c8;
 }
 .sharing-default-minimal .nectar-social .twitter-share:hover,
-.nectar-social.fixed .twitter-share {
+.nectar-social.fixed .twitter-share,
+.nectar-social.vertical .nectar-social-inner a.twitter-share:hover {
    background-color:#6abaf7;
 }
 .sharing-default-minimal .nectar-social .linkedin-share:hover,
-.nectar-social.fixed .linkedin-share {
+.nectar-social.fixed .linkedin-share,
+.nectar-social.vertical .nectar-social-inner a.linkedin-share:hover {
    background-color:#2e82d9;
 }
 .sharing-default-minimal .nectar-social .pinterest-share:hover,
-.nectar-social.fixed .pinterest-share {
+.nectar-social.fixed .pinterest-share,
+.nectar-social.vertical .nectar-social-inner a.pinterest-share:hover {
    background-color:#f00;
 }
 
@@ -533,7 +555,7 @@ body .sharing-default-minimal .nectar-love i{
     line-height:20px;
     transition:all 0.2s ease
 }
-#ajax-content-wrap .sharing-default-minimal .nectar-love i, 
+#ajax-content-wrap .sharing-default-minimal .nectar-love i,
 body .sharing-default-minimal .hovered .nectar-love i{
    color:rgba(0,0,0,0.2);
     transform:scale(1);
@@ -558,7 +580,7 @@ body .sharing-default-minimal .hovered .nectar-love i{
 .sharing-default-minimal .nectar-love:hover{
    background-color:#000
 }
-.sharing-default-minimal .nectar-love:hover .total_loves, 
+.sharing-default-minimal .nectar-love:hover .total_loves,
 .sharing-default-minimal .nectar-love.loved .total_loves{
    background-color:rgba(255,255,255,0.25)
 }
@@ -574,7 +596,7 @@ body .sharing-default-minimal .hovered .nectar-love i{
    color:#fff
 }
 
-#page-header-bg[data-post-hs="default_minimal"] h1, 
+#page-header-bg[data-post-hs="default_minimal"] h1,
 body.single-post .heading-title[data-header-style="default_minimal"] .entry-title{
    text-align:center;
     margin:0 auto
@@ -588,7 +610,7 @@ body.single-post .heading-title[data-header-style="default_minimal"] .entry-titl
     padding:9px 30px!important;
     margin-right:10px
 }
-body[data-button-style^="rounded"] .sharing-default-minimal .nectar-social-inner >a, 
+body[data-button-style^="rounded"] .sharing-default-minimal .nectar-social-inner >a,
 body[data-button-style^="rounded"] .sharing-default-minimal .nectar-love{
    border-radius:100px;
     line-height:1px;
@@ -596,7 +618,7 @@ body[data-button-style^="rounded"] .sharing-default-minimal .nectar-love{
     height:auto;
     display:inline-block
 }
-.sharing-default-minimal .nectar-social-inner >a, 
+.sharing-default-minimal .nectar-social-inner >a,
 .sharing-default-minimal .nectar-love{
    line-height:1px;
   margin:10px 13px 10px 0;
@@ -608,15 +630,15 @@ body[data-button-style^="rounded"] .sharing-default-minimal .nectar-social-inner
   line-height: 18px;
 }
 
-.sharing-default-minimal .nectar-social .facebook-share:hover i, 
-.sharing-default-minimal .nectar-social .twitter-share:hover i, 
-.sharing-default-minimal .nectar-social .google-plus-share:hover i, 
-.sharing-default-minimal .nectar-social .linkedin-share:hover i, 
+.sharing-default-minimal .nectar-social .facebook-share:hover i,
+.sharing-default-minimal .nectar-social .twitter-share:hover i,
+.sharing-default-minimal .nectar-social .google-plus-share:hover i,
+.sharing-default-minimal .nectar-social .linkedin-share:hover i,
 .sharing-default-minimal .nectar-social .pinterest-share:hover i,
-.sharing-default-minimal .nectar-love:hover i, 
-.sharing-default-minimal .nectar-love:hover, 
-.sharing-default-minimal .nectar-love.loved i, 
-.sharing-default-minimal .nectar-love.loved, 
+.sharing-default-minimal .nectar-love:hover i,
+.sharing-default-minimal .nectar-love:hover,
+.sharing-default-minimal .nectar-love.loved i,
+.sharing-default-minimal .nectar-love.loved,
 body .sharing-default-minimal .hovered .nectar-love.loved i,
 #footer-outer .sharing-default-minimal .nectar-social a:hover {
   color:#fff!important
@@ -659,7 +681,7 @@ body .nectar-love-wrap i[class^="icon-"] {
     color:inherit;
     line-height:11px;
     font-size:14px;
-    display:inline-block 
+    display:inline-block
 }
 
 .nectar-love span{
@@ -667,7 +689,7 @@ body .nectar-love-wrap i[class^="icon-"] {
     color:inherit;
     font-size:12px;
     line-height:12px;
-    display:inline-block 
+    display:inline-block
 }
 
 
@@ -677,12 +699,12 @@ body .nectar-love-wrap i[class^="icon-"] {
 .nectar-social .love-text,
 .nectar-love .love-text { display: none; }
 
-body .pinterest-share i, 
-body .facebook-share i, 
-body .twitter-share i, 
+body .pinterest-share i,
+body .facebook-share i,
+body .twitter-share i,
 body .linkedin-share i,
  .nectar-social .icon-default-style.steadysets-icon-share,
- body [class^="icon-"].icon-salient-heart, 
+ body [class^="icon-"].icon-salient-heart,
  body [class^="icon-"].icon-salient-heart-2 {
      background-color:transparent;
      border-radius: 0px;
@@ -694,9 +716,9 @@ body .linkedin-share i,
      color:#ddd;
 }
 
-.nectar-social.hover .pinterest-share i, 
-.nectar-social.hover .facebook-share i, 
-.nectar-social.hover .twitter-share i, 
+.nectar-social.hover .pinterest-share i,
+.nectar-social.hover .facebook-share i,
+.nectar-social.hover .twitter-share i,
 .nectar-social.hover .linkedin-share i {
   color: inherit;
 }
@@ -710,4 +732,17 @@ body .linkedin-share i,
 .sharing-default-minimal.post-bottom,
 .salient-social-outer.post-bottom {
   margin-top: 40px;
+}
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
 }
