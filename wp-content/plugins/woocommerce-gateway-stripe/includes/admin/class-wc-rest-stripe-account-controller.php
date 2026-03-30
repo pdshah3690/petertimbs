@@ -28,17 +28,19 @@ class WC_REST_Stripe_Account_Controller extends WC_Stripe_REST_Base_Controller {
 	/**
 	 * Stripe payment gateway.
 	 *
-	 * @var WC_Gateway_Stripe
+	 * @var WC_Stripe_UPE_Payment_Gateway
 	 */
 	private $gateway;
 
-	public function __construct( WC_Gateway_Stripe $gateway, WC_Stripe_Account $account ) {
+	public function __construct( WC_Stripe_UPE_Payment_Gateway $gateway, WC_Stripe_Account $account ) {
 		$this->gateway = $gateway;
 		$this->account = $account;
 	}
 
 	/**
 	 * Configure REST API routes.
+	 *
+	 * @return void
 	 */
 	public function register_routes() {
 		register_rest_route(
@@ -90,10 +92,17 @@ class WC_REST_Stripe_Account_Controller extends WC_Stripe_REST_Base_Controller {
 	public function get_account() {
 		return new WP_REST_Response(
 			[
-				'account'                => $this->account->get_cached_account_data(),
-				'testmode'               => WC_Stripe_Webhook_State::get_testmode(),
-				'webhook_status_message' => WC_Stripe_Webhook_State::get_webhook_status_message(),
-				'webhook_url'            => WC_Stripe_Helper::get_webhook_url(),
+				'account'                 => $this->account->get_cached_account_data(),
+				'testmode'                => WC_Stripe_Mode::is_test(),
+				'webhook_status_code'     => WC_Stripe_Webhook_State::get_webhook_status_code(),
+				'webhook_status_message'  => WC_Stripe_Webhook_State::get_webhook_status_message(),
+				'webhook_url'             => WC_Stripe_Helper::get_webhook_url(),
+				'configured_webhook_urls' => WC_Stripe_Webhook_State::get_configured_webhook_urls(),
+				'is_webhook_enabled'      => $this->account->is_webhook_enabled(),
+				'oauth_connections'       => [
+					'test' => $this->get_account_oauth_connection_data( 'test' ),
+					'live' => $this->get_account_oauth_connection_data( 'live' ),
+				],
 			]
 		);
 	}
@@ -109,7 +118,7 @@ class WC_REST_Stripe_Account_Controller extends WC_Stripe_REST_Base_Controller {
 		// Use statement descriptor from settings, falling back to Stripe account statement descriptor if needed.
 		$statement_descriptor = WC_Stripe_Helper::clean_statement_descriptor( $this->gateway->get_option( 'statement_descriptor' ) );
 		if ( empty( $statement_descriptor ) ) {
-			$statement_descriptor = $account['settings']['payments']['statement_descriptor'];
+			$statement_descriptor = $account['settings']['payments']['statement_descriptor'] ?? null;
 		}
 		if ( empty( $statement_descriptor ) ) {
 			$statement_descriptor = null;
@@ -127,8 +136,8 @@ class WC_REST_Stripe_Account_Controller extends WC_Stripe_REST_Base_Controller {
 					'supported' => $this->account->get_supported_store_currencies(),
 				],
 				'country'                  => $account['country'] ?? WC()->countries->get_base_country(),
-				'is_live'                  => $account['charges_enabled'] ?? false,
-				'test_mode'                => WC_Stripe_Webhook_State::get_testmode(),
+				'is_live'                  => WC_Stripe_Mode::is_live() && ( $account['charges_enabled'] ?? false ),
+				'test_mode'                => WC_Stripe_Mode::is_test(),
 			]
 		);
 	}
@@ -139,7 +148,12 @@ class WC_REST_Stripe_Account_Controller extends WC_Stripe_REST_Base_Controller {
 	 * @return WP_REST_Response
 	 */
 	public function get_webhook_status_message() {
-		return new WP_REST_Response( WC_Stripe_Webhook_State::get_webhook_status_message() );
+		return new WP_REST_Response(
+			[
+				'code'    => WC_Stripe_Webhook_State::get_webhook_status_code(),
+				'message' => WC_Stripe_Webhook_State::get_webhook_status_message(),
+			]
+		);
 	}
 
 	/**
@@ -152,5 +166,25 @@ class WC_REST_Stripe_Account_Controller extends WC_Stripe_REST_Base_Controller {
 
 		// calling the same "get" method, so that the data format is the same.
 		return $this->get_account();
+	}
+
+	/**
+	 * Generates the OAuth connection data for the given mode.
+	 *
+	 * @param string $mode The mode. Can be 'test' or 'live'.
+	 * @return array The connection data.
+	 */
+	private function get_account_oauth_connection_data( $mode ) {
+		$connection = [
+			'connected' => (bool) WC_Stripe::get_instance()->connect->is_connected_via_oauth( $mode ),
+			'type'      => WC_Stripe::get_instance()->connect->get_connection_type( $mode ),
+		];
+
+		// If the connection is an app connection, check if the keys have expired.
+		if ( 'app' === $connection['type'] ) {
+			$connection['expired'] = $this->account->get_cached_account_data( $mode ) ? false : true; // If we have the account data, it's not expired.
+		}
+
+		return $connection;
 	}
 }

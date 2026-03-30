@@ -8,7 +8,19 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 	 * Constructor
 	 */
 	public function __construct() {
-		parent::__construct( __( 'Stripe', 'woocommerce-gateway-stripe' ) );
+		parent::__construct();
+
+		add_action( 'init', [ $this, 'register_erasers_exporters' ] );
+		add_filter( 'woocommerce_get_settings_account', [ $this, 'account_settings' ] );
+	}
+
+	/**
+	 * Register erasers and exporters.
+	 *
+	 * @return void
+	 */
+	public function register_erasers_exporters() {
+		$this->name = __( 'Stripe', 'woocommerce-gateway-stripe' );
 
 		$this->add_exporter( 'woocommerce-gateway-stripe-order-data', __( 'WooCommerce Stripe Order Data', 'woocommerce-gateway-stripe' ), [ $this, 'order_data_exporter' ] );
 
@@ -20,8 +32,6 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 
 		$this->add_eraser( 'woocommerce-gateway-stripe-customer-data', __( 'WooCommerce Stripe Customer Data', 'woocommerce-gateway-stripe' ), [ $this, 'customer_data_eraser' ] );
 		$this->add_eraser( 'woocommerce-gateway-stripe-order-data', __( 'WooCommerce Stripe Data', 'woocommerce-gateway-stripe' ), [ $this, 'order_data_eraser' ] );
-
-		add_filter( 'woocommerce_get_settings_account', [ $this, 'account_settings' ] );
 	}
 
 	/**
@@ -93,7 +103,7 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 		$message = sprintf(
 		/* translators: 1) HTML anchor open tag 2) HTML anchor closing tag */
 			esc_html__( 'By using this extension, you may be storing personal data or sharing data with an external service. %1$sLearn more about how this works, including what you may want to include in your privacy policy%2$s.', 'woocommerce-gateway-stripe' ),
-			'<a href="https://woocommerce.com/document/privacy-payments/#section-3" target="_blank">',
+			'<a href="https://woocommerce.com/document/privacy-payments/#how-payment-providers-use-data" target="_blank">',
 			'</a>'
 		);
 
@@ -111,11 +121,9 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 	public function order_data_exporter( $email_address, $page = 1 ) {
 		$done           = false;
 		$data_to_export = [];
-
-		$orders = $this->get_stripe_orders( $email_address, (int) $page );
-
-		$done = true;
-
+		$orders         = $this->get_stripe_orders( $email_address, (int) $page );
+		$order_helper   = WC_Stripe_Order_Helper::get_instance();
+		$done           = true;
 		if ( 0 < count( $orders ) ) {
 			foreach ( $orders as $order ) {
 				$data_to_export[] = [
@@ -125,11 +133,11 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 					'data'        => [
 						[
 							'name'  => __( 'Stripe payment id', 'woocommerce-gateway-stripe' ),
-							'value' => $order->get_meta( '_stripe_source_id', true ),
+							'value' => $order_helper->get_stripe_source_id( $order ),
 						],
 						[
 							'name'  => __( 'Stripe customer id', 'woocommerce-gateway-stripe' ),
-							'value' => $order->get_meta( '_stripe_customer_id', true ),
+							'value' => $order_helper->get_stripe_customer_id( $order ),
 						],
 					],
 				];
@@ -177,7 +185,7 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 			'meta_query'     => $meta_query,
 		];
 
-		$subscriptions = wcs_get_subscriptions( $subscription_query );
+		$subscriptions = function_exists( 'wcs_get_subscriptions' ) ? wcs_get_subscriptions( $subscription_query ) : [];
 
 		$done = true;
 
@@ -332,7 +340,11 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 			return [ false, false, [] ];
 		}
 
-		if ( ! wcs_order_contains_subscription( $order ) ) {
+		if ( function_exists( 'wcs_order_contains_subscription' ) && ! wcs_order_contains_subscription( $order ) ) {
+			return [ false, false, [] ];
+		}
+
+		if ( ! function_exists( 'wcs_get_subscriptions_for_order' ) ) {
 			return [ false, false, [] ];
 		}
 
@@ -354,12 +366,12 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 			return [ false, true, [ sprintf( __( 'Order ID %d contains an active Subscription. Personal data retained. (Stripe)', 'woocommerce-gateway-stripe' ), $order->get_id() ) ] ];
 		}
 
-		$renewal_orders = WC_Subscriptions_Renewal_Order::get_renewal_orders( $order->get_id(), 'WC_Order' );
-
+		$renewal_orders = class_exists( 'WC_Subscriptions_Renewal_Order' ) ? WC_Subscriptions_Renewal_Order::get_renewal_orders( $order->get_id(), 'WC_Order' ) : [];
 		foreach ( $renewal_orders as $renewal_order ) {
-			$renewal_order->delete_meta_data( '_stripe_source_id' );
-			$renewal_order->delete_meta_data( '_stripe_refund_id' );
-			$renewal_order->delete_meta_data( '_stripe_customer_id' );
+			$order_helper = WC_Stripe_Order_Helper::get_instance();
+			$order_helper->delete_stripe_source_id( $renewal_order );
+			$order_helper->delete_stripe_refund_id( $renewal_order );
+			$order_helper->delete_stripe_customer_id( $renewal_order );
 		}
 
 		$subscription->delete_meta_data( '_stripe_source_id' );
@@ -376,9 +388,10 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
-		$stripe_source_id   = $order->get_meta( '_stripe_source_id', true );
-		$stripe_refund_id   = $order->get_meta( '_stripe_refund_id', true );
-		$stripe_customer_id = $order->get_meta( '_stripe_customer_id', true );
+		$order_helper       = WC_Stripe_Order_Helper::get_instance();
+		$stripe_source_id   = $order_helper->get_stripe_source_id( $order );
+		$stripe_refund_id   = $order_helper->get_stripe_refund_id( $order );
+		$stripe_customer_id = $order_helper->get_stripe_customer_id( $order );
 
 		if ( ! $this->is_retention_expired( $order->get_date_created()->getTimestamp() ) ) {
 			/* translators: %d Order ID */
@@ -389,15 +402,19 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 			return [ false, false, [] ];
 		}
 
-		$order->delete_meta_data( '_stripe_source_id' );
-		$order->delete_meta_data( '_stripe_refund_id' );
-		$order->delete_meta_data( '_stripe_customer_id' );
+		$order_helper->delete_stripe_source_id( $order );
+		$order_helper->delete_stripe_refund_id( $order );
+		$order_helper->delete_stripe_customer_id( $order );
 
 		return [ true, false, [ __( 'Stripe personal data erased.', 'woocommerce-gateway-stripe' ) ] ];
 	}
 
 	/**
 	 * Checks if create date is passed retention duration.
+	 *
+	 * @param string $created_date The creation date to check.
+	 *
+	 * @return bool True if the retention period has expired, false otherwise.
 	 */
 	public function is_retention_expired( $created_date ) {
 		$retention  = wc_parse_relative_date_option( get_option( 'woocommerce_gateway_stripe_retention' ) );
@@ -435,5 +452,3 @@ class WC_Stripe_Privacy extends WC_Abstract_Privacy {
 		return $is_expired;
 	}
 }
-
-new WC_Stripe_Privacy();

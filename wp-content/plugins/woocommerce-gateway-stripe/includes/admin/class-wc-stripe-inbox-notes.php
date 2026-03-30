@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Stripe_Inbox_Notes {
 	const SUCCESS_NOTE_NAME = 'stripe-apple-pay-marketing-guide-holiday-2020';
-	const FAILURE_NOTE_NAME = 'stripe-apple-pay-domain-verification-needed';
+	const FAILURE_NOTE_NAME = 'stripe-apple-pay-domain-registration-needed';
 
 	const POST_SETUP_SUCCESS_ACTION    = 'wc_stripe_apple_pay_post_setup_success';
 	const CAMPAIGN_2020_CLEANUP_ACTION = 'wc_stripe_apple_pay_2020_cleanup';
@@ -32,6 +32,11 @@ class WC_Stripe_Inbox_Notes {
 		}
 	}
 
+	/**
+	 * Check if inbox notes are supported.
+	 *
+	 * @return bool True if inbox notes are supported, false otherwise.
+	 */
 	public static function are_inbox_notes_supported() {
 		if ( ! class_exists( 'WC_Data_Store' ) ) {
 			return false;
@@ -46,6 +51,11 @@ class WC_Stripe_Inbox_Notes {
 		return trait_exists( 'Automattic\WooCommerce\Admin\Notes\NoteTraits' ) && class_exists( 'Automattic\WooCommerce\Admin\Notes\Note' );
 	}
 
+	/**
+	 * Create UPE notes.
+	 *
+	 * @return void
+	 */
 	public static function create_upe_notes() {
 		if ( ! self::are_inbox_notes_supported() ) {
 			return;
@@ -54,14 +64,32 @@ class WC_Stripe_Inbox_Notes {
 		require_once WC_STRIPE_PLUGIN_PATH . '/includes/notes/class-wc-stripe-upe-availability-note.php';
 		WC_Stripe_UPE_Availability_Note::init();
 
+		$gateway = WC_Stripe::get_instance()->get_main_stripe_gateway();
+
 		require_once WC_STRIPE_PLUGIN_PATH . '/includes/notes/class-wc-stripe-upe-stripelink-note.php';
-		WC_Stripe_UPE_StripeLink_Note::init( WC_Stripe::get_instance()->get_main_stripe_gateway() );
+		WC_Stripe_UPE_StripeLink_Note::init( $gateway );
+
+		require_once WC_STRIPE_PLUGIN_PATH . '/includes/notes/class-wc-stripe-bnpl-promotion-note.php';
+		WC_Stripe_BNPL_Promotion_Note::init( $gateway );
+
+		require_once WC_STRIPE_PLUGIN_PATH . '/includes/notes/class-wc-stripe-oc-promotion-note.php';
+		WC_Stripe_OC_Promotion_Note::init( $gateway );
 	}
 
+	/**
+	 * Get the cutoff timestamp for the 2020 holiday campaign.
+	 *
+	 * @return int The cutoff timestamp.
+	 */
 	public static function get_campaign_2020_cutoff() {
 		return strtotime( '22 December 2020' );
 	}
 
+	/**
+	 * Get the success note title.
+	 *
+	 * @return string The success note title.
+	 */
 	public static function get_success_title() {
 		if ( time() < self::get_campaign_2020_cutoff() ) {
 			return __( 'Boost sales this holiday season with Apple Pay!', 'woocommerce-gateway-stripe' );
@@ -71,9 +99,13 @@ class WC_Stripe_Inbox_Notes {
 	}
 
 	/**
-	 * Manage notes to show after Apple Pay domain verification.
+	 * Manage notes to show after domain registration.
+	 *
+	 * @param bool $registration_complete Whether the domain registration was successful.
+	 *
+	 * @return void
 	 */
-	public static function notify_on_apple_pay_domain_verification( $verification_complete ) {
+	public static function notify_on_apple_pay_domain_registration( $registration_complete ) {
 		$admin_notes_class = WC_Stripe_Woo_Compat_Utils::get_notes_class();
 		if ( ! class_exists( $admin_notes_class ) || ! class_exists( 'WC_Data_Store' ) ) {
 			return;
@@ -90,18 +122,20 @@ class WC_Stripe_Inbox_Notes {
 			}
 		} catch ( Exception $e ) {} // @codingStandardsIgnoreLine
 
-		if ( $verification_complete ) {
+		if ( $registration_complete ) {
 			if ( self::should_show_marketing_note() && ! wp_next_scheduled( self::POST_SETUP_SUCCESS_ACTION ) ) {
 				wp_schedule_single_event( time() + DAY_IN_SECONDS, self::POST_SETUP_SUCCESS_ACTION );
 			}
 		} else {
-			// Create new note if verification failed.
+			// Create new note if registration failed.
 			self::create_failure_note();
 		}
 	}
 
 	/**
 	 * Whether conditions are right for the marketing note.
+	 *
+	 * @return bool True if the marketing note should be shown, false otherwise.
 	 */
 	public static function should_show_marketing_note() {
 		// Display to US merchants only.
@@ -111,11 +145,11 @@ class WC_Stripe_Inbox_Notes {
 		}
 
 		// Make sure Apple Pay is enabled and setup is successful.
-		$stripe_settings       = get_option( 'woocommerce_stripe_settings', [] );
+		$stripe_settings       = WC_Stripe_Helper::get_stripe_settings();
 		$stripe_enabled        = isset( $stripe_settings['enabled'] ) && 'yes' === $stripe_settings['enabled'];
-		$button_enabled        = isset( $stripe_settings['payment_request'] ) && 'yes' === $stripe_settings['payment_request'];
-		$verification_complete = isset( $stripe_settings['apple_pay_domain_set'] ) && 'yes' === $stripe_settings['apple_pay_domain_set'];
-		if ( ! $stripe_enabled || ! $button_enabled || ! $verification_complete ) {
+		$button_enabled        = isset( $stripe_settings['express_checkout'] ) && 'yes' === $stripe_settings['express_checkout'];
+		$registration_complete = isset( $stripe_settings['apple_pay_domain_set'] ) && 'yes' === $stripe_settings['apple_pay_domain_set'];
+		if ( ! $stripe_enabled || ! $button_enabled || ! $registration_complete ) {
 			return false;
 		}
 
@@ -135,6 +169,8 @@ class WC_Stripe_Inbox_Notes {
 
 	/**
 	 * If conditions are right, show note promoting Apple Pay marketing guide.
+	 *
+	 * @return void
 	 */
 	public static function create_marketing_note() {
 		// Make sure conditions for this note still hold.
@@ -160,21 +196,23 @@ class WC_Stripe_Inbox_Notes {
 	}
 
 	/**
-	 * Show note indicating domain verification failure.
+	 * Show note indicating domain registration failure.
+	 *
+	 * @return void
 	 */
 	public static function create_failure_note() {
 		try {
 			$admin_note_class = WC_Stripe_Woo_Compat_Utils::get_note_class();
 			$note             = new $admin_note_class();
-			$note->set_title( __( 'Apple Pay domain verification needed', 'woocommerce-gateway-stripe' ) );
-			$note->set_content( __( 'The WooCommerce Stripe Gateway extension attempted to perform domain verification on behalf of your store, but was unable to do so. This must be resolved before Apple Pay can be offered to your customers.', 'woocommerce-gateway-stripe' ) );
+			$note->set_title( __( 'Apple Pay domain registration needed', 'woocommerce-gateway-stripe' ) );
+			$note->set_content( __( 'The WooCommerce Stripe Gateway extension attempted to perform domain registration on behalf of your store, but was unable to do so. This must be resolved before Apple Pay can be offered to your customers.', 'woocommerce-gateway-stripe' ) );
 			$note->set_type( $admin_note_class::E_WC_ADMIN_NOTE_INFORMATIONAL );
 			$note->set_name( self::FAILURE_NOTE_NAME );
 			$note->set_source( 'woocommerce-gateway-stripe' );
 			$note->add_action(
 				'learn-more',
 				__( 'Learn more', 'woocommerce-gateway-stripe' ),
-				'https://woocommerce.com/document/stripe/#apple-pay'
+				'https://woocommerce.com/document/stripe/setup-and-configuration/express-checkouts/#apple-pay-requirements'
 			);
 			$note->save();
 		} catch ( Exception $e ) {} // @codingStandardsIgnoreLine.
@@ -184,6 +222,8 @@ class WC_Stripe_Inbox_Notes {
 	 * Destroy unactioned inbox notes from the 2020 holiday campaign, replacing
 	 * them with a non-holiday note promoting Apple Pay. This will be run once
 	 * on/about 2020 Dec 22.
+	 *
+	 * @return void
 	 */
 	public static function cleanup_campaign_2020() {
 		if ( ! self::are_inbox_notes_supported() ) {
@@ -226,5 +266,3 @@ class WC_Stripe_Inbox_Notes {
 		}
 	}
 }
-
-new WC_Stripe_Inbox_Notes();

@@ -1,14 +1,12 @@
 <?php
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
-use Automattic\WooCommerce\Blocks\Payments\PaymentResult;
-use Automattic\WooCommerce\Blocks\Payments\PaymentContext;
+use Automattic\WooCommerce\StoreApi\Payments\PaymentResult;
+use Automattic\WooCommerce\StoreApi\Payments\PaymentContext;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * WC_Stripe_Blocks_Support class.
- *
- * @extends AbstractPaymentMethodType
  */
 final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	/**
@@ -19,30 +17,47 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	protected $name = 'stripe';
 
 	/**
-	 * The Payment Request configuration class used for Shortcode PRBs. We use it here to retrieve
+	 * The Express Checkout configuration class used for Shortcode PRBs. We use it here to retrieve
 	 * the same configurations.
 	 *
-	 * @var WC_Stripe_Payment_Request
+	 * @var WC_Stripe_Express_Checkout_Element
 	 */
-	private $payment_request_configuration;
+	private $express_checkout_configuration;
 
 	/**
 	 * Constructor
 	 *
-	 * @param WC_Stripe_Payment_Request  The Stripe Payment Request configuration used for Payment
-	 *                                   Request buttons.
+	 * @param mixed                                   $payment_request_configuration The Stripe Payment Request configuration used for Payment Request buttons (removed).
+	 * @param WC_Stripe_Express_Checkout_Element|null $express_checkout_configuration The Stripe Express Checkout configuration used for Express Checkout buttons.
+	 *
+	 * @deprecated Parameter $payment_request_configuration is deprecated since version 10.4.0 and will be removed in later versions.
 	 */
-	public function __construct( $payment_request_configuration = null ) {
+	public function __construct( $payment_request_configuration = null, ?WC_Stripe_Express_Checkout_Element $express_checkout_configuration = null ) {
+		if ( null !== $payment_request_configuration ) {
+			_deprecated_argument(
+				__FUNCTION__,
+				'10.4.0'
+			);
+		}
+
 		add_action( 'woocommerce_rest_checkout_process_payment_with_context', [ $this, 'add_payment_request_order_meta' ], 8, 2 );
 		add_action( 'woocommerce_rest_checkout_process_payment_with_context', [ $this, 'add_stripe_intents' ], 9999, 2 );
-		$this->payment_request_configuration = null !== $payment_request_configuration ? $payment_request_configuration : new WC_Stripe_Payment_Request();
+
+		if ( null === $express_checkout_configuration ) {
+			$helper                         = new WC_Stripe_Express_Checkout_Helper();
+			$ajax_handler                   = new WC_Stripe_Express_Checkout_Ajax_Handler( $helper );
+			$express_checkout_configuration = new WC_Stripe_Express_Checkout_Element( $ajax_handler, $helper );
+		}
+		$this->express_checkout_configuration = $express_checkout_configuration;
 	}
 
 	/**
 	 * Initializes the payment method type.
+	 *
+	 * @return void
 	 */
 	public function initialize() {
-		$this->settings = get_option( 'woocommerce_stripe_settings', [] );
+		$this->settings = WC_Stripe_Helper::get_stripe_settings();
 	}
 
 	/**
@@ -82,26 +97,24 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 		// Ensure Stripe JS is enqueued
 		wp_register_script(
 			'stripe',
-			'https://js.stripe.com/v3/',
+			'https://js.stripe.com/clover/stripe.js',
 			[],
-			'3.0',
+			null,
 			true
 		);
 
-		if ( WC_Stripe_Feature_Flags::is_upe_checkout_enabled() ) {
-			$this->register_upe_payment_method_script_handles();
-		} else {
-			$this->register_legacy_payment_method_script_handles();
-		}
+		$this->register_upe_payment_method_script_handles();
 
 		return [ 'wc-stripe-blocks-integration' ];
 	}
 
 	/**
 	 * Registers the UPE JS scripts.
+	 *
+	 * @return void
 	 */
 	private function register_upe_payment_method_script_handles() {
-		$asset_path   = WC_STRIPE_PLUGIN_PATH . '/build/upe_blocks.asset.php';
+		$asset_path   = WC_STRIPE_PLUGIN_PATH . '/build/upe-blocks.asset.php';
 		$version      = WC_STRIPE_VERSION;
 		$dependencies = [];
 		if ( file_exists( $asset_path ) ) {
@@ -116,14 +129,14 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 
 		wp_enqueue_style(
 			'wc-stripe-blocks-checkout-style',
-			WC_STRIPE_PLUGIN_URL . '/build/upe_blocks.css',
+			WC_STRIPE_PLUGIN_URL . '/build/upe-blocks.css',
 			[],
 			$version
 		);
 
 		wp_register_script(
 			'wc-stripe-blocks-integration',
-			WC_STRIPE_PLUGIN_URL . '/build/upe_blocks.js',
+			WC_STRIPE_PLUGIN_URL . '/build/upe-blocks.js',
 			array_merge( [ 'stripe' ], $dependencies ),
 			$version,
 			true
@@ -136,6 +149,8 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 
 	/**
 	 * Registers the classic JS scripts.
+	 *
+	 * @return void
 	 */
 	private function register_legacy_payment_method_script_handles() {
 		$asset_path   = WC_STRIPE_PLUGIN_PATH . '/build/index.asset.php';
@@ -173,68 +188,45 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 		// what's provided from the gateway or payment request configuration.
 		return array_replace_recursive(
 			$this->get_gateway_javascript_params(),
-			$this->get_payment_request_javascript_params(),
+			$this->get_express_checkout_javascript_params(),
 			// Blocks-specific options
 			[
-				'icons'                          => $this->get_icons(),
-				'supports'                       => $this->get_supported_features(),
-				'showSavedCards'                 => $this->get_show_saved_cards(),
-				'showSaveOption'                 => $this->get_show_save_option(),
-				'isAdmin'                        => is_admin(),
-				'shouldShowPaymentRequestButton' => $this->should_show_payment_request_button(),
-				'button'                         => [
-					'customLabel' => $this->payment_request_configuration->get_button_label(),
+				'icons'                           => $this->get_icons(),
+				'plugin_url'                      => WC_STRIPE_PLUGIN_URL,
+				'supports'                        => $this->get_supported_features(),
+				'showSavedCards'                  => $this->get_show_saved_cards(),
+				'showSaveOption'                  => $this->get_show_save_option(),
+				'isAdmin'                         => is_admin(),
+				'shouldShowExpressCheckoutButton' => $this->should_show_express_checkout_button(),
+				'button'                          => [
+					'customLabel' => '',
 				],
+				'style'                           => $this->get_style(),
+				'baseLocation'                    => wc_get_base_location(),
 			]
 		);
 	}
 
 	/**
-	 * Returns true if the PRB should be shown on the current page, false otherwise.
+	 * Returns an array of style properties supported by the payment method.
+	 * This method is used only when rendering the payment method in the editor.
 	 *
-	 * Note: We use `has_block()` in this function, which isn't supported until WP 5.0. However,
-	 * WooCommerce Blocks hasn't supported a WP version lower than 5.0 since 2019. Since this
-	 * function is only called when the WooCommerce Blocks extension is available, it should be
-	 * safe to call `has_block()` here.
-	 * That said, we only run those checks if the `has_block()` function exists, just in case.
-	 *
-	 * @return boolean  True if PRBs should be displayed, false otherwise
+	 * @return array Array of style properties.
 	 */
-	private function should_show_payment_request_button() {
-		// TODO: Remove the `function_exists()` check once the minimum WP version has been bumped
-		//       to version 5.0.
-		if ( function_exists( 'has_block' ) ) {
-			// Don't show if PRBs are turned off entirely.
-			if ( ! $this->payment_request_configuration->is_at_least_one_payment_request_button_enabled() ) {
-				return false;
-			}
+	private function get_style() {
+		return [
+			'height',
+			'borderRadius',
+		];
+	}
 
-			// Don't show if PRBs are supposed to be hidden on the cart page.
-			if (
-				has_block( 'woocommerce/cart' )
-				&& ! $this->payment_request_configuration->should_show_prb_on_cart_page()
-			) {
-				return false;
-			}
-
-			// Don't show if PRBs are supposed to be hidden on the checkout page.
-			if (
-				has_block( 'woocommerce/checkout' )
-				&& ! $this->payment_request_configuration->should_show_prb_on_checkout_page()
-			) {
-				return false;
-			}
-
-			// Don't show PRB if there are unsupported products in the cart.
-			if (
-				( has_block( 'woocommerce/checkout' ) || has_block( 'woocommerce/cart' ) )
-				&& ! $this->payment_request_configuration->allowed_items_in_cart()
-			) {
-				return false;
-			}
-		}
-
-		return $this->payment_request_configuration->should_show_payment_request_button();
+	/**
+	 * Returns true if the ECE should be shown on the current page, false otherwise.
+	 *
+	 * @return boolean True if ECEs should be displayed, false otherwise.
+	 */
+	private function should_show_express_checkout_button() {
+		return $this->express_checkout_configuration->express_checkout_helper->should_show_express_checkout_button();
 	}
 
 	/**
@@ -259,14 +251,14 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	}
 
 	/**
-	 * Returns the Stripe Payment Request JavaScript configuration object.
+	 * Returns the Stripe Express Checkout JavaScript configuration object.
 	 *
-	 * @return array  the JS configuration for Stripe Payment Requests.
+	 * @return array  the JS configuration for Stripe Express Checkout.
 	 */
-	private function get_payment_request_javascript_params() {
+	private function get_express_checkout_javascript_params() {
 		return apply_filters(
-			'wc_stripe_payment_request_params',
-			$this->payment_request_configuration->javascript_params()
+			'wc_stripe_express_checkout_params',
+			$this->express_checkout_configuration->javascript_params()
 		);
 	}
 
@@ -287,8 +279,8 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	private function get_show_save_option() {
 		$saved_cards = $this->get_show_saved_cards();
 		// This assumes that Stripe supports `tokenization` - currently this is true, based on
-		// https://github.com/woocommerce/woocommerce-gateway-stripe/blob/master/includes/class-wc-gateway-stripe.php#L95 .
-		// See https://github.com/woocommerce/woocommerce-gateway-stripe/blob/ad19168b63df86176cbe35c3e95203a245687640/includes/class-wc-gateway-stripe.php#L271 and
+		// https://github.com/woocommerce/woocommerce-gateway-stripe/blob/master/includes/payment-methods/class-wc-stripe-upe-payment-gateway.php#L222.
+		// See https://github.com/woocommerce/woocommerce-gateway-stripe/blob/master/includes/payment-methods/class-wc-stripe-upe-payment-gateway.php#L905 and
 		// https://github.com/woocommerce/woocommerce/wiki/Payment-Token-API .
 		return apply_filters( 'wc_stripe_display_save_payment_method_checkbox', filter_var( $saved_cards, FILTER_VALIDATE_BOOLEAN ) );
 	}
@@ -323,7 +315,7 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 			],
 		];
 
-		if ( 'USD' === get_woocommerce_currency() ) {
+		if ( WC_Stripe_Currency_Code::UNITED_STATES_DOLLAR === get_woocommerce_currency() ) {
 			$icons_src['discover'] = [
 				'src' => WC_STRIPE_PLUGIN_URL . '/assets/images/discover.svg',
 				'alt' => _x( 'Discover', 'Name of credit card', 'woocommerce-gateway-stripe' ),
@@ -346,11 +338,15 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	 *
 	 * @param PaymentContext $context Holds context for the payment.
 	 * @param PaymentResult  $result  Result object for the payment.
+	 *
+	 * @return void
 	 */
 	public function add_payment_request_order_meta( PaymentContext $context, PaymentResult &$result ) {
 		$data = $context->payment_data;
 		if ( ! empty( $data['payment_request_type'] ) && 'stripe' === $context->payment_method ) {
 			$this->add_order_meta( $context->order, $data['payment_request_type'] );
+		} elseif ( ! empty( $data['express_checkout_type'] ) && 'stripe' === $context->payment_method ) {
+			$this->add_order_meta( $context->order, $data['express_checkout_type'] );
 		}
 
 		$is_stripe_payment_method = $this->name === $context->payment_method;
@@ -372,15 +368,23 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 		 * When using UPE on the block checkout and a saved token is being used, we need to set a flag
 		 * to indicate that deferred intent should be used.
 		 */
-		if ( $is_upe && isset( $data['issavedtoken'] ) && $data['issavedtoken'] ) {
-			$context->set_payment_data( array_merge( $data, [ 'wc-stripe-is-deferred-intent' => true ] ) );
+		$is_using_saved_token = isset( $data['issavedtoken'] ) && $data['issavedtoken'];
+
+		// For split UPE gateways (e.g., stripe_us_bank_account), WooCommerce Blocks doesn't set the isSavedToken flag.
+		// Check if a payment token is being used by looking for the wc-{gateway_id}-payment-token field.
+		if ( ! $is_using_saved_token && ! empty( $data['token'] ) ) {
+			// Payment data keys use underscores, not hyphens (e.g., wc-stripe_us_bank_account-payment-token).
+			$token_key = 'wc-' . $context->payment_method . '-payment-token';
+			if ( isset( $data[ $token_key ] ) && ! empty( $data[ $token_key ] ) ) {
+				$is_using_saved_token = true;
+			}
 		}
 
 		// Hook into Stripe error processing so that we can capture the error to payment details.
 		// This error would have been registered via wc_add_notice() and thus is not helpful for block checkout processing.
 		add_action(
 			'wc_gateway_stripe_process_payment_error',
-			function( $error ) use ( &$result ) {
+			function ( $error ) use ( &$result ) {
 				$payment_details                 = $result->payment_details;
 				$payment_details['errorMessage'] = wp_strip_all_tags( $error->getLocalizedMessage() );
 				$result->set_payment_details( $payment_details );
@@ -397,6 +401,8 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	 *
 	 * @param PaymentContext $context Holds context for the payment.
 	 * @param PaymentResult  $result  Result object for the payment.
+	 *
+	 * @return void
 	 */
 	public function add_stripe_intents( PaymentContext $context, PaymentResult &$result ) {
 		if ( 'stripe' === $context->payment_method
@@ -410,9 +416,10 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 				[
 					'order'       => $context->order->get_id(),
 					'nonce'       => wp_create_nonce( 'wc_stripe_confirm_pi' ),
+					'intent_id'   => $payment_details['payment_intent_id'],
 					'redirect_to' => rawurlencode( $result->redirect_url ),
 				],
-				home_url() . \WC_Ajax::get_endpoint( 'wc_stripe_verify_intent' )
+				home_url() . \WC_AJAX::get_endpoint( 'wc_stripe_verify_intent' )
 			);
 
 			if ( ! empty( $payment_details['save_payment_method'] ) ) {
@@ -431,18 +438,28 @@ final class WC_Stripe_Blocks_Support extends AbstractPaymentMethodType {
 	/**
 	 * Handles adding information about the payment request type used to the order meta.
 	 *
-	 * @param \WC_Order $order The order being processed.
+	 * @param \WC_Order $order                The order being processed.
 	 * @param string    $payment_request_type The payment request type used for payment.
+	 *
+	 * @return void
 	 */
 	private function add_order_meta( \WC_Order $order, $payment_request_type ) {
-		if ( 'apple_pay' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Apple Pay (Stripe)' );
-			$order->save();
-		} elseif ( 'google_pay' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Google Pay (Stripe)' );
-			$order->save();
-		} elseif ( 'payment_request_api' === $payment_request_type ) {
-			$order->set_payment_method_title( 'Payment Request (Stripe)' );
+		$payment_method_title = '';
+		switch ( $payment_request_type ) {
+			case WC_Stripe_Payment_Methods::APPLE_PAY:
+				$payment_method_title = WC_Stripe_Payment_Methods::APPLE_PAY_LABEL;
+				break;
+			case WC_Stripe_Payment_Methods::GOOGLE_PAY:
+				$payment_method_title = WC_Stripe_Payment_Methods::GOOGLE_PAY_LABEL;
+				break;
+			case 'payment_request_api':
+				$payment_method_title = WC_Stripe_Payment_Methods::PAYMENT_REQUEST_LABEL;
+				break;
+		}
+
+		if ( $payment_method_title ) {
+			$payment_method_suffix = WC_Stripe_Express_Checkout_Helper::get_payment_method_title_suffix();
+			$order->set_payment_method_title( $payment_method_title . $payment_method_suffix );
 			$order->save();
 		}
 	}

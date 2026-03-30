@@ -1,6 +1,6 @@
 /* global wc_stripe_params, Stripe */
 
-jQuery( function( $ ) {
+jQuery( function($ ) {
 	'use strict';
 
 	try {
@@ -92,7 +92,7 @@ jQuery( function( $ ) {
 			elementClasses = wc_stripe_params.elements_classes ? wc_stripe_params.elements_classes : elementClasses;
 
 			if ( 'yes' === wc_stripe_params.inline_cc_form ) {
-				stripe_card = elements.create( 'card', { style: elementStyles, hidePostalCode: true } );
+				stripe_card = elements.create( 'card', { style: elementStyles, hidePostalCode: true, hideIcon: true } );
 
 				stripe_card.addEventListener( 'change', function( event ) {
 					wc_stripe_form.onCCFormChange();
@@ -102,7 +102,7 @@ jQuery( function( $ ) {
 					}
 				} );
 			} else {
-				stripe_card = elements.create( 'cardNumber', { style: elementStyles, classes: elementClasses } );
+				stripe_card = elements.create( 'cardNumber', { style: elementStyles, classes: elementClasses, showIcon: false } );
 				stripe_exp  = elements.create( 'cardExpiry', { style: elementStyles, classes: elementClasses } );
 				stripe_cvc  = elements.create( 'cardCvc', { style: elementStyles, classes: elementClasses } );
 
@@ -885,8 +885,13 @@ jQuery( function( $ ) {
 				message = wc_stripe_params.invalid_request_error;
 			}
 
-			if ( wc_stripe_params.hasOwnProperty(result.error.code) ) {
+			if ( wc_stripe_params.hasOwnProperty( result.error.code ) ) {
 				message = wc_stripe_params[ result.error.code ];
+			}
+
+			// Correctly sets the insufficient funds message.
+			if ( 'card_declined' === result.error.code && 'insufficient_funds' === result.error?.decline_code ) {
+				message = wc_stripe_params.insufficient_funds;
 			}
 
 			wc_stripe_form.reset();
@@ -955,7 +960,7 @@ jQuery( function( $ ) {
 		 * in order to allow customers to confirm an 3DS/SCA authorization, or stripe.handleCardSetup if
 		 * what needs to be confirmed is a SetupIntent.
 		 *
-		 * Those redirects/hashes are generated in `WC_Gateway_Stripe::process_payment`.
+		 * Those redirects/hashes are generated in `WC_Stripe_UPE_Payment_Gateway::process_payment`.
 		 */
 		onHashChange: function() {
 			var partials = window.location.hash.match( /^#?confirm-(pi|si)-([^:]+):(.+)$/ );
@@ -1007,7 +1012,8 @@ jQuery( function( $ ) {
 						return;
 					}
 
-					window.location = redirectURL;
+					var intentId = intent?.id;
+					window.location = redirectURL + ( intentId ? '&intent_id=' + encodeURIComponent( intentId ) : '' );
 				} )
 				.catch( function( error ) {
 					if ( alwaysRedirect ) {

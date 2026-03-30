@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Stripe_UPE_Payment_Method_Link extends WC_Stripe_UPE_Payment_Method {
 
-	const STRIPE_ID = 'link';
+	const STRIPE_ID = WC_Stripe_Payment_Methods::LINK;
 
 	/**
 	 * Constructor for Link payment method
@@ -16,29 +16,30 @@ class WC_Stripe_UPE_Payment_Method_Link extends WC_Stripe_UPE_Payment_Method {
 	public function __construct() {
 		parent::__construct();
 		$this->stripe_id   = self::STRIPE_ID;
-		$this->title       = __( 'Link', 'woocommerce-gateway-stripe' );
+		// Note that the title and label are not translated, as "Link" should not be translated.
+		$this->title       = 'Link';
 		$this->is_reusable = true;
-		$this->label       = __( 'Stripe Link', 'woocommerce-gateway-stripe' );
-		$this->description = __(
-			'Link is a payment method that allows customers to save payment information  and use the payment details
-			for further payments.',
-			'woocommerce-gateway-stripe'
+		$this->label       = 'Stripe Link';
+		$this->description = sprintf(
+			/* translators: %s: "Link" - a product name that should not be translated. */
+			__(
+				'%s is a payment method that allows customers to save payment information and use the payment details for further payments.',
+				'woocommerce-gateway-stripe'
+			),
+			'Link'
 		);
+
+		add_filter( 'woocommerce_gateway_title', [ $this, 'filter_gateway_title' ], 10, 2 );
 	}
 
 	/**
 	 * Return if Stripe Link is enabled
 	 *
+	 * @param WC_Stripe_UPE_Payment_Gateway $gateway The gateway instance.
 	 * @return bool
 	 */
-	public static function is_link_enabled() {
-
-		// Assume Link is disabled if UPE is disabled.
-		if ( ! WC_Stripe_Feature_Flags::is_upe_checkout_enabled() ) {
-			return false;
-		}
-
-		$upe_enabled_method_ids = WC_Stripe_Helper::get_settings( null, 'upe_checkout_experience_accepted_payments' );
+	public static function is_link_enabled( WC_Stripe_UPE_Payment_Gateway $gateway ) {
+		$upe_enabled_method_ids = $gateway->get_upe_enabled_payment_method_ids();
 
 		return is_array( $upe_enabled_method_ids ) && in_array( self::STRIPE_ID, $upe_enabled_method_ids, true );
 	}
@@ -109,5 +110,35 @@ class WC_Stripe_UPE_Payment_Method_Link extends WC_Stripe_UPE_Payment_Method {
 	 */
 	public function requires_automatic_capture() {
 		return false;
+	}
+
+	/**
+	 * Filters the gateway title to reflect Link as the payment method.
+	 *
+	 * @param string $title The gateway title.
+	 * @param string $id The gateway ID.
+	 * @return string
+	 */
+	public function filter_gateway_title( $title, $id ) {
+		global $theorder;
+
+		// If $theorder is empty (i.e. non-HPOS), fallback to using the global post object.
+		if ( empty( $theorder ) && ! empty( $GLOBALS['post']->ID ) ) {
+			$theorder = wc_get_order( $GLOBALS['post']->ID );
+		}
+
+		if ( ! is_object( $theorder ) ) {
+			return $title;
+		}
+
+		$method_title = $theorder->get_payment_method_title();
+
+		if ( 'stripe' === $id && ! empty( $method_title ) ) {
+			if ( WC_Stripe_Payment_Methods::LINK_LABEL === $method_title ) {
+				return $method_title;
+			}
+		}
+
+		return $title;
 	}
 }

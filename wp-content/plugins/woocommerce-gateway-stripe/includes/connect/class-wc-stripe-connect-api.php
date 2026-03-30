@@ -18,13 +18,14 @@ if ( ! class_exists( 'WC_Stripe_Connect_API' ) ) {
 		/**
 		 * Send request to Connect Server to initiate Stripe OAuth
 		 *
-		 * @param  string $return_url return address.
+		 * @param string $return_url The URL to return to after the OAuth is completed.
+		 * @param string $mode       Optional. The mode to connect to. 'live' or 'test'. Default is 'live'.
 		 *
-		 * @return array
+		 * @return array|WP_Error The response from the server.
 		 */
-		public function get_stripe_oauth_init( $return_url ) {
-
+		public function get_stripe_oauth_init( $return_url, $mode = 'live' ) {
 			$current_user                   = wp_get_current_user();
+			$account                        = WC_Stripe::get_instance()->account->get_cached_account_data( $mode );
 			$business_data                  = [];
 			$business_data['url']           = get_site_url();
 			$business_data['business_name'] = html_entity_decode( get_bloginfo( 'name' ), ENT_QUOTES );
@@ -55,21 +56,54 @@ if ( ! class_exists( 'WC_Stripe_Connect_API' ) ) {
 				'businessData' => $business_data,
 			];
 
-			return $this->request( 'POST', '/stripe/oauth-init', $request );
+			// If the store is already connected to an account and the account is connected to an Application, send the account ID so
+			// api.woocommerce.com can determine the type of connection needed.
+			if ( isset( $account['id'], $account['controller']['type'] ) && 'application' === $account['controller']['type'] ) {
+				$request['accountId'] = $account['id'];
+			}
+
+			$path = 'test' === $mode ? '/stripe-sandbox/oauth-init' : '/stripe/oauth-init';
+
+			return $this->request( 'POST', $path, $request );
 		}
 
 		/**
 		 * Send request to Connect Server for Stripe keys
 		 *
-		 * @param  string $code OAuth server code.
+		 * @param string $code OAuth server code.
+		 * @param string $type Optional. The type of the connection. 'connect' or 'app'. Default is 'connect'.
+		 * @param string $mode Optional. The mode to connect to. 'live' or 'test'. Default is 'live'.
 		 *
 		 * @return array
 		 */
-		public function get_stripe_oauth_keys( $code ) {
-
+		public function get_stripe_oauth_keys( $code, $type = 'connect', $mode = 'live' ) {
 			$request = [ 'code' => $code ];
 
-			return $this->request( 'POST', '/stripe/oauth-keys', $request );
+			if ( 'app' === $type ) {
+				$request['mode'] = $mode;
+				return $this->request( 'POST', '/stripe/app-oauth-keys', $request );
+			}
+
+			$path = 'test' === $mode ? '/stripe-sandbox/oauth-keys' : '/stripe/oauth-keys';
+			return $this->request( 'POST', $path, $request );
+		}
+
+		/**
+		 * Sends a request to the Connect Server for Stripe App refreshed keys.
+		 *
+		 * @since 8.6.0
+		 *
+		 * @param string $refresh_token Stripe App OAuth refresh token.
+		 * @param string $mode          Optional. The mode to refresh keys for. 'live' or 'test'. Default is 'live'.
+		 *
+		 * @return array
+		 */
+		public function refresh_stripe_app_oauth_keys( $refresh_token, $mode = 'live' ) {
+			$request = [
+				'refreshToken' => $refresh_token,
+				'mode'         => $mode,
+			];
+			return $this->request( 'POST', '/stripe/app-oauth-keys-refresh', $request );
 		}
 
 		/**
@@ -91,13 +125,27 @@ if ( ! class_exists( 'WC_Stripe_Connect_API' ) ) {
 			}
 
 			$url = trailingslashit( WOOCOMMERCE_CONNECT_SERVER_URL );
-			$url = apply_filters( 'wc_connect_server_url', $url );
+			$url = apply_filters_deprecated(
+				'wc_connect_server_url',
+				[ $url ],
+				'9.6.0',
+				'',
+				'The wc_connect_server_url filter is deprecated since WooCommerce Stripe Gateway 9.6.0, and will be removed in a future version.'
+			);
 			$url = trailingslashit( $url ) . ltrim( $path, '/' );
 
 			// Add useful system information to requests that contain bodies.
 			if ( in_array( $method, [ 'POST', 'PUT' ], true ) ) {
 				$body = $this->request_body( $body );
-				$body = wp_json_encode( apply_filters( 'wc_connect_api_client_body', $body ) );
+				$body = wp_json_encode(
+					apply_filters_deprecated(
+						'wc_connect_api_client_body',
+						[ $body ],
+						'9.6.0',
+						'',
+						'The wc_connect_api_client_body filter is deprecated since WooCommerce Stripe Gateway 9.6.0, and will be removed in a future version.'
+					)
+				);
 
 				if ( ! $body ) {
 					return new WP_Error(
@@ -123,12 +171,45 @@ if ( ! class_exists( 'WC_Stripe_Connect_API' ) ) {
 				'timeout'     => $http_timeout,
 			];
 
-			$args          = apply_filters( 'wc_connect_request_args', $args );
+			$args = apply_filters_deprecated(
+				'wc_connect_request_args',
+				[ $args ],
+				'9.6.0',
+				'',
+				'The wc_connect_request_args filter is deprecated since WooCommerce Stripe Gateway 9.6.0, and will be removed in a future version.'
+			);
+
+			if ( WC_Stripe_Helper::is_verbose_debug_mode_enabled() ) {
+				// Log the request after the filters have been applied.
+				WC_Stripe_Logger::debug(
+					"OAuth: WCC API request: {$method} {$path}",
+					[
+						'current_stripe_api_key' => WC_Stripe_API::get_masked_secret_key(),
+						'url'                    => $url,
+						'headers'                => $headers,
+						'body'                   => WC_Stripe_Connect::redact_sensitive_data( json_decode( $body ) ),
+						'is_args_filtered'       => has_filter( 'wc_connect_request_args' ),
+					]
+				);
+			}
+
 			$response      = wp_remote_request( $url, $args );
 			$response_code = wp_remote_retrieve_response_code( $response );
 			$content_type  = wp_remote_retrieve_header( $response, 'content-type' );
 
 			if ( false === strpos( $content_type, 'application/json' ) ) {
+				if ( WC_Stripe_Helper::is_verbose_debug_mode_enabled() ) {
+					WC_Stripe_Logger::error(
+						"OAuth: WCC API unexpected response: {$method} {$path}",
+						[
+							'current_stripe_api_key' => WC_Stripe_API::get_masked_secret_key(),
+							'response_code'          => $response_code,
+							'response_content_type'  => $content_type,
+							'response'               => WC_Stripe_Connect::redact_sensitive_data( $response ),
+						]
+					);
+				}
+
 				if ( 200 !== $response_code ) {
 					return new WP_Error(
 						'wcc_server_error',
@@ -156,6 +237,18 @@ if ( ! class_exists( 'WC_Stripe_Connect_API' ) ) {
 			}
 
 			if ( 200 !== $response_code ) {
+				if ( WC_Stripe_Helper::is_verbose_debug_mode_enabled() ) {
+					WC_Stripe_Logger::error(
+						"OAuth: WCC API invalid response: {$method} {$path}",
+						[
+							'current_stripe_api_key' => WC_Stripe_API::get_masked_secret_key(),
+							'response_code'          => $response_code,
+							'response_content_type'  => $content_type,
+							'response_body'          => WC_Stripe_Connect::redact_sensitive_data( $response_body ),
+						]
+					);
+				}
+
 				if ( empty( $response_body ) ) {
 					return new WP_Error(
 						'wcc_server_empty_response',
@@ -181,6 +274,16 @@ if ( ! class_exists( 'WC_Stripe_Connect_API' ) ) {
 						$response_code
 					),
 					$data
+				);
+			}
+
+			if ( WC_Stripe_Helper::is_verbose_debug_mode_enabled() ) {
+				WC_Stripe_Logger::debug(
+					"OAuth: WCC API response: {$method} {$path}",
+					[
+						'current_stripe_api_key' => WC_Stripe_API::get_masked_secret_key(),
+						'response'               => WC_Stripe_Connect::redact_sensitive_data( $response_body ),
+					]
 				);
 			}
 

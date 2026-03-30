@@ -17,12 +17,14 @@ class WC_REST_Stripe_Tokens_Controller extends WC_Stripe_REST_Base_Controller {
 
 	/**
 	 * Register REST API routes for Stripe tokens.
+	 *
+	 * @return void
 	 */
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
 			// For more info on Stripe tokens, see the following:
-			// https://stripe.com/docs/api/tokens/object
+			// https://docs.stripe.com/api/tokens/object
 			'/' . $this->rest_base . '/(?P<token_id>[a-z]{3}_[a-zA-Z0-9]{24})',
 			[
 				'methods'             => WP_REST_Server::READABLE,

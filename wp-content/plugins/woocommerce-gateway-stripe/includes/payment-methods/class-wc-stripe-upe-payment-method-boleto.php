@@ -1,4 +1,8 @@
 <?php
+
+use Automattic\WooCommerce\Enums\OrderStatus;
+use Automattic\WooCommerce\Enums\PaymentGatewayFeature;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,9 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Stripe_UPE_Payment_Method_Boleto extends WC_Stripe_UPE_Payment_Method {
 
-	const STRIPE_ID = 'boleto';
-
-	const LPM_GATEWAY_CLASS = WC_Gateway_Stripe_Boleto::class;
+	const STRIPE_ID = WC_Stripe_Payment_Methods::BOLETO;
 
 	/**
 	 * Constructor for Boleto payment method
@@ -23,9 +25,9 @@ class WC_Stripe_UPE_Payment_Method_Boleto extends WC_Stripe_UPE_Payment_Method {
 		$this->can_refund           = false;
 		$this->title                = 'Boleto';
 		$this->is_reusable          = false;
-		$this->supported_currencies = [ 'BRL' ];
+		$this->supported_currencies = [ WC_Stripe_Currency_Code::BRAZILIAN_REAL ];
 		$this->supported_countries  = [ 'BR' ];
-		$this->supports             = [ 'products' ];
+		$this->supports             = [ PaymentGatewayFeature::PRODUCTS ];
 		$this->label                = __( 'Boleto', 'woocommerce-gateway-stripe' );
 		$this->description          = __(
 			'Boleto is an official payment method in Brazil. Customers receive a voucher that can be paid at authorized agencies or banks, ATMs, or online bank portals.',
@@ -38,14 +40,13 @@ class WC_Stripe_UPE_Payment_Method_Boleto extends WC_Stripe_UPE_Payment_Method {
 	/**
 	 * Adds on-hold as accepted status during webhook handling on orders paid with Boleto
 	 *
-	 * @param $allowed_statuses
-	 * @param $order
-	 *
-	 * @return mixed
+	 * @param array    $allowed_statuses The allowed statuses.
+	 * @param WC_Order $order            The order object.
+	 * @return array
 	 */
 	public function add_allowed_payment_processing_statuses( $allowed_statuses, $order ) {
-		if ( 'boleto' === $order->get_meta( '_stripe_upe_payment_type' ) && ! in_array( 'on-hold', $allowed_statuses ) ) {
-			$allowed_statuses[] = 'on-hold';
+		if ( WC_Stripe_Payment_Methods::BOLETO === WC_Stripe_Order_Helper::get_instance()->get_stripe_upe_payment_type( $order ) && ! in_array( OrderStatus::ON_HOLD, $allowed_statuses, true ) ) {
+			$allowed_statuses[] = OrderStatus::ON_HOLD;
 		}
 
 		return $allowed_statuses;

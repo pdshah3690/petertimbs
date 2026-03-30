@@ -37,6 +37,8 @@ abstract class WC_Stripe_Connect_REST_Controller extends WP_REST_Controller {
 
 	/**
 	 * Registers rest routes for stripe connect functionality
+	 *
+	 * @return void
 	 */
 	public function register_routes() {
 
@@ -94,7 +96,7 @@ abstract class WC_Stripe_Connect_REST_Controller extends WP_REST_Controller {
 
 		$this->prevent_route_caching();
 
-		return $this->get( $request );
+		return $this->get( $request ); // @phpstan-ignore-line (get method is defined in classes that use this class)
 	}
 
 	/**
@@ -108,7 +110,7 @@ abstract class WC_Stripe_Connect_REST_Controller extends WP_REST_Controller {
 
 		$this->prevent_route_caching();
 
-		return $this->post( $request );
+		return $this->post( $request ); // @phpstan-ignore-line (post method is defined in classes that use this class)
 	}
 
 	/**
@@ -122,7 +124,7 @@ abstract class WC_Stripe_Connect_REST_Controller extends WP_REST_Controller {
 
 		$this->prevent_route_caching();
 
-		return $this->delete( $request );
+		return $this->delete( $request ); // @phpstan-ignore-line (delete method is defined in classes that use this class)
 	}
 
 	/**
@@ -139,6 +141,8 @@ abstract class WC_Stripe_Connect_REST_Controller extends WP_REST_Controller {
 
 	/**
 	 * Consolidate cache prevention mechanisms.
+	 *
+	 * @return void
 	 */
 	public function prevent_route_caching() {
 

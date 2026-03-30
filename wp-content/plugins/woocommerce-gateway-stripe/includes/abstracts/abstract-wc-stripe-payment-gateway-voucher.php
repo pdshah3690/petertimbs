@@ -1,4 +1,7 @@
 <?php
+
+use Automattic\WooCommerce\Enums\OrderStatus;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract class that will be inherited by voucher payment methods.
  * Used by Boleto and OXXO
  *
- * @extends WC_Gateway_Stripe
+ * @extends WC_Stripe_UPE_Payment_Gateway
  *
  * @since 5.8.0
  */
@@ -120,11 +123,11 @@ abstract class WC_Stripe_Payment_Gateway_Voucher extends WC_Stripe_Payment_Gatew
 		// Load the settings.
 		$this->init_settings();
 
-		$main_settings              = get_option( 'woocommerce_stripe_settings' );
+		$main_settings              = WC_Stripe_Helper::get_stripe_settings();
 		$this->title                = $this->get_option( 'title' );
 		$this->description          = $this->get_option( 'description' );
 		$this->enabled              = $this->get_option( 'enabled' );
-		$this->testmode             = ( ! empty( $main_settings['testmode'] ) && 'yes' === $main_settings['testmode'] ) ? true : false;
+		$this->testmode             = WC_Stripe_Mode::is_test();
 		$this->publishable_key      = ! empty( $main_settings['publishable_key'] ) ? $main_settings['publishable_key'] : '';
 		$this->secret_key           = ! empty( $main_settings['secret_key'] ) ? $main_settings['secret_key'] : '';
 		$this->statement_descriptor = ! empty( $main_settings['statement_descriptor'] ) ? $main_settings['statement_descriptor'] : '';
@@ -223,7 +226,7 @@ abstract class WC_Stripe_Payment_Gateway_Voucher extends WC_Stripe_Payment_Gatew
 		$stripe_params = parent::javascript_params();
 
 		if ( $this->is_valid_pay_for_order_endpoint() ) {
-			$order_id = absint( get_query_var( 'order-pay' ) );
+			$order_id                          = absint( get_query_var( 'order-pay' ) );
 			$stripe_params['stripe_order_key'] = ! empty( $order_id ) ? wc_get_order( $order_id )->get_order_key() : null;
 		}
 
@@ -261,11 +264,13 @@ abstract class WC_Stripe_Payment_Gateway_Voucher extends WC_Stripe_Payment_Gatew
 
 			$intent = $this->create_or_update_payment_intent( $order );
 
-			$order->update_meta_data( '_stripe_upe_payment_type', $this->stripe_id );
-			$order->update_status( 'pending', __( 'Awaiting payment.', 'woocommerce-gateway-stripe' ) );
+			$order_helper = WC_Stripe_Order_Helper::get_instance();
+
+			$order_helper->update_stripe_upe_payment_type( $order, $this->stripe_id );
+			$order->update_status( OrderStatus::PENDING, __( 'Awaiting payment.', 'woocommerce-gateway-stripe' ) );
 			$order->save();
 
-			WC_Stripe_Helper::add_payment_intent_to_order( $intent->id, $order );
+			$order_helper->add_payment_intent_to_order( $intent->id, $order );
 
 			return [
 				'result'               => 'success',
@@ -277,13 +282,13 @@ abstract class WC_Stripe_Payment_Gateway_Voucher extends WC_Stripe_Payment_Gatew
 			];
 		} catch ( WC_Stripe_Exception $e ) {
 			wc_add_notice( $e->getLocalizedMessage(), 'error' );
-			WC_Stripe_Logger::log( 'Error: ' . $e->getMessage() );
+			WC_Stripe_Logger::error( 'Error processing voucher payment', [ 'error_message' => $e->getMessage() ] );
 
 			do_action( 'wc_gateway_stripe_process_payment_error', $e, $order );
 
 			$statuses = apply_filters(
 				'wc_stripe_allowed_payment_processing_statuses',
-				[ 'pending', 'failed' ],
+				[ OrderStatus::PENDING, OrderStatus::FAILED ],
 				$order
 			);
 
@@ -382,8 +387,8 @@ abstract class WC_Stripe_Payment_Gateway_Voucher extends WC_Stripe_Payment_Gatew
 			$order->set_payment_method( $this );
 			$intent = $this->create_or_update_payment_intent( $order );
 
-			$order->update_status( 'pending', __( 'Awaiting payment.', 'woocommerce-gateway-stripe' ) );
-			$order->update_meta_data( '_stripe_upe_payment_type', $this->stripe_id );
+			$order->update_status( OrderStatus::PENDING, __( 'Awaiting payment.', 'woocommerce-gateway-stripe' ) );
+			WC_Stripe_Order_Helper::get_instance()->update_stripe_upe_payment_type( $order, $this->stripe_id );
 			$order->save();
 
 			wp_send_json(
