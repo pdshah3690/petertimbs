@@ -36,6 +36,7 @@ if( !function_exists('nectar_slider_processing') ) {
 			"min_slider_height" => '', 
 			"loop" => 'false', 
 			'fullscreen' => 'false', 
+			'heading_tag' => 'default',
 			"bullet_navigation" => 'false', 
 			"bullet_navigation_style" => 'see_through', 
 			"disable_parallax_mobile" => '', 
@@ -47,11 +48,15 @@ if( !function_exists('nectar_slider_processing') ) {
 			"full_width" => '', 
 			"slider_height" => '650', 
 			"desktop_swipe" => 'false', 
+			'image_loading' => 'normal',
 			"location" => ''), $atts));   
 	    
 	  if($overall_style === 'directional') {
 	    $desktop_swipe = 'false';
 	  }
+
+	  wp_enqueue_script('nectar-slider');
+	  wp_enqueue_style('nectar-slider');
 	    
 	  if( isset($_GET['vc_editable']) ) {
 	  	$nectar_using_VC_front_end_editor = sanitize_text_field($_GET['vc_editable']);
@@ -86,8 +91,10 @@ if( !function_exists('nectar_slider_processing') ) {
 		  'overall_style'              => $overall_style,
 		  'slider_button_styling'      => $slider_button_styling,
 		  'loop'                       => $loop,
+			'image_loading'              => $image_loading,
 		  'fullscreen'                 => $fullscreen,
 		  'button_sizing'              => $button_sizing,
+			'heading_tag'                => $heading_tag,
 		  'location'                   => $location,
 	    'bg_animation'               => $bg_animation,
 	    'caption_transition'         => $caption_transition,

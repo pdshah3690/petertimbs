@@ -1,5 +1,10 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_action('add_meta_boxes', 'nectar_metabox_nectar_slider');
 
 if( !function_exists('nectar_metabox_nectar_slider') ) {
@@ -278,6 +283,14 @@ if( !function_exists('nectar_metabox_nectar_slider') ) {
   					'type' => 'text',
   					'std' => ''
   				),
+
+			array( 
+				'name' => esc_html__('Slide Link Screen Reader Text', 'salient-nectar-slider'),
+				'desc' => esc_html__('Please enter the text you would like to describe your slide link with.', 'salient-nectar-slider'),
+				'id' => '_nectar_slider_link_sr_text',
+				'type' => 'text',
+				'std' => ''
+			),
   				
   			array( 
   					'name' => esc_html__('Slide Video Popup', 'salient-nectar-slider'),
@@ -324,10 +337,12 @@ if( !function_exists('nectar_metabox_nectar_slider') ) {
   		)
   	);
 
-    function nectar_metabox_nectar_slider_callback($post,$meta_box) {
-      nectar_create_meta_box( $post, $meta_box["args"] );
+    if( !function_exists('nectar_metabox_nectar_slider_callback')) {
+      function nectar_metabox_nectar_slider_callback($post,$meta_box) {
+        nectar_create_meta_box( $post, $meta_box["args"] );
+      }
     }
-    
+      
   	nectar_reg_meta_box( $meta_box['id'], $meta_box['title'], 'nectar_metabox_nectar_slider_callback', $meta_box['post_type'], $meta_box['context'], $meta_box['priority'], $meta_box );
   	
   	

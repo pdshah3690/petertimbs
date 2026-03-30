@@ -1,5 +1,10 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 
 	$is_admin = is_admin();
 
@@ -27,9 +32,8 @@
 	  "name" => esc_html__("Nectar Slider", "salient-nectar-slider"),
 	  "base" => "nectar_slider",
 	  "icon" => "icon-wpb-nectar-slider",
-	  "category" => esc_html__('Nectar Elements', 'js_composer'),
+	  "category" => esc_html__('Media', 'js_composer'),
 	  "description" => esc_html__('The jaw-dropping slider by ThemeNectar', 'js_composer'),
-	  "weight" => 10,
 	  "params" => array(
 	    array(
 	      "type" => "dropdown",
@@ -51,6 +55,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Flexible Slider Height", "salient-nectar-slider"),
 	      "param_name" => "flexible_slider_height",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "description" => esc_html__("Would you like the height of your slider to constantly scale in proportion to the screen size?", "salient-nectar-slider"),
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true')
 	    ),
@@ -65,6 +70,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Display Full Width?", "salient-nectar-slider"),
 	      "param_name" => "full_width",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "description" => esc_html__("Would you like this slider to display the full width of the page?", "salient-nectar-slider"),
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true')
 	    ),
@@ -72,6 +78,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Fullscreen Slider?", "salient-nectar-slider"),
 	      "param_name" => "fullscreen",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "description" => esc_html__("This will cause your slider to resize to always fill the users screen size", "salient-nectar-slider"),
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true'),
 	      "dependency" => Array('element' => "full_width", 'not_empty' => true)
@@ -80,6 +87,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Display Arrow Navigation?", "salient-nectar-slider"),
 	      "param_name" => "arrow_navigation",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "description" => esc_html__("Would you like this slider to display arrows on the right and left sides?", "salient-nectar-slider"),
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true'),
 	      "dependency" => Array('element' => "overall_style", 'value' => 'classic')
@@ -110,6 +118,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Display Bullet Navigation?", "salient-nectar-slider"),
 	      "param_name" => "bullet_navigation",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "description" => esc_html__("Would you like this slider to display bullets on the bottom?", "salient-nectar-slider"),
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true'),
 	      "dependency" => Array('element' => "overall_style", 'value' => 'classic')
@@ -142,6 +151,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Enable Swipe on Desktop?", "salient-nectar-slider"),
 	      "param_name" => "desktop_swipe",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "description" => esc_html__("Would you like this slider to have swipe interaction on desktop?", "salient-nectar-slider"),
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true'),
 	      "dependency" => Array('element' => "overall_style", 'value' => 'classic')
@@ -150,6 +160,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Parallax Slider?", "salient-nectar-slider"),
 	      "param_name" => "parallax",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true')
 	    ),
 			array(
@@ -157,6 +168,7 @@
 				"dependency" => Array('element' => "parallax", 'value' => 'true'),
 	      "heading" => esc_html__("Disable Parallax On Mobile", "salient-nectar-slider"),
 	      "param_name" => "disable_parallax_mobile",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true')
 	    ),
 		 array(
@@ -173,6 +185,7 @@
 	      "type" => 'checkbox',
 	      "heading" => esc_html__("Loop Slider?", "salient-nectar-slider"),
 	      "param_name" => "loop",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 	      "description" => esc_html__("Would you like your slider to loop infinitely? <br/> Note - keep this option off if you are using slides with video backgrounds and would like them to play on mobile devices", "salient-nectar-slider"),
 	      "value" => Array(esc_html__("Yes, please", "salient-nectar-slider") => 'true'),
 	      "dependency" => Array('element' => "overall_style", 'value' => 'classic')
@@ -202,11 +215,42 @@
 	      "dependency" => Array('element' => "overall_style", 'value' => 'classic'),
 	      'save_always' => true
 	    ),
+			array(
+	      "type" => "dropdown",
+	      "class" => "",
+	      'save_always' => true,
+	      "heading" => esc_html__("Image Loading", "salient-core"),
+	      "param_name" => "image_loading",
+	      "value" => array(
+	        "Default" => "default",
+					"Lazy Load" => "lazy-load",
+	      ),
+				"description" => esc_html__("Determine whether to load all images on page load or to use a lazy load method for higher performance.", "salient-core"),
+	      'std' => 'default',
+	    ),
+	    
 	    array(
 	      "type" => "textfield",
 	      "heading" => esc_html__("Autorotate?", "salient-nectar-slider"),
 	      "param_name" => "autorotate",
 	      "description" => esc_html__("If you would like this slider to autorotate, enter the rotation speed in milliseconds here. i.e 5000", "salient-nectar-slider")
+	    ),
+			array(
+	      "type" => "dropdown",
+	      "class" => "",
+	      'save_always' => true,
+	      "heading" => esc_html__("Slide Heading Tag", "salient-core"),
+	      "param_name" => "heading_tag",
+	      "value" => array(
+	        "Default" => "default",
+					"H1" => "h1",
+					"H2" => "h2",
+					"H3" => "h3",
+					"H4" => "h4",
+					"H5" => "h5",
+					"Div" => "div"
+	      ),
+	      'std' => 'default',
 	    ),
 	    array(
 			"type" => "dropdown",

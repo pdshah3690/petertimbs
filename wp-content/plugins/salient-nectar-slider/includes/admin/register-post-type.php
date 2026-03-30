@@ -25,13 +25,14 @@ if( !function_exists('nectar_slider_register') ) {
 
 		$labels = array(
 			'name'          => esc_html__( 'Slides', 'salient-nectar-slider' ),
-			'singular_name' => esc_html__( 'Slide', 'salient-nectar-slider' ),
+			'singular_name' => esc_html__( 'Nectar Slide', 'salient-nectar-slider' ),
 			'search_items'  => esc_html__( 'Search Slides', 'salient-nectar-slider' ),
 			'all_items'     => esc_html__( 'All Slides', 'salient-nectar-slider' ),
 			'parent_item'   => esc_html__( 'Parent Slide', 'salient-nectar-slider' ),
 			'edit_item'     => esc_html__( 'Edit Slide', 'salient-nectar-slider' ),
 			'update_item'   => esc_html__( 'Update Slide', 'salient-nectar-slider' ),
-			'add_new_item'  => esc_html__( 'Add New Slide', 'salient-nectar-slider' ),
+			'add_new_item'  => esc_html__( 'Add New Nectar Slide', 'salient-nectar-slider' ),
+			'add_new'       => esc_html__( 'Add New Slide', 'salient-nectar-slider' ),
 			'menu_name'     => esc_html__( 'Nectar Slider', 'salient-nectar-slider' ),
 		);
 
