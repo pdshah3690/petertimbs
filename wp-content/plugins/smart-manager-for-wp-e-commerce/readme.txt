@@ -1,153 +1,195 @@
-=== WooCommerce Advanced Bulk Edit Products, Orders, Coupons, Any WordPress Post Type - Smart Manager ===
+=== Smart Manager - Advanced WooCommerce Bulk Edit & Inventory Management ===
 Contributors: storeapps, niravmehta, Tarun.Parswani, mansi shah, ratnakar.dubey, gomathip, abhaypatel01
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CPTHCDC382KVA
 Author URI: https://www.storeapps.org/woocommerce-plugins/
 Plugin URI: https://www.storeapps.org/product/smart-manager/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme
-Tags: woocommerce advanced bulk edit, wordpress bulk edit, woocommerce inventory management, woocommerce stock manager, woocommerce product manager
+Tags: woocommerce bulk edit, woocommerce inventory management, woocommerce order management, woocommerce product manager, wordpress bulk edit
 Requires at least: 5.0
-Tested up to: 6.7.1
-Requires PHP: 5.6
-Stable tag: 8.53.0
+Tested up to: 6.9
+Requires PHP: 7.0
+Stable tag: 8.84.0
 License: GPLv2
 
 WooCommerce Advanced Bulk Edit products, orders, & posts in an Excel-like sheet editor. Get advanced WooCommerce stock, pricing, & order management.
 
 == Description ==
 
-**Powerful and advanced WooCommerce bulk edit plugin** to manage your store from one place in a user-friendly, **Excel-like sheet editor**. 
+**Manage and bulk edit WooCommerce products, orders, coupons, posts, users, subscriptions; any WordPress post type and taxonomies (including custom) and custom fields using an Excel-like sheet editor**.
 
-> ***Smart Manager is a lifesaver**. Anyone starting a new store or migrating to a new line (perhaps seasonal shifts) should consider this mandatory in their toolbox.*
-> – Envoymatt
+Add products, update prices, edit SKUs, change order statuses, manage coupons, edit blog posts - perform hundreds of store operations from one place, instantly.
 
-**Smart Manager** is a single-screen, excel-like interface to browse and manage these dashboards – **products (all types), orders, blog posts, and coupons**. 
+[Smart Manager](https://www.storeapps.org/product/smart-manager/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme) helps you stay in control and scale with ease — whether you manage 100,000+ products or just a small shop.
 
-Select a dashboard and start making edits without leaving the spreadsheet. Speed up the way you create content and manage your store.
+> 🧑 ***An Essential Plugin for WooCommerce – Smart Manager Exceeds All Expectations!**
+> I wholeheartedly recommend Smart Manager. It is an essential plugin for any WooCommerce user looking to streamline their product management and increase efficiency. With its wide range of features, seamless integration and outstanding performance, Smart Manager has exceeded my expectations and **become an indispensable tool in my online store**. Give it a try and experience the benefits of this amazing plugin for yourself!*
+> **– Mio Creativ**
 
-Manage Products, Orders, Coupons, Get endless powerful features with this FREE plugin
+### Why does Smart Manager stand out from other WooCommerce bulk edit plugins?
 
-https://www.youtube.com/watch?v=COXCuX2rFrk
+🎯 Saves you time, prevents costly mistakes and manages your store.
+🎯 **Eliminates the need for multiple plugins to manage and edit different post types — saving you hundreds of dollars**.
+🎯 All-in-one plugin for WooCommerce order management, stock management, product management…
+🎯 Handles bulk edits of 100,000+ records without breaking a sweat.
+🎯 Trusted by over 18,730 WooCommerce stores worldwide.
+🎯 Works seamlessly with 50+ popular WooCommerce & WordPress plugins.
+🎯 Built by the creators of Smart Coupons and Affiliate for WooCommerce.
 
-✅ **Bulk edit all WooCommerce product types including custom ones** – simple, variable, product variations, subscriptions, bundles, grouped, and more.
-✅ Smart WooCommerce bulk product editor – Bulk edit **SKUs, weight, quantity, backorders, stock status, tax status, shipping class, product title, gallery images, and all the important stock management-related fields**.
-✅ WooCommerce **bulk edit attributes and categories** – bulk assign/remove categories and attributes to/from products, and also manage them effortlessly.
-✅ WooCommerce **bulk edit price** – change regular price and sale price.
-✅ Bulk edit **WooCommerce orders, coupons, blog posts, users (customers), subscriptions, product addons... any WordPress post type, custom taxonomies, and custom fields**.
-✅ **Do an advanced search and make bulk edits**.
-✅ Perform operations like **append, prepend, increase, decrease, search and replace, etc. in bulk**.
-✅ **Schedule bulk edit** – set a specific date to perform your bulk edit task. For example, increase all product prices tomorrow by 15%.
-✅ **Undo your bulk edit operations** if required.
-✅ **Compatible with WooCommerce High Performance Order Storage (HPOS)**
+### Powerful and advanced WooCommerce bulk edit plugin
 
-**Power-packed lite (free) version**:
+https://youtu.be/dPjlz7IRYdI?si=MnBOiQesOl5cUua0
 
-https://www.youtube.com/watch?v=BrvU6GD9pWU
+**✅ Spreadsheet interface**
+Excel-like sheet editor, works inside your WordPress dashboard. Simple, clean and super fast for managing any data.
+**✅ Bulk edit anything**
+Update thousands of records – products, orders, users, coupons or any post type – in a few clicks.
+**✅ Inline editing**
+Edit fields directly in the spreadsheet interface. No page reloads, no delays – just point, type and save instantly.
+**✅ Advanced search & filters**
+Find anything fast with filters by category, SKU, price, date, status, user role, subscription status or any custom field.
+**✅ Duplicate**
+Quickly duplicate selected records based on filters or your entire store. Great for creating product variations.
+**✅ Delete**
+Delete all or specific records based on filters. Move them to trash or get rid of them forever.
+**✅ Print PDF Invoices**
+Generate and print professional invoices for your WooCommerce orders directly.
+**✅ Export to CSV**
+Export complete or filtered data sets – products, orders, users, posts, product stock log or custom post types – in just one click.
+**✅ Import products**
+Import new products or update existing ones using a CSV file. Perfect for quick catalog updates or migrations.
+**✅ Schedule bulk edits**
+Plan and automate future updates for prices, stock or other fields. Great for running promotions or seasonal changes.
+**✅ Undo changes**
+Mistake in bulk or inline editing? Instantly roll back edits to keep your store error-free and consistent.
+**✅ Custom views**
+Create saved dashboard views tailored to your workflow.
+**✅ Scheduled exports**
+Automatically export orders data to CSV at set intervals for backups, reports or integrations.
+**✅ Saved searches**
+Save filtered conditions to quickly reuse them later without setting them up again.
+**✅ WooCommerce HPOS Compatible**
+Works seamlessly with High-Performance Order Storage for better speed and scalability.
 
+> 🧑 ***There is no comparable solution**
+> Smart Manager Pro is a powerful tool for handling large WooCommerce datasets, especially when bulk-deleting data from the SQL database. It stays fully in sync with WooCommerce and stands out for permanently deleting images from the server, database, and media library. With advanced search capabilities and exceptionally fast, helpful support, it’s highly recommended for efficient store management.
+> **– Felix**
 
-- **Inline edits** – Up to three **direct edits** simultaneously without saving the changes.
+> 🧑 ***Fabulous product – intuitive, practical & a lifesaver**
+> We wanted to move a client’s site from Magento to WooCommerce and update 3000+ products, with oodles and oodles of variations, so the products could be displayed better & more intuitively in WooCommerce. With Smart Manager, we were able to do mass updates and changes*.
+> **– Hughes**
+
+[Try Smart Manager Live Demo](https://demo.storeapps.org/?demo=sm-woo&utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
+
+### How different people use Smart Manager
+
+**Store Owners:**
+- Get a complete overview of products, orders and inventory from one screen
+- Save time on routine tasks and focus more on growing the business
+
+**Store Managers / Admins:**
+- Bulk edit prices, stock, SKUs and variations in seconds
+- Quickly update order statuses, customer details and shipping info
+- Check who did some particular changes and when
+
+**Marketers:**
+- Create, update and manage coupons and promotions easily
+- Edit blog posts, landing pages, modify sale prices in bulk before or during campaigns
+
+**Customer Support Teams:**
+- Instantly search and modify orders without switching between pages
+- Resolve order or customer issues quickly using in-grid editing
+
+**Developers / Power Users:**
+- Manage custom post types and custom fields effortlessly
+- Use Smart Manager as a unified admin tool instead of building custom panels
+
+*Smart Manager Lite (Free) and Pro (Paid) are both powerful – each designed to meet different needs. [Click here](https://www.storeapps.org/docs/sm-lite-vs-pro/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme) for comparison*.
+
+### ✨Smart Manager Lite – Fast, efficient store management (Free)
+
+- **Inline edits** – Make up to **three** direct edits at once without saving; get a save prompt after inline changes.
 - **Live preview and infinite scrolling** for smoother navigation.
-- **Zero edit restrictions on the post-type fields available**.
--- **Products** – increase/decrease the sale price and regular price, manage backorders and SKUs, change product descriptions, categories, attributes, tags, tax class, tax status, etc. WooCommerce stock management can’t get simpler than this.
+- **No restrictions on the post-type fields available**.
+-- **Products** – increase/decrease the sale price and regular price, manage backorders and SKUs, change product descriptions, categories, attributes, tags, tax class, tax status, etc.
 -- **Orders** – change status, billing details, shipping details, currency, etc.
 -- **Coupons** – modify coupon usage, amount, type, expiry date, etc.
 -- **Posts** – title, image, update post status from draft to publish, etc.
 - Edit post types using **search filters, date filters, and column filters**.
 - **Stock log** – see the stock history for each product and identify how quickly it is moving.
+- [Sync stock log](https://www.storeapps.org/docs/sm-how-to-sync-woocommerce-products-stock-log-from-stock-manager-for-woocommerce-to-smart-manager/) data from our Stock Manager for WooCommerce plugin into Smart Manager.
 - **Edit product variations for variable products** after clicking on the “Show Variations” button.
 - **Add new products, orders, coupons, and posts directly** using the spreadsheet.
 - **Import products CSV**
 - **Export CSV of stock-related data columns for products**.
-- **Delete/Move to trash** single or multiple products, orders, coupons, and posts.
+- **Delete/Move to trash** any records with ease.
 - Search using keywords, categories, attributes, or any other field.
-- **Advanced Search** with AND condition, search operators (<,>,=,<=, >=, is, contains, etc.) and drop-down filters. Makes it **easy to filter inventory** by type, category, - backorders, manage stock, stock status, order status, coupon type, post status, and a lot more...
+- **Advanced Search** with AND condition, search operators (<,>,=,<=, >=, is, contains, etc.) and drop-down filters. Filter by product category, backorders, manage stock, order status, coupon type, post status, product SKU, product title, term IDs, and a lot more…
 Example – Search for SKU is WC09 and price >= $600.
 - **Admin Columns** – Show/hide data columns for better usability. Sort data to personalize the dashboard view. For example, sort sale prices in ascending or descending order.
 - Reset the order of the admin columns to the default view.
-- **Email notifications** are sent to customers automatically when the order status changes.
-- **Transactional notes are also automatically added** to the order when the status changes.
-- **Sticky header** to always stay in control when scrolling through thousands of records.
+- **Automatic customer email notifications** on order status change.
+- Transactional notes auto-added to orders when status updates.
+- **Sticky header** for control while scrolling thousands of records.
 - Image preview for image type fields in the grid for easier identification of your WooCommerce inventory.
 - **Distraction-free mode** when performing store operations.
 
-18300+ users love the Smart Manager WooCommerce bulk editor...
+> 🧑 ***Smart Manager makes our day way more productive**
+> We can now change our stock in just 2 clicks instead of hours of work. Also, the support is really quick and helpful!*
+> **– Jasper Vandiemen**
 
-Embrace the power of next-generation WooCommerce store management. Smart Manager is an **indispensable tool for all WordPress users**.
+## 🏋️ Smart Manager Pro – More powerful and advanced bulk editor for maximum efficiency
 
-> ***Smart Manager makes our day way more productive.** We now can **change our stock in just 2 clicks** instead of hours of work. Also, the support is really quick and helpful!*
-> – Jasper Vandiemen
+- **Bulk edit/batch update** any post type: products (simple, variable, product variations, subscriptions, bundles, grouped products and even custom ones), orders, coupons, subscriptions, bookings, users, media, courses, events, genres, SEO fields, etc.
+- **Unlimited inline editing** of records directly from the grid – including order statuses, coupon expiry dates, featured images and more.
+- Bulk edit **100,000+ records** quickly and accurately.
+- **Update single/multiple fields** across multiple records in seconds.
+- Perform operations like append, prepend, increase, decrease and search-replace on fields in bulk.
+- Save and reuse Bulk Edit actions.
+- WooCommerce stock management made simple – update inventory, change prices, **bulk edit based on categories**.
+- Auto generate SKUs for WooCommerce products with empty values during CSV import.
+- **Bulk edit order statuses** (including custom ones), export orders to CSV and filter using advanced conditions.
+- **Scheduled export orders** for better productivity.
+- Copy values between fields or from one record to another.
+- Add/remove/copy product and coupon line items for WooCommerce Orders and Subscriptions.
+- **Assign attributes** of one product to multiple others in bulk.
+- Perform **advanced search filters** and bulk edit the results.
+- **Save your advanced searches** for reuse. Works across all dashboards.
+- **Schedule bulk edits** to run automatically at set times.
+- Run bulk edits in the background while you focus on other tasks.
+- Automatically update existing subscriptions when editing subscription product prices via Bulk Edit.
+- Auto-adjust batch sizes in Bulk Edit functionality based on server capacity.
+- Inline update of Product Gallery Images and Featured Images via the media library.
+- **Undo changes** (inline or bulk) using named Tasks for full control.
+- Log or undo product changes (inventory, price and other product fields) across edits from the admin screen, third‑party plugins, or REST API.
+- Permanently delete or trash products/orders/coupons/media with filters and conditions.
+- Delete media attached to specific post types directly from the grid.
+- **Duplicate** one, many or all records for any post type.
+- Advanced search using multiple **AND/OR** conditions for precision filtering.
+- **AI-Powered** Advanced Search for Products dashboard
+- Create and save **custom views/column sets** to see only what matters to you.
+- **Predefined custom views** for quick editing – Product Stock and Product Price List, Draft Products, Expired Coupons, Unattached Media, Customers and Pending for Shipping Orders.
+- Export filtered data using advanced **CSV export** (by date, search or column filters).
+- Rename admin column titles in the grid for better understanding.
+- Add your logo to packing slips.
+- **Bulk print PDF invoices** for orders.
+- View **customer LTV** (Lifetime Value), total purchases and last order details.
+- **Manage WordPress user roles** – change roles, passwords, etc.
+- Assign dashboard-specific access to specific user roles or emails.
+- Manage and edit **WordPress custom taxonomies** easily.
+- Supports inline edit, advanced filtering and bulk editing of custom fields added by third-party plugins.
+- **WPML compatible**
 
-> 'An Essential Plugin for WooCommerce – Smart Manager Exceeds All Expectations!'
-> I wholeheartedly recommend Smart Manager. It is an essential plugin for any WooCommerce user looking to streamline their product management and increase efficiency. With its wide range of features, seamless integration, and outstanding performance, Smart Manager has exceeded my expectations and **become an indispensable tool in my online store**. Give it a try and experience the benefits of this amazing plugin for yourself!
-> - Mio Creativ
+> 🧑 ***A massive time saver…flawless export!**
+> We have over 6000 individual lines on our site and this has saved us huge amounts of time.
+> Bulk edit works flawlessly, which is a massive time saver. If you need to change all of your prices on the entire site by a % or value, you can with a couple of clicks! We updated the Tax > class on all products in less than 3 minutes. The CSV export tool actually works unlike some I have tried, with all 6000 odd lines neatly exported in one attempt. No missing or corrupt data*.
+> **– Kevin Goodchild, Obsolete Electronic Components**
 
+> 🧑 ***I would happily pay five times for this product!**
+> What really sold me on this was Bulk Edit. My assistant does not have to do any complex math now (earlier, I always feared she would make a mistake)! With Smart Manager, she has more free time at hand, hence I asked her to set up autoresponder emails for our customers. The response was phenomenal. Our repeat sales were up by 19.5%*.
+> **– Jeff Smith**
 
-##Why should you choose Smart Manager WooCommerce bulk editor?
+## Compatibility with other WordPress plugins
 
-**Powerful features** – Smart Manager is jam-packed with powerful features both in the Lite (free) and the Pro (paid) versions.
-
-**Zero coding chaos** – Update your data within seconds with just a few clicks. No learning curve or tech skills needed.
-
-**Efficiency** – Save hours every week by ditching mundane tasks and embracing advanced WooCommerce bulk editing bliss.
-
-**Error-busting hero** – Say goodbye to calculation errors and inconsistencies with lightning-fast batch processing.
-
-**Data delight** – Export data with ease, keeping your information safe and sound.
-
-**Happy customers, happy life** – Smooth WooCommerce inventory management, WooCommerce orders management, and efficient operations mean happy customers and a thriving business.
-
-**TL;DR:** Smart Manager Lite makes managing your e-commerce store easy. Quickly edit products, orders, coupons, and posts using inline edit. Use advanced search to find and update items, manage stock, and track performance. Bulk edit prices, SKUs, and order statuses, or add new products and orders directly. Simplify store management in one place.
-
-> ***I’m very happy using the free version of the plugin on my WooCommerce site**. No issue with a lot of plugins I have active on my site.
-> The best is the support: **6 stars** I would give them. Keep in mind that I’m talking about the free version and from the first contact they have been very kind and fast. Sure I recommend it!*
-> - FreelanceJose
-
-Smart Manager Pro features:
-
-Stay ahead of your competitors with [Smart Manager Pro](https://www.storeapps.org/product/smart-manager/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme).
-
-- **WooCommerce advanced bulk edit / batch update / mass update any post type records** – products, variations, orders, coupons, subscriptions, bookings, media, users/customers, courses, events, product add-ons, advanced custom fields, custom meta fields, etc.
-- **Inline edit (direct edit) records from the grid** – Update inventory, modify order status, change the coupon expiry date, add post images, etc.
-- **Bulk edit 100000+ records for any post type within minutes**. Smart Manager has successfully tested these numbers.
-- **Update single/multiple fields for a few or all records at once**...without errors!
-- Quick WooCommerce stock management – **change prices, increase inventory levels, change product categories, attributes, or any other fields, all in bulk quickly**.
-- **Bulk edit order statuses** including custom order statuses, search for orders using advanced filters, export orders to CSV, and more...WooCommerce order management made easy.
-- **Copy any field from any record** using Bulk edit / Batch update.
-- **Copy value from any other field** for any record.
-- **Copy the attributes of a specific product and bulk assign the same to multiple products**.
-- **Filter any post type & perform bulk edit operations** on them.
-- Utilize your time for other business tasks while the **Bulk edit / Batch update runs in the background**.
-- **Inline update** ‘Product Gallery Images, Featured Image’ using the media library.
-- **Undo inline edit and bulk edit changes (Tasks)** you made. Name your tasks and revert the changes at once. It can be a single task or multiple tasks.
-- **Delete all products permanently or move them to trash** – based on filters, categories, and attributes. Delete featured images and media library images directly from the grid.
-- **Delete records** for orders, coupons, and any post type **in bulk**. You can **do it using our search filters** too.
-- **Delete media when any post-type record is deleted**, provided the media is linked with that post-type record only.
-- **Duplicate single, multiple, or all records for any post type**.
-- Perform an advanced search using multiple AND, multiple OR, multiple AND + OR conditions to get very specific results and then make inline edits or bulk edits.
-
-https://www.youtube.com/watch?v=20iodFpP5ow
-
-> **A massive time saver...flawless export!**
-> *We have over 6000 individual lines on our site and this has saved us huge amounts of time.
-> Bulk edit works flawlessly, which is a massive time saver. If you need to change all of your prices on the entire site by a % or value, you can with a couple of clicks! We updated the Tax > class on all products in less than 3 minutes. The CSV export tool actually works unlike some I have tried, with all 6000 odd lines neatly exported in one attempt. No missing or corrupt data.*
-> – Kevin Goodchild, Obsolete Electronic Components
-
-- Create **Excel-like custom views** / segmented views / column sets, i.e. view only the data you want. Enable / disable data columns, make edits, apply filters, and save. - **Supports all post types and custom taxonomies**.
-- **Predefined custom views** – Product Stock & Product Price List
-- **Advanced Export CSV for all post types and custom taxonomies** – access all or filtered data using date, search, or column filters. Perfect for inventory management, reporting, sales, marketing campaigns, and store migration.
-- **Rename the admin columns title at your convenience**. For example, change Stock to Quantity.
-- Add your own logo to packing slips.
-- **Print PDF invoices for orders in bulk**.
-- Know the **lifetime value (LTV) of all your customers** along with their total purchases to date and last order details.
-- **Manage WordPress user roles** – change user role, change password, etc.
-- **Give dashboard-specific access to non-admin users** including any custom user role. You can even give dashboard specific access to any specific user email.
-- **Manage and edit WordPress custom taxonomies**.
-
-
-> **I would happily pay five times for this product!**
-> *What really sold me on this was Bulk Edit. My assistant does not have to do any complex math now (earlier, I always feared she would make a mistake)! With Smart Manager, she has more free time at hand, hence I asked her to set up autoresponder emails for our customers. The response was phenomenal. Our repeat sales were up by 19.5%.*
-> – Jeff Smith
-
-- Import orders, coupons, and any other post type (coming soon).
-- Manage, view, filter, and edit custom fields of top WooCommerce & WordPress plugins. **Smart Manager is compatible with these plugins**. It automatically recognizes all custom fields added by other plugins.
+Manage, view, filter, and edit custom fields of top WooCommerce & WordPress plugins. **Smart Manager** automatically recognizes all custom fields added by other plugins.
 -- [Advanced Custom Fields (ACF)](https://wordpress.org/plugins/advanced-custom-fields/)
 -- [WooCommerce Subscriptions](http://automattic.pxf.io/5gN9zb)
 -- [Affiliate For WooCommerce](https://woocommerce.com/products/affiliate-for-woocommerce/)
@@ -171,36 +213,25 @@ https://www.youtube.com/watch?v=20iodFpP5ow
 -- [Orderable](https://stellarwp.pxf.io/c/3616375/1287872/9639)
 -- [GiveWP](https://stellarwp.pxf.io/c/3616375/1287837/9639)
 -- [File Uploads Addon for WooCommerce](https://wordpress.org/plugins/woo-addon-uploads/)
-- And all other features of the Smart Manager Lite version...
+-- [Pods – Custom Content Types and Fields](https://wordpress.org/plugins/pods/)
+-- [Meta Box](https://wordpress.org/plugins/meta-box/)
+-- [WPML](https://wpml.org/)
 
-**TL;DR:** With Smart Manager, quickly search and delete expired subscriptions, bulk edit bookings, inline edit memberships, search and edit posts by keyword, adjust product costs in bulk, manage courses, and more. 
-Effortlessly handle suppliers, vendors, warehouses, and WooCommerce inventory.
-
-Get priority support from plugin developers and receive plugin updates till your license period.
-
-[Try all these features in the Smart Manager Pro Live Demo](https://demo.storeapps.org/?demo=sm-woo&utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
-
-> **There is no comparable solution**
-> *Smart Manager Pro is an absolutely efficient tool for handling large datasets, especially when you need to delete them from the SQL database. 
-> Seamlessly integrated with WooCommerce, it’s always up-to-date. I particularly love its feature of permanently deleting images – it automatically removes them from the server, SQL database, and library. 
-> Its advanced search methods make it a powerful management plugin. Additionally, **it boasts super fast support that’s truly committed to assisting and resolving issues**. Highly recommended for effective management tasks.*
-> – Felix
-
-> **This software is indispensable!**
-> *It is possible to operate in bulk on anything: categories, attributes, tags, moving products from one category to another...
-> We had a problem and support walked us through the resolution, even creating a software update to test the resolution.
-> **In 20 years of working on the web, I have never found an assistance that does not abandon you and does not attribute the problem to other causes.***
-> – Lolopo
-
-[Get Smart Manager Pro](https://www.storeapps.org/product/smart-manager/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
-
-[Click here](https://www.storeapps.org/docs/sm-lite-vs-pro/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme) to know the difference between Lite & Pro versions.
+**TL;DR:** With Smart Manager, search and delete expired subscriptions, bulk edit bookings, inline edit memberships, edit posts by keyword, adjust product costs in bulk, manage courses, and more.
 
 It’s your smart WordPress bulk edit plugin that won’t fail you!
 
-The plugin is also **GDPR-ready – it doesn’t collect personal data**.
+The plugin is also GDPR-ready – it doesn’t collect personal data.
 
-**How to use Smart Manager?**
+> 🧑 ***This software is indispensable!**
+> It is possible to operate in bulk on anything: categories, attributes, tags, moving products from one category to another…
+> We had a problem and support walked us through the resolution, even creating a software update to test the resolution.
+> In 20 years of working on the web, I have never found an assistance that does not abandon you and does not attribute the problem to other causes*.
+> **– Lolopo**
+
+[Get Smart Manager Pro](https://www.storeapps.org/smart-manager-pricing/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
+
+## Best Smart Manager use cases
 
 * [Bulk edit attributes](https://www.storeapps.org/woocommerce-bulk-edit-attributes/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
 * [Bulk edit WordPress posts and pages](https://www.storeapps.org/bulk-edit-wordpress-posts-pages/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
@@ -221,20 +252,17 @@ The plugin is also **GDPR-ready – it doesn’t collect personal data**.
 
 * [Smart Manager Detailed Documentation](https://www.storeapps.org/knowledgebase_category/smart-manager/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
 * Compatible with latest versions of both [WooCommerce](https://wordpress.org/plugins/woocommerce/) and [WP e-Commerce](https://wordpress.org/plugins/wp-e-commerce/)
-* Available Translations: Dutch, Brazilian Portuguese, French, Romanian, Italian
+* Available Translations: Chinese, Dutch, French, German, Italian, Japanese, Korean, Polish, Portuguese (Brazilian), Portuguese (Portugal), Russian, Romanian, Spanish and Turkish.
 * Want to add a new language to Smart Manager? Contribute via [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/smart-manager-for-wp-e-commerce/).
 * Questions? [Contact us](https://www.storeapps.org/support/contact-us/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme)
 
 **StoreApps’ other Pro plugins**
 
-1. [Offermative](https://wordpress.org/plugins/offermative-discount-pricing-related-products-upsell-funnels-for-woocommerce/) - Automated discount, related product recommendations, upsells for WooCommerce.
-2. [WooCommerce Bulk Variations Manager](https://www.storeapps.org/product/bulk-variations-manager/?utm_source=wprepo&utm_medium=web_bvm&utm_campaign=smwp_readme) - Create & set prices for thousands of product variations at once.
-3. [Smart Offers For WooCommerce](https://www.storeapps.org/product/smart-offers/?utm_source=wprepo&utm_medium=web_mb&utm_campaign=smwp_readme) - Targeted WooCommerce one-click upsells, BOGO, order bumps and Buy Now buttons for direct checkout.
-4. [Email Customizer for WooCommerce](https://www.storeapps.org/product/smart-emails/?utm_source=wprepo&utm_medium=web_se&utm_campaign=smwp_readme) - Customize default WooCommerce transactional emails to match your brand. Edit text, colors and other elements in a live preview.
-5. [WooCommerce Name Your Price Plugin](https://www.storeapps.org/product/offer-your-price/?utm_source=wprepo&utm_medium=web_se&utm_campaign=smwp_readme) - Create a pay what you want or a donation-based pricing system.
-6. [Frequently Bought Together For WooCommerce](https://www.storeapps.org/product/frequently-bought-together-woocommerce/?utm_source=wprepo&utm_medium=web_se&utm_campaign=smwp_readme) - Show users related products or recommendations to the product they are already viewing.
-7. [Express Login For WordPress](https://www.storeapps.org/product/express-login-for-wordpress/?utm_source=wprepo&utm_medium=web_se&utm_campaign=smwp_readme) - Create secure, auto-login links for WordPress and WooCommerce without the need for a username and password.
-
+1. [Smart Subscriptions](https://www.storeapps.org/product/smart-subscriptions-for-woocommerce/?utm_source=wprepo&utm_medium=web_ss&utm_campaign=smwp_readme) - Launch and manage recurring products in just a few clicks.
+2. [Smart Rental & Booking](https://www.storeapps.org/product/smart-rental-and-booking-for-woocommerce/?utm_source=wprepo&utm_medium=web_srb&utm_campaign=smwp_readme) - Manage every rental from one dashboard, without spreadsheets.
+3. [Offermative](https://wordpress.org/plugins/offermative-discount-pricing-related-products-upsell-funnels-for-woocommerce/) - Automated discount, related product recommendations, upsells for WooCommerce.
+4. [WooCommerce Bulk Variations Manager](https://www.storeapps.org/product/bulk-variations-manager/?utm_source=wprepo&utm_medium=web_bvm&utm_campaign=smwp_readme) - Create & set prices for thousands of product variations at once.
+5. [Smart Offers For WooCommerce](https://www.storeapps.org/product/smart-offers/?utm_source=wprepo&utm_medium=web_mb&utm_campaign=smwp_readme) - Targeted WooCommerce one-click upsells, BOGO, order bumps and Buy Now buttons for direct checkout.
 
 [View out all our WooCommerce plugins](https://www.storeapps.org/woocommerce-plugins/?utm_source=wprepo&utm_medium=web_others&utm_campaign=smwp_readme)
 
@@ -243,13 +271,11 @@ The plugin is also **GDPR-ready – it doesn’t collect personal data**.
 1. [Icegram Express](https://wordpress.org/plugins/email-subscribers/) - Email Subscribers & Newsletters
 2. [Icegram Engage](https://wordpress.org/plugins/icegram/) - Popups, welcome bar, opt-ins and lead generation plugin
 3. [Icegram Collect](https://wordpress.org/plugins/icegram-rainmaker/) - Forms, lead collection and subscription plugin
+3. [Icegram Mailer](https://wordpress.org/plugins/icegram-mailer/advanced/) - Easy Email Delivery for WordPress & WooCommerce
 4. [Temporary Login Without Password](https://wordpress.org/plugins/temporary-login-without-password/)
 
 **Spread the love**
 Liked Smart Manager? Please consider leaving [five-stars](https://wordpress.org/support/plugin/smart-manager-for-wp-e-commerce/reviews/) for the plugin. It helps fellow website owners benefit from it!
-
-**Have any questions?**
-Feel free to [contact us](https://www.storeapps.org/support/contact-us/?utm_source=wprepo&utm_medium=web_contact&utm_campaign=smwp_readme).
 
 == Installation ==
 
@@ -265,20 +291,19 @@ Yes, you can but export feature is available in [Pro](https://www.storeapps.org/
 
 = Can I import data ? =
 
-Smart Manager does not currently support import.
+You can import *"WooCommerce"* Products data to Smart Manager
 
 = Which browser to choose for best performance? =
 
 Smart Manager works best in Chrome, Firefox. Currently it is not compatible with IE.
 
-= What do I get in this Lite version? =
+= How do I bulk edit Products in WooCommerce? =
 
-Spreadsheet like view of products, orders and posts. Search and navigation, limited inline editing, ability to delete multiple items at once, a quick edit link to WooCommerce / WP e-Commerce editing screen.
+Open Smart Manager Products dashboard, select required products, click on Bulk Edit, enter required conditions and update them now or schedule for later.
 
-= What do I get in the Pro? =
+= Where do I report security bugs found in this plugin? =
 
-[Pro](https://www.storeapps.org/product/smart-manager/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme) version has unlimited managing of product variations, full inline editing right within the spreadsheet view and a powerful Batch Update screen where you can apply multiple smart update actions to selected / all items. You can also add / duplicate products or the entire store. For Customers, you can see total sales for each customer and their last order details. You can also export data into CSV and print orders / packing slips. And not just WooCommerce, you can manage any WordPress custom post type.
-It also gives the warm feeling of supporting further development of the plugin.
+Please report security bugs found in the source code of the Smart Manager plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fb391-884c-41c9-8f84-e0e334baa3d4). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 == Screenshots ==
 
@@ -287,6 +312,273 @@ It also gives the warm feeling of supporting further development of the plugin.
 2. Bulk edit / Batch update (only in Pro version)
 
 == Changelog ==
+
+= 8.84.0 (07.03.2026) =
+* New: WooCommerce 10.5.3 compatible
+* Fix: WooCommerce Products dashboard sometimes loads only a few products in the grid
+* Update: UI/UX enhancements for the History/Tasks dashboard (Pro)
+* Update: POT file
+
+= 8.83.0 (27.02.2026) =
+* New: Recent searches support for Simple Search (Pro)
+* Fix: Undo not working for Inline Edit updates on WooCommerce Orders and Subscriptions dashboard (Pro)
+* Update: Replaced "Load More" with pagination in the grid
+* Update: UI/UX improvements for the Inline Edit modal for WooCommerce Product Attributes
+* Update: POT file
+
+= 8.82.0 (20.02.2026) =
+* New: WooCommerce 10.5.2 compatible
+* Update: UI/UX improvements in the grid and popup screens
+* Update: POT file
+
+= 8.81.0 (12.02.2026) =
+* New: WooCommerce 10.5.1 compatible
+* Fix: Undo not working when updating standard post fields like 'Title', 'Post Status', 'Post Date', etc. (Pro)
+* Fix: Advanced Search not working for non-existing or empty meta values on Users dashboard (Pro)
+* Update: UI/UX improvements in selected areas to enhance user experience
+* Update: POT file
+
+= 8.80.0 (06.02.2026) =
+* New: WordPress 6.9.1 compatible
+* Update: UI/UX improvements in selected areas to enhance user experience
+* Update: POT file
+
+= 8.79.0 (22.01.2026) =
+* Update: UI/UX improvements in selected areas to enhance user experience
+* Update: POT file
+
+= 8.78.0 (08.01.2026) =
+* New: WooCommerce 10.4.3 compatible
+* Fix: 'Catalog visibility' and 'Featured' columns missing from the column manager in the WooCommerce Products dashboard
+* Fix: Bulk Edit 'Set to' action not working for serialized fields (e.g., Default Attributes for WooCommerce Products) (Pro)
+* Update: Load thumbnail-sized images for post thumbnail columns in the grid to improve dashboard load speed
+* Update: UI/UX improvements for Grid
+* Update: POT file
+
+= 8.77.0 (15.12.2025) =
+* New: WooCommerce 10.4.2 compatible
+* New: WordPress 6.9 compatible
+* New: Synchronize stock log data from the Stock Manager for WooCommerce plugin (https://wordpress.org/plugins/woocommerce-stock-manager/) into Smart Manager
+* Fix: Variation titles in Smart Manager grid not updating after removing attributes from parent WooCommerce Product
+* Fix: Inline Edit not working for multilist columns (e.g. select dropdowns) containing a large number of values
+* Fix: Bulk Edit not working for multilist columns (e.g. select dropdowns) containing a large number of values (Pro)
+* Update: POT file
+
+= 8.76.0 (17.11.2025) =
+* New: WooCommerce 10.3.5 compatible
+* Fix: WooCommerce 'Price' field not syncing when 'Sale Price Dates From' and 'Sale Price Dates To' are updated using Inline Edit
+* Fix: WooCommerce 'Price' field not syncing when 'Sale Price Dates From' and 'Sale Price Dates To' are updated using Bulk Edit (Pro)
+* Fix: WooCommerce 'Sale Price Dates From' and 'Sale Price Dates To' fields not clearing when setting empty values using Bulk Edit (Pro)
+* Update: POT file
+
+= 8.75.0 (12.11.2025) =
+* Fix: Creating WooCommerce Orders using the 'Add Row' option in the Orders dashboard did not work with HPOS-enabled setups (Pro)
+* Update: AI-Powered Advanced Search related improvements (Pro)
+* Update: POT file
+
+= 8.74.0 (05.11.2025) =
+* New: WooCommerce 10.3.4 compatible
+* Fix: WooCommerce Product attributes list loading incorrectly in Advanced Search panel
+* Fix: Newly created WooCommerce Product attributes missing in Advanced Search panel (Pro)
+* Fix: UI/UX issue causing the footer text to appear in the middle of the dashboard during background processes (Pro)
+* Update: POT file
+
+= 8.73.0 (27.10.2025) =
+* New: WooCommerce 10.3.3 compatible
+* New: Advanced Search support for post and term IDs in all post types and taxonomies Task Dashboards (Pro)
+* New: Link to access WooCommerce product edit history from the Product Edit page or the Products admin list view (Pro)
+* Fix: Prevent PHP fatal error when activating Smart Manager while WooCommerce plugin is inactive
+* Fix: Sorting not resetting to its default state
+* Fix: Database warning displayed when viewing Task Dashboards (Pro)
+* Fix: Advanced Search not applying multiple "OR" conditions correctly (Pro)
+* Update: POT file
+
+= 8.72.0 (09.10.2025) =
+* New: WordPress 6.8.3 compatible
+* New: WooCommerce 10.2.2 compatible
+* New: AI-Powered Advanced Search for WooCommerce Products dashboard (Pro)
+* Update: Copy WooCommerce Product fields from one variation to another using Bulk Edit (Pro)
+* Update: Improved UI/UX of duplicate WooCommerce Products modal (Pro)
+* Update: POT file
+
+= 8.71.0 (26.09.2025) =
+* New: WooCommerce 10.2.1 compatible
+* Fix: Switching WPML active language not displaying taxonomy terms for the selected language in the grid (Pro)
+* Fix: Updates to taxonomy terms via Inline and Bulk Edit not syncing with WPML translated post types (Pro)
+* Update: Display WooCommerce Products in the grid based on WPML active language (Pro)
+* Update: UI/UX improvements across the Smart Manager dashboard
+* Update: POT file
+
+= 8.70.0 (05.09.2025) =
+* New: WooCommerce 10.1.2 compatible
+* Fix: Advanced Search panel gets stuck when loading a long list of fields
+* Fix: WooCommerce Product attributes list not visible in Inline Edit attributes modal when trying to add attributes
+* Fix: Add/Remove WooCommerce Product attributes containing special characters not working
+* Update: 2x boost in loading speed for the WooCommerce Products dashboard
+* Update: POT file
+
+= 8.69.0 (21.08.2025) =
+* New: WooCommerce 10.1.1 compatible
+* New: Korean translation (AI-generated)
+* New: Log WooCommerce product changes (inventory, price and other product fields) across edits from the admin screen, third‑party plugins, or REST API (Pro)
+* New: Undo WooCommerce product changes (inventory, price and other product fields) across edits from the admin screen, third‑party plugins, or REST API (Pro)
+* Fix: Newly created taxonomy terms (e.g., WooCommerce product categories) not appearing in the Smart Manager dashboard
+* Fix: Advanced Search not working when using the 'is not' operator in taxonomy conditions
+* Fix: Scheduled Bulk Edits failing to process when handling a large number of records (Pro)
+* Update: Pricing page related changes
+* Update: POT file
+
+= 8.68.0 (07.08.2025) =
+* New: Advanced Search for 'Orders Count' column in the Users dashboard (Pro)
+* Fix: Advanced Search not working for post type dashboards after the last update
+* Fix: 'Set to Regular Price and decrease by %' action sets negative values when updating empty Sale Price fields for WooCommerce Products (Pro)
+* Fix: Success message not displayed after scheduling a Bulk Edit (Pro)
+* Update: Display 'Orders Count' and 'Orders Total' columns for all user roles in the Users dashboard (Pro)
+* Update: UI/UX improvements for Bulk Edit panel (Pro)
+* Update: POT file
+
+= 8.67.0 (25.07.2025) =
+* New: WordPress 6.8.2 compatible
+* New: WooCommerce 10.0.4 compatible
+* Fix: Smart Manager Dashboard not loading if WooCommerce plugin is inactive
+* Fix: FacetWP reindexing not triggered when the WooCommerce Products 'Sale Price' field was updated using Inline Edit
+* Fix: 'save_post' hook triggered prematurely when updating the WooCommerce Products 'Sale Price' field via Inline Edit
+* Fix: Bulk Edit not working when using the 'All Items in Search Results' option after the latest update (Pro)
+* Fix: FacetWP reindexing not triggered when the WooCommerce Products 'Sale Price' field was updated using Bulk Edit (Pro)
+* Fix: 'save_post' hook triggered prematurely when updating the WooCommerce Products 'Sale Price' field via Bulk Edit (Pro)
+* Update: UI/UX improvements for Bulk Edit panel (Pro)
+* Update: POT file
+
+= 8.66.0 (07.07.2025) =
+* New: WooCommerce 9.9.5 compatible
+* New: Display save prompt after edits done via Inline Edit
+* New: Automatically update existing WooCommerce Subscriptions when editing subscription product prices via Bulk Edit (Pro)
+* Fix: FacetWP reindexing not triggered for updates made via Inline Edit
+* Fix: 'post_id' was incorrectly passed as a string instead of an integer in the 'save_post' hook
+* Fix: Fetching hidden meta fields in the grid impacting dashboard load speed
+* Fix: FacetWP reindexing not triggered for updates made via Bulk Edit (Pro)
+* Fix: 'Products' and 'Exclude Products' columns not displaying associated product lists in the WooCommerce Coupons dashboard (Pro)
+* Update: POT file
+
+= 8.65.0 (20.06.2025) =
+* New: WooCommerce 9.9.4 compatible
+* New: Portuguese (Portugal), Russian and Turkish translations (AI-generated)
+* New: 'Product SKU' and 'Product title' advanced search fields for WooCommerce Subscriptions dashboard (Pro)
+* Fix: Inline edit functionality not working for 'Sale Price Dates From' and 'Sale Price Dates To' columns on WooCommerce Products dashboard
+* Update: Improved UI/UX of the inline edit modal for WooCommerce Product Attributes
+* Update: Pricing page related changes
+* Update: POT file
+
+= 8.64.0 (16.06.2025) =
+* New: WooCommerce 9.9.3 compatible
+* New: Advanced Search for 'Plan' column in WooCommerce Memberships 'Members' dashboard (Pro)
+* New: Auto-adjust batch sizes in Bulk Edit functionality based on server capacity (Pro)
+* Fix: Scheduled Bulk Edits not processing successfully for large number of records (Pro)
+* Fix: Undo shows both warning modal and background processing message during active background tasks (Pro)
+* Update: Display warning when applying Bulk Edit to all store items or filtered search results (Pro)
+* Update: POT file
+* Developer: 'sm_dashboard_model' filter renamed to 'sa_dashboard_model'
+
+= 8.63.0 (28.05.2025) =
+* New: German, Japanese and Polish translations (AI-generated)
+* New: Auto generate SKUs for WooCommerce products with empty values during CSV import (Pro)
+* New: Predefined Custom Views for 'Unattached Media' (Pro)
+* Fix: 'File' column in the Media dashboard displays the file name along with its path (Pro)
+* Update: Renamed the 'WP Attached File' column to 'File' in the Media dashboard (Pro)
+* Update: POT file
+
+= 8.62.0 (15.05.2025) =
+* New: WooCommerce 9.8.5 compatible
+* New: Copy entire line items for WooCommerce Orders and Subscriptions using Bulk Edit (Pro)
+* New: Chinese and Spanish translations (AI-generated)
+* Fix: Taxonomies containing special characters not displaying correctly in the grid and Advanced Search panel
+* Fix: Scroll not working in the submenu list within the dashboard combo box
+* Fix: Changing operator value affects the value field display in certain cases when using bulk edit (Pro)
+* Fix: Bulk edit for adding custom attributes to WooCommerce Products not working (Pro)
+* Fix: Taxonomies containing special characters not displaying correctly in Bulk Edit panel (Pro)
+* Update: Improved UI/UX of the inline edit modal for WooCommerce Product Attributes
+* Update: POT file
+
+= 8.61.0 (09.05.2025) =
+* New: WordPress 6.8.1 compatible
+* New: WooCommerce 9.8.4 compatible
+* New: Add/Remove product and coupon line items for WooCommerce Orders and Subscriptions using Bulk Edit (Pro)
+* New: Copy product and coupon line items for WooCommerce Orders and Subscriptions using Bulk Edit (Pro)
+* Fix: Adding/Removing terms from WooCommerce Products not working in some cases when using inline edit functionality
+* Fix: Adding/Removing terms to WooCommerce Products not working in some cases when using bulk edit functionality (Pro)
+* Fix: PHP Fatal Error: 'Cannot redeclare sm_beta_pro_set_scheduled_export_content_type' when using the 'Schedule Export' functionality from the WooCommerce Orders dashboard (Pro)
+* Fix: PHP Fatal Error: 'Call to a member function date() on null' occurs when using the 'Print Invoice' functionality from the WooCommerce Orders dashboard (Pro)
+* Update: POT file
+
+= 8.60.0 (17.04.2025) =
+* New: WordPress 6.8 compatible
+* New: WooCommerce 9.8.1 compatible
+* New: Automated scheduled CSV exports for WooCommerce Orders (Pro)
+* New: Compatibility with [Pods – Custom Content Types and Fields](https://wordpress.org/plugins/pods/) (Pro)
+* New: Compatibility with [Meta Box](https://wordpress.org/plugins/meta-box/) (Pro)
+* Fix: 'No Access' rules in Access Privilege Settings not working correctly (Pro)
+* Fix: 'Pending for Shipping Orders' predefined custom view not working for non-HPOS stores on the WooCommerce Orders dashboard (Pro)
+* Fix: Script to show Bulk Edit progress loaded on all admin pages (Pro)
+* Fix: WooCommerce Product SKUs not updating when both SKU and stock fields are edited using Inline Edit (Pro)
+* Fix: Internationalization related warnings on WordPress v6.8
+* Update: UI/UX enhancements for Bulk Edit, Advanced search & Access Privilege Settings value fields (Pro)
+* Update: Pricing page related changes
+* Update: POT file
+
+= 8.59.0 (27.03.2025) =
+* New: Predefined Custom Views for 'Draft Products' and 'Expired Coupons' (Pro)
+* Fix: Inline edit not working when adding or removing attributes in WooCommerce Products
+* Fix: Inline edit for WooCommerce Product custom attributes replaces spaces with hyphens and converts uppercase letters to lowercase
+* Fix: Slug doesn't update automatically when changing 'Post Status' to 'Publish' for duplicated records (Pro)
+* Fix: Value field UI breaks in Access Privilege Settings when selecting multiple values (Pro)
+* Update: POT file
+
+= 8.58.0 (13.03.2025) =
+* New: WooCommerce 9.7.1 compatible
+* New: Save and reuse Bulk Edit actions (Pro)
+* New: Support for 'set to regular price and decrease by number' & 'set to regular price and decrease by %' actions using Bulk Edit for WooCommerce Products dashboard (Pro)
+* New: Predefined Custom Views for 'Customers' and 'Pending for Shipping Orders' (Pro)
+* Fix: 'save_post' hook doesn't trigger when updating meta or taxonomy data using Inline edit functionality
+* Fix: Database error when creating products using 'Add Row' functionality in WooCommerce Products dashboard
+* Fix: Advanced Search operators like 'any of', 'not any of', 'starts with', 'not starts with', 'ends with', 'not ends with', 'is not' and 'not contains' not working for WooCommerce Orders dashboard
+* Fix: Incorrect record count in success message when updating 'All Items in Store' using Bulk Edit functionality in some cases (Pro)
+* Update: POT file
+
+= 8.57.0 (20.02.2025) =
+* New: WooCommerce 9.6.2 compatible
+* Fix: Navigation bar height increasing when the Advanced Search checkbox is checked
+* Fix: Slight delay in hiding dashboard combo box dropdown list after selection
+* Fix: Inconsistent modal height when searching for the WooCommerce product 'Category' field in the Inline Edit modal
+* Fix: Selected value does not persist after updating with the 'copy from field' operator in Bulk Edit functionality (Pro)
+* Fix: Improved performance when loading Custom Views and Saved Advanced Search dashboards (Pro)
+* Update: POT file
+
+= 8.56.0 (13.02.2025) =
+* New: WordPress 6.7.2 compatible
+* New: Search for WooCommerce Product 'Category' field in Inline edit modal
+* New: Saved searches for Advanced Search and application across multiple dashboards (Pro)
+* Fix: WooCommerce Product 'Category' field is not shown in hierarchical structure in Inline edit modal
+* Fix: Export CSV not working for 'All items in search results - Stock Columns' when using Simple Search and Advanced Search functionalities
+* Fix: Inline edit and Bulk edit not working for Custom Views dashboards (Pro)
+* Update: Grid layout to fully utilize screen space
+* Update: POT file
+
+= 8.55.0 (07.02.2025) =
+* New: WooCommerce 9.6.1 compatible
+* New: Added 'New' and 'Manage scheduled edits' as dropdown options under Bulk Edit (Pro)
+* Fix: In-app plugin update link not converting plugin back to Pro version
+* Fix: Advanced Search in WooCommerce Orders dashboard not filtering WooCommerce product fields like SKU
+* Fix: Validation not working for datetime fields in Inline edit
+* Fix: Update failing for field values containing special characters like single quotes
+* Update: Displayed 'Undo' link in Inline edit success message (Pro)
+* Update: POT file
+
+= 8.54.0 (16.01.2025) =
+* New: WooCommerce 9.5.2 compatible
+* Fix: Dashboard selection not working in some cases
+* Update: 10x boost in loading speed for the WooCommerce Products dashboard
+* Update: 10x speed improvement for updating taxonomy fields using Inline edit and Bulk edit (Pro)
+* Update: POT file
 
 = 8.53.0 (31.12.2024) =
 * New: Compatibility with [Germanized for WooCommerce Pro](https://vendidero.de/woocommerce-germanized) (Pro)
@@ -485,6 +777,99 @@ It also gives the warm feeling of supporting further development of the plugin.
 [See changelog for all versions](https://www.storeapps.org/docs/sm-changelog/?utm_source=wprepo&utm_medium=web&utm_campaign=smwp_readme).
 
 == Upgrade Notice ==
+
+= 8.84.0 =
+WooCommerce 10.5.3 compatible, Fixes related to WooCommerce Products dashboard sometimes loads only a few products in the grid, Updates related to UI/UX enhancements for the History/Tasks dashboard (Pro). Recommended upgrade.
+
+= 8.83.0 =
+Recent searches support for Simple Search (Pro), Fixes related to Undo not working for Inline Edit updates on WooCommerce Orders and Subscriptions dashboard (Pro), Updates related to Replaced "Load More" with pagination in the grid, UI/UX improvements for the Inline Edit modal for WooCommerce Product Attributes. Recommended upgrade.
+
+= 8.82.0 =
+WooCommerce 10.5.2 compatible, Updates related to UI/UX improvements in the grid and popup screens. Recommended upgrade.
+
+= 8.81.0 =
+WooCommerce 10.5.1 compatible, Fixes related to Undo not working when updating standard post fields like 'Title', 'Post Status', 'Post Date', etc. (Pro), Advanced Search not working for non-existing or empty meta values on Users dashboard (Pro), Updates related to UI/UX improvements in selected areas to enhance user experience. Recommended upgrade.
+
+= 8.80.0 =
+WordPress 6.9.1 compatible, Updates related to UI/UX improvements in selected areas to enhance user experience. Recommended upgrade.
+
+= 8.79.0 =
+Updates related to UI/UX improvements in selected areas to enhance user experience. Recommended upgrade.
+
+= 8.78.0 =
+WooCommerce 10.4.3 compatible, Fixes related to 'Catalog visibility' and 'Featured' columns missing from the column manager in the WooCommerce Products dashboard, Bulk Edit 'Set to' action not working for serialized fields (e.g., Default Attributes for WooCommerce Products) (Pro), Updates related to Load thumbnail-sized images for post thumbnail columns in the grid to improve dashboard load speed, UI/UX improvements for Grid. Recommended upgrade.
+
+= 8.77.0 =
+WooCommerce 10.4.2 compatible, WordPress 6.9 compatible, Synchronize stock log data from the Stock Manager for WooCommerce plugin (https://wordpress.org/plugins/woocommerce-stock-manager/) into Smart Manager, Fixes related to Variation titles in Smart Manager grid not updating after removing attributes from parent WooCommerce Product, Inline Edit not working for multilist columns (e.g. select dropdowns) containing a large number of values, Bulk Edit not working for multilist columns (e.g. select dropdowns) containing a large number of values (Pro). Recommended upgrade.
+
+= 8.76.0 =
+Fixes related to WooCommerce 'Price' field not syncing when 'Sale Price Dates From' and 'Sale Price Dates To' are updated using Inline Edit, WooCommerce 'Price' field not syncing when 'Sale Price Dates From' and 'Sale Price Dates To' are updated using Bulk Edit (Pro), WooCommerce 'Sale Price Dates From' and 'Sale Price Dates To' fields not clearing when setting empty values using Bulk Edit (Pro). Recommended upgrade.
+
+= 8.75.0 =
+Fixes related to Creating WooCommerce Orders using the 'Add Row' option in the Orders dashboard did not work with HPOS-enabled setups (Pro), Updates related to AI-Powered Advanced Search related improvements (Pro). Recommended upgrade.
+
+= 8.74.0 =
+WooCommerce 10.3.4 compatible, Fixes related to WooCommerce Product attributes list loading incorrectly in Advanced Search panel, Newly created WooCommerce Product attributes missing in Advanced Search panel (Pro), UI/UX issue causing the footer text to appear in the middle of the dashboard during background processes (Pro). Recommended upgrade.
+
+= 8.73.0 =
+WooCommerce 10.3.3 compatible, Advanced Search support for post and term IDs in all post types and taxonomies Task Dashboards (Pro), Link to access WooCommerce product edit history from the Product Edit page or the Products admin list view (Pro), Fixes related to Prevent PHP fatal error when activating Smart Manager while WooCommerce plugin is inactive, Sorting not resetting to its default state, Database warning displayed when viewing Task Dashboards (Pro), Advanced Search not applying multiple "OR" conditions correctly (Pro). Recommended upgrade.
+
+= 8.72.0 =
+WordPress 6.8.3 compatible, WooCommerce 10.2.2 compatible, AI-Powered Advanced Search for WooCommerce Products dashboard (Pro), Updates related to Copy WooCommerce Product fields from one variation to another using Bulk Edit (Pro), Improved UI/UX of duplicate WooCommerce Products modal (Pro). Recommended upgrade.
+
+= 8.71.0 =
+WooCommerce 10.2.1 compatible, Fixes related to Switching WPML active language not displaying taxonomy terms for the selected language in the grid (Pro), Updates to taxonomy terms via Inline and Bulk Edit not syncing with WPML translated post types (Pro), Updates related to Display WooCommerce Products in the grid based on WPML active language (Pro), UI/UX improvements across the Smart Manager dashboard. Recommended upgrade.
+
+= 8.70.0 =
+WooCommerce 10.1.2 compatible, Fixes related to Advanced Search panel gets stuck when loading a long list of fields, WooCommerce Product attributes list not visible in Inline Edit attributes modal when trying to add attributes, Add/Remove WooCommerce Product attributes containing special characters not working, Updates related to 2x boost in loading speed for the WooCommerce Products dashboard. Recommended upgrade.
+
+= 8.69.0 =
+WooCommerce 10.1.1 compatible, Korean translation (AI-generated), Log WooCommerce product changes (inventory, price and other product fields) across edits from the admin screen, third‑party plugins, or REST API (Pro), Undo WooCommerce product changes (inventory, price and other product fields) across edits from the admin screen, third‑party plugins, or REST API (Pro), Fixes related to Newly created taxonomy terms (e.g., WooCommerce product categories) not appearing in the Smart Manager dashboard, Advanced Search not working when using the 'is not' operator in taxonomy conditions, Scheduled Bulk Edits failing to process when handling a large number of records (Pro), Updates related to Pricing page related changes. Recommended upgrade.
+
+= 8.68.0 =
+Advanced Search for 'Orders Count' column in the Users dashboard (Pro), Fixes related to Advanced Search not working for post type dashboards after the last update, 'Set to Regular Price and decrease by %' action sets negative values when updating empty Sale Price fields for WooCommerce Products (Pro), Success message not displayed after scheduling a Bulk Edit (Pro), Updates related to Display 'Orders Count' and 'Orders Total' columns for all user roles in the Users dashboard (Pro), UI/UX improvements for Bulk Edit panel (Pro). Recommended upgrade.
+
+= 8.67.0 =
+WordPress 6.8.2 compatible, WooCommerce 10.0.4 compatible, Fixes related to Smart Manager Dashboard not loading if WooCommerce plugin is inactive, FacetWP reindexing not triggered when the WooCommerce Products 'Sale Price' field was updated using Inline Edit, 'save_post' hook triggered prematurely when updating the WooCommerce Products 'Sale Price' field via Inline Edit, Bulk Edit not working when using the 'All Items in Search Results' option after the latest update (Pro), FacetWP reindexing not triggered when the WooCommerce Products 'Sale Price' field was updated using Bulk Edit (Pro), 'save_post' hook triggered prematurely when updating the WooCommerce Products 'Sale Price' field via Bulk Edit (Pro), Updates related to UI/UX improvements for Bulk Edit panel. Recommended upgrade.
+
+= 8.66.0 =
+WooCommerce 9.9.5 compatible, Display save prompt after edits done via Inline Edit, Automatically update existing WooCommerce Subscriptions when editing subscription product prices via Bulk Edit (Pro), Fixes related to FacetWP reindexing not triggered for updates made via Inline Edit, 'post_id' was incorrectly passed as a string instead of an integer in the 'save_post' hook, Fetching hidden meta fields in the grid impacting dashboard load speed, FacetWP reindexing not triggered for updates made via Bulk Edit (Pro), 'Products' and 'Exclude Products' columns not displaying associated product lists in the WooCommerce Coupons dashboard (Pro). Recommended upgrade.
+
+= 8.65.0 =
+WooCommerce 9.9.4 compatible, Portuguese (Portugal), Russian and Turkish translations (AI-generated), 'Product SKU' and 'Product title' advanced search fields for WooCommerce Subscriptions dashboard (Pro), Fixes related to Inline edit functionality not working for 'Sale Price Dates From' and 'Sale Price Dates To' columns on WooCommerce Products dashboard, Updates related to Improved UI/UX of the inline edit modal for WooCommerce Product Attributes, Pricing page related changes. Recommended upgrade.
+
+= 8.64.0 =
+WooCommerce 9.9.3 compatible, Advanced Search for 'Plan' column in WooCommerce Memberships 'Members' dashboard (Pro), Auto-adjust batch sizes in Bulk Edit functionality based on server capacity (Pro), Fixes related to Scheduled Bulk Edits not processing successfully for large number of records (Pro), Undo shows both warning modal and background processing message during active background tasks (Pro), Updates related to Display warning when applying Bulk Edit to all store items or filtered search results (Pro), Developer changes related to 'sm_dashboard_model' filter renamed to 'sa_dashboard_model' along with other important fixes and updates. Recommended upgrade.
+
+= 8.63.0 =
+German, Japanese and Polish translations (AI-generated), Auto generate SKUs for WooCommerce products with empty values during CSV import (Pro), Predefined Custom Views for 'Unattached Media' (Pro), Fixes related to 'File' column in the Media dashboard displays the file name along with its path (Pro), Updates related to Renamed the 'WP Attached File' column to 'File' in the Media dashboard (Pro), along with other important fixes and updates. Recommended upgrade.
+
+= 8.62.0 =
+WooCommerce 9.8.5 compatible, Copy entire line items for WooCommerce Orders and Subscriptions using Bulk Edit (Pro), Chinese and Spanish translations (AI-generated), Fixes related to Taxonomies containing special characters not displaying correctly in the grid and Advanced Search panel, Scroll not working in the submenu list within the dashboard combo box, Changing operator value affects the value field display in certain cases when using bulk edit (Pro), Bulk edit for adding custom attributes to WooCommerce Products not working (Pro), Taxonomies containing special characters not displaying correctly in Bulk Edit panel (Pro), Updates related to Improved UI/UX of the inline edit modal for WooCommerce Product Attributes, along with other important fixes and updates. Recommended upgrade.
+
+= 8.61.0 =
+WordPress 6.8.1 compatible, WooCommerce 9.8.4 compatible, Add/Remove product and coupon line items for WooCommerce Orders and Subscriptions using Bulk Edit (Pro), Copy product and coupon line items for WooCommerce Orders and Subscriptions using Bulk Edit (Pro), Fixes related to Adding/Removing terms from WooCommerce Products not working in some cases when using inline edit functionality, Adding/Removing terms to WooCommerce Products not working in some cases when using bulk edit functionality (Pro), PHP Fatal error: 'Cannot redeclare sm_beta_pro_set_scheduled_export_content_type' when using the 'Schedule Export' functionality from the WooCommerce Orders dashboard (Pro), PHP Fatal Error: 'Call to a member function date() on null' occurs when using the 'Print Invoice' functionality from the WooCommerce Orders dashboard (Pro), along with other important fixes and updates. Recommended upgrade.
+
+= 8.60.0 =
+WordPress 6.8 compatible, WooCommerce 9.8.1 compatible, Automated scheduled CSV exports for WooCommerce Orders (Pro), Compatibility with [Pods – Custom Content Types and Fields](https://wordpress.org/plugins/pods/) (Pro), Compatibility with [Meta Box](https://wordpress.org/plugins/meta-box/) (Pro), Fixes related to 'No Access' rules in Access Privilege Settings not working correctly (Pro), 'Pending for Shipping Orders' predefined custom view not working for non-HPOS stores on the WooCommerce Orders dashboard (Pro), Script to show Bulk Edit progress loaded on all admin pages (Pro), WooCommerce Product SKUs not updating when both SKU and stock fields are edited using Inline Edit (Pro), Internationalization related warnings on WordPress v6.8, Updates related to UI/UX enhancements for Bulk Edit, Advanced search & Access Privilege Settings value fields (Pro), Pricing page related changes along with other important fixes and updates. Recommended upgrade.
+
+= 8.59.0 =
+Predefined Custom Views for 'Draft Products' and 'Expired Coupons' (Pro), Fixes related to Inline edit not working when adding or removing attributes in WooCommerce Products, Inline edit for WooCommerce Product custom attributes replaces spaces with hyphens and converts uppercase letters to lowercase,Slug doesn't update automatically when changing 'Post Status' to 'Publish' for duplicated records (Pro), Value field UI breaks in Access Privilege Settings when selecting multiple values (Pro) along with other important fixes and updates. Recommended upgrade.
+
+= 8.58.0 =
+WooCommerce 9.7.1 compatible, Save and reuse Bulk Edit actions (Pro), Support for 'set to regular price and decrease by number' & 'set to regular price and decrease by %' actions using Bulk Edit for WooCommerce Products dashboard (Pro), Predefined Custom Views for 'Customers' and 'Pending for Shipping Orders' (Pro), Fixes related to 'save_post' hook doesn't trigger when updating meta or taxonomy data using Inline edit functionality, Database error when creating products using 'Add Row' functionality in WooCommerce Products dashboard, Advanced Search operators like 'any of', 'not any of', 'starts with', 'not starts with', 'ends with', 'not ends with', 'is not' and 'not contains' not working for WooCommerce Orders dashboard, Incorrect record count in success message when updating 'All Items in Store' using Bulk Edit functionality in some cases (Pro) along with other important fixes and updates. Recommended upgrade.
+
+= 8.57.0 =
+WooCommerce 9.6.2 compatible, Fixes related to Navigation bar height increasing when the Advanced Search checkbox is checked, Slight delay in hiding dashboard combo box dropdown list after selection, Inconsistent modal height when searching for the WooCommerce product 'Category' field in the Inline Edit modal, Selected value does not persist after updating with the 'copy from field' operator in Bulk Edit functionality (Pro), Improved performance when loading Custom Views and Saved Advanced Search dashboards (Pro) along with other important fixes and updates. Recommended upgrade.
+
+= 8.56.0 =
+WordPress 6.7.2 compatible, Search for WooCommerce Product 'Category' field in Inline edit modal, Saved searches for Advanced Search and application across multiple dashboards (Pro), Fixes related to WooCommerce Product 'Category' field is not shown in hierarchical structure in Inline edit modal, Export CSV not working for 'All items in search results - Stock Columns' when using Simple Search and Advanced Search functionalities, Inline edit and Bulk edit not working for Custom Views dashboards (Pro), Updates related to Grid layout to fully utilize screen space along with other important fixes and updates. Recommended upgrade.
+
+= 8.55.0 =
+WooCommerce 9.6.1 compatible, Added 'New' and 'Manage scheduled edits' as dropdown options under Bulk Edit (Pro), Fixes related to In-app plugin update link not converting plugin back to Pro version, Advanced Search in WooCommerce Orders dashboard not filtering WooCommerce product fields like SKU, Validation not working for datetime fields in Inline edit, Update failing for field values containing special characters like single quotes, Updates related to Displayed 'Undo' link in Inline edit success message (Pro) along with other important fixes and updates. Recommended upgrade.
+
+= 8.54.0 =
+WooCommerce 9.5.2 compatible, Fixes related to Dashboard selection not working in some cases, Updates related to 10x boost in loading speed for the WooCommerce Products dashboard, 10x speed improvement for updating taxonomy fields using Inline edit and Bulk edit (Pro) along with other important fixes and updates. Recommended upgrade.
 
 = 8.53.0 =
 Compatibility with [Germanized for WooCommerce Pro](https://vendidero.de/woocommerce-germanized) (Pro), Fixes related to SQL vulnerability in Advanced Search functionality [Thanks to Patchstack team], Updates related to UI/UX for dashboard combo box along with other important fixes and updates. Recommended upgrade.
@@ -1012,7 +1397,7 @@ Important updates and fixes related to Some fields showing as '#bad-value#', Loa
 Important updates and fixes related to Records getting updated via Inline Edit even if data type validation fails, Sorting on more than one page causing continuous increase in data in the dashboard, Selection and edited data getting lost on infinite scrolling and many more. Recommended upgrade.
 
 = 4.1.7 =
-Added support for showing loader on the grid for any request, Fixes related to Show Variations checkbox not visible, Attribute values not getting loaded in Batch Update on selection of Attribute, 
+Added support for showing loader on the grid for any request, Fixes related to Show Variations checkbox not visible, Attribute values not getting loaded in Batch Update on selection of Attribute,
 Date Filtering not working in combination with other advanced search filters, Numeric operators not coming for numeric fields in advanced search along with other important fixes & updates. Recommended upgrade.
 
 = 4.1.6 =
@@ -1100,10 +1485,10 @@ Fixes related to print invoices not working properly for some of the orders (Woo
 New feature of storing the state of Smart Manager (Beta) into the database - enabling same view from anywhere (Beta) along with other important fixes & updates. Recommended upgrade.
 
 = 3.11.1 =
-Fixes related to no products getting loaded in products dashboard in some cases, custom attributes not getting saved when edited using Smart Manager Beta along with other important fixes & updates. Recommended upgrade. 
+Fixes related to no products getting loaded in products dashboard in some cases, custom attributes not getting saved when edited using Smart Manager Beta along with other important fixes & updates. Recommended upgrade.
 
 = 3.11.0 =
-Fixes related to advanced search functionality in Beta, order totals not getting displayed in invoices printed using Smart Manager (woocommerce) along with other important fixes & updates. Recommended upgrade. 
+Fixes related to advanced search functionality in Beta, order totals not getting displayed in invoices printed using Smart Manager (woocommerce) along with other important fixes & updates. Recommended upgrade.
 
 = 3.10.0 =
 New feature of advanced search functionality for all dashboards(beta), billing address & customer id columns in orders csv export (woocommerce) along with other important fixes & updates. Recommended upgrade.
@@ -1256,21 +1641,21 @@ Major performance improvements, enhancements and fixes. Recommended upgrade.
 Multilingual support, export CSV fixes and batch update enhancements. Recommended upgrade.
 
 = 2.5 =
-Recommended upgrade. Added support for "Adding variations", "Attribute Management" and many other small fixes and enhancements. 
+Recommended upgrade. Added support for "Adding variations", "Attribute Management" and many other small fixes and enhancements.
 
 = 2.4 =
-Recommended upgrade. Fixed issues in CSV export and many other small fixes and enhancements. 
+Recommended upgrade. Fixed issues in CSV export and many other small fixes and enhancements.
 
 = 2.3 =
-Recommended upgrade. Export CSV support for WooCommerce added. Fixed issue related to Sale Price for WooCommerce. Upgrade WPeC / WooCommerce before upgrading Smart Manager. 
+Recommended upgrade. Export CSV support for WooCommerce added. Fixed issue related to Sale Price for WooCommerce. Upgrade WPeC / WooCommerce before upgrading Smart Manager.
 
 = 2.2 =
-Recommended upgrade. Variations support for WooCommerce added. Upgrade WPeC / WooCommerce before upgrading Smart Manager. 
+Recommended upgrade. Variations support for WooCommerce added. Upgrade WPeC / WooCommerce before upgrading Smart Manager.
 
 = 2.1 =
 Upgrade WPeC / WooCommerce before upgrading Smart Manager. Multi site support added. Updated to work with WooCommerce 1.4.3. Recommended upgrade.
 
-= 2.0 = 
+= 2.0 =
 Important update for WooCommerce - adds customer and order management. Recommended upgrade.
 
 = 1.9.1 =
@@ -1280,7 +1665,7 @@ Access control support added, improved auto upgrade. Recommended upgrade.
 WooCommerce customers and orders support added.
 
 = 1.8 =
-WooCommerce support added. Batch update for entire store possible now. 
+WooCommerce support added. Batch update for entire store possible now.
 
 = 1.7 =
 Adds Batch Invoice / Packing Slips printing. Recommended upgrade.
@@ -1295,12 +1680,12 @@ Performance and stability improvements. Recommended upgrade.
 Adds management of product variations for paid versions, with WPeC 3.8+. IMPORTANT: Paid users: please rename plugin folder to "smart-manager-for-wp-e-commerce" before upgrading.
 
 = 1.3 =
-Feature update and bug fix release. 
+Feature update and bug fix release.
 
 = 1.2 =
-Important bug fixes and overall enhancements. 
+Important bug fixes and overall enhancements.
 
-= 1.1 = 
+= 1.1 =
 Fixes bugs and IE compatibility issues. Recommended upgrade.
 
 = 1.0 =
@@ -1328,7 +1713,7 @@ Recommended upgrade. Fixes a few issues and enhances JS and CSS loading.
 Customers dashboard added. View and search customers. Recommended upgrade.
 
 = 0.6.0 =
-Must have upgrade. Now you can manage orders too, and in a much better way than WPeC! Lite version now also supports inline editing for product name and price. Many more enhancements too.    
+Must have upgrade. Now you can manage orders too, and in a much better way than WPeC! Lite version now also supports inline editing for product name and price. Many more enhancements too.
 
 = 0.5.7 =
-Fixes a problem that caused blank screen. 
+Fixes a problem that caused blank screen.

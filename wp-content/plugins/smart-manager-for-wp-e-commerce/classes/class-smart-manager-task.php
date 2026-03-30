@@ -79,24 +79,30 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 			); // should be kept before calling the parent class constructor.
 			parent::__construct( $dashboard_key );
 			$this->dashboard_key = $dashboard_key;
-			
+
 			if ( file_exists(SM_PLUGIN_DIR_PATH . '/pro/classes/class-smart-manager-pro-base.php') ) {
 				include_once SM_PLUGIN_DIR_PATH . '/pro/classes/class-smart-manager-pro-base.php';
 				$this->pro_base = new Smart_Manager_Pro_Base( $dashboard_key );
-				$this->advance_search_operators = ( ! empty( $this->pro_base->advance_search_operators ) ) ? $this->pro_base->advance_search_operators : $this->advance_search_operators;
+				$this->advanced_search_operators = ( ! empty( $this->pro_base->advance_search_operators ) ) ? $this->pro_base->advance_search_operators : $this->advanced_search_operators;
 			}
-			
+
 			$this->store_col_model_transient_option_nm = 'sa_sm_' . $this->dashboard_key . '_tasks';
 			add_filter( 'sm_default_dashboard_model', array( &$this, 'generate_dashboard_model' ) );
 			add_filter( 'sm_data_model', array( &$this, 'generate_data_model' ), 10, 2 );
 			add_filter(
-				'sm_beta_load_default_store_model',
+				'sm_load_default_store_model',
 				function() {
 					return false;
 				}
 			);
 			add_filter(
 				'sm_beta_load_default_data_model',
+				function() {
+					return false;
+				}
+			);
+			add_filter(
+				'sa_sm_can_apply_dashboard_model_filter',
 				function() {
 					return false;
 				}
@@ -180,7 +186,7 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 			$current_user_role = ( is_callable( array( 'Smart_Manager', 'get_current_user_role' ) ) ) ? Smart_Manager::get_current_user_role() : '';
 			$where = apply_filters(
 				'sm_where_tasks_cond',
-				' AND '. $wpdb->prefix . 'sm_tasks.post_type = %s' . 
+				' AND '. $wpdb->prefix . 'sm_tasks.post_type = %s' .
 				( (!empty( $current_user_role ) && 'administrator' === $current_user_role) ? '' : ' AND author = %d')
 			);
 			$order_by            = apply_filters( 'sm_orderby_tasks_cond', $wpdb->prefix . 'sm_tasks.id DESC ' );
@@ -235,7 +241,7 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 			if ( ! empty( $this->req_params['advanced_search_query'] ) && ( '[]' !== $this->req_params['advanced_search_query'] ) ) {
 				$this->req_params['advanced_search_query'] = json_decode( stripslashes( $this->req_params['advanced_search_query'] ), true );
 				if ( ! empty( $this->req_params['advanced_search_query'] ) ) {
-					$this->advance_search_operators = ( ! empty( $data_col_params['advance_search_operators'] ) ) ? $data_col_params['advance_search_operators'] : $this->advance_search_operators;
+					$this->advanced_search_operators = ( ! empty( $data_col_params['advanced_search_operators'] ) ) ? $data_col_params['advanced_search_operators'] : $this->advanced_search_operators;
 					if ( ! empty( $this->req_params['table_model']['posts']['where']['post_type'] ) ) {
 						$post_type = ( is_array( $this->req_params['table_model']['posts']['where']['post_type'] ) ) ? $this->req_params['table_model']['posts']['where']['post_type'] : array( $this->req_params['table_model']['posts']['where']['post_type'] );
 					}
@@ -265,16 +271,11 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 			}
 			$query_limit_str  = ( ! empty( $this->req_params['cmd'] ) && ( 'get_export_csv' === $this->req_params['cmd'] ) ) ? '' : 'LIMIT ' . $start_offset . ', ' . $limit;
 			$user_id_constraint = ( ! empty( $current_user_role ) && 'administrator' === $current_user_role ) ? '' : $current_user_id;
-			$args = ( ( ! empty( $this->req_params['search_text'] ) ) ?
-				array_merge(
-					array(
-						1,
-						$this->dashboard_key,
-						$user_id_constraint
-					),
-					array_fill( 0, sizeof( $simple_search_where_cond ), '%' . $wpdb->esc_like( $search_text ) . '%' ) 
-				) : array( 1, $this->dashboard_key, $user_id_constraint )
-				);
+			$base_args = array( 1, $this->dashboard_key );
+			if ( ! empty( $user_id_constraint ) ) {
+				$base_args[] = $user_id_constraint;
+			}
+			$args = ( ! empty( $this->req_params['search_text'] ) ) ? array_merge( $base_args, array_fill( 0, sizeof( $simple_search_where_cond ), '%' . $wpdb->esc_like( $search_text ) . '%' ) ) : $base_args;
 			$ids              = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT DISTINCT {$wpdb->prefix}sm_tasks.id" . $from . $join . "
@@ -315,7 +316,7 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 						$items[ $index ][ $key_mod ] = $value;
 						if ( 'author' === $key ) {
 							$user_info   = get_user_by( 'id', intval( $value ) );
-							$items[ $index ][ $key_mod ] = ( $user_info instanceof WP_User ) ? ( ( ! empty( $user_info->display_name ) ? $user_info->display_name : '' ) . ( ! empty( $user_info->user_email ) ? ' (' . $user_info->user_email . ')' : '' ) ) : '';
+							$items[ $index ][ $key_mod ] = ( $user_info instanceof WP_User ) ? ( ( ! empty( $user_info->display_name ) ? $user_info->display_name : '' ) . ( ! empty( $user_info->user_email ) ? ' (' . $user_info->user_email . ')' : '' ) ) : '-';
 						}
 					}
 					$index++;
@@ -330,56 +331,6 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 		}
 
 		/**
-		 * Task updation
-		 *
-		 * @param array $params contains status, completed date, title, date, post type, author, type, status, actions, record_count.
-		 * @return int inserted task id in case of insertion or number of affected rows in case of updation
-		 */
-		public static function task_update( $params = array() ) {
-			global $wpdb;
-			if ( empty( $params ) && ( ! is_array( $params ) ) ) {
-				if ( is_callable( array( 'Smart_Manager', 'log' ) ) ) {
-					Smart_Manager::log( 'error', _x( 'No params found for updating task ', 'task update params', 'smart-manager-for-wp-e-commerce' ) );
-				}
-				return;
-			}
-			if ( ( ! empty( $params['task_id'] ) ) && ( ( ! empty( $params['status'] ) ) || ( ! empty( $params['completed_date'] ) ) ) ) {
-				$set_query = '';
-				switch ( $params ) {
-					case ( ! empty( $params['status'] ) && ( ! isset( $params['completed_date'] ) ) ):
-						$set_query = "status = '{$params['status']}'";
-						break;
-					case ( ! isset( $params['status'] ) && ( ! empty( $params['completed_date'] ) ) ):
-						$set_query = "completed_date = '{$params['completed_date']}'";
-						break;
-					default:
-						$set_query = "status = '{$params['status']}', completed_date = '{$params['completed_date']}'";
-					}
-				if ( empty( $set_query ) ) {
-					return;
-				}
-				return $wpdb->query( "UPDATE {$wpdb->prefix}sm_tasks SET " . $set_query . " WHERE id = " . $params['task_id'] . "" );
-			} elseif ( ! empty( $params['title'] ) && ! empty( $params['post_type'] ) && ! empty( $params['type'] ) && ! empty( $params['actions'] ) && ! empty( $params['record_count'] ) ) {
-				$wpdb->query(
-					$wpdb->prepare(
-						"INSERT INTO {$wpdb->prefix}sm_tasks( title, date, completed_date, post_type, author, type, status, actions, record_count)
-						VALUES( %s, %s, %s, %s, %d, %s, %s, %s, %d )",
-						$params['title'],
-						( ! empty( $params['created_date'] ) ) ? $params['created_date'] : '0000-00-00 00:00:00',
-						'0000-00-00 00:00:00',
-						$params['post_type'],
-						get_current_user_id(),
-						$params['type'],
-						( ! empty( $params['status'] ) ) ? $params['status'] : 'in-progress',
-						json_encode( $params['actions'] ),
-						$params['record_count']
-					)
-				);
-			}
-			return ( ! is_wp_error( $wpdb->insert_id ) ) ? $wpdb->insert_id : 0;
-		}
-
-		/**
 		 * Insert task details into sm_task_details table
 		 *
 		 * @param array $params contains task_id, action, status, record_id, field, prev_val, updated_val.
@@ -388,40 +339,7 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 		public static function task_details_update() {
 			global $wpdb;
 			$params = ( ! empty( property_exists( 'Smart_Manager_Base', 'update_task_details_params' ) ) ) ? Smart_Manager_Base::$update_task_details_params : array();
-			if ( empty( $params ) && ( ! is_array( $params ) ) ) {
-				return;
-			}
-			$task_id         = array();
-			$task_details_id = array();
-			foreach ( $params as $param ) {
-				if ( empty( $param['task_id'] ) || empty( $param['action'] ) || empty( $param['status'] ) || empty( $param['record_id'] ) || empty( $param['field'] ) ) {
-					continue;
-				}
-				$task_id = array( $param['task_id'] );
-				$wpdb->query(
-					$wpdb->prepare(
-						"INSERT INTO {$wpdb->prefix}sm_task_details( task_id, action, status, record_id, field, prev_val, updated_val )
-						VALUES( %d, %s, %s, %d, %s, %s, %s )",
-						$param['task_id'],
-						$param['action'],
-						$param['status'],
-						$param['record_id'],
-						$param['field'],
-						( isset( $param['prev_val'] ) ) ? $param['prev_val'] : '',
-						( isset( $param['updated_val'] ) ) ? maybe_serialize( $param['updated_val'] ) : ''
-					)
-				);
-				$task_details_id[] = ( ! is_wp_error( $wpdb->insert_id ) ) ? $wpdb->insert_id : array();
-			}
-			if ( ( ! empty( $task_details_id ) ) && ( count( $params ) === count( $task_details_id ) ) ) {
-				self::task_update(
-					array(
-						'task_id' => implode( '', $task_id ),
-						'status' => 'completed',
-						'completed_date' => date( 'Y-m-d H:i:s' )
-					)
-				);
-			}
+			sm_task_details_update( $params );
 		}
 
 		/**
@@ -442,6 +360,11 @@ if ( ! class_exists( 'Smart_Manager_Task' ) ) {
 				case 'postmeta':
 					return get_post_meta( $post_id, $column, true );
 				case 'terms':
+					// Get product catalog visibility.
+					if( ( 'product_visibility' === $column ) && ( function_exists( 'wc_get_product' ) ) ){
+						$product = wc_get_product( $post_id );
+						return ( ( ! empty( $product ) ) && ( is_callable( array( $product, 'get_catalog_visibility' ) ) ) ) ? $product->get_catalog_visibility() : '';
+					}
 					return wp_get_object_terms( $post_id, $column, 'orderby=none&fields=ids' );
 			}
 		}
