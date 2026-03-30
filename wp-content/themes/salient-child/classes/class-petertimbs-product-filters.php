@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 class Petertimbs_product_filters
 {
-	function __construct()
+	public function __construct()
 	{
 		add_filter('woocommerce_shortcode_products_query', [$this, 'petertimbs_home_page_filter'], 9999, 3);
 		add_filter('woocommerce_shortcode_products_query', [$this, 'petertimbs_hide_product']);
@@ -12,7 +12,7 @@ class Petertimbs_product_filters
 		add_filter( 'get_terms', [$this, 'exclude_category'], 10, 3 );
 	}
 
-	function petertimbs_home_page_filter($args, $atts, $type) {
+	public function petertimbs_home_page_filter($args, $atts, $type) {
 	    global $post;
 	    $args['meta_query'] = [
 	        'key' => '_hidden_on_site',
@@ -36,7 +36,7 @@ class Petertimbs_product_filters
 	    return $args;
 	}
 
-	function petertimbs_hide_product($args) {
+	public function petertimbs_hide_product($args) {
 	    global $post;
 	    $ids = get_hidden_product_ids();
 	    $args['post__not_in'] = $ids;
@@ -54,7 +54,7 @@ class Petertimbs_product_filters
 	    return $args;
 	}
 
-	function hide_meals_from_site( $q ) {
+	public function hide_meals_from_site( $q ) {
 	    $category = get_queried_object();
 	    $ids = [];
 	    if($category->slug == 'meals') {
@@ -98,7 +98,7 @@ class Petertimbs_product_filters
 
 	}
 
-	function hide_meals_from_relative_posts($args)
+	public function hide_meals_from_relative_posts($args)
 	{
 		$ids = get_hidden_product_ids();
 	    foreach($args as $product_id)
@@ -121,33 +121,21 @@ class Petertimbs_product_filters
 	        
 	}
 
-	function exclude_category( $terms, $taxonomies, $args )
+	public function exclude_category( $terms, $taxonomies, $args )
 	{
+		if(is_admin()) {
+			return $terms;
+		}
 		$ignore = ["meals", "butchers-box", "deli-products", "grazing-boxes", "pies", "ready-to-eat-meals", "ready-to-heat-meals", "salads"];
 		$new_terms = array();
-		// if ( in_array( 'product_cat', $taxonomies ) && is_shop() ) {
-		// 	foreach ( $terms as $key => $term ) {
-		//     	if ( ! in_array( $term->slug, $ignore ) ) {
-		//         	$new_terms[] = $term;
-		//       	}
-		//     }
-		//     $terms = $new_terms;
-		// }
+
 		$terms_slug = get_queried_object()->slug;
 		if ( in_array( 'product_cat', $taxonomies ) && is_shop() || is_product_category()  || is_product_tag() ) {
-			// if( in_array( $terms_slug, $ignore ) ){
-			// 	foreach ( $terms as $key => $term ) {
-			//     	if ( in_array( $term->slug, $ignore ) ) {
-			//     		$new_terms[] = $term;
-			//       	}
-			//     }
-			// }else{
 				foreach ( $terms as $key => $term ) {
 			    	if ( ! in_array( $term->slug, $ignore ) ) {
 			        	$new_terms[] = $term;
 			      	}
 			    }
-			// }
 	    	$terms = $new_terms;
 		}
 		return $terms;

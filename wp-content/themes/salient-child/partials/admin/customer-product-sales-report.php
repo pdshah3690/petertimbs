@@ -1,5 +1,5 @@
 <?php
-	$range = $_GET['range'];
+	$range = empty($_GET['range']) ? '' : $_GET['range'];
 	$start_date = empty($_GET['start_date']) ? '' : $_GET['start_date'];
 	$end_date = empty($_GET['end_date']) ? '' : $_GET['end_date'];
 	$type = empty($_GET['order_type']) ? '' : $_GET['order_type'];
@@ -82,7 +82,7 @@
 							<th>Qty.</th>
 							<th>U.O.M</th>
 							<th>Status</th>
-							<th>Is Order</th>
+							<!-- <th>Is Order</th> -->
 							<th>Store</th>
 							<th>Order create date</th>
 							<th>Action</th>
@@ -103,7 +103,7 @@
 								<td><?php echo $d['qty']; ?></td>
 								<td><?php echo empty($d['weight']) ? "-" : $d['weight']." Kg."; ?> </td>
 								<td><?php echo ucfirst(str_replace("wc-", "", $d['status'])); ?> </td>
-								<td><?php echo $d['is_order']; ?> </td>
+								<!-- <td><?php // echo $d['is_order']; ?> </td> -->
 								<td><?php echo $d['store']; ?> </td>
 								<td><?php echo date("d/m/Y H:i", strtotime($d['order_date'])); ?> </td>
 								<td><a href="<?php echo get_admin_url(); ?>admin.php?page=petertimbs-phone-orders&order_id=<?php echo $d['order_id']; ?>">Edit</a>  </td>

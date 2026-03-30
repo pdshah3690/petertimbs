@@ -475,6 +475,7 @@ function get_earlier_pickup_time() {
         } else {
             $post_id = empty($item['variation_id']) ? $item['product_id'] : $item['variation_id'];
             $preparation_time = get_post_meta($post_id, "preparation_time", true);
+            $preparation_time = empty($preparation_time) ? 0 : $preparation_time;
             $total_prep_time = $total_prep_time + ($preparation_time * $item['quantity']);
         }
         if(empty($preparation_time)) {
@@ -1382,3 +1383,17 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 
 
 //Edit User Profile Add Checkbox
+
+add_filter('walker_nav_menu_start_el', function($item_output, $item, $depth, $args) {
+
+    if (in_array('no-click', $item->classes)) {
+        $item_output = preg_replace(
+            '/<a[^>]*>(.*?)<\/a>/',
+            '<span class="menu-label">$1</span>',
+            $item_output
+        );
+    }
+
+    return $item_output;
+
+}, 10, 4);
