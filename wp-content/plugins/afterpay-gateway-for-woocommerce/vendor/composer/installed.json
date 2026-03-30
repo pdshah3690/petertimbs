@@ -47,6 +47,6 @@
             "install-path": "../afterpay-global/afterpay-sdk-php"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

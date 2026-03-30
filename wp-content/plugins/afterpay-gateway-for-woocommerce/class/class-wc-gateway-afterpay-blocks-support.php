@@ -18,7 +18,7 @@ final class WC_Gateway_Afterpay_Blocks_Support extends AbstractPaymentMethodType
 	 * Initializes the payment method type.
 	 */
 	public function initialize() {
-		$this->settings = get_option( 'woocommerce_afterpay_settings', [] );
+		$this->settings = get_option( 'woocommerce_afterpay_settings', array() );
 	}
 
 	/**
@@ -29,7 +29,7 @@ final class WC_Gateway_Afterpay_Blocks_Support extends AbstractPaymentMethodType
 	public function get_payment_method_script_handles() {
 		$asset_path   = WC_GATEWAY_AFTERPAY_PATH . '/build/afterpay-blocks/index.asset.php';
 		$version      = Afterpay_Plugin::$version;
-		$dependencies = [];
+		$dependencies = array();
 		if ( file_exists( $asset_path ) ) {
 			$asset        = require $asset_path;
 			$version      = is_array( $asset ) && isset( $asset['version'] )
@@ -46,7 +46,7 @@ final class WC_Gateway_Afterpay_Blocks_Support extends AbstractPaymentMethodType
 			$version,
 			true
 		);
-		return [ 'wc-afterpay-blocks-integration', 'afterpay_express' ];
+		return array( 'wc-afterpay-blocks-integration', 'afterpay_express' );
 	}
 
 	/**
@@ -56,21 +56,29 @@ final class WC_Gateway_Afterpay_Blocks_Support extends AbstractPaymentMethodType
 	 */
 	public function get_payment_method_data() {
 		$instance = WC_Gateway_Afterpay::getInstance();
+		$static_url       = $instance->get_static_url();
+		$country_code     = $instance->get_country_code();
+		$caa_is_available = $instance->feature_is_available( 'caa' );
+		if ( $country_code == 'US' && $caa_is_available ) {
+			$logo_url = $static_url . 'en-US/integration/logo/lockup/new-color-black-24.png';
+		} else {
+			$logo_url = $static_url . 'integration/checkout/logo-afterpay-colour-120x25.png';
+		}
 		wp_enqueue_style( 'afterpay_css' );
-		return [
-			'mpid' => $instance->get_mpid(),
-			'currency' => get_woocommerce_currency(),
-			'min' => $instance->getOrderLimitMin(),
-			'max' => $instance->getOrderLimitMax(),
-			'logo_url' => $instance->get_static_url() . 'integration/checkout/logo-afterpay-colour-120x25.png',
-			'testmode' => $this->get_setting('testmode'),
-			'locale' => $instance->get_js_locale(),
-			'supports' => $this->get_supported_features(),
-			'ec_enabled' => $instance->express_is_enabled(),
-			'ec_button' => $instance->get_express_checkout_button_for_block(),
-			'frontend_is_ready' => $instance->frontend_is_ready(),
-			'cart_placement_attributes' => $instance->get_cart_placement_attributes('WooCommerce/Blocks'),
-		];
+		return array(
+			'mpid'                      => $instance->get_mpid(),
+			'currency'                  => get_woocommerce_currency(),
+			'min'                       => $instance->getOrderLimitMin(),
+			'max'                       => $instance->getOrderLimitMax(),
+			'logo_url'                  => $logo_url,
+			'testmode'                  => $this->get_setting( 'testmode' ),
+			'locale'                    => $instance->get_js_locale(),
+			'supports'                  => $this->get_supported_features(),
+			'ec_enabled'                => $instance->express_is_enabled(),
+			'ec_button'                 => $instance->get_express_checkout_button_for_block(),
+			'frontend_is_ready'         => $instance->frontend_is_ready(),
+			'cart_placement_attributes' => $instance->get_cart_placement_attributes( 'WooCommerce/Blocks' ),
+		);
 	}
 
 	/**
@@ -79,9 +87,9 @@ final class WC_Gateway_Afterpay_Blocks_Support extends AbstractPaymentMethodType
 	 * @return string[]
 	 */
 	public function get_supported_features() {
-		$features = [];
+		$features         = array();
 		$payment_gateways = WC()->payment_gateways->payment_gateways();
-		if (array_key_exists('afterpay', $payment_gateways)) {
+		if ( array_key_exists( 'afterpay', $payment_gateways ) ) {
 			$features = $payment_gateways['afterpay']->supports;
 		}
 		return $features;

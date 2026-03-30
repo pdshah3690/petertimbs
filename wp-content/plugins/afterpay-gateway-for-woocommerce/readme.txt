@@ -1,9 +1,9 @@
 === Afterpay Gateway for WooCommerce ===
 Contributors: afterpayit
 Tags: woocommerce, afterpay
-Requires at least: 4.8.3
-Tested up to: 6.4.3
-Stable tag: 3.8.5
+Requires at least: 6.0.3
+Tested up to: 6.7.2
+Stable tag: 3.8.8
 License: GNU Public License
 License URI: https://www.gnu.org/licenses/
 
@@ -11,7 +11,7 @@ Provide Afterpay as a payment option for WooCommerce orders.
 
 == Description ==
 
-Give your customers the option to buy now and pay later with Afterpay. The "Afterpay Gateway for WooCommerce" plugin provides the option to choose Afterpay as the payment method at the checkout. It also provides the functionality to display the Afterpay logo and instalment calculations below product prices on category pages, individual product pages, and on the cart page. For each payment that is approved by Afterpay, an order will be created inside the WooCommerce system like any other order. Automatic refunds are also supported.
+Give your customers the option to buy now and pay later with Afterpay. The "Afterpay Gateway for WooCommerce" plugin provides the option to choose Afterpay as the payment method at the checkout. It also provides the functionality to display the Afterpay logo and instalment calculations below product prices on category pages, individual product pages, and on the cart page. When checking out with Afterpay, WooCommerce will create a pending order. The user will be redirected to Afterpay to confirm payment for their order. Automatic refunds are also supported.
 
 == Installation ==
 
@@ -38,6 +38,26 @@ This section outlines the steps to install the Afterpay plugin.
 Please refer to the [User Guide](https://developers.afterpay.com/afterpay-online/docs/woocommerce). Most common questions are answered in the [FAQ](https://developers.afterpay.com/afterpay-online/docs/woocommerce-faq). There is also the option to create a support ticket in the official [Afterpay Help Centre](https://help.afterpay.com/hc) if necessary.
 
 == Changelog ==
+
+= 3.8.8 =
+*Release Date: Monday, 17 Mar 2025*
+
+* Minor improvements.
+* Tested and verified support for WordPress 6.7.2 and WooCommerce 9.7.1.
+
+= 3.8.7 =
+*Release Date: Thursday, 07 Nov 2024*
+
+* Raised minimum system requirements.
+* Revised placements on cart page and checkout page.
+* Minor improvements.
+* Tested and verified support for WordPress 6.6.2 and WooCommerce 9.3.3.
+
+= 3.8.6 =
+*Release Date: Monday, 22 Jul 2024*
+
+* Minor improvements.
+* Tested and verified support for WordPress 6.5.5 and WooCommerce 9.1.2.
 
 = 3.8.5 =
 *Release Date: Monday, 04 Mar 2024*
