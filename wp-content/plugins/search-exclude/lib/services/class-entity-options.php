@@ -41,8 +41,7 @@ class Entity_Options {
 	public function get_entries() {
 		$post_types = get_post_types(
 			array(
-				'public'            => true,
-				'show_in_nav_menus' => true,
+				'public' => true,
 			),
 			'objects'
 		);
@@ -71,23 +70,22 @@ class Entity_Options {
 	public function get_taxonomies() {
 		$taxonomies = get_taxonomies( array( 'public' => true ), 'objects' );
 		$array      = array();
-		
+
 		// Only check if taxonomy has terms without loading all terms
 		foreach ( $taxonomies as $taxonomy ) {
-			$has_terms = get_terms(
+			$term_count = get_terms(
 				array(
 					'taxonomy'   => $taxonomy->name,
 					'hide_empty' => false,
-					'fields'     => 'ids',
-					'number'     => 1, // Only need to fetch 1 term to know if taxonomy has terms
+					'fields'     => 'count',
 				)
 			);
 
-			if ( ! is_wp_error( $has_terms ) && ! empty( $has_terms ) ) {
+			if ( $term_count > 0 ) {
 				$array[ $taxonomy->name ] = $taxonomy;
 			}
 		}
-		
+
 		return $array;
 	}
 

@@ -5,6 +5,7 @@ namespace QuadLayers\QLSE\Controllers;
 use QuadLayers\QLSE\Models\Settings as Models_Settings;
 use QuadLayers\QLSE\Helpers;
 use QuadLayers\QLSE\Api\Entities\Settings\Get as API_Settings_Get;
+use QuadLayers\QLSE\Services\Entity_Options;
 
 
 /**
@@ -47,13 +48,15 @@ class Backend {
 		/**
 		 * Add bulk edit actions
 		 */
-		foreach ( get_post_types() as $post_type ) {
-			/**
-			 * Add dropdown
-			 */
-			add_filter( "bulk_actions-edit-$post_type", array( $this, 'bulk_edit' ) );
-			add_filter( "handle_bulk_actions-edit-$post_type", array( $this, 'bulk_action_handler' ), 10, 3 );
-		}
+		add_action(
+			'admin_init',
+			function () {
+				foreach ( get_post_types( array( 'show_ui' => true ), 'names' ) as $post_type ) {
+					add_filter( "bulk_actions-edit-$post_type", array( $this, 'bulk_edit' ) );
+					add_filter( "handle_bulk_actions-edit-$post_type", array( $this, 'bulk_action_handler' ), 10, 3 );
+				}
+			}
+		);
 		/**
 		 * Display messages
 		 */
@@ -262,19 +265,14 @@ class Backend {
 	}
 
 	public function enqueue_scripts() {
-		$post_types = get_post_types(
-			array(
-				'public'            => true,
-				'show_in_nav_menus' => true,
-			),
-			'names'
-		);
+		$entity_options = Entity_Options::instance();
+		$post_types     = $entity_options->get_entries();
 
 		$allowed_screens = array( 'settings_page_search_exclude' );
 		$current_screen  = get_current_screen()->id;
 
 		foreach ( $post_types as $type ) {
-			$allowed_screens = array_merge( $allowed_screens, array( 'edit-' . $type ) );
+			$allowed_screens = array_merge( $allowed_screens, array( 'edit-' . $type->name ) );
 		}
 
 		if (
