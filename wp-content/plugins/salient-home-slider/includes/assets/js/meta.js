@@ -368,7 +368,7 @@ jQuery(document).ready(function($){
 	}
 	$('#_nectar_header_parallax').on('click', parallaxHeader);
 	
-	$(window).load(function(){
+	$(window).on('load', function(){
 		checkFormat();
 		backgroundType();
 		linkType();
@@ -436,13 +436,13 @@ jQuery(document).ready(function($){
 				$('.edit-form-section, .postarea, .portfolio_vc_wrap').stop(true,true).slideUp(500);
 				
 				if($('#nectar-metabox-portfolio-extra').css('display') == 'none') {
-					$('.composer-switch,  #wpb_visual_composer').removeClass('vc-aspect-hidden');
+					$('.composer-switch,  #wpb_visual_composer, #wpb_wpbakery').removeClass('vc-aspect-hidden');
 					$('#nectar-metabox-portfolio-extra').addClass('vc-aspect-hidden');
-					$('.composer-switch,  #wpb_visual_composer').hide();
+					$('.composer-switch,  #wpb_visual_composer, #wpb_wpbakery').hide();
 				}
 				else { 
 					$('#nectar-metabox-portfolio-extra').removeClass('vc-aspect-hidden');
-					$('.composer-switch,  #wpb_visual_composer').addClass('vc-aspect-hidden');
+					$('.composer-switch,  #wpb_visual_composer, #wpb_wpbakery').addClass('vc-aspect-hidden');
 					$('#nectar-metabox-portfolio-extra').hide();
 				}
 				
@@ -465,7 +465,7 @@ jQuery(document).ready(function($){
 				$('#nectar-metabox-portfolio-video, #nectar-metabox-page-header, .portfolio_vc_wrap').stop(true,true).slideDown(500);
 				
 				if($('.composer-switch:not(.vc-aspect-hidden).vc_backend-status').length > 0) {
-					$('#wpb_visual_composer:not(.vc-aspect-hidden)').fadeIn(500);
+					$('#wpb_visual_composer:not(.vc-aspect-hidden), #wpb_wpbakery:not(.vc-aspect-hidden)').fadeIn(500);
 				}
 				
 				if($('.composer-switch.vc_backend-status').length == 0) {
@@ -495,13 +495,13 @@ jQuery(document).ready(function($){
 		if($('#nectar-metabox-project-configuration ._nectar_portfolio_custom_grid_item .ui-state-active[for]').length > 0 && $('#nectar-metabox-project-configuration ._nectar_portfolio_custom_grid_item .ui-state-active').attr('for') == 'nectar_meta_on') {
 			
 			if($('#nectar-metabox-portfolio-extra').css('display') == 'none') {
-				$('.composer-switch,  #wpb_visual_composer').removeClass('vc-aspect-hidden');
+				$('.composer-switch,  #wpb_visual_composer, #wpb_wpbakery').removeClass('vc-aspect-hidden');
 				$('#nectar-metabox-portfolio-extra').addClass('vc-aspect-hidden');
-				$('.composer-switch,  #wpb_visual_composer').hide();
+				$('.composer-switch,  #wpb_visual_composer, #wpb_wpbakery').hide();
 			}
 			else { 
 				$('#nectar-metabox-portfolio-extra').removeClass('vc-aspect-hidden');
-				$('.composer-switch,  #wpb_visual_composer').addClass('vc-aspect-hidden');
+				$('.composer-switch,  #wpb_visual_composer, #wpb_wpbakery').addClass('vc-aspect-hidden');
 				$('#nectar-metabox-portfolio-extra').hide();
 			}
 		}

@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Salient Home Slider
- * Plugin URI: --
+ * Plugin URI: https://themenectar.com
  * Description: The original featured content slider for Salient. (Deprecated for the more powerful Salient Nectar Slider)
  * Author: ThemeNectar
- * Author URI: http://themenectar.com
- * Version: 1.0
+ * Author URI: https://themenectar.com
+ * Version: 1.4.1
  * Text Domain: salient-home-slider
  */
 
@@ -28,7 +28,7 @@ class Salient_Home_Slider {
 	
 	static $instance = false;
 	
-	public $plugin_version = '1.0';
+	public $plugin_version = '1.4.1';
 		
 	private function __construct() {
 		

@@ -1,5 +1,10 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 add_action('add_meta_boxes', 'nectar_metabox_home_slider');
 
 if( !function_exists('nectar_metabox_home_slider') ) {
@@ -56,9 +61,10 @@ if( !function_exists('nectar_metabox_home_slider') ) {
   		)
   	);
 
-    
-    function nectar_metabox_home_slider_callback($post,$meta_box) {
-      nectar_create_meta_box( $post, $meta_box["args"] );
+    if( !function_exists('nectar_metabox_home_slider_callback')) {
+      function nectar_metabox_home_slider_callback($post,$meta_box) {
+        nectar_create_meta_box( $post, $meta_box["args"] );
+      }
     }
     
   	nectar_reg_meta_box( $meta_box['id'], $meta_box['title'], 'nectar_metabox_home_slider_callback', $meta_box['post_type'], $meta_box['context'], $meta_box['priority'], $meta_box );
