@@ -4,127 +4,145 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1066d81cd8f355258ef5165247019e8a
+class ComposerStaticInit799089b7d5c8c7fc7a692559c75d6491
 {
     public static $files = array (
-        '383eaff206634a77a1be54e64e6459c7' => __DIR__ . '/..' . '/sabre/uri/lib/functions.php',
-        '3569eecfeed3bcf0bad3c998a494ecb8' => __DIR__ . '/..' . '/sabre/xml/lib/Deserializer/functions.php',
-        '93aa591bc4ca510c520999e34229ee79' => __DIR__ . '/..' . '/sabre/xml/lib/Serializer/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
-            'WPO\\WC\\UBL\\' => 11,
+            'WPO\\IPS\\EDI\\' => 12,
+            'WPO\\IPS\\' => 8,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Iconv\\' => 23,
-            'Svg\\' => 4,
-            'Sabre\\Xml\\' => 10,
-            'Sabre\\Uri\\' => 10,
-            'Sabberworm\\CSS\\' => 15,
-        ),
-        'M' => 
-        array (
-            'Masterminds\\' => 12,
-        ),
-        'F' => 
-        array (
-            'FontLib\\' => 8,
-        ),
-        'D' => 
-        array (
-            'Dompdf\\' => 7,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPO\\WC\\UBL\\' => 
+        'WPO\\IPS\\EDI\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/ubl',
+            0 => __DIR__ . '/../..' . '/edi',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'WPO\\IPS\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Iconv\\' => 
+        'Symfony\\Polyfill\\Iconv\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
-        ),
-        'Svg\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg',
-        ),
-        'Sabre\\Xml\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sabre/xml/lib',
-        ),
-        'Sabre\\Uri\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sabre/uri/lib',
-        ),
-        'Sabberworm\\CSS\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
-        ),
-        'Masterminds\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/masterminds/html5/src',
-        ),
-        'FontLib\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dompdf/php-font-lib/src/FontLib',
-        ),
-        'Dompdf\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
-        'WPO\\WC\\PDF_Invoices\\Admin' => __DIR__ . '/../..' . '/includes/class-wcpdf-admin.php',
-        'WPO\\WC\\PDF_Invoices\\Assets' => __DIR__ . '/../..' . '/includes/class-wcpdf-assets.php',
-        'WPO\\WC\\PDF_Invoices\\Compatibility\\Order_Util' => __DIR__ . '/../..' . '/includes/compatibility/class-wcpdf-order-util.php',
-        'WPO\\WC\\PDF_Invoices\\Compatibility\\Third_Party_Plugins' => __DIR__ . '/../..' . '/includes/compatibility/class-wcpdf-compatibility-third-party-plugins.php',
-        'WPO\\WC\\PDF_Invoices\\Documents' => __DIR__ . '/../..' . '/includes/class-wcpdf-documents.php',
-        'WPO\\WC\\PDF_Invoices\\Documents\\Bulk_Document' => __DIR__ . '/../..' . '/includes/documents/class-wcpdf-bulk-document.php',
-        'WPO\\WC\\PDF_Invoices\\Documents\\Document_Number' => __DIR__ . '/../..' . '/includes/documents/class-wcpdf-document-number.php',
-        'WPO\\WC\\PDF_Invoices\\Documents\\Invoice' => __DIR__ . '/../..' . '/includes/documents/class-wcpdf-invoice.php',
-        'WPO\\WC\\PDF_Invoices\\Documents\\Order_Document' => __DIR__ . '/../..' . '/includes/documents/abstract-wcpdf-order-document.php',
-        'WPO\\WC\\PDF_Invoices\\Documents\\Order_Document_Methods' => __DIR__ . '/../..' . '/includes/documents/abstract-wcpdf-order-document-methods.php',
-        'WPO\\WC\\PDF_Invoices\\Documents\\Packing_Slip' => __DIR__ . '/../..' . '/includes/documents/class-wcpdf-packing-slip.php',
-        'WPO\\WC\\PDF_Invoices\\Documents\\Sequential_Number_Store' => __DIR__ . '/../..' . '/includes/documents/class-wcpdf-sequential-number-store.php',
-        'WPO\\WC\\PDF_Invoices\\Endpoint' => __DIR__ . '/../..' . '/includes/class-wcpdf-endpoint.php',
-        'WPO\\WC\\PDF_Invoices\\Font_Synchronizer' => __DIR__ . '/../..' . '/includes/class-wcpdf-font-synchronizer.php',
-        'WPO\\WC\\PDF_Invoices\\Frontend' => __DIR__ . '/../..' . '/includes/class-wcpdf-frontend.php',
-        'WPO\\WC\\PDF_Invoices\\Install' => __DIR__ . '/../..' . '/includes/class-wcpdf-install.php',
-        'WPO\\WC\\PDF_Invoices\\Main' => __DIR__ . '/../..' . '/includes/class-wcpdf-main.php',
-        'WPO\\WC\\PDF_Invoices\\Makers\\PDF_Maker' => __DIR__ . '/../..' . '/includes/makers/class-pdf-maker.php',
-        'WPO\\WC\\PDF_Invoices\\Makers\\UBL_Maker' => __DIR__ . '/../..' . '/includes/makers/class-ubl-maker.php',
-        'WPO\\WC\\PDF_Invoices\\Settings' => __DIR__ . '/../..' . '/includes/class-wcpdf-settings.php',
-        'WPO\\WC\\PDF_Invoices\\Settings\\Settings_Callbacks' => __DIR__ . '/../..' . '/includes/settings/class-wcpdf-settings-callbacks.php',
-        'WPO\\WC\\PDF_Invoices\\Settings\\Settings_Debug' => __DIR__ . '/../..' . '/includes/settings/class-wcpdf-settings-debug.php',
-        'WPO\\WC\\PDF_Invoices\\Settings\\Settings_Documents' => __DIR__ . '/../..' . '/includes/settings/class-wcpdf-settings-documents.php',
-        'WPO\\WC\\PDF_Invoices\\Settings\\Settings_General' => __DIR__ . '/../..' . '/includes/settings/class-wcpdf-settings-general.php',
-        'WPO\\WC\\PDF_Invoices\\Settings\\Settings_UBL' => __DIR__ . '/../..' . '/includes/settings/class-wcpdf-settings-ubl.php',
-        'WPO\\WC\\PDF_Invoices\\Settings\\Settings_Upgrade' => __DIR__ . '/../..' . '/includes/settings/class-wcpdf-settings-upgrade.php',
-        'WPO\\WC\\PDF_Invoices\\Setup_Wizard' => __DIR__ . '/../..' . '/includes/class-wcpdf-setup-wizard.php',
-        'WPO\\WC\\PDF_Invoices\\Tables\\Number_Store_List_Table' => __DIR__ . '/../..' . '/includes/tables/class-wcpdf-number-store-list-table.php',
-        'WPO\\WC\\PDF_Invoices\\Updraft_Semaphore_3_0' => __DIR__ . '/../..' . '/includes/class-wcpdf-updraft-semaphore.php',
+        'Symfony\\Polyfill\\Iconv\\Iconv' => __DIR__ . '/..' . '/symfony/polyfill-iconv/Iconv.php',
+        'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
+        'WPO\\IPS\\Admin' => __DIR__ . '/../..' . '/includes/Admin.php',
+        'WPO\\IPS\\Assets' => __DIR__ . '/../..' . '/includes/Assets.php',
+        'WPO\\IPS\\Compatibility\\FileSystem' => __DIR__ . '/../..' . '/includes/Compatibility/FileSystem.php',
+        'WPO\\IPS\\Compatibility\\OrderUtil' => __DIR__ . '/../..' . '/includes/Compatibility/OrderUtil.php',
+        'WPO\\IPS\\Compatibility\\ThirdPartyPlugins' => __DIR__ . '/../..' . '/includes/Compatibility/ThirdPartyPlugins.php',
+        'WPO\\IPS\\Compatibility\\VatPlugins' => __DIR__ . '/../..' . '/includes/Compatibility/VatPlugins.php',
+        'WPO\\IPS\\Documents' => __DIR__ . '/../..' . '/includes/Documents.php',
+        'WPO\\IPS\\Documents\\BulkDocument' => __DIR__ . '/../..' . '/includes/Documents/BulkDocument.php',
+        'WPO\\IPS\\Documents\\DocumentNumber' => __DIR__ . '/../..' . '/includes/Documents/DocumentNumber.php',
+        'WPO\\IPS\\Documents\\Invoice' => __DIR__ . '/../..' . '/includes/Documents/Invoice.php',
+        'WPO\\IPS\\Documents\\OrderDocument' => __DIR__ . '/../..' . '/includes/Documents/OrderDocument.php',
+        'WPO\\IPS\\Documents\\OrderDocumentMethods' => __DIR__ . '/../..' . '/includes/Documents/OrderDocumentMethods.php',
+        'WPO\\IPS\\Documents\\PackingSlip' => __DIR__ . '/../..' . '/includes/Documents/PackingSlip.php',
+        'WPO\\IPS\\Documents\\SequentialNumberStore' => __DIR__ . '/../..' . '/includes/Documents/SequentialNumberStore.php',
+        'WPO\\IPS\\EDI\\Abstracts\\AbstractCollection' => __DIR__ . '/../..' . '/edi/Abstracts/AbstractCollection.php',
+        'WPO\\IPS\\EDI\\Abstracts\\AbstractHandler' => __DIR__ . '/../..' . '/edi/Abstracts/AbstractHandler.php',
+        'WPO\\IPS\\EDI\\Abstracts\\AbstractStandard' => __DIR__ . '/../..' . '/edi/Abstracts/AbstractStandard.php',
+        'WPO\\IPS\\EDI\\Document' => __DIR__ . '/../..' . '/edi/Document.php',
+        'WPO\\IPS\\EDI\\Interfaces\\BuilderInterface' => __DIR__ . '/../..' . '/edi/Interfaces/BuilderInterface.php',
+        'WPO\\IPS\\EDI\\Interfaces\\FormatInterface' => __DIR__ . '/../..' . '/edi/Interfaces/FormatInterface.php',
+        'WPO\\IPS\\EDI\\Interfaces\\HandlerInterface' => __DIR__ . '/../..' . '/edi/Interfaces/HandlerInterface.php',
+        'WPO\\IPS\\EDI\\Interfaces\\HybridFormatInterface' => __DIR__ . '/../..' . '/edi/Interfaces/HybridFormatInterface.php',
+        'WPO\\IPS\\EDI\\Peppol' => __DIR__ . '/../..' . '/edi/Peppol.php',
+        'WPO\\IPS\\EDI\\SabreBuilder' => __DIR__ . '/../..' . '/edi/SabreBuilder.php',
+        'WPO\\IPS\\EDI\\Standards\\EN16931' => __DIR__ . '/../..' . '/edi/Standards/EN16931.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Abstracts\\AbstractCiiFormat' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Abstracts/AbstractCiiFormat.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Abstracts\\AbstractCiiHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Abstracts/AbstractCiiHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Formats\\CiiD16B\\Handlers\\SupplyChainTradeTransaction\\ApplicableHeaderTradeSettlementHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Formats/CiiD16B/Handlers/SupplyChainTradeTransaction/ApplicableHeaderTradeSettlementHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Formats\\CiiD16B\\Invoice' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Formats/CiiD16B/Invoice.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Formats\\FacturX1p0\\Invoice' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Formats/FacturX1p0/Invoice.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Formats\\Zugferd1p0\\Invoice' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Formats/Zugferd1p0/Invoice.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Formats\\Zugferd2p0\\Invoice' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Formats/Zugferd2p0/Invoice.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Handlers\\ExchangedDocumentContextHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Handlers/ExchangedDocumentContextHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Handlers\\ExchangedDocumentHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Handlers/ExchangedDocumentHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Handlers\\HeaderTradeDeliveryHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Handlers/HeaderTradeDeliveryHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Handlers\\SupplyChainTradeTransaction\\ApplicableHeaderTradeAgreementHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Handlers/SupplyChainTradeTransaction/ApplicableHeaderTradeAgreementHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Handlers\\SupplyChainTradeTransaction\\ApplicableHeaderTradeDeliveryHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Handlers/SupplyChainTradeTransaction/ApplicableHeaderTradeDeliveryHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Handlers\\SupplyChainTradeTransaction\\ApplicableHeaderTradeSettlementHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Handlers/SupplyChainTradeTransaction/ApplicableHeaderTradeSettlementHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Cii\\Handlers\\SupplyChainTradeTransaction\\IncludedSupplyChainTradeLineItemHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Cii/Handlers/SupplyChainTradeTransaction/IncludedSupplyChainTradeLineItemHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Abstracts\\AbstractUblFormat' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Abstracts/AbstractUblFormat.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Abstracts\\AbstractUblHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Abstracts/AbstractUblHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Formats\\PeppolBis3p0\\Handlers\\AccountingCustomerPartyHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Formats/PeppolBis3p0/Handlers/AccountingCustomerPartyHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Formats\\PeppolBis3p0\\Handlers\\AccountingSupplierPartyHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Formats/PeppolBis3p0/Handlers/AccountingSupplierPartyHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Formats\\PeppolBis3p0\\Handlers\\CustomizationIdHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Formats/PeppolBis3p0/Handlers/CustomizationIdHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Formats\\PeppolBis3p0\\Handlers\\ProfileIdHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Formats/PeppolBis3p0/Handlers/ProfileIdHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Formats\\PeppolBis3p0\\Invoice' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Formats/PeppolBis3p0/Invoice.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Formats\\Ubl2p1\\Invoice' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Formats/Ubl2p1/Invoice.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\AccountingCustomerPartyHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/AccountingCustomerPartyHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\AccountingSupplierPartyHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/AccountingSupplierPartyHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\AdditionalDocumentReferenceHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/AdditionalDocumentReferenceHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\AllowanceChargeHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/AllowanceChargeHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\BillingReferenceHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/BillingReferenceHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\BuyerReferenceHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/BuyerReferenceHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\CustomizationIdHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/CustomizationIdHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\DeliveryHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/DeliveryHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\DespatchDocumentReferenceHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/DespatchDocumentReferenceHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\DocumentCurrencyCodeHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/DocumentCurrencyCodeHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\DueDateHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/DueDateHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\IdHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/IdHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\IssueDateHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/IssueDateHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\LegalMonetaryTotalHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/LegalMonetaryTotalHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\LineHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/LineHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\NoteHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/NoteHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\OrderReferenceHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/OrderReferenceHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\PaymentMeansHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/PaymentMeansHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\PaymentTermsHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/PaymentTermsHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\ReceiptDocumentReferenceHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/ReceiptDocumentReferenceHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\TaxTotalHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/TaxTotalHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\TypeCodeHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/TypeCodeHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Handlers\\UblVersionIdHandler' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Handlers/UblVersionIdHandler.php',
+        'WPO\\IPS\\EDI\\Syntaxes\\Ubl\\Interfaces\\UblPartyInterface' => __DIR__ . '/../..' . '/edi/Syntaxes/Ubl/Interfaces/UblPartyInterface.php',
+        'WPO\\IPS\\Endpoint' => __DIR__ . '/../..' . '/includes/Endpoint.php',
+        'WPO\\IPS\\FontSynchronizer' => __DIR__ . '/../..' . '/includes/FontSynchronizer.php',
+        'WPO\\IPS\\Frontend' => __DIR__ . '/../..' . '/includes/Frontend.php',
+        'WPO\\IPS\\Install' => __DIR__ . '/../..' . '/includes/Install.php',
+        'WPO\\IPS\\Main' => __DIR__ . '/../..' . '/includes/Main.php',
+        'WPO\\IPS\\Makers\\EDIMaker' => __DIR__ . '/../..' . '/includes/Makers/EDIMaker.php',
+        'WPO\\IPS\\Makers\\PDFMaker' => __DIR__ . '/../..' . '/includes/Makers/PDFMaker.php',
+        'WPO\\IPS\\Semaphore' => __DIR__ . '/../..' . '/includes/Semaphore.php',
+        'WPO\\IPS\\Settings' => __DIR__ . '/../..' . '/includes/Settings.php',
+        'WPO\\IPS\\Settings\\SettingsCallbacks' => __DIR__ . '/../..' . '/includes/Settings/SettingsCallbacks.php',
+        'WPO\\IPS\\Settings\\SettingsDebug' => __DIR__ . '/../..' . '/includes/Settings/SettingsDebug.php',
+        'WPO\\IPS\\Settings\\SettingsDocuments' => __DIR__ . '/../..' . '/includes/Settings/SettingsDocuments.php',
+        'WPO\\IPS\\Settings\\SettingsEDI' => __DIR__ . '/../..' . '/includes/Settings/SettingsEDI.php',
+        'WPO\\IPS\\Settings\\SettingsGeneral' => __DIR__ . '/../..' . '/includes/Settings/SettingsGeneral.php',
+        'WPO\\IPS\\Settings\\SettingsUpgrade' => __DIR__ . '/../..' . '/includes/Settings/SettingsUpgrade.php',
+        'WPO\\IPS\\SetupWizard' => __DIR__ . '/../..' . '/includes/SetupWizard.php',
+        'WPO\\IPS\\Tables\\NumberStoreListTable' => __DIR__ . '/../..' . '/includes/Tables/NumberStoreListTable.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1066d81cd8f355258ef5165247019e8a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1066d81cd8f355258ef5165247019e8a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1066d81cd8f355258ef5165247019e8a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit799089b7d5c8c7fc7a692559c75d6491::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit799089b7d5c8c7fc7a692559c75d6491::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit799089b7d5c8c7fc7a692559c75d6491::$classMap;
 
         }, null, ClassLoader::class);
     }

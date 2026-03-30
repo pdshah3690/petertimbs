@@ -114,6 +114,7 @@ table.head {
 
 td.header img {
 	max-height: 3cm; /* may be overridden by the settings */
+	max-width: 100%;
 	width: auto;
 }
 
@@ -173,13 +174,17 @@ td.order-data table th {
 table.order-details,
 table.notes-totals {
 	width: 100%;
-	margin-bottom: 8mm;
+	margin-bottom: 0;
 	page-break-before: avoid;
 }
 
 .quantity,
 .price {
 	width: 20%;
+}
+
+.order-details tbody {
+	border-bottom: 1px solid #ccc;
 }
 
 .order-details tr,
@@ -231,29 +236,26 @@ table.notes-totals {
 	overflow-wrap: anywhere;
 }
 
-/* 'ul' applies to Dompdf only */
-ul.wc-item-meta {
+/* In Dompdf, '.wc-item-meta' is applied to a 'ul' element, whereas with the mPDF extension, it's a 'div' instead. For more details, refer to 'wpo_wcpdf_mpdf_modify_html()'. */
+.wc-item-meta {
 	margin: 0;
 }
 
-ul.wc-item-meta li {
+.wc-item-meta li {
 	margin-top: 4px;
 	margin-left: 0;
 }
 
-ul.wc-item-meta li p {
+.wc-item-meta li p,
+.wc-item-meta li dd {
 	display: inline;
 }
 
-/* with mPDF extension '.wc-item-meta' is not 'ul' but a 'div', see 'wpo_wcpdf_mpdf_modify_html()' */
-div.wc-item-meta {
-	margin: 0;
-}
-
-/* this applies to both Dompdf and mPDF */
 .wc-item-meta p,
+.wc-item-meta dd,
 .item-meta p {
 	margin-top: 4px;
+	margin-left: 0;
 }
 
 /* Notes & Totals */
@@ -265,7 +267,7 @@ div.wc-item-meta {
 
 table.totals {
 	width: 100%;
-	margin-top: 5mm;
+	margin-top: 0;
 	table-layout: fixed;
 }
 
@@ -274,6 +276,12 @@ table.totals td {
 	border: 0;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
+}
+
+table.totals tr:nth-child(1) th,
+table.totals tr:nth-child(1) td {
+	border-top: 0;
+	border-bottom: 0;
 }
 
 table.totals th.description,
@@ -318,4 +326,11 @@ table.totals tr.payment_method {
 
 .pagenum,.pagecount {
 	font-family: sans-serif;
+}
+
+/* Local pickup details */
+.pickup-location-details {
+	font-size: 7pt;
+	margin-top: 2mm;
+	line-height: 1;
 }
