@@ -1,6 +1,11 @@
 @import "lib/bootstrap-components.less";
 // must be outputed
 @import "lib/editor.less";
+// override lib/editor.less
+.metabox-composer-content .vc_message {
+  position: relative;
+  top: 0;
+}
 
 // Here comes panels
 @vc_modal_top_margin: 34px;
@@ -8,6 +13,8 @@
 @import "lib/elements_icons.less";
 // Add element box
 @import "popups/modal_add_element.less";
+// Teasers
+@import "popups/modal_teasers.less";
 
 // Navigation bar
 //@vc_navbar_sprite_left_position: -60px;
@@ -20,24 +27,20 @@
 @import "modules/vc_fullscreen.less";
 // Message box shown when post content is empty
 @import "modules/vc_welcome.less";
-
 // Backend switcher
 @import "modules/vc_switcher.less";
 // Edit form for shortcode
 @import "popups/panel_edit_form.less";
-
 // Template library
 @import "popups/panel_template_library";
-
 // Templates editor
 @import "modules/ui/vc_ui-panel-templates.less";
 //Presets
 @import "modules/ui/vc_ui-panel-preset.less";
 // Teaser box for posts wused by Post grid and post carusel
 @import "modules/vc_teaser_box.less";
-#vc_settings-title-container {
-  display: none;
-}
+
+@import "modules/vc_info_tooltip.less";
 
 // Backend controls
 @import "lib/controls.less";
@@ -75,6 +78,7 @@
 .vc_shortcode-param[data-param_type="iconpicker"] {
   .vc-icons-selector .selected-icon {
     line-height: 40px;
+
     i.vc_pixel_icon {
       position: relative;
       top: 3px;
@@ -102,6 +106,10 @@
 @import "backend_shortcodes/vc_widget_sidebar.less";
 @import "backend_shortcodes/vc_wp_widget.less";
 @import "backend_shortcodes/vc_charts.less";
+@import "backend_shortcodes/vc_grid_container.less";
+@import "backend_shortcodes/vc_grid_container_item.less";
+@import "backend_shortcodes/vc_flexbox_container.less";
+@import "backend_shortcodes/vc_flexbox_container_item.less";
 @import "params/vc_grid_item/vc_gitem_editor.less";
 
 .vc_admin_label {
@@ -110,9 +118,12 @@
   color: #999999;
   margin-right: 5px;
   line-height: 1;
+  word-wrap: break-word;
+
   label {
     vertical-align: inherit;
   }
+
   &.hidden-label {
     display: none;
   }
@@ -127,12 +138,14 @@
 
 @import "lib/vc_font.less";
 
-#wpb_visual_composer {
+#wpb_wpbakery {
   display: none;
+
   > .inside {
     margin: 0;
     padding: 0;
   }
+
   .vc_navbar {
     border-bottom: 1px solid @vc_navbar_border_color;
   }
@@ -142,6 +155,7 @@
   @media (max-width: @screen-xs-max) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-xs {
     > * {
       .opacity(1) !important;
@@ -153,6 +167,7 @@
   @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-sm {
     > * {
       .opacity(1) !important;
@@ -164,6 +179,7 @@
   @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-md {
     > * {
       .opacity(1) !important;
@@ -175,6 +191,7 @@
   @media (min-width: @screen-lg-min) {
     .vc_backend-editor-invisibility-settings;
   }
+
   .vc_hidden-lg {
     > * {
       .opacity(1) !important;
@@ -182,7 +199,7 @@
   }
 }
 
-#visual_composer_content {
+#wpbakery_content {
   margin: 14px 14px 0 14px;
   line-height: 1.2;
 }
@@ -192,6 +209,7 @@
   h3.vc_modal-title {
     .vc_heading(16px);
   }
+
   .vc_welcome {
     h3 {
       margin: 0;
@@ -200,8 +218,10 @@
       line-height: 26px;
       cursor: default;
     }
+
     &.vc_not-empty {
       margin-top: 0;
+
       .vc_buttons {
         margin-top: 0;
       }
@@ -223,7 +243,7 @@
   }
 }
 
-#wpb_csseditor {
+.custom_code {
   border: 1px solid #BABABA;
 }
 

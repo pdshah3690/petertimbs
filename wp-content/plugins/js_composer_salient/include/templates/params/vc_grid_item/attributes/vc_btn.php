@@ -1,81 +1,83 @@
 <?php
+/**
+ * Button shortcode grid builder template.
+ *
+ * @var WPBakeryShortCode_Vc_Btn $vc_btn
+ * @var WP_Post $post
+ * @var array $atts
+ * @var array $data
+ * @var string $style
+ * @var string $shape
+ * @var string $color
+ * @var string $custom_background
+ * @var string $custom_text
+ * @var string $size
+ * @var string $align
+ * @var string $link
+ * @var string $title
+ * @var string $button_block
+ * @var string $el_id
+ * @var string $el_class
+ * @var string $outline_custom_color
+ * @var string $outline_custom_hover_background
+ * @var string $outline_custom_hover_text
+ * @var string $add_icon
+ * @var string $i_align
+ * @var string $i_type
+ * @var string $i_icon_fontawesome
+ * @var string $i_icon_openiconic
+ * @var string $i_icon_typicons
+ * @var string $i_icon_entypo
+ * @var string $i_icon_linecons
+ * @var string $i_icon_pixelicons
+ * @var string $css_animation
+ * @var string $css
+ * @var string $gradient_color_1
+ * @var string $gradient_color_2
+ * @var string $gradient_custom_color_1
+ * @var string $gradient_custom_color_2
+ * @var string $gradient_text_color
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-/**
- * @var $vc_btn WPBakeryShortCode_VC_Btn
- * @var $post WP_Post
- * @var $atts
- *
- * @var $style
- * @var $shape
- * @var $color
- * @var $custom_background
- * @var $custom_text
- * @var $size
- * @var $align
- * @var $link
- * @var $title
- * @var $button_block
- * @var $el_id
- * @var $el_class
- * @var $outline_custom_color
- * @var $outline_custom_hover_background
- * @var $outline_custom_hover_text
- * @var $add_icon
- * @var $i_align
- * @var $i_type
- * @var $i_icon_fontawesome
- * @var $i_icon_openiconic
- * @var $i_icon_typicons
- * @var $i_icon_entypo
- * @var $i_icon_linecons
- * @var $i_icon_pixelicons
- * @var $css_animation
- * @var $css
- * @var $gradient_color_1
- * @var $gradient_color_2
- * @var $gradient_custom_color_1 ;
- * @var $gradient_custom_color_2 ;
- * @var $gradient_text_color ;
- */
-$atts = array();
+$atts = [];
 parse_str( $data, $atts );
 
-VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Btn' );
-$vc_btn = new WPBakeryShortCode_VC_Btn( array( 'base' => 'vc_btn' ) );
+VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_Vc_Btn' );
+$vc_btn = new WPBakeryShortCode_Vc_Btn( [ 'base' => 'vc_btn' ] );
 
 $style = $shape = $color = $size = $custom_background = $custom_text = $align = $link = $title = $button_block = $el_class = $outline_custom_color = $outline_custom_hover_background = $outline_custom_hover_text = $add_icon = $i_align = $i_type = $i_icon_entypo = $i_icon_fontawesome = $i_icon_linecons = $i_icon_pixelicons = $i_icon_typicons = $css = $css_animation = '';
 $gradient_color_1 = $gradient_color_2 = $gradient_custom_color_1 = $gradient_custom_color_2 = $gradient_text_color = '';
 $custom_onclick = $custom_onclick_code = '';
 $a_href = $a_title = $a_target = $a_rel = '';
-$styles = array();
+$styles = [];
 $icon_wrapper = false;
 $icon_html = false;
-$attributes = array();
+$attributes = [];
 
-/** @var $vc_btn WPBakeryShortCode_VC_Btn */
 $atts = vc_map_get_attributes( $vc_btn->getShortcode(), $atts );
 extract( $atts );
-//parse link
+// parse link.
 $link = trim( $link );
 $use_link = strlen( $link ) > 0 && 'none' !== $link;
 
-$wrapper_classes = array(
+$wrapper_classes = [
 	'vc_btn3-container',
 	$vc_btn->getExtraClass( $el_class ),
 	$vc_btn->getCSSAnimation( $css_animation ),
 	'vc_btn3-' . $align,
-);
+];
 
-$button_classes = array(
+$button_classes = [
 	'vc_general',
 	'vc_btn3',
 	'vc_btn3-size-' . $size,
 	'vc_btn3-shape-' . $shape,
 	'vc_btn3-style-' . $style,
-);
+];
 
 $button_html = $title;
 
@@ -112,6 +114,7 @@ if ( 'true' === $add_icon ) {
 	}
 }
 
+$output = '';
 if ( 'custom' === $style ) {
 	if ( $custom_background ) {
 		$styles[] = vc_get_css_color( 'background-color', $custom_background );
@@ -133,7 +136,7 @@ if ( 'custom' === $style ) {
 		$attributes[] = 'onmouseleave="this.style.borderColor=\'\'; this.style.backgroundColor=\'transparent\'; this.style.color=\'\'"';
 	}
 
-	$onmouseenter = array();
+	$onmouseenter = [];
 	if ( $outline_custom_hover_background ) {
 		$onmouseenter[] = 'this.style.borderColor=\'' . $outline_custom_hover_background . '\';';
 		$onmouseenter[] = 'this.style.backgroundColor=\'' . $outline_custom_hover_background . '\';';
@@ -168,7 +171,7 @@ if ( 'custom' === $style ) {
 		$button_text_color = $gradient_text_color;
 	}
 
-	$gradient_css = array();
+	$gradient_css = [];
 	$gradient_css[] = 'color: ' . $button_text_color;
 	$gradient_css[] = 'border: none';
 	$gradient_css[] = 'background-color: ' . $gradient_color_1;
@@ -178,16 +181,17 @@ if ( 'custom' === $style ) {
 	$gradient_css[] = 'transition: all .2s ease-in-out';
 	$gradient_css[] = 'background-size: 200% 100%';
 
-	// hover css
-	$gradient_css_hover = array();
+	// hover css.
+	$gradient_css_hover = [];
 	$gradient_css_hover[] = 'color: ' . $button_text_color;
 	$gradient_css_hover[] = 'background-color: ' . $gradient_color_2;
 	$gradient_css_hover[] = 'border: none';
 	$gradient_css_hover[] = 'background-position: 100% 0';
 
 	$uid = uniqid();
-	echo '<style type="text/css">.vc_btn3-style-' . $style . '.vc_btn-gradient-btn-' . $uid . ':hover{' . implode( ';', $gradient_css_hover ) . ';' . '}</style>';
-	echo '<style type="text/css">.vc_btn3-style-' . $style . '.vc_btn-gradient-btn-' . $uid . '{' . implode( ';', $gradient_css ) . ';' . '}</style>';
+	$first_tag = 'style';
+	$output .= '<' . $first_tag . '>.vc_btn3-style-' . esc_attr( $style ) . '.vc_btn-gradient-btn-' . esc_attr( $uid ) . ':hover{' . esc_attr( implode( ';', $gradient_css_hover ) ) . ';}</' . $first_tag . '>';
+	$output .= '<' . $first_tag . '>.vc_btn3-style-' . esc_attr( $style ) . '.vc_btn-gradient-btn-' . esc_attr( $uid ) . '{' . esc_attr( implode( ';', $gradient_css ) ) . ';}</' . $first_tag . '>';
 	$button_classes[] = 'vc_btn-gradient-btn-' . $uid;
 	$attributes[] = 'data-vc-gradient-1="' . $gradient_color_1 . '"';
 	$attributes[] = 'data-vc-gradient-2="' . $gradient_color_2 . '"';
@@ -218,26 +222,19 @@ if ( ! empty( $custom_onclick ) && $custom_onclick_code ) {
 }
 
 $attributes = implode( ' ', $attributes );
-$wrapper_attributes = array();
-if ( ! empty( $el_id ) ) {
-	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
+
+$output .= '<div class="' . esc_attr( trim( $css_class ) ) . '"' . ( ! empty( $el_id ) ? ' id="' . esc_attr( $el_id ) . '"' : '' ) . '>';
+
+if ( $use_link ) {
+	if ( preg_match( '/href=\"[^\"]+/', $link_output ) ) {
+		$output .= '<a ' . $attributes . '>' . $button_html . '</a>';
+	} elseif ( 'load-more-grid' === $link ) {
+		$output .= '<a href="javascript:;" ' . $attributes . '>' . $button_html . '</a>';
+	}
+} else {
+	$output .= '<button ' . $attributes . '>' . $button_html . '</button>';
 }
-ob_start();
-?>
-	<div class="<?php echo trim( esc_attr( $css_class ) ) ?>" <?php echo implode( ' ', $wrapper_attributes ); ?>>
-		<?php
-		if ( $use_link ) {
-			if ( preg_match( '/href=\"[^\"]+/', $link_output ) ) {
-				echo '<a ' . $attributes . '>' . $button_html . '</a>';
-			} elseif ( 'load-more-grid' === $link ) {
-				echo '<a href="javascript:;" ' . $attributes . '>' . $button_html . '</a>';
-			}
-		} else {
-			echo '<button ' . $attributes . '>' . $button_html . '</button>';
-		}
-		?></div>
 
+$output .= '</div>';
 
-<?php
-
-return ob_get_clean();
+return $output;

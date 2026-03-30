@@ -1,4 +1,10 @@
 <?php
+/**
+ * Configuration file for [vc_pie] shortcode of 'Pie Chart' element.
+ *
+ * @see https://kb.wpbakery.com/docs/inner-api/vc_map/ for more detailed information about element attributes.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -6,85 +12,103 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*nectar addition*/
 $options = (function_exists('get_nectar_theme_options')) ? get_nectar_theme_options() : ''; 
 /*nectar addition end*/
-return array(
-	'name' => __( 'Pie Chart', 'js_composer' ),
+
+return [
+	'name' => esc_html__( 'Pie Chart', 'js_composer' ),
 	'base' => 'vc_pie',
 	'class' => '',
 	'icon' => 'icon-wpb-vc_pie',
-	'category' => __( 'Content', 'js_composer' ),
-	'description' => __( 'Animated pie chart', 'js_composer' ),
-	'params' => array(
-		array(
+	'element_default_class' => 'wpb_content_element',
+	'category' => esc_html__( 'Content', 'js_composer' ),
+	'description' => esc_html__( 'Animated pie chart', 'js_composer' ),
+	'params' => [
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Widget title', 'js_composer' ),
+			'heading' => esc_html__( 'Widget title', 'js_composer' ),
 			'param_name' => 'title',
-			'description' => __( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+			'description' => esc_html__( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
 			'admin_label' => true,
-		),
-		array(
+		],
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Value', 'js_composer' ),
+			'heading' => esc_html__( 'Value', 'js_composer' ),
 			'param_name' => 'value',
-			'description' => __( 'Enter value for graph (Note: choose range from 0 to 100).', 'js_composer' ),
+			'description' => esc_html__( 'Enter value for graph (Note: choose range from 0 to 100).', 'js_composer' ),
 			'value' => '50',
 			'admin_label' => true,
-		),
-		array(
+		],
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Label value', 'js_composer' ),
+			'heading' => esc_html__( 'Label value', 'js_composer' ),
 			'param_name' => 'label_value',
-			'description' => __( 'Enter label for pie chart (Note: leaving empty will set value from "Value" field).', 'js_composer' ),
+			'description' => esc_html__( 'Enter label for pie chart (Note: leaving empty will set value from "Value" field).', 'js_composer' ),
 			'value' => '',
-		),
-		array(
+		],
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Units', 'js_composer' ),
+			'heading' => esc_html__( 'Units', 'js_composer' ),
 			'param_name' => 'units',
-			'description' => __( 'Enter measurement units (Example: %, px, points, etc. Note: graph value and units will be appended to graph title).', 'js_composer' ),
-		),
+			'description' => esc_html__( 'Enter measurement units (Example: %, px, points, etc. Note: graph value and units will be appended to graph title).', 'js_composer' ),
+        ],
 		/* nectar addition */ 
-		array(
-			 "type" => "dropdown",
-			  "heading" => __("Color", "js_composer"),
-			  "param_name" => "color",
-			  "value" => array(
-				 "Accent-Color" => ($options != '') ? $options["accent-color"] : 'None',
-				 "Extra-Color-1" => ($options != '') ? $options["extra-color-1"] : 'None',
-				 "Extra-Color-2" => ($options != '') ? $options["extra-color-2"] : 'None',
-				 "Extra-Color-3" =>  ($options != '') ? $options["extra-color-3"] : 'None'
-			   ),
-			  'save_always' => true,
-			  "description" => __("Please select the color you wish for your social links to display in.", "js_composer")
-		),
-		/* nectar addition end */ 
-		array(
+		[
+			"type" => "dropdown",
+			 "heading" => __("Color", "js_composer"),
+			 "param_name" => "color",
+			 "value" => [
+				"Accent-Color" => ($options != '') ? $options["accent-color"] : 'None',
+				"Extra-Color-1" => ($options != '') ? $options["extra-color-1"] : 'None',
+				"Extra-Color-2" => ($options != '') ? $options["extra-color-2"] : 'None',
+				"Extra-Color-3" =>  ($options != '') ? $options["extra-color-3"] : 'None'
+             ],
+			 'save_always' => true,
+			 "description" => __("Please select the color you wish for your pie chart to display in.", "js_composer")
+        ],
+	   /* nectar addition end */ 
+
+	   /* nectar addition */ 
+	   // DELETE
+	//    'type' => 'dropdown',
+	//    'heading' => esc_html__( 'Color', 'js_composer' ),
+	//    'param_name' => 'color',
+	//    'value' => vc_get_shared( 'colors-dashed' ) + array( esc_html__( 'Custom', 'js_composer' ) => 'custom' ),
+	//    'description' => esc_html__( 'Select pie chart color.', 'js_composer' ),
+	//    'admin_label' => true,
+	//    'param_holder_class' => 'vc_colored-dropdown',
+	//    'std' => 'grey',
+	   /* nectar addition end */ 
+		[
 			'type' => 'colorpicker',
-			'heading' => __( 'Custom color', 'js_composer' ),
+			'heading' => esc_html__( 'Custom color', 'js_composer' ),
 			'param_name' => 'custom_color',
-			'description' => __( 'Select custom color.', 'js_composer' ),
-			'dependency' => array(
+			'description' => esc_html__( 'Select custom color.', 'js_composer' ),
+			'default_colorpicker_color' => '#EBEBEB',
+			'dependency' => [
 				'element' => 'color',
-				'value' => array( 'custom' ),
-			),
-		),
+				'value' => [ 'custom' ],
+			],
+		],
 		vc_map_add_css_animation(),
-		array(
+		[
 			'type' => 'el_id',
-			'heading' => __( 'Element ID', 'js_composer' ),
+			'heading' => esc_html__( 'Element ID', 'js_composer' ),
 			'param_name' => 'el_id',
-			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
-		),
-		array(
+			'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %sw3c specification%s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+        ],
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Extra class name', 'js_composer' ),
+			'heading' => esc_html__( 'Extra class name', 'js_composer' ),
 			'param_name' => 'el_class',
-			'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
-		),
-		array(
+			'description' => esc_html__( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+		],
+		[
 			'type' => 'css_editor',
-			'heading' => __( 'CSS box', 'js_composer' ),
+			'heading' => esc_html__( 'CSS box', 'js_composer' ),
 			'param_name' => 'css',
-			'group' => __( 'Design Options', 'js_composer' ),
-		),
-	),
-);
+			'group' => esc_html__( 'Design Options', 'js_composer' ),
+			'value' => [
+				'margin-bottom' => '35px',
+			],
+		],
+	],
+];

@@ -1,175 +1,228 @@
 <?php
+/**
+ * Configuration file for [vc_round_chart] shortcode of 'Round Chart' element.
+ *
+ * @see https://kb.wpbakery.com/docs/inner-api/vc_map/ for more detailed information about element attributes.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-return array(
-	'name' => __( 'Round Chart', 'js_composer' ),
+return [
+	'name' => esc_html__( 'Round Chart', 'js_composer' ),
 	'base' => 'vc_round_chart',
 	'class' => '',
 	'icon' => 'icon-wpb-vc-round-chart',
-	'category' => __( 'Content', 'js_composer' ),
-	'description' => __( 'Pie and Doughnut charts', 'js_composer' ),
-	'params' => array(
-		array(
+	'element_default_class' => 'wpb_content_element',
+	'category' => esc_html__( 'Content', 'js_composer' ),
+	'description' => esc_html__( 'Pie and Doughnut charts', 'js_composer' ),
+	'params' => [
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Widget title', 'js_composer' ),
+			'heading' => esc_html__( 'Widget title', 'js_composer' ),
 			'param_name' => 'title',
-			'description' => __( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+			'description' => esc_html__( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
 			'admin_label' => true,
-		),
-		array(
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Design', 'js_composer' ),
+			'heading' => esc_html__( 'Design', 'js_composer' ),
 			'param_name' => 'type',
-			'value' => array(
-				__( 'Pie', 'js_composer' ) => 'pie',
-				__( 'Doughnut', 'js_composer' ) => 'doughnut',
-			),
-			'description' => __( 'Select type of chart.', 'js_composer' ),
+			'value' => [
+				esc_html__( 'Pie', 'js_composer' ) => 'pie',
+				esc_html__( 'Doughnut', 'js_composer' ) => 'doughnut',
+			],
+			'description' => esc_html__( 'Select type of chart.', 'js_composer' ),
 			'admin_label' => true,
-		),
-		array(
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Style', 'js_composer' ),
-			'description' => __( 'Select chart color style.', 'js_composer' ),
+			'heading' => esc_html__( 'Style', 'js_composer' ),
+			'description' => esc_html__( 'Select chart color style.', 'js_composer' ),
 			'param_name' => 'style',
-			'value' => array(
-				__( 'Flat', 'js_composer' ) => 'flat',
-				__( 'Modern', 'js_composer' ) => 'modern',
-				__( 'Custom', 'js_composer' ) => 'custom',
-			),
-			'dependency' => array(
+			'value' => [
+				esc_html__( 'Flat', 'js_composer' ) => 'flat',
+				esc_html__( 'Modern', 'js_composer' ) => 'modern',
+				esc_html__( 'Custom', 'js_composer' ) => 'custom',
+			],
+			'dependency' => [
 				'callback' => 'vcChartCustomColorDependency',
-			),
-		),
-		array(
+			],
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Gap', 'js_composer' ),
+			'heading' => esc_html__( 'Gap', 'js_composer' ),
 			'param_name' => 'stroke_width',
-			'value' => array(
+			'value' => [
 				0 => 0,
 				1 => 1,
 				2 => 2,
 				5 => 5,
-			),
-			'description' => __( 'Select gap size.', 'js_composer' ),
+			],
+			'description' => esc_html__( 'Select gap size.', 'js_composer' ),
 			'std' => 2,
-		),
-		array(
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Outline color', 'js_composer' ),
+			'heading' => esc_html__( 'Outline color', 'js_composer' ),
 			'param_name' => 'stroke_color',
-			'value' => getVcShared( 'colors-dashed' ) + array( __( 'Custom', 'js_composer' ) => 'custom' ),
-			'description' => __( 'Select outline color.', 'js_composer' ),
+			'value' => vc_get_shared( 'colors-dashed' ) + [ esc_html__( 'Custom', 'js_composer' ) => 'custom' ],
+			'description' => esc_html__( 'Select outline color.', 'js_composer' ),
 			'param_holder_class' => 'vc_colored-dropdown',
 			'std' => 'white',
-			'dependency' => array(
+			'dependency' => [
 				'element' => 'stroke_width',
 				'value_not_equal_to' => '0',
-			),
-		),
-		array(
+			],
+		],
+		[
 			'type' => 'colorpicker',
-			'heading' => __( 'Custom outline color', 'js_composer' ),
+			'heading' => esc_html__( 'Custom outline color', 'js_composer' ),
 			'param_name' => 'custom_stroke_color',
-			'description' => __( 'Select custom outline color.', 'js_composer' ),
-			'dependency' => array(
+			'description' => esc_html__( 'Select custom outline color.', 'js_composer' ),
+			'default_colorpicker_color' => '#FFFFFF',
+			'dependency' => [
 				'element' => 'stroke_color',
-				'value' => array( 'custom' ),
-			),
-		),
-		array(
+				'value' => [ 'custom' ],
+			],
+		],
+		[
 			'type' => 'checkbox',
-			'heading' => __( 'Show legend?', 'js_composer' ),
+			'heading' => esc_html__( 'Show legend?', 'js_composer' ),
 			'param_name' => 'legend',
-			'description' => __( 'If checked, chart will have legend.', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+			'description' => esc_html__( 'If checked, chart will have legend.', 'js_composer' ),
+			'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
 			'std' => 'yes',
-		),
-		array(
+		],
+		[
+			'type' => 'dropdown',
+			'heading' => esc_html__( 'Legend color', 'js_composer' ),
+			'param_name' => 'legend_color',
+			'value' => vc_get_shared( 'colors-dashed' ) + [ esc_html__( 'Custom', 'js_composer' ) => 'custom' ],
+			'description' => esc_html__( 'Select legend color.', 'js_composer' ),
+			'param_holder_class' => 'vc_colored-dropdown',
+			'std' => 'black',
+			'dependency' => [
+				'element' => 'legend',
+				'value' => 'yes',
+			],
+		],
+		[
+			'type' => 'dropdown',
+			'heading' => esc_html__( 'Legend position', 'js_composer' ),
+			'param_name' => 'legend_position',
+			'value' => [
+				esc_html__( 'Top', 'js_composer' ) => 'top',
+				esc_html__( 'Left', 'js_composer' ) => 'left',
+				esc_html__( 'Bottom', 'js_composer' ) => 'bottom',
+				esc_html__( 'Right', 'js_composer' ) => 'right',
+			],
+			'description' => esc_html__( 'Select legend position.', 'js_composer' ),
+			'std' => 'left',
+			'dependency' => [
+				'element' => 'legend',
+				'value' => 'yes',
+			],
+		],
+		[
+			'type' => 'colorpicker',
+			'heading' => esc_html__( 'Custom legend color', 'js_composer' ),
+			'default_colorpicker_color' => '#2a2a2a',
+			'param_name' => 'custom_legend_color',
+			'description' => esc_html__( 'Select custom legend color.', 'js_composer' ),
+			'dependency' => [
+				'element' => 'legend_color',
+				'value' => [ 'custom' ],
+			],
+		],
+		[
 			'type' => 'checkbox',
-			'heading' => __( 'Show hover values?', 'js_composer' ),
+			'heading' => esc_html__( 'Show hover values?', 'js_composer' ),
 			'param_name' => 'tooltips',
-			'description' => __( 'If checked, chart will show values on hover.', 'js_composer' ),
-			'value' => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+			'description' => esc_html__( 'If checked, chart will show values on hover.', 'js_composer' ),
+			'value' => [ esc_html__( 'Yes', 'js_composer' ) => 'yes' ],
 			'std' => 'yes',
-		),
-		array(
+		],
+		[
 			'type' => 'param_group',
-			'heading' => __( 'Values', 'js_composer' ),
+			'heading' => esc_html__( 'Values', 'js_composer' ),
 			'param_name' => 'values',
-			'value' => urlencode( json_encode( array(
-				array(
-					'title' => __( 'One', 'js_composer' ),
+			'value' => rawurlencode( wp_json_encode( [
+				[
+					'title' => esc_html__( 'One', 'js_composer' ),
 					'value' => '60',
 					'color' => 'blue',
-				),
-				array(
-					'title' => __( 'Two', 'js_composer' ),
+				],
+				[
+					'title' => esc_html__( 'Two', 'js_composer' ),
 					'value' => '40',
 					'color' => 'pink',
-				),
-			) ) ),
-			'params' => array(
-				array(
+				],
+			] ) ),
+			'params' => [
+				[
 					'type' => 'textfield',
-					'heading' => __( 'Title', 'js_composer' ),
+					'heading' => esc_html__( 'Title', 'js_composer' ),
 					'param_name' => 'title',
-					'description' => __( 'Enter title for chart area.', 'js_composer' ),
+					'description' => esc_html__( 'Enter title for chart area.', 'js_composer' ),
 					'admin_label' => true,
-				),
-				array(
+				],
+				[
 					'type' => 'textfield',
-					'heading' => __( 'Value', 'js_composer' ),
+					'heading' => esc_html__( 'Value', 'js_composer' ),
 					'param_name' => 'value',
-					'description' => __( 'Enter value for area.', 'js_composer' ),
-				),
-				array(
+					'description' => esc_html__( 'Enter value for area.', 'js_composer' ),
+				],
+				[
 					'type' => 'dropdown',
-					'heading' => __( 'Color', 'js_composer' ),
+					'heading' => esc_html__( 'Color', 'js_composer' ),
 					'param_name' => 'color',
-					'value' => getVcShared( 'colors-dashed' ),
-					'description' => __( 'Select area color.', 'js_composer' ),
+					'value' => vc_get_shared( 'colors-dashed' ),
+					'description' => esc_html__( 'Select area color.', 'js_composer' ),
 					'param_holder_class' => 'vc_colored-dropdown',
-				),
-				array(
+				],
+				[
 					'type' => 'colorpicker',
-					'heading' => __( 'Custom color', 'js_composer' ),
+					'heading' => esc_html__( 'Custom color', 'js_composer' ),
+					'default_colorpicker_color' => '#E8E8E8',
 					'param_name' => 'custom_color',
-					'description' => __( 'Select custom area color.', 'js_composer' ),
-				),
-			),
-			'callbacks' => array(
+					'description' => esc_html__( 'Select custom area color.', 'js_composer' ),
+				],
+			],
+			'callbacks' => [
 				'after_add' => 'vcChartParamAfterAddCallback',
-			),
-		),
-		array(
+			],
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Animation', 'js_composer' ),
-			'description' => __( 'Select animation style.', 'js_composer' ),
+			'heading' => esc_html__( 'Animation', 'js_composer' ),
+			'description' => esc_html__( 'Select animation style.', 'js_composer' ),
 			'param_name' => 'animation',
-			'value' => getVcShared( 'animation styles' ),
+			'value' => vc_get_shared( 'animation styles' ),
 			'std' => 'easeInOutCubic',
-		),
+		],
 		vc_map_add_css_animation(),
-		array(
+		[
 			'type' => 'el_id',
-			'heading' => __( 'Element ID', 'js_composer' ),
+			'heading' => esc_html__( 'Element ID', 'js_composer' ),
 			'param_name' => 'el_id',
-			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
-		),
-		array(
+			'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %1$sw3c specification%2$s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+		],
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Extra class name', 'js_composer' ),
+			'heading' => esc_html__( 'Extra class name', 'js_composer' ),
 			'param_name' => 'el_class',
-			'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
-		),
-		array(
+			'description' => esc_html__( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+		],
+		[
 			'type' => 'css_editor',
-			'heading' => __( 'CSS box', 'js_composer' ),
+			'heading' => esc_html__( 'CSS box', 'js_composer' ),
 			'param_name' => 'css',
-			'group' => __( 'Design Options', 'js_composer' ),
-		),
-	),
-);
+			'group' => esc_html__( 'Design Options', 'js_composer' ),
+			'value' => [
+				'margin-bottom' => '35px',
+			],
+		],
+	],
+];

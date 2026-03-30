@@ -1,4 +1,11 @@
 <?php
+/**
+ * Defines the base class for access control.
+ *
+ * This file contains the abstract class Vc_Access, which provides methods
+ * for validating access permissions and managing multi-access settings.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -11,15 +18,24 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class Vc_Access {
 	/**
+	 * Stores the current access validation state.
+	 *
 	 * @var bool
 	 */
 	protected $validAccess = true;
 
+	/**
+	 * Retrieves the current access validation state.
+	 *
+	 * @return bool
+	 */
 	public function getValidAccess() {
-		return $this->validAccess;
+		return is_multisite() && is_super_admin() ? true : $this->validAccess;
 	}
 
 	/**
+	 * Sets the current access validation state.
+	 *
 	 * @param mixed $validAccess
 	 *
 	 * @return $this
@@ -33,9 +49,9 @@ abstract class Vc_Access {
 	/**
 	 * Check multi access settings by method inside class object.
 	 *
-	 * @param $method
-	 * @param $valid
-	 * @param $argsList
+	 * @param string $method
+	 * @param bool $valid
+	 * @param array $argsList
 	 *
 	 * @return $this
 	 */
@@ -44,10 +60,13 @@ abstract class Vc_Access {
 			$access = ! $valid;
 			foreach ( $argsList as $args ) {
 				if ( ! is_array( $args ) ) {
-					$args = array( $args );
+					$args = [ $args ];
 				}
 				$this->setValidAccess( true );
-				call_user_func_array( array( $this, $method ), $args );
+				call_user_func_array( [
+					$this,
+					$method,
+				], $args );
 				if ( $valid === $this->getValidAccess() ) {
 					$access = $valid;
 					break;
@@ -61,6 +80,7 @@ abstract class Vc_Access {
 
 	/**
 	 * Get current validation state and reset it to true. ( should be never called twice )
+	 *
 	 * @return bool
 	 */
 	public function get() {
@@ -82,18 +102,19 @@ abstract class Vc_Access {
 		$this->setValidAccess( true );
 		if ( ! $result ) {
 			if ( defined( 'VC_DIE_EXCEPTION' ) && VC_DIE_EXCEPTION ) {
-				throw new Exception( $message );
+				throw new Exception( esc_html( $message ) );
 			} else {
-				die( $message );
+				die( esc_html( $message ) );
 			}
 		}
 
 		return $this;
 	}
 
-
 	/**
-	 * @param $func
+	 * Validates access by calling a specified function.
+	 *
+	 * @param callable $func
 	 *
 	 * @return $this
 	 */
@@ -116,6 +137,7 @@ abstract class Vc_Access {
 	 *      array( 'current_user_can', 'edit_post', 12 ),
 	 *      array( 'current_user_can', 'edit_posts' ),
 	 * )
+	 *
 	 * @return $this
 	 */
 	public function checkAny() {
@@ -134,6 +156,7 @@ abstract class Vc_Access {
 	 *      array( 'current_user_can', 'edit_post', 12 ),
 	 *      array( 'current_user_can', 'edit_posts' ),
 	 * )
+	 *
 	 * @return $this
 	 */
 	public function checkAll() {
@@ -146,6 +169,8 @@ abstract class Vc_Access {
 	}
 
 	/**
+	 * Check admin nonce.
+	 *
 	 * @param string $nonce
 	 *
 	 * @return Vc_Access
@@ -155,6 +180,8 @@ abstract class Vc_Access {
 	}
 
 	/**
+	 * Validates the provided public nonce.
+	 *
 	 * @param string $nonce
 	 *
 	 * @return Vc_Access

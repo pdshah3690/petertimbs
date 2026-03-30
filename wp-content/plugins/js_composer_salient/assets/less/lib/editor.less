@@ -10,7 +10,8 @@
 @import "../modules/vc_table.less";
 @import "../modules/ui/vc_ui-loaders.less";
 @import "media-gallery.less";
-@import "../../fonts/vc_icons_v2/init.less";
+@import "../../fonts/vc_icons/init.less";
+@import "../modules/ui/vc_ui-badges.less";
 
 .vc_badge {
   .badge();
@@ -48,4 +49,27 @@
 [dir="rtl"] .vc-disable-editor {
   right: -10000px;
   left: auto;
+}
+
+[dir="rtl"] .vc_control.column_move, [dir=rtl] .vc_control .vc-controls-move {
+  float: right;
+}
+
+[dir="rtl"] .vc_controls-row .column_add, [dir=rtl] .vc_controls-row .vc_control-add-column {
+  float: right;
+}
+
+[dir="rtl"] .vc_controls-row .vc_row_edit_clone_delete .vc_control {
+  float: left;
+}
+
+[dir="rtl"] {
+  .vc_controls-row {
+    .vc_row_layouts, .vc_control-row-layout {
+      &:hover {
+        left: inherit;
+        right: 76px;
+      }
+    }
+  }
 }

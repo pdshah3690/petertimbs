@@ -78,7 +78,6 @@
 .vc_properties-list {
   //padding: 10px 16px;
   input,
-  select,
   textarea {
     width: 100%;
     padding: 8px 6px;
@@ -87,6 +86,9 @@
   input,
   select {
     font-size: 1em;
+    width: 100%;
+    padding: 7px 24px 7px 6px;
+    margin: 0;
   }
   select {
     height: auto;
@@ -100,6 +102,19 @@
       margin-left: 0;
     }
   }
+  .wpb-select.wpb-select--full {
+    max-width: 100%;
+  }
+}
+
+.vc_checkbox input[type="checkbox"] {
+  width: 1.3125rem;
+  height: 1.3125rem;
+}
+.vc_checkbox input[type="checkbox"]:checked::before {
+  margin: 0 0 0 -0.1rem;
+  height: 1.3125rem;
+  width: 1.3125rem;
 }
 
 .vc_panel-tabs {

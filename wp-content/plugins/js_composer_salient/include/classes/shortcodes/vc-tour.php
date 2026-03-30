@@ -1,23 +1,33 @@
 <?php
+/**
+ * Class that handles specific [vc_tour] shortcode.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-tabs.php' );
 
-define( 'SLIDE_TITLE', __( 'Slide', 'js_composer' ) );
-
-class WPBakeryShortCode_VC_Tour extends WPBakeryShortCode_VC_Tabs {
-	protected $predefined_atts = array(
-		'tab_id' => SLIDE_TITLE,
-		'title' => '',
-	);
-
+/**
+ * Class WPBakeryShortCode_Vc_Tour
+ */
+class WPBakeryShortCode_Vc_Tour extends WPBakeryShortCode_Vc_Tabs {
+	/**
+	 * Get name.
+	 *
+	 * @return mixed|string
+	 */
 	protected function getFileName() {
 		return 'vc_tabs';
 	}
 
+	/**
+	 * Get html of individual tab.
+	 *
+	 * @return string
+	 */
 	public function getTabTemplate() {
-		return '<div class="wpb_template">' . do_shortcode( '[vc_tab title="' . SLIDE_TITLE . '" tab_id=""][/vc_tab]' ) . '</div>';
+		return '<div class="wpb_template">' . do_shortcode( '[vc_tab title="' . esc_attr__( 'Slide', 'js_composer' ) . '" tab_id=""][/vc_tab]' ) . '</div>';
 	}
 }

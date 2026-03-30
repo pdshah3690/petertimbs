@@ -1,5 +1,7 @@
-(function ( $ ) {
-	window.InlineShortcodeView_vc_accordion = window.InlineShortcodeView_vc_row.extend( {
+( function ( $ ) {
+	'use strict';
+
+	window.InlineShortcodeView_vc_accordion = window.InlineShortcodeView_vc_row.extend({
 		events: {
 			'click > .wpb_accordion > .vc_empty-element': 'addElement'
 		},
@@ -13,8 +15,9 @@
 			if ( this.allowAddControlOnEmpty() && 0 === this.$el.find( '.vc_element[data-tag]' ).length ) {
 				this.$el.addClass( 'vc_empty' ).find( '> :first' ).addClass( 'vc_empty-element' );
 			} else {
-				this.allowAddControlOnEmpty() && this.$el.removeClass( 'vc_empty' ).find( '> .vc_empty-element' ).removeClass(
-					'vc_empty-element' );
+				if ( this.allowAddControlOnEmpty() ) {
+					this.$el.removeClass( 'vc_empty' ).find( '> .vc_empty-element' ).removeClass( 'vc_empty-element' );
+				}
 				this.setSorting();
 			}
 		},
@@ -35,23 +38,27 @@
 		stopSorting: function () {
 			this.$accordion.find( '> .wpb_accordion_wrapper > .vc_element[data-tag]' ).each( function () {
 				var model = vc.shortcodes.get( $( this ).data( 'modelId' ) );
-				model.save( { order: $( this ).index() }, { silent: true } );
-			} );
+				model.save({ order: $( this ).index() }, { silent: true });
+			});
 		},
 		addElement: function ( e ) {
-			e && e.preventDefault();
+			if ( e && e.preventDefault ) {
+				e.preventDefault();
+			}
 			new vc.ShortcodesBuilder()
-				.create( {
+				.create({
 					shortcode: 'vc_accordion_tab',
 					params: { title: window.i18nLocale.section },
 					parent_id: this.model.get( 'id' )
-				} )
+				})
 				.render();
 		},
 		rowsColumnsConverted: function () {
-			_.each( vc.shortcodes.where( { parent_id: this.model.get( 'id' ) } ), function ( model ) {
-				model.view.rowsColumnsConverted && model.view.rowsColumnsConverted();
-			} );
+			_.each( vc.shortcodes.where({ parent_id: this.model.get( 'id' ) }), function ( model ) {
+				if ( model.view.rowsColumnsConverted ) {
+					model.view.rowsColumnsConverted();
+				}
+			});
 		}
-	} );
+	});
 })( window.jQuery );

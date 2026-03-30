@@ -4,7 +4,7 @@
 @import "../modules/vc_table.less";
 // pixel icons
 @import "pixel_icons.less";
-@import "../../fonts/vc_icons_v2/init.less";
+@import "../../fonts/vc_icons/init.less";
 
 //Helper classes
 .vc_txt_align_ {
@@ -85,17 +85,33 @@ ul.wpb_thumbnails-fluid > li,
   margin-bottom: @vc_margin_bottom_gold;
 }
 
+.wpb-content-wrapper {
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: unset;
+  display: block;
+}
+
+@import "layout.less";
+
 @import "../lib/parallax.less";
 @import "../shortcodes/vc_row.less";
 @import "../shortcodes/vc_section.less";
 @import "../shortcodes/frontend_vc_row.less";
+@import "../shortcodes/vc_grid_container.less";
+@import "../shortcodes/vc_grid_container_item.less";
+@import "../shortcodes/vc_flexbox_container.less";
+@import "../shortcodes/vc_flexbox_container_item.less";
 
 @import "../shortcodes/vc_social_btns.less";
 @import "../shortcodes/vc_toggle.less";
+@import "../shortcodes/vc_tta_toggle.less";
 @import "../shortcodes/vc_widgetised_column.less";
 @import "../shortcodes/vc_button.less";
 @import "../shortcodes/vc_button3.less";
 @import "../shortcodes/vc_custom_heading.less";
+@import "../shortcodes/vc_pricing_table.less";
 @import "../shortcodes/vc_call_to_action.less";
 @import "../shortcodes/vc_call_to_action3.less";
 @import "../shortcodes/vc_google_maps.less";
@@ -117,6 +133,7 @@ ul.wpb_thumbnails-fluid > li,
 @import "../shortcodes/vc_pagination.less";
 @import "../shortcodes/vc_basic_grid/vc_grid.less";
 @import "../shortcodes/vc_hoverbox.less";
+@import "../shortcodes/vc_copyright.less";
 
 @import "vc_font.less";
 @import "css3_animations.less";

@@ -1,45 +1,58 @@
 <?php
+/**
+ * WPBakery Page Builder Mapper manager.
+ *
+ * @package WPBakeryPageBuilder
+ * @since 4.2
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
- * WPBakery WPBakery Page Builder Main manager.
- *
- * @package WPBakeryPageBuilder
- * @since   4.2
- */
-
-/**
  * Vc mapper new class. On maintenance
  * Allows to bind hooks for shortcodes.
+ *
  * @since 4.2
  */
 class Vc_Mapper {
 	/**
+	 * Stores mapping activities list which where called before initialization.
+	 *
 	 * @since 4.2
-	 * Stores mapping activities list which where called before initialization
 	 * @var array
 	 */
-	protected $init_activity = array();
+	protected $init_activity = [];
 	/**
-	 *
+	 * Stores element-specific activities.
 	 *
 	 * @since 4.9
 	 *
 	 * @var array
 	 */
-	protected $element_activities = array();
+	protected $element_activities = [];
 
-	protected $hasAccess = array();
+	/**
+	 * Caches access rights for shortcodes.
+	 *
+	 * @var array
+	 */
+	protected $hasAccess = [];
 
-	// @todo fix_roles and maybe remove/@deprecate this
+	/**
+	 * Check access rights for shortcodes.
+	 *
+	 * @var array
+	 */
 	protected $checkForAccess = true;
 
 	/**
+	 * Vc_Mapper constructor.
+	 *
 	 * @since 4.2
 	 */
-	function __construct() {
+	public function __construct() {
 	}
 
 	/**
@@ -60,41 +73,41 @@ class Vc_Mapper {
 	/**
 	 * This method is called by VC objects methods if it is called before VC initialization.
 	 *
-	 * @see WPBMAP
+	 * @param object $object - mame of class object.
+	 * @param string $method - method name.
+	 * @param array $params - list of attributes for object method.
 	 * @since  4.2
 	 * @access public
 	 *
-	 * @param $object - mame of class object
-	 * @param $method - method name
-	 * @param array $params - list of attributes for object method
+	 * @see WPBMAP
 	 */
-	public function addActivity( $object, $method, $params = array() ) {
-		$this->init_activity[] = array(
+	public function addActivity( $object, $method, $params = [] ) { // phpcs:ignore:Universal.NamingConventions.NoReservedKeywordParameterNames.objectFound
+		$this->init_activity[] = [
 			$object,
 			$method,
 			$params,
-		);
+		];
 	}
 
 	/**
 	 * This method is called by VC objects methods if it is called before VC initialization.
 	 *
-	 * @see WPBMAP
+	 * @param string $tag - shortcode tag of element.
+	 * @param string $method - method name.
+	 * @param array $params - list of attributes for object method.
 	 * @since  4.9
 	 * @access public
 	 *
-	 * @param $tag - shortcode tag of element
-	 * @param $method - method name
-	 * @param array $params - list of attributes for object method
+	 * @see WPBMAP
 	 */
-	public function addElementActivity( $tag, $method, $params = array() ) {
+	public function addElementActivity( $tag, $method, $params = [] ) {
 		if ( ! isset( $this->element_activities[ $tag ] ) ) {
-			$this->element_activities[ $tag ] = array();
+			$this->element_activities[ $tag ] = [];
 		}
-		$this->element_activities[ $tag ][] = array(
+		$this->element_activities[ $tag ][] = [
 			$method,
 			$params,
-		);
+		];
 	}
 
 	/**
@@ -106,7 +119,7 @@ class Vc_Mapper {
 	 * @since  4.2
 	 * @access public
 	 */
-	protected function callActivities() {
+	protected function callActivities() { // phpcs:ignore:Generic.Metrics.CyclomaticComplexity.TooHigh
 		do_action( 'vc_mapper_call_activities_before' );
 		foreach ( $this->init_activity as $activity ) {
 			list( $object, $method, $params ) = $activity;
@@ -146,11 +159,11 @@ class Vc_Mapper {
 	/**
 	 * Does user has access to modify/clone/delete/add shortcode
 	 *
-	 * @param $shortcode
+	 * @param string $shortcode
 	 *
-	 * @todo fix_roles and maybe remove/@deprecate this
-	 * @since 4.5
 	 * @return bool
+	 * @since 4.5
+	 * @todo fix_roles and maybe remove/@deprecate this
 	 */
 	public function userHasAccess( $shortcode ) {
 		if ( $this->isCheckForAccess() ) {
@@ -167,24 +180,34 @@ class Vc_Mapper {
 	}
 
 	/**
-	 * @todo fix_roles and maybe remove/@deprecate this
-	 * @since 4.5
+	 * Checks access.
+	 *
 	 * @return bool
+	 * @since 4.5
+	 * @todo fix_roles and maybe remove/@deprecate this
 	 */
 	public function isCheckForAccess() {
 		return $this->checkForAccess;
 	}
 
 	/**
-	 * @todo fix_roles and maybe remove/@deprecate this
-	 * @since 4.5
+	 * Set check for access.
 	 *
 	 * @param bool $checkForAccess
+	 * @since 4.5
+	 *
+	 * @todo fix_roles and maybe remove/@deprecate this
 	 */
 	public function setCheckForAccess( $checkForAccess ) {
 		$this->checkForAccess = $checkForAccess;
 	}
 
+	/**
+	 * Calls stored element-specific activities for a given shortcode tag.
+	 *
+	 * @param string $tag
+	 * @throws \Exception
+	 */
 	public function callElementActivities( $tag ) {
 		do_action( 'vc_mapper_call_activities_before' );
 		if ( isset( $this->element_activities[ $tag ] ) ) {

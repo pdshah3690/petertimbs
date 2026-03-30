@@ -1,10 +1,20 @@
 <?php
+/**
+ * The template for displaying [vc_line_chart] shortcode output of 'Line Chart' element.
+ *
+ * This template can be overridden by copying it to yourtheme/vc_templates/vc_line_chart.php.
+ *
+ * @see https://kb.wpbakery.com/docs/developers-how-tos/change-shortcodes-html-output
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
  * Shortcode attributes
+ *
+ * @var $atts
  * @var $title
  * @var $el_class
  * @var $el_id
@@ -18,14 +28,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $css
  * @var $css_animation
  * Shortcode class
- * @var $this WPBakeryShortCode_Vc_Line_Chart
+ * @var WPBakeryShortCode_Vc_Line_Chart $this
  */
 $el_class = $el_id = $title = $type = $legend = $style = $tooltips = $animation = $x_values = $values = $css = $css_animation = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
-$base_colors = array(
-	'normal' => array(
+$base_colors = [
+	'normal' => [
 		'blue' => '#5472d2',
 		'turquoise' => '#00c1cf',
 		'pink' => '#fe6c61',
@@ -50,8 +60,8 @@ $base_colors = array(
 		'warning' => '#ff9900',
 		'danger' => '#ff675b',
 		'inverse' => '#555555',
-	),
-	'active' => array(
+	],
+	'active' => [
 		'blue' => '#3c5ecc',
 		'turquoise' => '#00a4b0',
 		'pink' => '#fe5043',
@@ -76,28 +86,29 @@ $base_colors = array(
 		'warning' => '#e08700',
 		'danger' => '#ff4b3c',
 		'inverse' => '#464646',
-	),
-);
-$colors = array(
-	'flat' => array(
+	],
+];
+$colors = [
+	'flat' => [
 		'normal' => $base_colors['normal'],
 		'active' => $base_colors['active'],
-	),
-);
+	],
+];
 foreach ( $base_colors['normal'] as $name => $color ) {
-	$colors['modern']['normal'][ $name ] = array( vc_colorCreator( $color, 7 ), $color );
+	$colors['modern']['normal'][ $name ] = [ vc_colorCreator( $color, 7 ), $color ];
 }
 foreach ( $base_colors['active'] as $name => $color ) {
-	$colors['modern']['active'][ $name ] = array( vc_colorCreator( $color, 7 ), $color );
+	$colors['modern']['active'][ $name ] = [ vc_colorCreator( $color, 7 ), $color ];
 }
 
 wp_enqueue_script( 'vc_line_chart' );
 
-$class_to_filter = 'vc_chart vc_line-chart wpb_content_element';
+$element_class = empty( $this->settings['element_default_class'] ) ? '' : $this->settings['element_default_class'];
+$class_to_filter = 'vc_chart vc_line-chart ' . esc_attr( $element_class );
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
-$options = array();
+$options = [];
 
 if ( ! empty( $legend ) ) {
 	$options[] = 'data-vc-legend="1"';
@@ -112,17 +123,17 @@ if ( ! empty( $animation ) ) {
 }
 
 $values = (array) vc_param_group_parse_atts( $values );
-$data = array(
+$data = [
 	'labels' => explode( ';', trim( $x_values, ';' ) ),
-	'datasets' => array(),
-);
+	'datasets' => [],
+];
 
 foreach ( $values as $k => $v ) {
 
 	if ( 'custom' === $style ) {
 		if ( ! empty( $v['custom_color'] ) ) {
 			$color = $v['custom_color'];
-			$highlight = vc_colorCreator( $v['custom_color'], - 10 ); //10% darker
+			$highlight = vc_colorCreator( $v['custom_color'], - 10 ); // 10% darker
 		} else {
 			$color = 'grey';
 			$highlight = 'grey';
@@ -132,7 +143,7 @@ foreach ( $values as $k => $v ) {
 		$highlight = isset( $colors[ $style ]['active'][ $v['color'] ] ) ? $colors[ $style ]['active'][ $v['color'] ] : $v['active']['color'];
 	}
 
-	// don't use gradients for lines
+	// don't use gradients for lines.
 	if ( 'line' === $type ) {
 		$color = is_array( $color ) ? end( $color ) : $color;
 		$highlight = is_array( $highlight ) ? end( $highlight ) : $highlight;
@@ -143,54 +154,43 @@ foreach ( $values as $k => $v ) {
 	}
 
 	if ( 'modern' === $style ) {
-		$stroke_color = vc_colorCreator( is_array( $color ) ? end( $color ) : $color, - 7 );
+		$stroke_color = is_array( $color ) ? end( $color ) : $color;
 		$highlight_stroke_color = vc_colorCreator( $stroke_color, - 7 );
 	} else {
 		$stroke_color = $color;
 		$highlight_stroke_color = $highlight;
 	}
 
-	$data['datasets'][] = array(
+	$data['datasets'][] = [
 		'label' => isset( $v['title'] ) ? $v['title'] : '',
-		'fillColor' => $fill_color,
-		'strokeColor' => $stroke_color,
-		'pointColor' => $color,
-		'pointStrokeColor' => $color,
-		'highlightFill' => $highlight,
-		'highlightStroke' => $highlight_stroke_color,
-		'pointHighlightFill' => $highlight_stroke_color,
-		'pointHighlightStroke' => $highlight_stroke_color,
+		'borderColor' => $stroke_color,
+		'backgroundColor' => ( 'modern' === $style ? [
+			$stroke_color,
+			$highlight_stroke_color,
+		] : $stroke_color ),
 		'data' => explode( ';', isset( $v['y_values'] ) ? trim( $v['y_values'], ';' ) : '' ),
-	);
+	];
 }
 
 $options[] = 'data-vc-type="' . esc_attr( $type ) . '"';
-$options[] = 'data-vc-values="' . htmlentities( json_encode( $data ) ) . '"';
+$options[] = 'data-vc-values="' . htmlentities( wp_json_encode( $data ) ) . '"';
 
 if ( '' !== $title ) {
 	$title = '<h2 class="wpb_heading">' . $title . '</h4>';
 }
 
 $canvas_html = '<canvas class="vc_line-chart-canvas" width="1" height="1"></canvas>';
-$legend_html = '';
-if ( $legend ) {
-	foreach ( $data['datasets'] as $v ) {
-		$color = is_array( $v['pointColor'] ) ? current( $v['pointColor'] ) : $v['pointColor'];
-		$legend_html .= '<li><span style="background-color:' . $color . '"></span>' . $v['label'] . '</li>';
-	}
-	$legend_html = '<ul class="vc_chart-legend">' . $legend_html . '</ul>';
-	$canvas_html = '<div class="vc_chart-with-legend">' . $canvas_html . '</div>';
-}
+
 if ( ! empty( $el_id ) ) {
 	$options[] = 'id="' . esc_attr( $el_id ) . '"';
 }
 $output = '
 <div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $options ) . '>
-	' . $title . '
+	' . wp_kses_post( $title ) . '
 	<div class="wpb_wrapper">
-		' . $canvas_html . $legend_html . '
+		' . $canvas_html . '
 	</div>' . '
 </div>' . '
 ';
 
-echo $output;
+return $output;

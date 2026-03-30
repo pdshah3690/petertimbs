@@ -1,10 +1,19 @@
 <?php
+/**
+ * The template for displaying [vc_posts_slider] shortcode output of 'Posts Slider' element.
+ *
+ * This template can be overridden by copying it to yourtheme/vc_templates/vc_posts_slider.php.
+ *
+ * @see https://kb.wpbakery.com/docs/developers-how-tos/change-shortcodes-html-output
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
  * Shortcode attributes
+ *
  * @var $atts
  * @var $title
  * @var $type
@@ -24,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $el_id
  * @var $css
  * Shortcode class
- * @var $this WPBakeryShortCode_VC_Posts_slider
+ * @var WPBakeryShortCode_Vc_Posts_slider $this
  */
 $title = $type = $count = $interval = $slides_content = $slides_title = $link = $custom_links = $thumb_size = $posttypes = $posts_in = $categories = $order = $orderby = $el_class = $el_id = $css = '';
 $link_image_start = '';
@@ -52,8 +61,8 @@ if ( 'nivo' === $type ) {
 	$el_end = '</li>';
 	$slides_wrap_start = '<ul class="slides">';
 	$slides_wrap_end = '</ul>';
-	wp_enqueue_style( 'flexslider' );
-	wp_enqueue_script( 'flexslider' );
+	wp_enqueue_style( 'wpb_flexslider' );
+	wp_enqueue_script( 'wpb_flexslider' );
 }
 $flex_fx = '';
 if ( 'flexslider' === $type || 'flexslider_fade' === $type || 'fading' === $type ) {
@@ -65,23 +74,23 @@ if ( 'flexslider' === $type || 'flexslider_fade' === $type || 'fading' === $type
 }
 
 if ( 'link_image' === $link ) {
-	wp_enqueue_script( 'prettyphoto' );
-	wp_enqueue_style( 'prettyphoto' );
+	wp_enqueue_script( 'lightbox2' );
+	wp_enqueue_style( 'lightbox2' );
 }
 
-$query_args = array(
+$query_args = [
 	'post_status' => 'publish',
-);
+];
 
-//exclude current post/page from query
+// exclude current post/page from query.
 if ( '' !== $posts_in ) {
 	$query_args['post__in'] = explode( ',', $posts_in );
 }
 global $vc_posts_grid_exclude_id;
 $vc_posts_grid_exclude_id[] = get_the_ID();
-$query_args['post__not_in'] = array( get_the_ID() );
+$query_args['post__not_in'] = [ get_the_ID() ];
 
-// Post teasers count
+// Post teasers count.
 if ( '' !== $count && ! is_numeric( $count ) ) {
 	$count = - 1;
 }
@@ -89,8 +98,8 @@ if ( '' !== $count && is_numeric( $count ) ) {
 	$query_args['posts_per_page'] = $count;
 }
 
-// Post types
-$pt = array();
+// Post types.
+$pt = [];
 if ( '' !== $posttypes ) {
 	$posttypes = explode( ',', $posttypes );
 	foreach ( $posttypes as $post_type ) {
@@ -99,40 +108,40 @@ if ( '' !== $posttypes ) {
 	$query_args['post_type'] = $pt;
 }
 
-// Narrow by categories
+// Narrow by categories.
 if ( '' !== $categories ) {
 	$categories = explode( ',', $categories );
-	$gc = array();
+	$gc = [];
 	foreach ( $categories as $grid_cat ) {
 		array_push( $gc, $grid_cat );
 	}
 	$gc = implode( ',', $gc );
-	// http://snipplr.com/view/17434/wordpress-get-category-slug/
+	// http://snipplr.com/view/17434/wordpress-get-category-slug/.
 	$query_args['category_name'] = $gc;
 
 	$taxonomies = get_taxonomies( '', 'object' );
-	$query_args['tax_query'] = array( 'relation' => 'OR' );
+	$query_args['tax_query'] = [ 'relation' => 'OR' ];
 	foreach ( $taxonomies as $t ) {
-		if ( in_array( $t->object_type[0], $pt ) ) {
-			$query_args['tax_query'][] = array(
+		if ( in_array( $t->object_type[0], $pt, true ) ) {
+			$query_args['tax_query'][] = [
 				'taxonomy' => $t->name,
 				'terms' => $categories,
 				'field' => 'slug',
-			);
+			];
 		}
 	}
 }
 
-// Order posts
+// Order posts.
 if ( null !== $orderby ) {
 	$query_args['orderby'] = $orderby;
 }
 $query_args['order'] = $order;
 
-// Run query
+// Run query.
 $my_query = new WP_Query( $query_args );
 
-$pretty_rel_random = ' data-rel="prettyPhoto[rel-' . get_the_ID() . '-' . rand() . ']"';
+$pretty_rel_random = ' data-lightbox="lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
 if ( 'custom_link' === $link ) {
 	$custom_links = explode( ',', vc_value_from_safe( $custom_links ) );
 }
@@ -140,11 +149,11 @@ $teasers = '';
 $i = - 1;
 
 while ( $my_query->have_posts() ) {
-	$i ++;
+	$i++;
 	$my_query->the_post();
 	$post_title = the_title( '', '', false );
 	$post_id = $my_query->post->ID;
-	if ( in_array( get_the_ID(), $vc_posts_grid_exclude_id ) ) {
+	if ( in_array( get_the_ID(), $vc_posts_grid_exclude_id, true ) ) {
 		continue;
 	}
 	if ( 'teaser' === $slides_content ) {
@@ -154,33 +163,35 @@ while ( $my_query->have_posts() ) {
 	}
 	$thumbnail = '';
 
-	// Thumbnail logic
+	// Thumbnail logic.
 	$post_thumbnail = $p_img_large = '';
 
-	$post_thumbnail = wpb_getImageBySize( array( 'post_id' => $post_id, 'thumb_size' => $thumb_size ) );
+	$post_thumbnail = wpb_getImageBySize( [
+		'post_id' => $post_id,
+		'thumb_size' => $thumb_size,
+	] );
 	$thumbnail = $post_thumbnail['thumbnail'];
 	$p_img_large = $post_thumbnail['p_img_large'];
 
-	// Link logic
+	// Link logic.
 	if ( 'link_no' !== $link ) {
 		if ( 'link_post' === $link ) {
-			$link_image_start = '<a class="link_image" href="' . get_permalink( $post_id ) . '" title="' . sprintf( esc_attr__( 'Permalink to %s', 'js_composer' ), the_title_attribute( 'echo=0' ) ) . '">';
+			$link_image_start = '<a class="link_image" href="' . esc_url( get_permalink( $post_id ) ) . '" title="' . sprintf( esc_attr__( 'Permalink to %s', 'js_composer' ), the_title_attribute( 'echo=0' ) ) . '">';
 		} elseif ( 'link_image' === $link ) {
 			$p_video = get_post_meta( $post_id, '_p_video', true );
-			//
 			if ( '' !== $p_video ) {
 				$p_link = $p_video;
 			} else {
-				$p_link = $p_img_large[0];
+				$p_link = isset( $p_img_large[0] ) ? $p_img_large[0] : '';
 			}
-			$link_image_start = '<a class="link_image prettyphoto" href="' . $p_link . '" ' . $pretty_rel_random . ' title="' . the_title_attribute( 'echo=0' ) . '" >';
+			$link_image_start = '<a class="link_image" href="' . esc_url( $p_link ) . '" ' . $pretty_rel_random . ' title="' . the_title_attribute( 'echo=0' ) . '" >';
 		} elseif ( 'custom_link' === $link ) {
 			if ( isset( $custom_links[ $i ] ) ) {
 				$slide_custom_link = $custom_links[ $i ];
 			} else {
 				$slide_custom_link = $custom_links[0];
 			}
-			$link_image_start = '<a class="link_image" href="' . $slide_custom_link . '">';
+			$link_image_start = '<a class="link_image" href="' . esc_url( $slide_custom_link ) . '">';
 		}
 
 		$link_image_end = '</a>';
@@ -200,30 +211,34 @@ while ( $my_query->have_posts() ) {
 	}
 
 	$teasers .= $el_start . $link_image_start . $thumbnail . $link_image_end . $description . $el_end;
-} // endwhile loop
-wp_reset_query();
+}//end while.
+wp_reset_postdata();
 
 if ( $teasers ) {
 	$teasers = $slides_wrap_start . $teasers . $slides_wrap_end;
 } else {
-	$teasers = __( 'Nothing found.', 'js_composer' );
+	$teasers = esc_html__( 'Nothing found.', 'js_composer' );
 }
 
+$element_class = empty( $this->settings['element_default_class'] ) ? '' : $this->settings['element_default_class'];
 $class_to_filter = 'wpb_gallery wpb_posts_slider wpb_content_element';
-$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . ' ' . esc_attr( $element_class ) . $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
-$wrapper_attributes = array();
+$wrapper_attributes = [];
 if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';
 }
 $output = '
 	<div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $wrapper_attributes ) . '>
 		<div class="wpb_wrapper">
-			' . wpb_widget_title( array( 'title' => $title, 'extraclass' => 'wpb_posts_slider_heading' ) ) . '
-			<div class="wpb_gallery_slides' . $type . '" data-interval="' . $interval . '"' . $flex_fx . '>' . $teasers . '</div>
+			' . wpb_widget_title( [
+	'title' => $title,
+	'extraclass' => 'wpb_posts_slider_heading',
+] ) . '
+			<div class="wpb_gallery_slides' . esc_attr( $type ) . '" data-interval="' . esc_attr( $interval ) . '"' . $flex_fx . '>' . $teasers . '</div>
 		</div>
 	</div>
 ';
 
-echo $output;
+return $output;

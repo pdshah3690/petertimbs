@@ -1,4 +1,12 @@
 <?php
+/**
+ * Param type 'param_group'.
+ *
+ * Use it add group level for prams.
+ *
+ * @see https://kb.wpbakery.com/docs/inner-api/vc_map/#vc_map()-ParametersofparamsArray
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -7,40 +15,31 @@ require_once vc_path_dir( 'EDITORS_DIR', 'class-vc-edit-form-fields.php' );
 
 /**
  * Class Vc_ParamGroup_Edit_Form_Fields
+ *
  * @since 4.4
  */
 class Vc_ParamGroup_Edit_Form_Fields extends Vc_Edit_Form_Fields {
-
 	/**
-	 * @since 4.4
+	 * Vc_ParamGroup_Edit_Form_Fields constructor.
 	 *
-	 * @param $settings
+	 * @noinspection PhpMissingParentConstructorInspection
+	 * @param array $settings
+	 * @since 4.4
 	 */
 	public function __construct( $settings ) {
 		$this->setSettings( $settings );
 	}
 
 	/**
-	 * @param $param
-	 * @param $value
-	 *
-	 * @since 4.4
-	 * @return mixed|void
-	 */
-	public function renderField( $param, $value ) {
-		return parent::renderField( $param, $value );
-	}
-
-	/**
 	 * Get shortcode attribute value wrapper for params group.
 	 *
 	 * This function checks if value isn't set then it uses std or value fields in param settings.
-	 * @since 5.2.1
 	 *
-	 * @param $params_settings
+	 * @param array $params_settings
 	 * @param null $value
 	 *
 	 * @return mixed;
+	 * @since 5.2.1
 	 */
 	public function getParamGroupAttributeValue( $params_settings, $value = null ) {
 		return $this->parseShortcodeAttributeValue( $params_settings, $value );
@@ -49,34 +48,56 @@ class Vc_ParamGroup_Edit_Form_Fields extends Vc_Edit_Form_Fields {
 
 /**
  * Class Vc_ParamGroup
+ *
  * @since 4.4
  */
 class Vc_ParamGroup {
 	/**
+	 * Settings for the parameter group.
+	 *
 	 * @since 4.4
-	 * @var
+	 * @var array
 	 */
 	protected $settings;
+
 	/**
+	 * Parsed values for the parameter group.
+	 *
 	 * @since 4.4
 	 * @var array|mixed
 	 */
 	protected $value;
+
 	/**
+	 * Map of parameters.
+	 *
 	 * @since 4.4
-	 * @var
+	 * @var array
 	 */
 	protected $map;
+
 	/**
+	 * Attributes associated with the parameter group.
+	 *
 	 * @since 4.4
-	 * @var
+	 * @var array
 	 */
 	protected $atts;
 
 	/**
-	 * @param $settings
-	 * @param $value
-	 * @param $tag
+	 * Original unparsed value of the parameter group.
+	 *
+	 * @since 4.4
+	 * @var string
+	 */
+	public $unparsed_value;
+
+	/**
+	 * Vc_ParamGroup constructor.
+	 *
+	 * @param array $settings
+	 * @param string $value
+	 * @param string $tag
 	 *
 	 * @since 4.4
 	 */
@@ -88,14 +109,16 @@ class Vc_ParamGroup {
 	}
 
 	/**
-	 * @param $param_name
-	 * @param $arr
+	 * Convert parameters to array.
 	 *
-	 * @since 4.4
+	 * @param string $param_name
+	 * @param array $arr
+	 *
 	 * @return array
+	 * @since 4.4
 	 */
 	public function params_to_arr( $param_name, $arr ) {
-		$data = array();
+		$data = [];
 		foreach ( $arr as $param ) {
 			$data[ $param_name . '_' . $param['param_name'] ] = $param['type'];
 		}
@@ -104,19 +127,21 @@ class Vc_ParamGroup {
 	}
 
 	/**
-	 * @since 4.4
+	 * Renders the HTML output.
+	 *
 	 * @return mixed|string
+	 * @since 4.4
 	 */
-	public function render() {
+	public function render() { // phpcs:ignore:CognitiveComplexity.Complexity.MaximumComplexity.TooHigh
 		$output = '';
 		$edit_form = new Vc_ParamGroup_Edit_Form_Fields( $this->settings );
 
 		$settings = $this->settings;
-		$output .= '<ul class="vc_param_group-list vc_settings" data-settings="' . htmlentities( json_encode( $settings ), ENT_QUOTES, 'utf-8' ) . '">';
+		$output .= '<ul class="vc_param_group-list vc_settings" data-settings="' . htmlentities( wp_json_encode( $settings ), ENT_QUOTES, 'utf-8' ) . '">';
 
 		$template = vc_include_template( 'params/param_group/content.tpl.php' );
 
-		// Parsing values
+		// Parsing values.
 		if ( ! empty( $this->value ) ) {
 			foreach ( $this->value as $values ) {
 				$output .= $template;
@@ -136,7 +161,7 @@ class Vc_ParamGroup {
 
 		}
 
-		// Empty fields wrapper and Add new fields wrapper
+		// Empty fields wrapper and Add new fields wrapper.
 		$content = "<div class='vc_param_group-wrapper vc_clearfix'>";
 		foreach ( $this->settings['params'] as $param ) {
 			$param['param_name'] = $this->settings['param_name'] . '_' . $param['param_name'];
@@ -146,13 +171,14 @@ class Vc_ParamGroup {
 		$content .= '</div>';
 		$output = str_replace( '%content%', $content, $output );
 
-		// And button on bottom
+		// And button on bottom.
 		$output .= '<li class="wpb_column_container vc_container_for_children vc_param_group-add_content vc_empty-container"></li></ul>';
 
 		$add_template = vc_include_template( 'params/param_group/add.tpl.php' );
 		$add_template = str_replace( '%content%', $content, $add_template );
 
-		$output .= '<script type="text/html" class="vc_param_group-template">' . json_encode( $add_template ) . '</script>';
+		$custom_tag = 'script';
+		$output .= '<' . $custom_tag . ' type="text/html" class="vc_param_group-template">' . wp_json_encode( $add_template ) . '</' . $custom_tag . '>';
 		$output .= '<input name="' . $this->settings['param_name'] . '" class="wpb_vc_param_value  ' . $this->settings['param_name'] . ' ' . $this->settings['type'] . '_field" type="hidden" value="' . $this->unparsed_value . '" />';
 
 		return $output;
@@ -163,17 +189,18 @@ class Vc_ParamGroup {
  * Function for rendering param in edit form (add element)
  * Parse settings from vc_map and entered values.
  *
- * @param $param_settings
- * @param $param_value
- * @param $tag
+ * @param array $param_settings
+ * @param string|null $param_value
+ * @param string $tag
  *
+ * @return mixed rendered template for params in edit form
  * @since 4.4
  *
  * vc_filter: vc_param_group_render_filter
- *
- * @return mixed|void rendered template for params in edit form
  */
 function vc_param_group_form_field( $param_settings, $param_value, $tag ) {
+
+	$param_value = (string) $param_value;
 	$param_group = new Vc_ParamGroup( $param_settings, $param_value, $tag );
 
 	return apply_filters( 'vc_param_group_render_filter', $param_group->render() );
@@ -182,31 +209,30 @@ function vc_param_group_form_field( $param_settings, $param_value, $tag ) {
 add_action( 'wp_ajax_vc_param_group_clone', 'vc_param_group_clone' );
 
 /**
+ * Handles the cloning of param.
+ *
  * @since 4.4
  */
 function vc_param_group_clone() {
-	vc_user_access()
-		->checkAdminNonce()
-		->validateDie()
-		->wpAny( 'edit_posts', 'edit_pages' )
-		->validateDie();
+	vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie();
 
 	$param = vc_post_param( 'param' );
 	$value = vc_post_param( 'value' );
 	$tag = vc_post_param( 'shortcode' );
-	die( vc_param_group_clone_by_data( $tag, json_decode( urldecode( $param ), true ), json_decode( urldecode( $value ), true ) ) );
+	wp_send_json_success( vc_param_group_clone_by_data( $tag, json_decode( rawurldecode( $param ), true ), json_decode( rawurldecode( $value ), true ) ) );
 }
 
 /**
- * @param $tag
- * @param $params
- * @param $data
+ * Clone param by data.
  *
- * @since 4.4
+ * @param string $tag
+ * @param array $params
+ * @param array $data
+ *
  * @return mixed|string
+ * @since 4.4
  */
 function vc_param_group_clone_by_data( $tag, $params, $data ) {
-
 	$output = '';
 	$params['base'] = $tag;
 	$edit_form = new Vc_ParamGroup_Edit_Form_Fields( $params );
@@ -231,10 +257,12 @@ function vc_param_group_clone_by_data( $tag, $params, $data ) {
 }
 
 /**
- * @param $atts_string
+ * Parses attributes string into an associative array.
  *
- * @since 4.4
+ * @param string $atts_string
+ *
  * @return array|mixed
+ * @since 4.4
  */
 function vc_param_group_parse_atts( $atts_string ) {
 	$array = json_decode( urldecode( $atts_string ), true );
@@ -243,10 +271,17 @@ function vc_param_group_parse_atts( $atts_string ) {
 }
 
 add_filter( 'vc_map_get_param_defaults', 'vc_param_group_param_defaults', 10, 2 );
+/**
+ * Filters the default values for a parameter group.
+ *
+ * @param string $value
+ * @param array $param
+ * @return string
+ */
 function vc_param_group_param_defaults( $value, $param ) {
 	if ( 'param_group' === $param['type'] && isset( $param['params'] ) && empty( $value ) ) {
 		$defaults = vc_map_get_params_defaults( $param['params'] );
-		$value = urlencode( json_encode( array( $defaults ) ) );
+		$value = rawurlencode( wp_json_encode( [ $defaults ] ) );
 	}
 
 	return $value;

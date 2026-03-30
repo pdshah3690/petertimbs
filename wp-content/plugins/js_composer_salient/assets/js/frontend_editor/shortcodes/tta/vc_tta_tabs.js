@@ -1,5 +1,7 @@
-(function ( $ ) {
-	window.InlineShortcodeView_vc_tta_tabs = window.InlineShortcodeView_vc_tta_accordion.extend( {
+( function ( $ ) {
+	'use strict';
+
+	window.InlineShortcodeView_vc_tta_tabs = window.InlineShortcodeView_vc_tta_accordion.extend({
 		render: function () {
 			window.InlineShortcodeView_vc_tta_tabs.__super__.render.call( this );
 			_.bindAll( this, 'buildSortableNavigation', 'updateSortingNavigation' );
@@ -8,27 +10,27 @@
 			return this;
 		},
 		createTabs: function () {
-			var models = _.sortBy( vc.shortcodes.where( { parent_id: this.model.get( 'id' ) } ),
+			var models = _.sortBy( vc.shortcodes.where({ parent_id: this.model.get( 'id' ) }),
 				function ( model ) {
 					return model.get( 'order' );
-				} );
+				});
 			_.each( models, function ( model ) {
 				this.sectionUpdated( model, true );
 			}, this );
 		},
 		defaultSectionTitle: window.i18nLocale.tab,
 		addIcon: function ( model, html ) {
-			var icon, iconClass, iconHtml;
+			var icon, icon_class, icon_html;
 			if ( 'true' === model.getParam( 'add_icon' ) ) {
 				icon = model.getParam( 'i_icon_' + model.getParam( 'i_type' ) );
-				if ( ! _.isUndefined( icon ) ) {
-					iconClass = 'vc_tta-icon' + ' ' + icon;
-					iconHtml = '<i class="' + iconClass + '"></i>';
+				if ( !_.isUndefined( icon ) ) {
+					icon_class = 'vc_tta-icon' + ' ' + icon;
+					icon_html = '<i class="' + icon_class + '"></i>';
 				}
 				if ( 'right' === model.getParam( 'i_position' ) ) {
-					html += iconHtml;
+					html += icon_html;
 				} else {
-					html = iconHtml + html;
+					html = icon_html + html;
 				}
 			}
 			return html;
@@ -38,16 +40,23 @@
 		 * @param {Backbone.Model}model
 		 */
 		sectionUpdated: function ( model, justAppend ) {
-			// update builded tabs, remove/add check orders and title/target
+			// update build tabs, remove/add check orders and title/target
 
 			var $tabEl,
+				$toggleEl,
 				$navigation,
 				sectionId,
-				html, title, models, index, tabAdded;
+				html,
+				title,
+				models,
+				index,
+				tabAdded;
+
 			tabAdded = false;
 			sectionId = model.get( 'id' );
 			$navigation = this.$el.find( '.vc_tta-tabs-container .vc_tta-tabs-list' );
 			$tabEl = $navigation.find( '[data-vc-target="[data-model-id=' + sectionId + ']"]' );
+			$toggleEl = this.$el.find( '.wpb-tta-toggle' );
 			title = model.getParam( 'title' );
 
 			if ( $tabEl.length ) {
@@ -55,6 +64,19 @@
 				html = this.addIcon( model, html );
 
 				$tabEl.html( html );
+			} else if ( $toggleEl.length ) {
+				var section = this.$el.find( '[data-model-id="' + sectionId + '"]' );
+				if ( section.length ) {
+					var firstTitle = this.$el.find( '.wpb-tta-toggle-wrapper span:first' );
+					var secondTitle = this.$el.find( '.wpb-tta-toggle-wrapper span:last' );
+					var section_index = section.find( '[data-vc-section-index]' ).attr( 'data-vc-section-index' );
+
+					if ( '1' === section_index ) {
+						firstTitle.html( title );
+					} else {
+						secondTitle.html( title );
+					}
+				}
 			} else {
 				var $element;
 				html = '<span class="vc_tta-title-text">' + title + '</span>';
@@ -62,17 +84,19 @@
 				html = this.addIcon( model, html );
 				$element = $( '<li class="vc_tta-tab" data-vc-target-model-id="' + sectionId + '" data-vc-tab><a href="javascript:;" data-vc-use-cache="false" data-vc-tabs data-vc-target="[data-model-id=' + sectionId + ']" data-vc-container=".vc_tta">' + html + '</a></li>' );
 				if ( true !== justAppend ) {
-					models = _.pluck( _.sortBy( vc.shortcodes.where( { parent_id: this.model.get( 'id' ) } ),
+					models = _.pluck( _.sortBy( vc.shortcodes.where({ parent_id: this.model.get( 'id' ) }),
 						function ( childModel ) {
 							return childModel.get( 'order' );
-						} ), 'id' );
+						}), 'id' );
 					index = models.indexOf( model.get( 'id' ) ) - 1;
 					if ( index > - 1 && $navigation.find( '[data-vc-tab]:eq(' + index + ')' ).length ) {
 						$element.insertAfter( $navigation.find( '[data-vc-tab]:eq(' + index + ')' ) );
 						tabAdded = true;
 					}
 				}
-				! tabAdded && $element.appendTo( $navigation );
+				if ( !tabAdded ) {
+					$element.appendTo( $navigation );
+				}
 				if ( model.get( 'isActiveSection' ) ) {
 					$element.addClass( this.activeClass );
 				}
@@ -110,11 +134,11 @@
 			this.buildPagination();
 		},
 		buildSortableNavigation: function () {
-			if ( ! vc_user_access().shortcodeEdit( this.model.get( 'shortcode' ) ) ) {
-				return
+			if ( !vc_user_access().shortcodeEdit( this.model.get( 'shortcode' ) ) ) {
+				return;
 			}
 			// this should be called when new tab added/removed/changed.
-			this.$el.find( '.vc_tta-tabs-container .vc_tta-tabs-list' ).sortable( {
+			this.$el.find( '.vc_tta-tabs-container .vc_tta-tabs-list' ).sortable({
 				items: '.vc_tta-tab',
 				forcePlaceholderSize: true,
 				placeholder: 'vc_tta-tab vc_placeholder-tta-tab',
@@ -123,11 +147,11 @@
 					ui.placeholder.width( ui.item.width() );
 				},
 				over: function ( event, ui ) {
-					ui.placeholder.css( { maxWidth: ui.placeholder.parent().width() } );
+					ui.placeholder.css({ maxWidth: ui.placeholder.parent().width() });
 					ui.placeholder.removeClass( 'vc_hidden-placeholder' );
 				},
 				update: this.updateSortingNavigation
-			} );
+			});
 		},
 		updateSorting: function ( event, ui ) {
 			window.InlineShortcodeView_vc_tta_tabs.__super__.updateSorting.call( this, event, ui );
@@ -144,9 +168,9 @@
 				$li = $( this ).removeAttr( 'style' ); // TODO: Attensiton maybe e need to create method with filter
 				modelId = $li.data( 'vcTargetModelId' );
 				shortcode = vc.shortcodes.get( modelId );
-				shortcode.save( { 'order': self.getIndex( $li ) }, { silent: true } );
+				shortcode.save({ 'order': self.getIndex( $li ) }, { silent: true });
 				// now we need to sort panels
-			} );
+			});
 			this.updatePanelsPositions( $tabs );
 		},
 		updateTabsPositions: function ( $panels ) {
@@ -154,7 +178,7 @@
 			$tabs = this.$el.find( '.vc_tta-tabs-list' );
 			if ( $tabs.length ) {
 				$elements = [];
-				tabSortableData = $panels.sortable( 'toArray', { attribute: 'data-model-id' } );
+				tabSortableData = $panels.sortable( 'toArray', { attribute: 'data-model-id' });
 				_.each( tabSortableData, function ( value ) {
 					$elements.push( $tabs.find( '[data-vc-target-model-id="' + value + '"]' ) );
 				}, this );
@@ -166,7 +190,7 @@
 			var $elements, tabSortableData, $panels;
 			$panels = this.getPanelsList();
 			$elements = [];
-			tabSortableData = $tabs.sortable( 'toArray', { attribute: 'data-vc-target-model-id' } );
+			tabSortableData = $tabs.sortable( 'toArray', { attribute: 'data-vc-target-model-id' });
 			_.each( tabSortableData, function ( value ) {
 				$elements.push( $panels.find( '[data-model-id="' + value + '"]' ) );
 			}, this );
@@ -187,13 +211,13 @@
 			this.removePagination();
 			// If tap-pos top append:
 			params = this.model.get( 'params' );
-			if ( ! _.isUndefined( params.pagination_style ) && params.pagination_style.length ) {
+			if ( !_.isUndefined( params.pagination_style ) && params.pagination_style.length ) {
 				if ( 'top' === params.tab_position ) {
 					this.$el.find( '.vc_tta-panels-container' ).append( this.getPaginationList() );
 				} else {
-					this.getPaginationList().insertBefore( this.$el.find( '.vc_tta-container .vc_tta-panels' ) ); // TODO: change this
+					this.getPaginationList().insertBefore( this.$el.find( '.vc_tta-container .vc_tta-panels' ) );
 				}
 			}
 		}
-	} );
+	});
 })( window.jQuery );

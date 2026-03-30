@@ -1,24 +1,70 @@
 <?php
+/**
+ * Class that handles specific [vc_tabs] shortcode.
+ *
+ * @see js_composer/include/templates/shortcodes/vc_tabs.php
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-class WPBakeryShortCode_VC_Tabs extends WPBakeryShortCode {
-	static $filter_added = false;
+/**
+ * Class WPBakeryShortCode_Vc_Tabs
+ */
+class WPBakeryShortCode_Vc_Tabs extends WPBakeryShortCode {
+	/**
+	 * Filter added flag.
+	 *
+	 * @var bool
+	 */
+	public static $filter_added = false;
+	/**
+	 * Controls css settings.
+	 *
+	 * @var string
+	 */
 	protected $controls_css_settings = 'out-tc vc_controls-content-widget';
-	protected $controls_list = array( 'edit', 'clone', 'delete' );
 
+	/**
+	 * Controls list.
+	 *
+	 * @var array
+	 */
+	protected $controls_list = [
+		'edit',
+		'clone',
+		'copy',
+		'delete',
+	];
+
+	/**
+	 * WPBakeryShortCode_Vc_Tabs constructor.
+	 *
+	 * @param array $settings
+	 */
 	public function __construct( $settings ) {
 		parent::__construct( $settings );
 		if ( ! self::$filter_added ) {
-			$this->addFilter( 'vc_inline_template_content', 'setCustomTabId' );
+			add_filter( 'vc_inline_template_content', [
+				$this,
+				'setCustomTabId',
+			] );
 			self::$filter_added = true;
 		}
 	}
 
-	public function contentAdmin( $atts, $content = null ) {
+	/**
+	 * Get admin output.
+	 *
+	 * @param array $atts
+	 * @param null $content
+	 * @return mixed|string
+	 * @throws \Exception
+	 */
+	public function contentAdmin( $atts, $content = null ) { // phpcs:ignore:Generic.Metrics.CyclomaticComplexity.TooHigh, CognitiveComplexity.Complexity.MaximumComplexity.TooHigh
 		$width = $custom_markup = '';
-		$shortcode_attributes = array( 'width' => '1/1' );
+		$shortcode_attributes = [ 'width' => '1/1' ];
 		foreach ( $this->settings['params'] as $param ) {
 			if ( 'content' !== $param['param_name'] ) {
 				$shortcode_attributes[ $param['param_name'] ] = isset( $param['value'] ) ? $param['value'] : null;
@@ -28,12 +74,10 @@ class WPBakeryShortCode_VC_Tabs extends WPBakeryShortCode {
 		}
 		extract( shortcode_atts( $shortcode_attributes, $atts ) );
 
-		// Extract tab titles
-
+		// Extract tab titles.
 		preg_match_all( '/vc_tab title="([^\"]+)"(\stab_id\=\"([^\"]+)\"){0,1}/i', $content, $matches, PREG_OFFSET_CAPTURE );
 
-		$output = '';
-		$tab_titles = array();
+		$tab_titles = [];
 
 		if ( isset( $matches[0] ) ) {
 			$tab_titles = $matches[0];
@@ -49,8 +93,6 @@ class WPBakeryShortCode_VC_Tabs extends WPBakeryShortCode {
 				}
 			}
 			$tmp .= '</ul>' . "\n";
-		} else {
-			$output .= do_shortcode( $content );
 		}
 
 		$elem = $this->getElementHolder( $width );
@@ -59,7 +101,7 @@ class WPBakeryShortCode_VC_Tabs extends WPBakeryShortCode {
 		foreach ( $this->settings['params'] as $param ) {
 			$param_value = isset( ${$param['param_name']} ) ? ${$param['param_name']} : '';
 			if ( is_array( $param_value ) ) {
-				// Get first element from the array
+				// Get first element from the array.
 				reset( $param_value );
 				$first_key = key( $param_value );
 				$param_value = $param_value[ $first_key ];
@@ -83,10 +125,21 @@ class WPBakeryShortCode_VC_Tabs extends WPBakeryShortCode {
 		return $output;
 	}
 
+	/**
+	 * Get tab html output.
+	 *
+	 * @return string
+	 */
 	public function getTabTemplate() {
 		return '<div class="wpb_template">' . do_shortcode( '[vc_tab title="Tab" tab_id=""][/vc_tab]' ) . '</div>';
 	}
 
+	/**
+	 * Set id for custom tab.
+	 *
+	 * @param string $content
+	 * @return string|string[]|null
+	 */
 	public function setCustomTabId( $content ) {
 		return preg_replace( '/tab\_id\=\"([^\"]+)\"/', 'tab_id="$1-' . time() . '"', $content );
 	}
@@ -102,7 +155,12 @@ class WPBakeryShortCode_Tabbed_Section extends WPBakeryShortCode {
 
     static $filter_added = false;
     protected $controls_css_settings = 'out-tc vc_controls-content-widget';
-    protected $controls_list = array( 'edit', 'clone', 'delete' );
+    protected $controls_list = array(
+		'edit',
+		'clone',
+		'copy',
+		'delete',
+	);
 
     public function __construct( $settings ) {
         parent::__construct( $settings );
@@ -219,17 +277,6 @@ class WPBakeryShortCode_Tabbed_Section extends WPBakeryShortCode {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 class WPBakeryShortCode_Item extends WPBakeryShortCode_VC_Column {
    protected $controls_css_settings = 'tc vc_control-container';
     protected $controls_list = array( 'add', 'edit', 'clone', 'delete' );
@@ -244,7 +291,7 @@ class WPBakeryShortCode_Item extends WPBakeryShortCode_VC_Column {
     }
 
     public function customAdminBlockParams() {
-        return ' id="tab-' . $this->atts['tab_id'] . '"';
+        return ' id="tab-' . $this->atts['id'] . '"';
     }
 
     public function mainHtmlBlockParams( $width, $i ) {
@@ -289,7 +336,7 @@ class WPBakeryShortCode_Tab extends WPBakeryShortCode_VC_Column {
     }
 
     public function customAdminBlockParams() {
-        return ' id="tab-' . $this->atts['tab_id'] . '"';
+        return ' id="tab-' . $this->atts['id'] . '"';
     }
 
     public function mainHtmlBlockParams( $width, $i ) {
@@ -320,3 +367,4 @@ class WPBakeryShortCode_Tab extends WPBakeryShortCode_VC_Column {
 }
 
 /*nectar addition end*/
+

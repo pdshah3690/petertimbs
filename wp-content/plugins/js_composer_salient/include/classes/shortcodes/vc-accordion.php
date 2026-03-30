@@ -1,24 +1,38 @@
 <?php
+/**
+ * Class that handles specific [vc_accordion] shortcode.
+ *
+ * @see js_composer/include/templates/shortcodes/vc_accordion.php
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
- * WPBakery WPBakery Page Builder shortcodes
+ * WPBakery Page Builder shortcodes
  *
  * @package WPBakeryPageBuilder
- *
  */
-class WPBakeryShortCode_VC_Accordion extends WPBakeryShortCode {
+class WPBakeryShortCode_Vc_Accordion extends WPBakeryShortCode {
+	/**
+	 * Controls CSS settings.
+	 *
+	 * @var string
+	 */
 	protected $controls_css_settings = 'out-tc vc_controls-content-widget';
 
-	public function __construct( $settings ) {
-		parent::__construct( $settings );
-	}
-
-	public function contentAdmin( $atts, $content = null ) {
+	/**
+	 * Get admin output.
+	 *
+	 * @param array $atts
+	 * @param null $content
+	 * @return mixed|string
+	 * @throws \Exception
+	 */
+	public function contentAdmin( $atts, $content = null ) { // phpcs:ignore:Generic.Metrics.CyclomaticComplexity.TooHigh, CognitiveComplexity.Complexity.MaximumComplexity.TooHigh
 		$width = $custom_markup = '';
-		$shortcode_attributes = array( 'width' => '1/1' );
+		$shortcode_attributes = [ 'width' => '1/1' ];
 		foreach ( $this->settings['params'] as $param ) {
 			if ( 'content' !== $param['param_name'] ) {
 				$shortcode_attributes[ $param['param_name'] ] = isset( $param['value'] ) ? $param['value'] : null;
@@ -34,7 +48,7 @@ class WPBakeryShortCode_VC_Accordion extends WPBakeryShortCode {
 		foreach ( $this->settings['params'] as $param ) {
 			$param_value = isset( ${$param['param_name']} ) ? ${$param['param_name']} : '';
 			if ( is_array( $param_value ) ) {
-				// Get first element from the array
+				// Get first element from the array.
 				reset( $param_value );
 				$first_key = key( $param_value );
 				$param_value = $param_value[ $first_key ];
@@ -61,8 +75,9 @@ class WPBakeryShortCode_VC_Accordion extends WPBakeryShortCode {
 }
 
 
-/* nectar addition */ 
 
+
+/* nectar addition */ 
 class WPBakeryShortCode_Toggles extends WPBakeryShortCode {
 	protected $controls_css_settings = 'out-tc vc_controls-content-widget';
 	public function __construct( $settings ) {
@@ -103,9 +118,8 @@ class WPBakeryShortCode_Toggles extends WPBakeryShortCode {
 			}
 			$inner .= $this->singleParamHtmlHolder( $param, $param_value );
 		}
-		//$elem = str_ireplace('%wpb_element_content%', $iner, $elem);
+
 		$tmp = '';
-		// $template = '<div class="wpb_template">'.do_shortcode('[vc_accordion_tab title="New Section"][/vc_accordion_tab]').'</div>';
 
 		if ( isset( $this->settings["custom_markup"] ) && $this->settings["custom_markup"] != '' ) {
 			if ( $content != '' ) {
@@ -115,7 +129,7 @@ class WPBakeryShortCode_Toggles extends WPBakeryShortCode {
 			} else {
 				$custom_markup = str_ireplace( "%content%", '', $this->settings["custom_markup"] );
 			}
-			//$output .= do_shortcode($this->settings["custom_markup"]);
+
 			$inner .= do_shortcode( $custom_markup );
 		}
 		$elem = str_ireplace( '%wpb_element_content%', $inner, $elem );
@@ -124,10 +138,10 @@ class WPBakeryShortCode_Toggles extends WPBakeryShortCode {
 		return $output;
 	}
 
-	//added to modify the class - needs wpb_vc_accordion to function properly
+
 	public function getElementHolder( $width ) {
 			$output = '';
-            $column_controls = $this->getColumnControlsModular();
+      $column_controls = $this->getColumnControlsModular();
 			$css_class = 'wpb_' . $this->settings["base"] . '  wpb_vc_accordion wpb_content_element wpb_sortable' . ( ! empty( $this->settings["class"] ) ? ' ' . $this->settings["class"] : '' );
 			$output .= '<div data-element_type="' . $this->settings["base"] . '" class="' . $css_class . '">';
 			$output .= str_replace( "%column_size%", wpb_translateColumnWidthToFractional( $width ), $column_controls );
@@ -140,4 +154,4 @@ class WPBakeryShortCode_Toggles extends WPBakeryShortCode {
 		}
 }
 
-/* nectar addition end */ 
+/* nectar addition end */

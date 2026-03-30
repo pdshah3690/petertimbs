@@ -55,10 +55,42 @@
   }
   .wp-color-result.wp-picker-open:after {
     content: "";
+    border: none;
   }
+  //.vc_color-picker .wp-picker-open + .wp-picker-input-wrap {
+  //  display: flex;
+  //  align-items: center;
+  //}
+  //.vc_color-picker .wp-picker-input-wrap label {
+  //  margin-top: 0;
+  //  margin-bottom: 0;
+  //}
   input.wp-picker-clear {
     width: auto;
   }
+  .wp-picker-input-wrap input.wp-picker-clear[type="button"] {
+    min-height: 30px;
+  }
+  @media screen and (max-width: 782px) {
+    .wp-picker-input-wrap input.wp-picker-clear[type="button"] {
+      min-height: 32px;
+    }
+  }
+  .vc_ui-button.vc_param-animation-style-trigger {
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    background-color: #EBEBEB;
+  }
+  // will be prefixed by autoprefixer package
+  input::placeholder {
+    color: #999;
+  }
+}
+
+.edit_form_line {
+  position: relative;
 }
 
 /* Select Image / Select Images (multiple)
@@ -259,6 +291,7 @@ option, select {
 @import "../params/hidden.less";
 @import "../params/gutenberg.less";
 @import "../lib/css3_animations.less";
+@import "../params/range.less";
 
 // Fix link height due to rel noopener
 .has-text-field.vc-link-wrapper #wp-link #search-panel .query-results {
@@ -270,5 +303,27 @@ option, select {
 .vc-link-wrapper {
   .vc-link-nofollow {
     display: block;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+#vc_settings-post_author .vc_post_author, #vc_settings-post_status .vc_post_status {
+  width: 100%;
+  max-width: unset;
+}
+
+.vc_settings-comments {
+  display: flex;
+  align-items: center;
+
+  .wpb_element_label {
+    flex: 1 1 auto;
+    margin-left: 8px;
+    margin-bottom: 0;
   }
 }

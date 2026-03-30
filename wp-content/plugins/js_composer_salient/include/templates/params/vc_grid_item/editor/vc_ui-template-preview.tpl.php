@@ -1,41 +1,48 @@
 <?php
+/**
+ * Template for preview of grid item editor.
+ *
+ * @var string $content
+ * @var WP_Post $editor_post
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 vc_grid_item_map_shortcodes();
+// phpcs:ignore:WordPress.NamingConventions.ValidHookName.UseUnderscores
 do_action( 'vc-render-templates-preview-template' );
-/** @var $vc_grid_item_editor Vc_Grid_Item_Editor */
+// @var Vc_Grid_Item_Editor $vc_grid_item_editor - global variable.
 global $vc_grid_item_editor;
 if ( $vc_grid_item_editor ) {
 	$vc_grid_item_editor->registerBackendCss();
 	$vc_grid_item_editor->registerBackendJavascript();
-	add_filter( 'admin_body_class', array( $vc_grid_item_editor->templatesEditor(), 'addBodyClassTemplatePreview' ) );
-	add_action( 'admin_enqueue_scripts', array( &$vc_grid_item_editor, 'enqueueEditorScripts' ) );
-	add_action( 'admin_footer', array( &$vc_grid_item_editor, 'renderEditorFooter' ) );
-	add_filter( 'vc_wpbakery_shortcode_get_controls_list', array( $vc_grid_item_editor, 'shortcodesControls' ) );
+	add_filter( 'admin_body_class', [ $vc_grid_item_editor->templatesEditor(), 'addBodyClassTemplatePreview' ] );
+	add_action( 'admin_enqueue_scripts', [ &$vc_grid_item_editor, 'enqueueEditorScripts' ] );
+	add_action( 'admin_footer', [ &$vc_grid_item_editor, 'renderEditorFooter' ] );
+	add_filter( 'vc_wpbakery_shortcode_get_controls_list', [ $vc_grid_item_editor, 'shortcodesControls' ] );
 }
 
-add_action( 'admin_enqueue_scripts', array( visual_composer()->templatesPanelEditor(), 'enqueuePreviewScripts' ) );
+add_action( 'admin_enqueue_scripts', [ wpbakery()->templatesPanelEditor(), 'enqueuePreviewScripts' ] );
 
 
 global $menu, $submenu, $parent_file, $post_ID, $post, $post_type;
-$post_ID = $editorPost->ID;
-$post_type = $editorPost->post_type;
-$post_title = trim( $editorPost->post_title );
+$post_ID = $editor_post->ID;
+$post_type = $editor_post->post_type;
+$post_title = trim( $editor_post->post_title );
 $nonce_action = $nonce_action = 'update-post_' . $post_ID;
 $user_ID = isset( $current_user ) && isset( $current_user->ID ) ? (int) $current_user->ID : 0;
 $form_action = 'editpost';
-$menu = array();
-remove_action( 'wp_head', 'print_emoji_detection_script' );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
-remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-remove_action( 'admin_print_styles', 'print_emoji_styles' );
+$menu = [];
+wpb_remove_emoji_assets();
 add_thickbox();
-wp_enqueue_media( array( 'post' => $post_ID ) );
-visual_composer()->templatesPanelEditor()->registerPreviewScripts();
-require_once( ABSPATH . 'wp-admin/admin-header.php' );
+wp_enqueue_media( [ 'post' => $post_ID ] );
+wpbakery()->templatesPanelEditor()->registerPreviewScripts();
+require_once ABSPATH . 'wp-admin/admin-header.php';
+$custom_tag = 'script';
+$first_tag = 'style';
 ?>
-	<style type="text/css">
+	<<?php echo esc_attr( $first_tag ); ?>>
 		#screen-meta, #adminmenumain, .notice, #wpfooter, #message, .updated {
 			display: none !important;
 		}
@@ -55,33 +62,33 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 			overflow: hidden;
 			background: transparent;
 		}
-	</style>
+	</<?php echo esc_attr( $first_tag ); ?>>
 	<div class="vc_not-remove-overlay"></div>
 	<div class="vc_ui-template-preview">
-		<textarea id="content" style="display: none;"><?php echo $content ?></textarea>
+		<textarea id="content" style="display: none;">
+			<?php
+			// @codingStandardsIgnoreLine
+			print $content;
+			?>
+		</textarea>
 
-		<div id="wpb_visual_composer" class="postbox " style="display: block;">
+		<div id="wpb_wpbakery" class="postbox " style="display: block;">
 			<div class="inside">
 				<div class="metabox-composer-content">
-					<div id="visual_composer_content"
-					     class="wpb_main_sortable main_wrapper ui-sortable ui-droppable"></div>
+					<div id="wpbakery_content" class="wpb_main_sortable main_wrapper ui-sortable ui-droppable"></div>
 					<div id="vc_no-content-helper" class="vc_welcome"></div>
 				</div>
-				<input type="hidden" name="vc_js_composer_group_access_show_rule"
-				       class="vc_js_composer_group_access_show_rule" value="all">
+				<input type="hidden" name="vc_js_composer_group_access_show_rule" class="vc_js_composer_group_access_show_rule" value="all">
 				<input type="hidden" id="wpb_vc_js_status" name="wpb_vc_js_status" value="true">
 				<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading" value="Loading, please wait...">
 				<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row" value="Crunching...">
 				<input type="hidden" name="vc_grid_item_editor" value="true"/>
-				<input type="hidden" name="vc_post_custom_css" id="vc_post-custom-css" value="" autocomplete="off">
 			</div>
 		</div>
-		<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading"
-		       value="<?php esc_attr_e( 'Loading, please wait...', 'js_composer' ) ?>"/>
-		<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row"
-		       value="<?php esc_attr_e( 'Crunching...', 'js_composer' ) ?>"/>
+		<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading" value="<?php esc_attr_e( 'Loading, please wait...', 'js_composer' ); ?>"/>
+		<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row" value="<?php esc_attr_e( 'Crunching...', 'js_composer' ); ?>"/>
 	</div>
-	<script type="text/javascript">
+	<<?php echo esc_attr( $custom_tag ); ?>>
 		/**
 		 * Get content of grid item editor of current post. Data is used as models collection of shortcodes.
 		 * Data always wrapped with vc_gitem shortcode.
@@ -116,12 +123,13 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 			'[/vc_gitem_zone_b]' +
 			'[/vc_gitem_animated_block]' +
 			'[/vc_gitem]';
-	</script>
+	</<?php echo esc_attr( $custom_tag ); ?>>
 <?php
 vc_include_template( 'editors/partials/backend-shortcodes-templates.tpl.php' );
 do_action( 'vc_backend_editor_render' );
 do_action( 'vc_vc_grid_item_editor_render' );
+// phpcs:ignore:WordPress.NamingConventions.ValidHookName.UseUnderscores
 do_action( 'vc_ui-template-preview' );
 // fix bug #59741644518985 in firefox
-//wp_dequeue_script( 'isotope' );
-require_once( ABSPATH . 'wp-admin/admin-footer.php' );
+// wp_dequeue_script( 'isotope' );.
+require_once ABSPATH . 'wp-admin/admin-footer.php';

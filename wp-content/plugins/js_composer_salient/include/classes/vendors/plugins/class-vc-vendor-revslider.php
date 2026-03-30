@@ -1,154 +1,168 @@
 <?php
+/**
+ * Backward compatibility with "Revolution Slider" WordPress plugin.
+ *
+ * @see https://www.sliderrevolution.com/
+ *
+ * @since 4.4 vendors initialization moved to hooks in autoload/vendors.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
  * RevSlider loader.
+ *
  * @since 4.3
  */
-class Vc_Vendor_Revslider implements Vc_Vendor_Interface {
+class Vc_Vendor_Revslider {
 	/**
+	 * Instance index.
+	 *
 	 * @since 4.3
 	 * @var int - index of revslider
 	 */
-	protected static $instanceIndex = 1;
+	protected static $instance_index = 1;
 
 	/**
 	 * Add shortcode to WPBakery Page Builder also add fix for frontend to regenerate id of revslider.
+	 *
 	 * @since 4.3
 	 */
 	public function load() {
-		add_action( 'vc_after_mapping', array(
+		add_action( 'vc_after_mapping', [
 			$this,
 			'buildShortcode',
-		) );
-
+		] );
 	}
 
 	/**
+	 * Build shortcode.
+	 *
 	 * @since 4.3
 	 */
 	public function buildShortcode() {
 		if ( class_exists( 'RevSlider' ) ) {
-			vc_lean_map( 'rev_slider_vc', array(
+			vc_lean_map( 'rev_slider_vc', [
 				$this,
 				'addShortcodeSettings',
-			) );
+			] );
 			if ( vc_is_frontend_ajax() || vc_is_frontend_editor() ) {
-				add_filter( 'vc_revslider_shortcode', array(
+				add_filter( 'vc_revslider_shortcode', [
 					$this,
 					'setId',
-				) );
+				] );
 			}
 		}
 	}
 
 	/**
-	 * @since 4.4
+	 * Map shortcode.
 	 *
 	 * @param array $revsliders
 	 *
+	 * @since 4.4
+	 *
 	 * @deprecated 4.9
 	 */
-	public function mapShortcode( $revsliders = array() ) {
-		vc_map( array(
+	public function mapShortcode( $revsliders = [] ) {
+		vc_map( [
 			'base' => 'rev_slider_vc',
-			'name' => __( 'Revolution Slider', 'js_composer' ),
+			'name' => esc_html__( 'Revolution Slider', 'js_composer' ),
 			'icon' => 'icon-wpb-revslider',
-			'category' => __( 'Content', 'js_composer' ),
-			'description' => __( 'Place Revolution slider', 'js_composer' ),
-			'params' => array(
-				array(
+			'category' => esc_html__( 'Content', 'js_composer' ),
+			'description' => esc_html__( 'Place Revolution slider', 'js_composer' ),
+			'params' => [
+				[
 					'type' => 'textfield',
-					'heading' => __( 'Widget title', 'js_composer' ),
+					'heading' => esc_html__( 'Widget title', 'js_composer' ),
 					'param_name' => 'title',
-					'description' => __( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
-				),
-				array(
+					'description' => esc_html__( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+				],
+				[
 					'type' => 'dropdown',
-					'heading' => __( 'Revolution Slider', 'js_composer' ),
+					'heading' => esc_html__( 'Revolution Slider', 'js_composer' ),
 					'param_name' => 'alias',
 					'admin_label' => true,
 					'value' => $revsliders,
 					'save_always' => true,
-					'description' => __( 'Select your Revolution Slider.', 'js_composer' ),
-				),
-				array(
+					'description' => esc_html__( 'Select your Revolution Slider.', 'js_composer' ),
+				],
+				[
 					'type' => 'textfield',
-					'heading' => __( 'Extra class name', 'js_composer' ),
+					'heading' => esc_html__( 'Extra class name', 'js_composer' ),
 					'param_name' => 'el_class',
-					'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
-				),
-			),
-		) );
+					'description' => esc_html__( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+				],
+			],
+		] );
 	}
 
 	/**
 	 * Replaces id of revslider for frontend editor.
-	 * @since 4.3
 	 *
-	 * @param $output
+	 * @param string $output
 	 *
 	 * @return string
+	 * @since 4.3
 	 */
 	public function setId( $output ) {
-		return preg_replace( '/rev_slider_(\d+)_(\d+)/', 'rev_slider_$1_$2' . time() . '_' . self::$instanceIndex ++, $output );
+		return preg_replace( '/rev_slider_(\d+)_(\d+)/', 'rev_slider_$1_$2' . time() . '_' . self::$instance_index++, $output );
 	}
 
 	/**
 	 * Mapping settings for lean method.
 	 *
-	 * @since 4.9
-	 *
-	 * @param $tag
+	 * @param string $tag
 	 *
 	 * @return array
+	 * @since 4.9
 	 */
 	public function addShortcodeSettings( $tag ) {
 		$slider = new RevSlider();
-		$arrSliders = $slider->getArrSliders();
+		$sliders = $slider->getArrSliders();
 
-		$revsliders = array();
-		if ( $arrSliders ) {
-			foreach ( $arrSliders as $slider ) {
-				/** @var $slider RevSlider */
+		$revsliders = [];
+		if ( $sliders ) {
+			foreach ( $sliders as $slider ) {
+				// RevSlider $slider.
 				$revsliders[ $slider->getTitle() ] = $slider->getAlias();
 			}
 		} else {
-			$revsliders[ __( 'No sliders found', 'js_composer' ) ] = 0;
+			$revsliders[ esc_html__( 'No sliders found', 'js_composer' ) ] = 0;
 		}
 
-		// Add fixes for frontend editor to regenerate id
-		return array(
+		// Add fixes for frontend editor to regenerate id.
+		return [
 			'base' => $tag,
-			'name' => __( 'Revolution Slider', 'js_composer' ),
+			'name' => esc_html__( 'Revolution Slider', 'js_composer' ),
 			'icon' => 'icon-wpb-revslider',
-			'category' => __( 'Content', 'js_composer' ),
-			'description' => __( 'Place Revolution slider', 'js_composer' ),
-			'params' => array(
-				array(
+			'category' => esc_html__( 'Content', 'js_composer' ),
+			'description' => esc_html__( 'Place Revolution slider', 'js_composer' ),
+			'params' => [
+				[
 					'type' => 'textfield',
-					'heading' => __( 'Widget title', 'js_composer' ),
+					'heading' => esc_html__( 'Widget title', 'js_composer' ),
 					'param_name' => 'title',
-					'description' => __( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
-				),
-				array(
+					'description' => esc_html__( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+				],
+				[
 					'type' => 'dropdown',
-					'heading' => __( 'Revolution Slider', 'js_composer' ),
+					'heading' => esc_html__( 'Revolution Slider', 'js_composer' ),
 					'param_name' => 'alias',
 					'admin_label' => true,
 					'value' => $revsliders,
 					'save_always' => true,
-					'description' => __( 'Select your Revolution Slider.', 'js_composer' ),
-				),
-				array(
+					'description' => esc_html__( 'Select your Revolution Slider.', 'js_composer' ),
+				],
+				[
 					'type' => 'textfield',
-					'heading' => __( 'Extra class name', 'js_composer' ),
+					'heading' => esc_html__( 'Extra class name', 'js_composer' ),
 					'param_name' => 'el_class',
-					'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
-				),
-			),
-		);
+					'description' => esc_html__( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+				],
+			],
+		];
 	}
 }

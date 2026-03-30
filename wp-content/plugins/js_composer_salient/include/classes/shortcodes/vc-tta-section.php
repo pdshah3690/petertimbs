@@ -1,21 +1,75 @@
 <?php
+/**
+ * Class that handles specific [vc_tta_section] shortcode.
+ *
+ * @see js_composer/include/templates/shortcodes/vc_tta_section.php
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_VC_Tta_Accordion' );
+VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_Vc_Tta_Accordion' );
 
-class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordion {
-	protected $controls_css_settings = 'tc vc_control-container';
-	protected $controls_list = array( 'add', 'edit', 'clone', 'delete' );
-	protected $backened_editor_prepend_controls = false;
+/**
+ * Class WPBakeryShortCode_Vc_Tta_Section
+ */
+class WPBakeryShortCode_Vc_Tta_Section extends WPBakeryShortCode_Vc_Tta_Accordion {
 	/**
-	 * @var WPBakeryShortCode_VC_Tta_Accordion
+	 * CSS settings for controls.
+	 *
+	 * @var string
+	 */
+	protected $controls_css_settings = 'tc vc_control-container';
+
+	/**
+	 * List of controls for the section.
+	 *
+	 * @var array
+	 */
+	protected $controls_list = [
+		'add',
+		'edit',
+		'clone',
+		'copy',
+		'paste',
+		'delete',
+	];
+
+	/**
+	 * Determines whether to prepend controls in the backend editor.
+	 *
+	 * @var bool
+	 */
+	protected $backened_editor_prepend_controls = false;
+
+	/**
+	 * Base shortcode for TTA.
+	 *
+	 * @var WPBakeryShortCode_Vc_Tta_Accordion
 	 */
 	public static $tta_base_shortcode;
-	public static $self_count = 0;
-	public static $section_info = array();
 
+	/**
+	 * Count of self-instances.
+	 *
+	 * @var int
+	 */
+	public static $self_count = 0;
+
+	/**
+	 * Information about sections.
+	 *
+	 * @var array
+	 */
+	public static $section_info = [];
+
+
+	/**
+	 * Get name.
+	 *
+	 * @return mixed|string
+	 */
 	public function getFileName() {
 		if ( isset( self::$tta_base_shortcode ) && 'vc_tta_pageable' === self::$tta_base_shortcode->getShortcode() ) {
 			return 'vc_tta_pageable_section';
@@ -24,12 +78,22 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 		}
 	}
 
+	/**
+	 * Add container class.
+	 *
+	 * @return string
+	 */
 	public function containerContentClass() {
 		return 'wpb_column_container vc_container_for_children vc_clearfix';
 	}
 
+	/**
+	 * Get element classes.
+	 *
+	 * @return string
+	 */
 	public function getElementClasses() {
-		$classes = array();
+		$classes = [];
 		$classes[] = 'vc_tta-panel';
 		$isActive = ! vc_is_page_editable() && $this->getTemplateVariable( 'section-is-active' );
 
@@ -37,9 +101,7 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 			$classes[] = $this->activeClass;
 		}
 
-		/**
-		 * @since 4.6.2
-		 */
+		// since 4.6.2.
 		if ( isset( $this->atts['el_class'] ) ) {
 			$classes[] = $this->atts['el_class'];
 		}
@@ -48,8 +110,10 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 	}
 
 	/**
-	 * @param $atts
-	 * @param $content
+	 * Retrieve content with shortcodes.
+	 *
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string
 	 */
@@ -58,8 +122,10 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 	}
 
 	/**
-	 * @param $atts
-	 * @param $content
+	 * Get tabs id.
+	 *
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string|null
 	 */
@@ -72,8 +138,10 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 	}
 
 	/**
-	 * @param $atts
-	 * @param $content
+	 * Get title.
+	 *
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string|null
 	 */
@@ -86,8 +154,10 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 	}
 
 	/**
-	 * @param $atts
-	 * @param $content
+	 * Get icon.
+	 *
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string|null
 	 */
@@ -106,8 +176,10 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 	}
 
 	/**
-	 * @param $atts
-	 * @param $content
+	 * Get icon with left potions.
+	 *
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string|null
 	 */
@@ -120,8 +192,10 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 	}
 
 	/**
-	 * @param $atts
-	 * @param $content
+	 * Get icon with right potions.
+	 *
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string|null
 	 */
@@ -134,9 +208,10 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 	}
 
 	/**
-	 * Section param active
-	 * @param $atts
-	 * @param $content
+	 * Check section param active.
+	 *
+	 * @param array $atts
+	 * @param string $content
 	 * @return bool|null
 	 */
 	public function getParamSectionIsActive( $atts, $content ) {
@@ -152,14 +227,20 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 		return null;
 	}
 
+	/**
+	 * Get control icon position.
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 * @return string|null
+	 */
 	public function getParamControlIconPosition( $atts, $content ) {
 		if ( is_object( self::$tta_base_shortcode ) ) {
-			if (
-				isset( self::$tta_base_shortcode->atts['c_icon'] ) && strlen( self::$tta_base_shortcode->atts['c_icon'] ) > 0 &&
-				isset( self::$tta_base_shortcode->atts['c_position'] ) && strlen( self::$tta_base_shortcode->atts['c_position'] ) > 0
-			) {
+			if ( isset( self::$tta_base_shortcode->atts['c_icon'] ) && strlen( self::$tta_base_shortcode->atts['c_icon'] ) > 0 && isset( self::$tta_base_shortcode->atts['c_position'] ) && strlen( self::$tta_base_shortcode->atts['c_position'] ) > 0 ) {
 				$c_position = self::$tta_base_shortcode->atts['c_position'];
-
+				if ( 'default' === $c_position ) {
+					$c_position = is_rtl() ? 'right' : 'left';
+				}
 				return 'vc_tta-controls-icon-position-' . $c_position;
 			}
 		}
@@ -167,6 +248,13 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 		return null;
 	}
 
+	/**
+	 * Get control icon.
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 * @return string|null
+	 */
 	public function getParamControlIcon( $atts, $content ) {
 		if ( is_object( self::$tta_base_shortcode ) ) {
 			if ( isset( self::$tta_base_shortcode->atts['c_icon'] ) && strlen( self::$tta_base_shortcode->atts['c_icon'] ) > 0 ) {
@@ -179,24 +267,35 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 		return null;
 	}
 
+	/**
+	 * Get heading.
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 * @return string
+	 */
 	public function getParamHeading( $atts, $content ) {
 		$isPageEditable = vc_is_page_editable();
 
-		$h4attributes = array();
-		$h4classes = array(
+		$headingAttributes = [];
+		$headingClasses = [
 			'vc_tta-panel-title',
-		);
+		];
 		if ( $isPageEditable ) {
-			$h4attributes[] = 'data-vc-tta-controls-icon-position=""';
+			$headingAttributes[] = 'data-vc-tta-controls-icon-position=""';
 		} else {
 			$controlIconPosition = $this->getTemplateVariable( 'control-icon-position' );
 			if ( $controlIconPosition ) {
-				$h4classes[] = $controlIconPosition;
+				$headingClasses[] = $controlIconPosition;
 			}
 		}
-		$h4attributes[] = 'class="' . implode( ' ', $h4classes ) . '"';
+		$headingAttributes[] = 'class="' . implode( ' ', $headingClasses ) . '"';
+		$headingTag = apply_filters( 'vc_tta_section_param_heading_tag', 'h4', $atts );
+		if ( ! empty( self::$tta_base_shortcode->atts['section_title_tag'] ) ) {
+			$headingTag = self::$tta_base_shortcode->atts['section_title_tag'];
+		}
 
-		$output = '<h4 ' . implode( ' ', $h4attributes ) . '>'; // close h4
+		$output = '<' . $headingTag . ' ' . implode( ' ', $headingAttributes ) . '>';
 
 		if ( $isPageEditable ) {
 			$output .= '<a href="javascript:;" data-vc-target=""';
@@ -209,28 +308,26 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 		$output .= ' data-vc-accordion';
 
 		$output .= ' data-vc-container=".vc_tta-container">';
-		$output .= $this->getTemplateVariable( 'icon-left' );
-		$output .= '<span class="vc_tta-title-text">'
-		           . $this->getTemplateVariable( 'title' )
-		           . '</span>';
-		$output .= $this->getTemplateVariable( 'icon-right' );
+		$output .= empty( $atts['i_position'] ) ? '' : $this->getTemplateVariable( 'icon-left' );
+		$output .= '<span class="vc_tta-title-text">' . wp_kses_post( $this->getTemplateVariable( 'title' ) ) . '</span>';
+		$output .= empty( $atts['i_position'] ) ? '' : $this->getTemplateVariable( 'icon-right' );
 		if ( ! $isPageEditable ) {
 			$output .= $this->getTemplateVariable( 'control-icon' );
 		}
 
 		$output .= '</a>';
-		$output .= '</h4>'; // close h4 fix #2229
+		$output .= '</' . $headingTag . '>'; // close heading tag.
 
 		return $output;
 	}
 
 	/**
-	 * Get basic heading
+	 * Get basic heading.
 	 *
-	 * These are used in Pageable element inside content and are hidden from view
+	 * These are used in Pageable element inside content and are hidden from view.
 	 *
-	 * @param $atts
-	 * @param $content
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string
 	 */
@@ -238,20 +335,20 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 		$isPageEditable = vc_is_page_editable();
 
 		if ( $isPageEditable ) {
-			$attributes = array(
+			$attributes = [
 				'href' => 'javascript:;',
 				'data-vc-container' => '.vc_tta-container',
 				'data-vc-accordion' => '',
 				'data-vc-target' => '',
 				'data-vc-tta-controls-icon-wrapper' => '',
 				'data-vc-use-cache' => 'false',
-			);
+			];
 		} else {
-			$attributes = array(
+			$attributes = [
 				'data-vc-container' => '.vc_tta-container',
 				'data-vc-accordion' => '',
 				'data-vc-target' => esc_attr( '#' . $this->getTemplateVariable( 'tab_id' ) ),
-			);
+			];
 		}
 
 		$output = '
@@ -262,16 +359,14 @@ class WPBakeryShortCode_VC_Tta_Section extends WPBakeryShortCode_VC_Tta_Accordio
 
 		return $output;
 	}
+
 	/**
 	 * Check is allowed to add another element inside current element.
 	 *
-	 * @since 4.8
-	 *
 	 * @return bool
+	 * @since 4.8
 	 */
 	public function getAddAllowed() {
-		return  vc_user_access()
-			->part( 'shortcodes' )
-			->checkStateAny( true, 'custom', null )->get();
+		return vc_user_access()->part( 'shortcodes' )->checkStateAny( true, 'custom', null )->get();
 	}
 }

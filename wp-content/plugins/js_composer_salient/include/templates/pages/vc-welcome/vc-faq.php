@@ -1,101 +1,541 @@
 <?php
+/**
+ * FAQ tab of welcome page template.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 ?>
 <div class="vc_faq-tab changelog">
-	<h3><?php _e( 'New to WPBakery Page Builder or Looking for More Information?', 'js_composer' ); ?></h3>
-
-	<p><?php printf( __( 'WPBakery has complete documentation available at our knowledge base: <a target="_blank" href="%s">kb.wpbakery.com</a> which covers everything related to WPBakery Page Builder starting from Installation and up to more advanced features based on our Inner API.', 'js_composer' ), 'http://kb.wpbakery.com' ); ?></p>
-
+	<h3><?php esc_html_e( 'New to WPBakery Page Builder or Looking for More Information?', 'js_composer' ); ?></h3>
+	<p>
+		<?php
+		printf(
+			esc_html__(
+				'WPBakery has complete documentation available at our knowledge base: %s which covers everything related to WPBakery Page Builder starting from Installation and up to more advanced features based on our Inner API.',
+				'js_composer'
+			),
+			'<a target="_blank" href="https://kb.wpbakery.com?utm_source=wpdashboard&utm_medium=wpb-settings-about-faq&utm_campaign=info&utm_content=text">kb.wpbakery.com</a>'
+		);
+		?>
+	</p>
 	<div class="feature-section vc_row">
 		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/preface">Preface</a></h4>
-			<ul>
-				<li><a target="_blank" href="http://go.wpbakery.com/introduction">Introduction</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/support-and-resources">Support and Resources</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/support-policy">Support Policy</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/release-notes">Release Notes</a></li>
-			</ul>
-		</div>
-
-		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/licensing">Licensing</a></h4>
-			<ul>
-				<li><a target="_blank" href="http://go.wpbakery.com/regular-license">Regular License</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/extended-license">Extended License</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/in-stock-license-terms">In-Stock License (Theme Integration)</a></li>
-			</ul>
-		</div>
-
-		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/getting-started">Getting Started</a></h4>
-			<ul>
-				<li><a target="_blank" href="http://go.wpbakery.com/install">Plugin Installation</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/activation">Activation</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/update">Update</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/content-type">Content Type</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="feature-section vc_row">
-		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/learning-more">Learning More</a>
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/preface?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'Preface',
+						'js_composer'
+					);
+					?>
+				</a>
 			</h4>
 			<ul>
-				<li><a target="_blank" href="http://go.wpbakery.com/basic-concept">Basic Concept</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/content-elements">Content Elements</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/general-settings">General Settings</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/custom-css">Custom CSS</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/element-design-options">Element Design Options</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/responsive-settings">Responsive Settings</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/templates">Templates</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/predefined-layouts">Predefined Layouts</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/shortcode-mapper">Shortcode Mapper</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/grid-builder">Grid Builder</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/image-filters">Image filters</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/element-presets">Element Presets</a></li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/preface/introduction?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Introduction',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/preface/pre-sales-questions?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Pre-sales Questions',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/preface/support-and-resources?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Support and Resources',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/preface/support-policy?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Support Policy',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/preface/release-notes?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Release Notes / Changelog',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
 			</ul>
 		</div>
-
 		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/vc-how-tos">WPBakery Page Builder "How To's"</a></h4>
-
-			<p>In this section, you will find quick tips in form of video tutorials on how to operate with WPBakery Page Builder.</p>
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/licensing?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'Licensing',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
+			<ul>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/licensing/regular-license?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Regular License',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/licensing/5-sites?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'5 Sites',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/licensing/10-sites?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'10 Sites',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/licensing/agency-program?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Agency Program',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/licensing/extended-license?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Extended License (Theme Integration)',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+			</ul>
 		</div>
-
 		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/faq">FAQ</a></h4>
-
-			<p>Here you can find answers to the Frequently Asked Question about WPBakery Page Builder.</p>
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/getting-started?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'Getting Started',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
+			<ul>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/getting-started/plugin-installation?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Plugin Installation',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/getting-started/activation?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Activation',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/getting-started/update?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Update',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/getting-started/content-type?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Content Type',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
-
 	<div class="feature-section vc_row">
 		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/addons">Add-ons</a></h4>
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/add-ons?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'Add - ons',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
 			<ul>
-				<li><a target="_blank" href="http://go.wpbakery.com/templatera">Templatera</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/easy-tables">Easy Tables</a></li>
-				<li><a target="_blank" href="http://go.wpbakery.com/addon-development-rules">Add-on Development Rules</a></li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/add-ons/templatera?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Templatera',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/add-ons/easy-tables?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Easy Tables',
+							'js_composer'
+						);
+						?>
+
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/add-ons/add-on-development-rules?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Add-on Development Rules',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
 			</ul>
 		</div>
-
 		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/theme-integration">Theme Integration</a></h4>
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/theme-integration-technical?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'Theme Integration',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
+			<ul>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/theme-integration-technical/theme-integration-marketing?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Theme Integration Marketing',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/theme-integration-technical/theme-integration-technical?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Theme Integration Technical',
+							'js_composer'
+						);
+						?>
 
-			<p>See how you can integrate WPBakery Page Builder within your WordPress theme.</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="vc_col-xs-4">
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'Learning More',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
+			<ul>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/basic-concept?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Basic Concept',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/blank-page-wizard?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Blank Page Wizard',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/content-elements?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Content Elements',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/wpbakery-page-builder-settings?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'WPBakery Page Builder Settings',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/wpbakery-ai?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'WPBakery AI',
+							'js_composer'
+						);
+						?>
+
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/custom-css?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Custom CSS',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/custom-js?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Custom JS',
+							'js_composer'
+						);
+						?>
+
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/copy-paste?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Copy/Paste',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/element-design-options?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Element Design Options',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/responsive-settings?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Responsive Settings',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/templates?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Templates',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/template-library?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Template Library',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/shortcode-mapper?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Shortcode Mapper',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/grid-builder?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Grid Builder',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/image-filters?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Image Filters',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://kb.wpbakery.com/docs/learning-more/element-presets-my-elements?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+						<?php
+						esc_html_e(
+							'Element Presets (My Elements)',
+							'js_composer'
+						);
+						?>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="feature-section vc_row">
+		<div class="vc_col-xs-4">
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/wpbakery-page-builder-how-tos?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'WPBakery Page Builder "How To\'s"',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
+
+			<p>
+				<?php
+				esc_html_e(
+					'In this section, you will find quick tips in form of video tutorials on how to operate with WPBakery Page Builder . ',
+					'js_composer'
+				);
+				?>
+			</p>
+		</div>
+		<div class="vc_col-xs-4">
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/faq?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'FAQ',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
+
+			<p>
+				<?php
+				esc_html_e(
+					'Here you can find answers to the Frequently Asked Question about WPBakery Page Builder . ',
+					'js_composer'
+				);
+				?>
+			</p>
 		</div>
 
 		<div class="vc_col-xs-4">
-			<h4><a target="_blank" href="http://go.wpbakery.com/inner-api">Inner API</a></h4>
+			<h4>
+				<a target="_blank" href="https://kb.wpbakery.com/docs/inner-api?utm_source=wpb-welcome-page&utm_medium=wpb-faq-tab">
+					<?php
+					esc_html_e(
+						'Inner API',
+						'js_composer'
+					);
+					?>
+				</a>
+			</h4>
 
-			<p>Inner API section describes capabilities of interaction with WPBakery Page Builder.</p>
+			<p>
+				<?php
+				esc_html_e(
+					'Inner API section describes capabilities of interaction with WPBakery Page Builder . ',
+					'js_composer'
+				);
+				?>
+			</p>
 		</div>
 	</div>
 </div>
-
 <div class="return-to-dashboard">
-	<a target="_blank" href="http://kb.wpbakery.com"><?php _e( 'Visit Knowledge Base for more information', 'js_composer' ); ?></a>
+	<a target="_blank" href="https://kb.wpbakery.com?utm_source=wpdashboard&utm_medium=wpb-settings-about-faq&utm_campaign=info&utm_content=text">
+		<?php
+		esc_html_e(
+			'Visit Knowledge Base for more information',
+			'js_composer'
+		);
+		?>
+	</a>
 </div>

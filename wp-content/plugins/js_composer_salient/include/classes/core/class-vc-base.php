@@ -1,10 +1,17 @@
 <?php
+/**
+ * Plugin base functionality.
+ *
+ * @since 4.2
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
  * WPBakery Page Builder basic class.
+ *
  * @since 4.2
  */
 class Vc_Base {
@@ -16,9 +23,9 @@ class Vc_Base {
 	 * @var bool|Vc_Shortcode_Edit_Form
 	 */
 	protected $shortcode_edit_form = false;
-
 	/**
 	 * Templates management panel editor.
+	 *
 	 * @since  4.4
 	 * @access protected
 	 * @var bool|Vc_Templates_Panel_Editor
@@ -26,6 +33,7 @@ class Vc_Base {
 	protected $templates_panel_editor = false;
 	/**
 	 * Presets management panel editor.
+	 *
 	 * @since  5.2
 	 * @access protected
 	 * @var bool|Vc_Preset_Panel_Editor
@@ -51,41 +59,37 @@ class Vc_Base {
 	 * List of shortcodes map to VC.
 	 *
 	 * @since  4.2
-	 * @access public
 	 * @var array WPBakeryShortCodeFishBones
 	 */
-	protected $shortcodes = array();
+	protected $shortcodes = [];
 
-	/** @var  Vc_Shared_Templates */
+	/**
+	 * List of shared templates.
+	 *
+	 * @var Vc_Shared_Templates
+	 */
 	public $shared_templates;
 
 	/**
 	 * Load default object like shortcode parsing.
 	 *
 	 * @since  4.2
-	 * @access public
 	 */
 	public function init() {
 		do_action( 'vc_before_init_base' );
-		if ( is_admin() ) {
-			$this->postAdmin()->init();
-		}
-		add_filter( 'body_class', array(
+		$this->postAdmin()->init();
+		add_filter( 'body_class', [
 			$this,
 			'bodyClass',
-		) );
-		add_filter( 'the_excerpt', array(
+		] );
+		add_filter( 'the_excerpt', [
 			$this,
 			'excerptFilter',
-		) );
-		add_action( 'wp_head', array(
+		] );
+		add_action( 'wp_head', [
 			$this,
 			'addMetaData',
-		) );
-		add_action( 'wp_head', array(
-			$this,
-			'addIEMinimalSupport',
-		) );
+		] );
 		if ( is_admin() ) {
 			$this->initAdmin();
 		} else {
@@ -96,8 +100,9 @@ class Vc_Base {
 
 	/**
 	 * Post object for interacting with Current post data.
-	 * @since 4.4
+	 *
 	 * @return Vc_Post_Admin
+	 * @since 4.4
 	 */
 	public function postAdmin() {
 		if ( false === $this->post_admin ) {
@@ -112,76 +117,61 @@ class Vc_Base {
 	 * Build VC for frontend pages.
 	 *
 	 * @since  4.2
-	 * @access public
 	 */
 	public function initPage() {
 		do_action( 'vc_build_page' );
-		add_action( 'template_redirect', array(
+		add_action( 'template_redirect', [
 			$this,
 			'frontCss',
-		) );
-		add_action( 'template_redirect', array(
+		] );
+		add_action( 'template_redirect', [
 			'WPBMap',
 			'addAllMappedShortcodes',
-		) );
-		add_action( 'wp_head', array(
+		] );
+		add_action( 'wp_head', [
 			$this,
-			'addFrontCss',
-		), 1000 );
-		add_action( 'wp_head', array(
+			'addShortcodesCss',
+		], 1000 );
+		add_action( 'wp_head', [
 			$this,
 			'addNoScript',
-		), 1000 );
-		add_action( 'template_redirect', array(
+		], 1000 );
+		add_action( 'template_redirect', [
 			$this,
 			'frontJsRegister',
-		) );
-		add_filter( 'the_content', array(
+		] );
+		add_filter( 'the_content', [
 			$this,
 			'fixPContent',
-		), 11 );
+		], 11 );
 	}
 
 	/**
 	 * Load admin required modules and elements
 	 *
 	 * @since  4.2
-	 * @access public
 	 */
 	public function initAdmin() {
 		do_action( 'vc_build_admin_page' );
-		// Build settings for admin page;
-		//$this->registerAdminJavascript();
-		//$this->registerAdminCss();
-
-		// editors actions:
+		// editors actions.
 		$this->editForm()->init();
 		$this->templatesPanelEditor()->init();
 		/* nectar addition
 		$this->shared_templates->init();
 		*/
-		// ajax params/shortcode action
-		add_action( 'wp_ajax_wpb_single_image_src', array(
-			$this,
-			'singleImageSrc',
-		) ); // @todo move it
-		add_action( 'wp_ajax_wpb_gallery_html', array(
-			$this,
-			'galleryHTML',
-		) ); // @todo move it
 
-		// plugins list page actions links
-		add_filter( 'plugin_action_links', array(
+		// plugins list page actions links.
+		add_filter( 'plugin_action_links', [
 			$this,
 			'pluginActionLinks',
-		), 10, 2 );
+		], 10, 2 );
 	}
 
 	/**
 	 * Setter for edit form.
-	 * @since 4.2
 	 *
 	 * @param Vc_Shortcode_Edit_Form $form
+	 * @since 4.2
 	 */
 	public function setEditForm( Vc_Shortcode_Edit_Form $form ) {
 		$this->shortcode_edit_form = $form;
@@ -190,10 +180,9 @@ class Vc_Base {
 	/**
 	 * Get Shortcodes Edit form object.
 	 *
-	 * @see    Vc_Shortcode_Edit_Form::__construct
-	 * @since  4.2
-	 * @access public
 	 * @return Vc_Shortcode_Edit_Form
+	 * @since  4.2
+	 * @see    Vc_Shortcode_Edit_Form::__construct
 	 */
 	public function editForm() {
 		return $this->shortcode_edit_form;
@@ -201,9 +190,9 @@ class Vc_Base {
 
 	/**
 	 * Setter for Templates editor.
-	 * @since 4.4
 	 *
 	 * @param Vc_Templates_Panel_Editor $editor
+	 * @since 4.4
 	 */
 	public function setTemplatesPanelEditor( Vc_Templates_Panel_Editor $editor ) {
 		$this->templates_panel_editor = $editor;
@@ -211,9 +200,9 @@ class Vc_Base {
 
 	/**
 	 * Setter for Preset editor.
-	 * @since 5.2
 	 *
 	 * @param Vc_Preset_Panel_Editor $editor
+	 * @since 5.2
 	 */
 	public function setPresetPanelEditor( Vc_Preset_Panel_Editor $editor ) {
 		$this->preset_panel_editor = $editor;
@@ -221,10 +210,10 @@ class Vc_Base {
 
 	/**
 	 * Get templates manager.
-	 * @see    Vc_Templates_Panel_Editor::__construct
-	 * @since  4.4
-	 * @access public
+	 *
 	 * @return bool|Vc_Templates_Panel_Editor
+	 * @since  4.4
+	 * @see    Vc_Templates_Panel_Editor::__construct
 	 */
 	public function templatesPanelEditor() {
 		return $this->templates_panel_editor;
@@ -232,10 +221,10 @@ class Vc_Base {
 
 	/**
 	 * Get preset manager.
-	 * @see    Vc_Preset_Panel_Editor::__construct
-	 * @since  5.2
-	 * @access public
+	 *
 	 * @return bool|Vc_Preset_Panel_Editor
+	 * @since  5.2
+	 * @see    Vc_Preset_Panel_Editor::__construct
 	 */
 	public function presetPanelEditor() {
 		return $this->preset_panel_editor;
@@ -244,13 +233,11 @@ class Vc_Base {
 	/**
 	 * Get shortcode class instance.
 	 *
-	 * @see    WPBakeryShortCodeFishBones
-	 * @since  4.2
-	 * @access public
-	 *
 	 * @param string $tag
 	 *
 	 * @return Vc_Shortcodes_Manager|null
+	 * @see    WPBakeryShortCodeFishBones
+	 * @since  4.2
 	 */
 	public function getShortCode( $tag ) {
 		return Vc_Shortcodes_Manager::getInstance()->setTag( $tag );
@@ -259,85 +246,11 @@ class Vc_Base {
 	/**
 	 * Remove shortcode from shortcodes list of VC.
 	 *
+	 * @param string $tag - shortcode tag.
 	 * @since  4.2
-	 * @access public
-	 *
-	 * @param $tag - shortcode tag
 	 */
 	public function removeShortCode( $tag ) {
 		remove_shortcode( $tag );
-	}
-
-	/**
-	 * @todo move it
-	 * @since 4.2
-	 */
-	public function singleImageSrc() {
-		// @todo again, this method should be moved (comment added on 4.8)
-		vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie();
-
-		$image_id = (int) vc_post_param( 'content' );
-		$params = vc_post_param( 'params' );
-		$post_id = vc_post_param( 'post_id' );
-		$img_size = vc_post_param( 'size' );
-		$img = '';
-
-		if ( ! empty( $params['source'] ) ) {
-			$source = $params['source'];
-		} else {
-			$source = 'media_library';
-		}
-
-		switch ( $source ) {
-			case 'media_library':
-			case 'featured_image':
-
-				if ( 'featured_image' === $source ) {
-					if ( $post_id && has_post_thumbnail( $post_id ) ) {
-						$img_id = get_post_thumbnail_id( $post_id );
-					} else {
-						$img_id = 0;
-					}
-				} else {
-					$img_id = preg_replace( '/[^\d]/', '', $image_id );
-				}
-
-				if ( ! $img_size ) {
-					$img_size = 'thumbnail';
-				}
-
-				if ( $img_id ) {
-					$img = wp_get_attachment_image_src( $img_id, $img_size );
-					if ( $img ) {
-						$img = $img[0];
-					}
-				}
-
-				break;
-
-			case 'external_link':
-				if ( ! empty( $params['custom_src'] ) ) {
-					$img = $params['custom_src'];
-				}
-				break;
-		}
-
-		die( $img );
-	}
-
-	/**
-	 * @todo move it
-	 * @since 4.2
-	 */
-	public function galleryHTML() {
-		// @todo again, this method should be moved (comment added on 4.8)
-		vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie();
-
-		$images = vc_post_param( 'content' );
-		if ( ! empty( $images ) ) {
-			echo fieldAttachedImages( explode( ',', $images ) );
-		}
-		die();
 	}
 
 	/**
@@ -345,11 +258,11 @@ class Vc_Base {
 	 *
 	 * This function widely used by WPBMap class methods to modify shortcodes mapping
 	 *
+	 * @param string $tag
+	 * @param string $name
+	 * @param mixed $value
+	 * @throws \Exception
 	 * @since 4.3
-	 *
-	 * @param $tag
-	 * @param $name
-	 * @param $value
 	 */
 	public function updateShortcodeSetting( $tag, $name, $value ) {
 		Vc_Shortcodes_Manager::getInstance()->getElementClass( $tag )->setSettings( $name, $value );
@@ -359,75 +272,234 @@ class Vc_Base {
 	 * Build custom css styles for page from shortcodes attributes created by VC editors.
 	 *
 	 * Called by save method, which is hooked by edit_post action.
-	 * Function creates meta data for post with the key '_wpb_shortcodes_custom_css'
+	 * Function creates metadata for post with the key '_wpb_shortcodes_custom_css'
 	 * and value as css string, which will be added to the footer of the page.
 	 *
+	 * @param int $id
+	 * @throws \Exception
 	 * @since  4.2
-	 * @access public
-	 *
-	 * @param $post_id
+	 * @deprecated 7.6 Use buildShortcodesCss()
 	 */
-	public function buildShortcodesCustomCss( $post_id ) {
-		$post = get_post( $post_id );
-		/**
-		 * vc_filter: vc_base_build_shortcodes_custom_css
-		 * @since 4.4
-		 */
-		 
-		 /* nectar addition */ 
- 		$portfolio_extra_content = (isset($post->ID)) ? get_post_meta($post->ID, '_nectar_portfolio_extra_content', true) : '';
- 		
- 		if(!empty($portfolio_extra_content)) {
- 			$css = apply_filters( 'vc_base_build_shortcodes_custom_css', $this->parseShortcodesCustomCss( $portfolio_extra_content ), $post_id  );
- 		} else {
- 			$css = apply_filters( 'vc_base_build_shortcodes_custom_css', $this->parseShortcodesCustomCss( $post->post_content ), $post_id  );
- 		}
- 		/* nectar addition end */ 
-		
-		if ( empty( $css ) ) {
-			delete_metadata( 'post', $post_id, '_wpb_shortcodes_custom_css' );
-		} else {
-			update_metadata( 'post', $post_id, '_wpb_shortcodes_custom_css', $css );
-		}
+	public function buildShortcodesCustomCss( $id ) {
+		_deprecated_function( 'Vc_Base::buildShortcodesCustomCss()', '7.6', 'Vc_Base::buildShortcodesCss()' );
+		$this->buildShortcodesCss( $id, 'custom' );
 	}
 
 	/**
 	 * Parse shortcodes custom css string.
 	 *
-	 * This function is used by self::buildShortcodesCustomCss and creates css string from shortcodes attributes
-	 * like 'css_editor'.
-	 *
-	 * @see    WPBakeryVisualComposerCssEditor
-	 * @since  4.2
-	 * @access public
-	 *
-	 * @param $content
+	 * @param string $content
 	 *
 	 * @return string
+	 * @throws \Exception
+	 * @see    WPBakeryCssEditor
+	 * @since  4.2
+	 * @deprecated 7.6 Use parseShortcodesCss()
 	 */
 	public function parseShortcodesCustomCss( $content ) {
+		_deprecated_function( 'Vc_Base::parseShortcodesCustomCss()', '7.6', 'Vc_Base::parseShortcodesCss()' );
+		return $this->parseShortcodesCss( $content, 'custom' );
+	}
+
+	/**
+	 * Builds custom css styles for page from shortcodes attributes created by VC editors,
+	 * builds default css styles from shortcodes. Based on type custom or default.
+	 *
+	 * Called by save method, which is hooked by edit_post action.
+	 * Function creates metadata for post with the
+	 * '_wpb_shortcodes_custom_css' and '_wpb_shortcodes_default_css' keys
+	 * and value as css string, which will be added to the footer of the page.
+	 *
+	 * @param int $id
+	 * @param string $type
+	 * @throws \Exception
+	 * @since  7.6
+	 */
+	public function buildShortcodesCss( $id, $type ) {
+		if ( 'dopreview' === vc_post_param( 'wp-preview' ) && wp_revisions_enabled( get_post( $id ) ) ) {
+			$latest_revision = wp_get_post_revisions( $id );
+			if ( ! empty( $latest_revision ) ) {
+				$array_values = array_values( $latest_revision );
+				$id = $array_values[0]->ID;
+			}
+		}
+
+		$post = get_post( $id );
+		/**
+		 * Vc_filter: vc_base_build_shortcodes_custom_css
+		 *
+		 * @since 4.4
+		 */
+		 /* nectar addition */
+		 // Extra protection for invalid post object
+		 if ( $post && isset($post->ID) ) {
+
+			// portfolio extra content
+			 $portfolio_extra_content = get_post_meta($post->ID, '_nectar_portfolio_extra_content', true);
+
+			 if(!empty($portfolio_extra_content)) {
+				 $css = apply_filters( 'vc_base_build_shortcodes_' . esc_html__( $type ) . '_css', $this->parseShortcodesCss( $portfolio_extra_content, $type ), $id  );
+			 } else {
+				 $css = apply_filters( 'vc_base_build_shortcodes_' . esc_html__( $type ) . '_css', $this->parseShortcodesCss( $post->post_content, $type ), $id  );
+			 }
+		 } else {
+			 $css = '';
+		 }
+		 /* nectar addition end */
+
+		if ( empty( $css ) ) {
+			delete_metadata( 'post', $id, '_wpb_shortcodes_' . esc_html( $type ) . '_css' );
+		} else {
+			update_metadata( 'post', $id, '_wpb_shortcodes_' . esc_html( $type ) . '_css', $css );
+			update_metadata( 'post', $id, '_wpb_shortcodes_' . esc_html( $type ) . '_css_updated', true );
+		}
+	}
+
+	/**
+	 * Parse shortcodes css string.
+	 *
+	 * This function creates css string from shortcodes attributes like 'css_editor'.
+	 *
+	 * @param string $content
+	 * @param string $type
+	 *
+	 * @return string
+	 * @throws \Exception
+	 * @see    WPBakeryCssEditor
+	 * @since  7.6
+	 */
+	public function parseShortcodesCss( $content, $type ) {
 		$css = '';
-		if ( ! preg_match( '/\s*(\.[^\{]+)\s*\{\s*([^\}]+)\s*\}\s*/', $content ) ) {
+		// Following RegExp pattern only applies for when custom CSS is set.
+		if ( ! preg_match( '/\s*(\.[^\{]+)\s*\{\s*([^\}]+)\s*\}\s*/', $content ) && 'custom' == $type ) {
 			return $css;
 		}
 		WPBMap::addAllMappedShortcodes();
 		preg_match_all( '/' . get_shortcode_regex() . '/', $content, $shortcodes );
-		foreach ( $shortcodes[2] as $index => $tag ) {
+		$tag_list = $shortcodes[2];
+		foreach ( $tag_list as $index => $tag ) {
 			$shortcode = WPBMap::getShortCode( $tag );
-			$attr_array = shortcode_parse_atts( trim( $shortcodes[3][ $index ] ) );
-			if ( isset( $shortcode['params'] ) && ! empty( $shortcode['params'] ) ) {
-				foreach ( $shortcode['params'] as $param ) {
-					if ( isset( $param['type'] ) && 'css_editor' === $param['type'] && isset( $attr_array[ $param['param_name'] ] ) ) {
-						$css .= $attr_array[ $param['param_name'] ];
-					}
-				}
+			if ( empty( $shortcode['params'] ) ) {
+				continue;
 			}
+
+			$shortcode_css_list = $shortcodes[3];
+			$attr_array = shortcode_parse_atts( trim( $shortcode_css_list[ $index ] ) );
+			$css = $this->get_css_from_shortcode_params( $type, $shortcode, $attr_array, $css );
 		}
-		foreach ( $shortcodes[5] as $shortcode_content ) {
-			$css .= $this->parseShortcodesCustomCss( $shortcode_content );
+
+		$css_lib = [];
+		$shortcode_inner_content_list = $shortcodes[5];
+		foreach ( $shortcode_inner_content_list as $shortcode_content ) {
+			$shortcode_css = $this->parseShortcodesCss( $shortcode_content, $type );
+
+			if ( in_array( $shortcode_css, $css_lib ) ) {
+				continue;
+			}
+
+			$css .= $shortcode_css;
+
+			$css_lib[] = $shortcode_css;
 		}
 
 		return $css;
+	}
+
+	/**
+	 * Get css from shortcode params.
+	 *
+	 * @since 7.6
+	 *
+	 * @param string $type
+	 * @param array $shortcode
+	 * @param array $attr
+	 * @param string $css
+	 * @return string
+	 */
+	public function get_css_from_shortcode_params( $type, $shortcode, $attr, $css ) {
+		foreach ( $shortcode['params'] as $param ) {
+			if ( $this->is_custom_css_type( $type, $param, $attr ) ) {
+				$css .= $attr[ $param['param_name'] ];
+			} elseif ( $this->is_default_css_type( $type, $param, $shortcode ) ) {
+				$do_values = $param['value'];
+				$css .= '.' . esc_attr( $shortcode['element_default_class'] ) . '{';
+				foreach ( $do_values as $key => $default_do_value ) {
+					$css .= esc_attr( $key ) . ':' . esc_attr( $default_do_value ) . ';';
+				}
+				if ( '' !== $css ) {
+					$css = $css . '}';
+				}
+			}
+		}
+
+		return $css;
+	}
+
+	/**
+	 * Check if CSS type is custom and param type is css_editor
+	 *
+	 * @param string $type
+	 * @param array $param
+	 * @param array $attr_array
+	 *
+	 * @since  7.6
+	 * @return bool
+	 */
+	public function is_custom_css_type( $type, $param, $attr_array ) {
+		return 'custom' == $type &&
+				isset( $param['type'] ) &&
+				'css_editor' === $param['type'] &&
+				isset( $attr_array[ $param['param_name'] ] );
+	}
+
+	/**
+	 * Check if CSS type is default and 'element_default_class' property is set
+	 *
+	 * @param string $type
+	 * @param array $param
+	 * @param array $shortcode
+	 *
+	 * @since  7.6
+	 * @return bool
+	 */
+	public function is_default_css_type( $type, $param, $shortcode ) {
+		return 'default' == $type &&
+				isset( $param['param_name'] ) &&
+				'css' === $param['param_name'] &&
+				isset( $param['value'] ) &&
+				isset( $shortcode['element_default_class'] ) &&
+				'wpb_content_element' !== $shortcode['element_default_class'];
+	}
+
+	/**
+	 * Hooked class method by wp_footer WP action to output shortcodes css editor settings from page meta data.
+	 *
+	 * Method gets post meta value for page by key '_wpb_shortcodes_custom_css' and if it is not empty
+	 * outputs css string wrapped into style tag.
+	 *
+	 * @param int $id
+	 *
+	 * @since  4.2
+	 * @access public
+	 * @deprecated 7.6
+	 */
+	public function addShortcodesCustomCss( $id = null ) {
+		_deprecated_function( __METHOD__, '7.6', 'Vc_Base::addShortcodesCss' );
+		$this->addShortcodesCss( $id );
+	}
+
+	/**
+	 * Add css styles for current page and elements design options added w\ editor.
+	 *
+	 * @param int $id
+	 *
+	 * @depreacted 7.7
+	 */
+	public function addFrontCss( $id = null ) {
+		_deprecated_function( __METHOD__, '7.6', 'Vc_Base::addShortcodesCss' );
+
+		$this->addPageCustomCss( $id );
+		$this->addShortcodesCss( $id );
 	}
 
 	/**
@@ -436,86 +508,110 @@ class Vc_Base {
 	 * Method gets post meta value for page by key '_wpb_post_custom_css' and if it is not empty
 	 * outputs css string wrapped into style tag.
 	 *
-	 * @since  4.2
-	 * @access public
-	 *
 	 * @param int $id
-	 */
-	 public function addPageCustomCss( $id = null ) {
- 		if ( is_front_page() || is_home() ) {
- 			$id = get_queried_object_id();
- 		} else if ( is_singular() ) {
- 			if ( ! $id ) {
- 				$id = get_the_ID();
- 			}
- 		}
-
- 		if ( $id ) {
- 			if ( isset( $_GET['preview'] ) && 'true' === $_GET['preview'] ) {
- 				$latest_revision = wp_get_post_revisions( $id );
- 				$array_values = array_values( $latest_revision );
- 				$id = $array_values[0]->ID;
- 			}
- 			$post_custom_css = get_metadata( 'post', $id, '_wpb_post_custom_css', true );
- 			if ( ! empty( $post_custom_css ) ) {
- 				$post_custom_css = strip_tags( $post_custom_css );
- 				echo '<style type="text/css" data-type="vc_custom-css">';
- 				echo $post_custom_css;
- 				echo '</style>';
- 			}
- 		}
- 	}
-
-	/**
-	 * Hooked class method by wp_footer WP action to output shortcodes css editor settings from page meta data.
-	 *
-	 * Method gets post meta value for page by key '_wpb_shortcodes_custom_css' and if it is not empty
-	 * outputs css string wrapped into style tag.
-	 *
 	 * @since  4.2
-	 * @access public
-	 *
-	 * @param int $id
-	 *
+	 * @deprecated 7.7
 	 */
-	public function addShortcodesCustomCss( $id = null ) {
- 		if ( ! is_singular() ) {
- 			return;
- 		}
- 		if ( ! $id ) {
- 			$id = get_the_ID();
- 		}
-
- 		if ( $id ) {
- 			if ( isset( $_GET['preview'] ) && 'true' === $_GET['preview'] ) {
- 				$latest_revision = wp_get_post_revisions( $id );
- 				$array_values = array_values( $latest_revision );
- 				$id = $array_values[0]->ID;
- 			}
- 			$shortcodes_custom_css = get_metadata( 'post', $id, '_wpb_shortcodes_custom_css', true );
- 			if ( ! empty( $shortcodes_custom_css ) ) {
- 				$shortcodes_custom_css = strip_tags( $shortcodes_custom_css );
- 				echo '<style type="text/css" data-type="vc_shortcodes-custom-css">';
- 				echo $shortcodes_custom_css;
- 				echo '</style>';
- 			}
- 		}
- 	}
-
-	/**
-	 * Add css styles for current page and elements design options added w\ editor.
-	 */
-	public function addFrontCss() {
-		$this->addPageCustomCss();
-		$this->addShortcodesCustomCss();
+	public function addPageCustomCss( $id = null ) { // phpcs:ignore:Generic.CodeAnalysis.UnusedFunctionParameter.Found
+		_deprecated_function( __METHOD__, '7.7', "vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page()" );
+		if ( vc_modules_manager()->is_module_on( 'vc-custom-css' ) ) {
+			vc_modules_manager()->get_module( 'vc-custom-css' )->output_custom_css_to_page();
+		}
 	}
 
+	/**
+	 * Get the custom and default (Design Options - css_editor parameter) values of shortcodes,
+	 * parse the values, compile them into a CSS string and output it inside the respective style tag.
+	 *
+	 * @param int $id
+	 *
+	 * @since  7.6
+	 */
+	public function addShortcodesCss( $id = null ) {
+		if ( ! $id && is_singular() ) {
+			$id = get_the_ID();
+		}
+		// if is woocommerce shop page.
+		if ( ! $id && function_exists( 'is_shop' ) && is_shop() ) {
+			$id = get_option( 'woocommerce_shop_page_id' );
+		}
+
+		if ( ! $id ) {
+			return;
+		}
+
+		if ( 'true' === vc_get_param( 'preview' ) && wp_revisions_enabled( get_post( $id ) ) ) {
+			$latest_revision = wp_get_post_revisions( $id );
+			if ( ! empty( $latest_revision ) ) {
+				$array_values = array_values( $latest_revision );
+				$id = $array_values[0]->ID;
+			}
+		}
+
+		$types = [
+			'default',
+			'custom',
+		];
+
+		foreach ( $types as $type ) {
+			$shortcodes_css = $this->get_shortcodes_css( $id, $type );
+			if ( ! empty( $shortcodes_css ) ) {
+				$shortcodes_css = wp_strip_all_tags( $shortcodes_css );
+				echo '<style type="text/css" data-type="vc_shortcodes-' . esc_attr( $type ) . '-css">';
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo $shortcodes_css;
+				echo '</style>';
+			}
+		}
+	}
+
+	/**
+	 * Get custom css of all shortcodes for particular post.
+	 *
+	 * @param int $id
+	 * @return mixed
+	 *
+	 * @since  6.2
+	 * @access public
+	 * @deprecated 7.6 Use get_shortcodes_css()
+	 */
+	public function get_shortcodes_custom_css( $id ) {
+		_deprecated_function( 'Vc_Base::get_shortcodes_custom_css()', '7.6', 'Vc_Base::get_shortcodes_css()' );
+		return $this->get_shortcodes_css( $id, 'custom' );
+	}
+
+	/**
+	 * Get the CSS of all the shortcodes for particular post based on parameter (custom or default).
+	 *
+	 * @param int $id
+	 * @param string $type
+	 * @return mixed
+	 *
+	 * @since  7.6
+	 */
+	public function get_shortcodes_css( $id, $type ) {
+		$is_updated = get_metadata( 'post', $id, '_wpb_shortcodes_' . esc_html( $type ) . '_css_updated', true );
+
+		if ( empty( $is_updated ) ) {
+			$this->buildShortcodesCss( $id, $type );
+		}
+
+		$shortcodes_css = get_metadata( 'post', $id, '_wpb_shortcodes_' . esc_html( $type ) . '_css', true );
+
+		return apply_filters( 'vc_shortcodes_' . esc_html( $type ) . '_css', $shortcodes_css, $id );
+	}
+
+	/**
+	 * Not script add.
+	 */
 	public function addNoScript() {
-		echo '<noscript>';
-		echo '<style type="text/css">';
+		$custom_tag = 'style';
+		$second_tag = 'noscript';
+		echo '<' . esc_attr( $second_tag ) . '>';
+		echo '<' . esc_attr( $custom_tag ) . '>';
 		echo ' .wpb_animate_when_almost_visible { opacity: 1; }';
-		echo '</style>';
-		echo '</noscript>';
+		echo '</' . esc_attr( $custom_tag ) . '>';
+		echo '</' . esc_attr( $second_tag ) . '>';
 	}
 
 	/**
@@ -524,41 +620,29 @@ class Vc_Base {
 	 * Calls wp_register_style for required css libraries files.
 	 *
 	 * @since  3.1
-	 * @access public
 	 */
 	public function frontCss() {
-		wp_register_style( 'flexslider', vc_asset_url( 'lib/bower/flexslider/flexslider.min.css' ), array(), WPB_VC_VERSION );
-		wp_register_style( 'nivo-slider-css', vc_asset_url( 'lib/bower/nivoslider/nivo-slider.min.css' ), array(), WPB_VC_VERSION );
-		wp_register_style( 'nivo-slider-theme', vc_asset_url( 'lib/bower/nivoslider/themes/default/default.min.css' ), array( 'nivo-slider-css' ), WPB_VC_VERSION );
-		wp_register_style( 'prettyphoto', vc_asset_url( 'lib/prettyphoto/css/prettyPhoto.min.css' ), array(), WPB_VC_VERSION );
-		wp_register_style( 'isotope-css', vc_asset_url( 'css/lib/isotope.min.css' ), array(), WPB_VC_VERSION );
-		/* nectar addition */  
-		//wp_register_style( 'font-awesome', vc_asset_url( 'lib/bower/font-awesome/css/font-awesome.min.css' ), array(), WPB_VC_VERSION );
+		wp_register_style( 'wpb_flexslider', vc_asset_url( 'lib/vendor/dist/flexslider/flexslider.min.css' ), [], WPB_VC_VERSION );
+		wp_register_style( 'nivo-slider-css', vc_asset_url( 'lib/vendor/dist/nivo-slider/nivo-slider.min.css' ), [], WPB_VC_VERSION );
+		wp_register_style( 'nivo-slider-theme', vc_asset_url( 'lib/vendor/dist/nivo-slider/themes/default/default.min.css' ), [ 'nivo-slider-css' ], WPB_VC_VERSION );
+		wp_register_style( 'prettyphoto', vc_asset_url( 'lib/vendor/prettyphoto/css/prettyPhoto.min.css' ), [], WPB_VC_VERSION );
+		wp_register_style( 'isotope-css', vc_asset_url( 'css/lib/isotope/isotope.min.css' ), [], WPB_VC_VERSION );
+		wp_register_style( 'vc_animate-css', vc_asset_url( 'lib/vendor/dist/animate.css/animate.min.css' ), [], WPB_VC_VERSION );
+		/* nectar addition */
+		//wp_register_style( 'lightbox2', vc_asset_url( 'lib/lightbox2/dist/css/lightbox.min.css' ), array(), WPB_VC_VERSION );
 		/* nectar addition end */
-		wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION );
+        $front_css_file = vc_asset_url( 'css/js_composer.min.css' );
 
-		$front_css_file = vc_asset_url( 'css/js_composer.min.css' );
-		$upload_dir = wp_upload_dir();
-		$vc_upload_dir = vc_upload_dir();
-		/* nectar addition
-		if ( '1' === vc_settings()->get( 'use_custom' ) && is_file( $upload_dir['basedir'] . '/' . $vc_upload_dir . '/js_composer_front_custom.css' ) ) {
-			$front_css_file = $upload_dir['baseurl'] . '/' . $vc_upload_dir . '/js_composer_front_custom.css';
-			$front_css_file = vc_str_remove_protocol( $front_css_file );
-		} nectar addition end */
-		wp_register_style( 'js_composer_front', $front_css_file, array(), WPB_VC_VERSION );
+		wp_register_style( 'js_composer_front', $front_css_file, [], WPB_VC_VERSION );
 
-		$custom_css_path = $upload_dir['basedir'] . '/' . $vc_upload_dir . '/custom.css';
-		if ( is_file( $upload_dir['basedir'] . '/' . $vc_upload_dir . '/custom.css' ) && filesize( $custom_css_path ) > 0 ) {
-			$custom_css_url = $upload_dir['baseurl'] . '/' . $vc_upload_dir . '/custom.css';
-			$custom_css_url = vc_str_remove_protocol( $custom_css_url );
-			wp_register_style( 'js_composer_custom_css', $custom_css_url, array(), WPB_VC_VERSION );
-		}
-		add_action( 'wp_enqueue_scripts', array(
+		add_action( 'wp_enqueue_scripts', [
 			$this,
 			'enqueueStyle',
-		) );
+		] );
 
 		/**
+		 * Vc_action: vc_base_register_front_css.
+		 *
 		 * @since 4.4
 		 */
 		do_action( 'vc_base_register_front_css' );
@@ -572,7 +656,6 @@ class Vc_Base {
 		if ( $post && strpos( $post->post_content, '[vc_row' ) !== false ) {
 			wp_enqueue_style( 'js_composer_front' );
 		}
-		wp_enqueue_style( 'js_composer_custom_css' );
 	}
 
 	/**
@@ -581,17 +664,17 @@ class Vc_Base {
 	 * Calls wp_register_script for required css libraries files.
 	 *
 	 * @since  3.1
-	 * @access public
 	 */
 	public function frontJsRegister() {
-		wp_register_script( 'prettyphoto', vc_asset_url( 'lib/prettyphoto/js/jquery.prettyPhoto.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
-		wp_register_script( 'waypoints', vc_asset_url( 'lib/waypoints/waypoints.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
+		wp_register_script( 'prettyphoto', vc_asset_url( 'lib/vendor/prettyphoto/js/jquery.prettyPhoto.min.js' ), [ 'jquery-core' ], WPB_VC_VERSION, true );
+		wp_register_script( 'lightbox2', vc_asset_url( 'lib/vendor/dist/lightbox2/dist/js/lightbox.min.js' ), [ 'jquery-core' ], WPB_VC_VERSION, true );
+		wp_register_script( 'vc_waypoints', vc_asset_url( 'lib/vc/vc_waypoints/vc-waypoints.min.js' ), [ 'jquery-core' ], WPB_VC_VERSION, true );
 
-		// @deprecated used in old tabs
-		wp_register_script( 'jquery_ui_tabs_rotate', vc_asset_url( 'lib/bower/jquery-ui-tabs-rotate/jquery-ui-tabs-rotate.min.js' ), array(
-			'jquery',
+		// @deprecated used in old tabs.
+		wp_register_script( 'jquery_ui_tabs_rotate', vc_asset_url( 'lib/vendor/jquery-ui-tabs-rotate/jquery-ui-tabs-rotate.min.js' ), [
+			'jquery-core',
 			'jquery-ui-tabs',
-		), WPB_VC_VERSION, true );
+		], WPB_VC_VERSION, true );
 
 		// used in vc_gallery, old grid
 		/* nectar addition */
@@ -599,12 +682,14 @@ class Vc_Base {
 		wp_register_script( 'isotope', vc_asset_url( 'lib/bower/isotope/dist/isotope.pkgd.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
 		*/
 
-		wp_register_script( 'twbs-pagination', vc_asset_url( 'lib/bower/twbs-pagination/jquery.twbsPagination.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
-		wp_register_script( 'nivo-slider', vc_asset_url( 'lib/bower/nivoslider/jquery.nivo.slider.pack.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
-		wp_register_script( 'flexslider', vc_asset_url( 'lib/bower/flexslider/jquery.flexslider-min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
-		wp_register_script( 'wpb_composer_front_js', vc_asset_url( 'js/dist/js_composer_front.min.js' ), array( 'jquery' ), WPB_VC_VERSION, true );
+		wp_register_script( 'twbs-pagination', vc_asset_url( 'lib/vendor/dist/twbs-pagination/jquery.twbsPagination.min.js' ), [ 'jquery-core' ], WPB_VC_VERSION, true );
+		wp_register_script( 'nivo-slider', vc_asset_url( 'lib/vendor/dist/nivo-slider/jquery.nivo.slider.min.js' ), [ 'jquery-core' ], WPB_VC_VERSION, true );
+		wp_register_script( 'wpb_flexslider', vc_asset_url( 'lib/vendor/dist/flexslider/jquery.flexslider.min.js' ), [ 'jquery-core' ], WPB_VC_VERSION, true );
+		wp_register_script( 'wpb_composer_front_js', vc_asset_url( 'js/dist/js_composer_front.min.js' ), [ 'jquery-core' ], WPB_VC_VERSION, true );
 
 		/**
+		 * Vc_action: vc_base_register_front_js.
+		 *
 		 * @since 4.4
 		 */
 		do_action( 'vc_base_register_front_js' );
@@ -617,14 +702,14 @@ class Vc_Base {
 	 *
 	 * @since  3.1
 	 * vc_filter: vc_i18n_locale_composer_js_view, since 4.4 - override localization for js
-	 * @access public
 	 */
 	public function registerAdminJavascript() {
 		/**
+		 * Vc_action: vc_base_register_admin_js.
+		 *
 		 * @since 4.4
 		 */
 		do_action( 'vc_base_register_admin_js' );
-
 	}
 
 	/**
@@ -633,10 +718,11 @@ class Vc_Base {
 	 * Calls wp_register_style for required css libraries files for admin dashboard.
 	 *
 	 * @since  3.1
-	 * @access public
 	 */
 	public function registerAdminCss() {
 		/**
+		 * Vc_action: vc_base_register_admin_css.
+		 *
 		 * @since 4.4
 		 */
 		do_action( 'vc_base_register_admin_css' );
@@ -644,23 +730,24 @@ class Vc_Base {
 
 	/**
 	 * Add Settings link in plugin's page
-	 * @since 4.2
 	 *
-	 * @param $links
-	 * @param $file
+	 * @param array $links
+	 * @param string $file
 	 *
 	 * @return array
+	 * @throws \Exception
+	 * @since 4.2
 	 */
 	public function pluginActionLinks( $links, $file ) {
-		if ( plugin_basename( vc_path_dir( 'APP_DIR', '/js_composer.php' ) ) == $file ) {
-			$title = __( 'WPBakery Page Builder Settings', 'js_composer' );
+		if ( plugin_basename( vc_path_dir( 'APP_DIR', '/js_composer.php' ) ) === $file ) {
+			$title = esc_html__( 'WPBakery Page Builder Settings', 'js_composer' );
 			$html = esc_html__( 'Settings', 'js_composer' );
 			if ( ! vc_user_access()->part( 'settings' )->can( 'vc-general-tab' )->get() ) {
-				$title = __( 'About WPBakery Page Builder', 'js_composer' );
+				$title = esc_html__( 'About WPBakery Page Builder', 'js_composer' );
 				$html = esc_html__( 'About', 'js_composer' );
 			}
 			$link = '<a title="' . esc_attr( $title ) . '" href="' . esc_url( $this->getSettingsPageLink() ) . '">' . $html . '</a>';
-			array_unshift( $links, $link ); // Add to top
+			array_unshift( $links, $link ); // Add to top.
 		}
 
 		return $links;
@@ -668,8 +755,10 @@ class Vc_Base {
 
 	/**
 	 * Get settings page link
-	 * @since 4.2
+	 *
 	 * @return string url to settings page
+	 * @throws \Exception
+	 * @since 4.2
 	 */
 	public function getSettingsPageLink() {
 		$page = 'vc-general';
@@ -677,25 +766,16 @@ class Vc_Base {
 			$page = 'vc-welcome';
 		}
 
-		return add_query_arg( array( 'page' => $page ), admin_url( 'admin.php' ) );
+		return add_query_arg( [ 'page' => $page ], admin_url( 'admin.php' ) );
 	}
 
 	/**
 	 * Hooked class method by wp_head WP action.
+	 *
 	 * @since  4.2
-	 * @access public
 	 */
 	public function addMetaData() {
 		echo '<meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress."/>' . "\n";
-	}
-
-	/**
-	 * Also add fix for IE8 bootstrap styles from WPExplorer
-	 * @since  4.9
-	 * @access public
-	 */
-	public function addIEMinimalSupport() {
-		echo '<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="' . vc_asset_url( 'css/vc_lte_ie9.min.css' ) . '" media="screen"><![endif]-->';
 	}
 
 	/**
@@ -704,15 +784,13 @@ class Vc_Base {
 	 * Hooked class method by body_class WP filter. Method adds custom css class to body tag of the page to help
 	 * identify and build design specially for VC shortcodes.
 	 *
-	 * @since  4.2
-	 * @access public
-	 *
-	 * @param $classes
+	 * @param array $classes
 	 *
 	 * @return array
+	 * @since  4.2
 	 */
 	public function bodyClass( $classes ) {
-		return js_composer_body_class( $classes );
+		return wpb_body_class( $classes );
 	}
 
 	/**
@@ -721,88 +799,102 @@ class Vc_Base {
 	 * Hooked class method by the_excerpt WP filter. When user creates content with VC all content is always wrapped by
 	 * shortcodes. This methods calls do_shortcode for post's content and then creates a new excerpt.
 	 *
-	 * @since  4.2
-	 * @access public
-	 *
-	 * @param $output
+	 * @param string $output
 	 *
 	 * @return string
+	 * @since  4.2
 	 */
 	public function excerptFilter( $output ) {
 		global $post;
-		/* nectar addition */ 
+		/* nectar addition */
 		if ( empty( $output ) && ! empty( $post->post_content ) ) {
 			$post_content =  preg_replace ('/\[recent_posts[^\]]*\]/', ' ', $post->post_content);
-			$text = strip_tags( do_shortcode($post_content ));
-			$options = get_option('salient');
-			$the_excerpt_length = (!empty($options['blog_excerpt_length'])) ? intval($options['blog_excerpt_length']) : 30; 
+			$text = wp_strip_all_tags( do_shortcode( $post_content ) );
+			$options = get_option('salient_redux');
+			$the_excerpt_length = (!empty($options['blog_excerpt_length'])) ? intval($options['blog_excerpt_length']) : 30;
 			$excerpt_length = apply_filters('excerpt_length', $the_excerpt_length);
 			$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[...]' );
 			$text = wp_trim_words( $text, $the_excerpt_length, $excerpt_more );
 			return $text;
 		}
-		/* nectar addition end */ 
+		/* nectar addition end */
+
 		return $output;
 	}
 
 	/**
-	 * Remove unwanted wraping with p for content.
+	 * Remove unwanted wrapping with p for content.
 	 *
 	 * Hooked by 'the_content' filter.
-	 * @since 4.2
 	 *
 	 * @param null $content
 	 *
 	 * @return string|null
+	 * @since 4.2
 	 */
 	public function fixPContent( $content = null ) {
-		if ( $content ) {
-			$s = array(
+		$action = vc_post_param( 'action' );
+		if ( $content && 'vc_load_shortcode' !== $action ) {
+			$s = [
 				'/' . preg_quote( '</div>', '/' ) . '[\s\n\f]*' . preg_quote( '</p>', '/' ) . '/i',
-				'/' . preg_quote( '<p>', '/' ) . '[\s\n\f]*' . preg_quote( '<div ', '/' ) . '/i',
-				'/' . preg_quote( '<p>', '/' ) . '[\s\n\f]*' . preg_quote( '<section ', '/' ) . '/i',
+				'/' . preg_quote( '<p>', '/' ) . '[\s\n\f]*' . preg_quote( '<div', '/' ) . '[\s\n\f]*/i',
+				'/' . preg_quote( '<p>', '/' ) . '[\s\n\f]*' . preg_quote( '<section', '/' ) . '[\s\n\f]*/i',
 				'/' . preg_quote( '</section>', '/' ) . '[\s\n\f]*' . preg_quote( '</p>', '/' ) . '/i',
-			);
-			$r = array(
+			];
+			$r = [
 				'</div>',
 				'<div ',
 				'<section ',
 				'</section>',
-			);
+			];
 			$content = preg_replace( $s, $r, $content );
+
+			// if content contains vc_row for a page view or
+			// vc_welcome for a frontend editor
+			// then wrap with '<div>'
+			// nectar addition - remove extra wrapping added in 7.1
+			// if ( preg_match( '/vc_row/', $content ) || preg_match( '/vc_welcome/', $content ) ) {
+			// 	$content = '<div class="wpb-content-wrapper">' . $content . '</div>';
+			// }
+			// nectar addition end
 
 			return $content;
 		}
 
-		return null;
+		return $content;
 	}
 
 	/**
 	 * Get array of string for locale.
 	 *
-	 * @since 4.7
-	 *
 	 * @return array
+	 * @since 4.7
 	 */
 	public function getEditorsLocale() {
-		return array(
-			'add_remove_picture' => __( 'Add/remove picture', 'js_composer' ),
-			'finish_adding_text' => __( 'Finish Adding Images', 'js_composer' ),
-			'add_image' => __( 'Add Image', 'js_composer' ),
-			'add_images' => __( 'Add Images', 'js_composer' ),
-			'settings' => __( 'Settings', 'js_composer' ),
-			'main_button_title' => __( 'WPBakery Page Builder', 'js_composer' ),
-			'main_button_title_backend_editor' => __( 'Backend Editor', 'js_composer' ),
-			'main_button_title_frontend_editor' => __( 'Frontend Editor', 'js_composer' ),
-			'main_button_title_revert' => __( 'Classic Mode', 'js_composer' ),
-			'main_button_title_gutenberg' => __( 'Gutenberg Editor', 'js_composer' ),
-			'please_enter_templates_name' => __( 'Enter template name you want to save.', 'js_composer' ),
-			'confirm_deleting_template' => __( 'Confirm deleting "{template_name}" template, press Cancel to leave. This action cannot be undone.', 'js_composer' ),
-			'press_ok_to_delete_section' => __( 'Press OK to delete section, Cancel to leave', 'js_composer' ),
-			'drag_drop_me_in_column' => __( 'Drag and drop me in the column', 'js_composer' ),
-			'press_ok_to_delete_tab' => __( 'Press OK to delete "{tab_name}" tab, Cancel to leave', 'js_composer' ),
-			'slide' => __( 'Slide', 'js_composer' ),
-			/* nectar addition */ 
+		/**
+		 * Filter for VC editor locale.
+		 *
+		 * @since 7.8
+		 * return array
+		 */
+		return apply_filters( 'vc_get_editor_locale', [
+			'add_remove_picture' => esc_html__( 'Add/remove picture', 'js_composer' ),
+			'finish_adding_text' => esc_html__( 'Finish Adding Images', 'js_composer' ),
+			'add_image' => esc_html__( 'Add Image', 'js_composer' ),
+			'add_images' => esc_html__( 'Add Images', 'js_composer' ),
+			'settings' => esc_html__( 'Settings', 'js_composer' ),
+			'main_button_title' => esc_html__( 'WPBakery Page Builder', 'js_composer' ),
+			'main_button_title_backend_editor' => esc_html__( 'Backend Editor', 'js_composer' ),
+			'main_button_title_frontend_editor' => esc_html__( 'Frontend Editor', 'js_composer' ),
+			'main_button_title_revert' => esc_html__( 'Classic Mode', 'js_composer' ),
+			'main_button_title_gutenberg' => esc_html__( 'Gutenberg Editor', 'js_composer' ),
+			'please_enter_templates_name' => esc_html__( 'Enter template name you want to save.', 'js_composer' ),
+			'confirm_deleting_template' => esc_html__( 'Confirm deleting "{template_name}" template, press Cancel to leave. This action cannot be undone.', 'js_composer' ),
+			'press_ok_to_delete_section' => esc_html__( 'Press OK to delete section, Cancel to leave', 'js_composer' ),
+			'drag_drop_me_in_column' => esc_html__( 'Drag and drop me in the column', 'js_composer' ),
+			'press_ok_to_delete_tab' => esc_html__( 'Press OK to delete "{tab_name}" tab, Cancel to leave', 'js_composer' ),
+			'slide' => esc_html__( 'Slide', 'js_composer' ),
+			/* nectar addition */
 			'tab' => __( 'Tab', 'js_composer' ),
 			'item' => __( 'Item', 'js_composer' ),
 			'nectar_icon_list_item' => __( 'List Item', 'js_composer' ),
@@ -810,58 +902,158 @@ class Vc_Base {
 			'page_link' => __( 'Link', 'js_composer' ),
 			'column' => __( 'Column', 'js_composer' ),
 			'testimonial' => __( 'Testimonial', 'js_composer' ),
-			/* nectar addition end */ 
-			'section' => __( 'Section', 'js_composer' ),
-			'please_enter_new_tab_title' => __( 'Please enter new tab title', 'js_composer' ),
-			'press_ok_delete_section' => __( 'Press OK to delete "{tab_name}" section, Cancel to leave', 'js_composer' ),
-			'section_default_title' => __( 'Section', 'js_composer' ),
-			'please_enter_section_title' => __( 'Please enter new section title', 'js_composer' ),
-			'error_please_try_again' => __( 'Error. Please try again.', 'js_composer' ),
-			'if_close_data_lost' => __( 'If you close this window all shortcode settings will be lost. Close this window?', 'js_composer' ),
-			'header_select_element_type' => __( 'Select element type', 'js_composer' ),
-			'header_media_gallery' => __( 'Media gallery', 'js_composer' ),
-			'header_element_settings' => __( 'Element settings', 'js_composer' ),
-			'add_tab' => __( 'Add tab', 'js_composer' ),
-			'are_you_sure_convert_to_new_version' => __( 'Are you sure you want to convert to new version?', 'js_composer' ),
-			'loading' => __( 'Loading...', 'js_composer' ),
-			// Media editor
-			'set_image' => __( 'Set Image', 'js_composer' ),
-			'are_you_sure_reset_css_classes' => __( 'Are you sure that you want to remove all your data?', 'js_composer' ),
-			'loop_frame_title' => __( 'Loop settings', 'js_composer' ),
-			'enter_custom_layout' => __( 'Custom row layout', 'js_composer' ),
-			'wrong_cells_layout' => __( 'Wrong row layout format! Example: 1/2 + 1/2 or span6 + span6.', 'js_composer' ),
-			'row_background_color' => __( 'Row background color', 'js_composer' ),
-			'row_background_image' => __( 'Row background image', 'js_composer' ),
-			'column_background_color' => __( 'Column background color', 'js_composer' ),
-			'column_background_image' => __( 'Column background image', 'js_composer' ),
-			'guides_on' => __( 'Guides ON', 'js_composer' ),
-			'guides_off' => __( 'Guides OFF', 'js_composer' ),
-			'template_save' => __( 'New template successfully saved.', 'js_composer' ),
-			'template_added' => __( 'Template added to the page.', 'js_composer' ),
-			'template_added_with_id' => __( 'Template added to the page. Template has ID attributes, make sure that they are not used more than once on the same page.', 'js_composer' ),
-			'template_removed' => __( 'Template successfully removed.', 'js_composer' ),
-			'template_is_empty' => __( 'Template is empty: There is no content to be saved as a template.', 'js_composer' ),
-			'template_save_error' => __( 'Error while saving template.', 'js_composer' ),
-			'css_updated' => __( 'Page settings updated!', 'js_composer' ),
-			'update_all' => __( 'Update all', 'js_composer' ),
-			'confirm_to_leave' => __( 'The changes you made will be lost if you navigate away from this page.', 'js_composer' ),
-			'inline_element_saved' => __( '%s saved!', 'js_composer' ),
-			'inline_element_deleted' => __( '%s deleted!', 'js_composer' ),
-			'inline_element_cloned' => __( '%s cloned. <a href="#" class="vc_edit-cloned" data-model-id="%s">Edit now?</a>', 'js_composer' ),
-			'gfonts_loading_google_font_failed' => __( 'Loading Google Font failed', 'js_composer' ),
-			'gfonts_loading_google_font' => __( 'Loading Font...', 'js_composer' ),
-			'gfonts_unable_to_load_google_fonts' => __( 'Unable to load Google Fonts', 'js_composer' ),
-			'no_title_parenthesis' => sprintf( '(%s)', __( 'no title', 'js_composer' ) ),
-			'error_while_saving_image_filtered' => __( 'Error while applying filter to the image. Check your server and memory settings.', 'js_composer' ),
-			'ui_saved' => sprintf( '<i class="vc-composer-icon vc-c-icon-check"></i> %s', __( 'Saved!', 'js_composer' ) ),
-			'ui_danger' => sprintf( '<i class="vc-composer-icon vc-c-icon-close"></i> %s', __( 'Failed to Save!', 'js_composer' ) ),
-			'delete_preset_confirmation' => __( 'You are about to delete this preset. This action can not be undone.', 'js_composer' ),
-			'ui_template_downloaded' => __( 'Downloaded', 'js_composer' ),
-			'ui_template_update' => __( 'Update', 'js_composer' ),
-			'ui_templates_failed_to_download' => __( 'Failed to download template', 'js_composer' ),
-			'preset_removed' => __( 'Element successfully removed.', 'js_composer' ),
-			'vc_successfully_updated' => __( 'Successfully updated!', 'js_composer' ),
-			'gutenbergDoesntWorkProperly' => __( 'Gutenberg plugin doesn\'t work properly. Please check Gutenberg plugin.', 'js_composer' ),
-		);
+			/* nectar addition end */
+			'section' => esc_html__( 'Section', 'js_composer' ),
+			'please_enter_new_tab_title' => esc_html__( 'Please enter new tab title', 'js_composer' ),
+			'press_ok_delete_section' => esc_html__( 'Press OK to delete "{tab_name}" section, Cancel to leave', 'js_composer' ),
+			'section_default_title' => esc_html__( 'Section', 'js_composer' ),
+			'please_enter_section_title' => esc_html__( 'Please enter new section title', 'js_composer' ),
+			'error_please_try_again' => esc_html__( 'Error. Please try again.', 'js_composer' ),
+			'if_close_data_lost' => esc_html__( 'If you close this window all shortcode settings will be lost. Close this window?', 'js_composer' ),
+			'header_select_element_type' => esc_html__( 'Select element type', 'js_composer' ),
+			'header_media_gallery' => esc_html__( 'Media gallery', 'js_composer' ),
+			'header_element_settings' => esc_html__( 'Element settings', 'js_composer' ),
+			'add_tab' => esc_html__( 'Add tab', 'js_composer' ),
+			'are_you_sure_convert_to_new_version' => esc_html__( 'Are you sure you want to convert to new version?', 'js_composer' ),
+			'loading' => esc_html__( 'Loading...', 'js_composer' ),
+			// Media editor.
+			'set_image' => esc_html__( 'Set Image', 'js_composer' ),
+			'are_you_sure_reset_css_classes' => esc_html__( 'Are you sure that you want to remove all your data?', 'js_composer' ),
+			'loop_frame_title' => esc_html__( 'Loop settings', 'js_composer' ),
+			'enter_custom_layout' => esc_html__( 'Custom row layout', 'js_composer' ),
+			'wrong_cells_layout' => esc_html__( 'Wrong row layout format! Example: 1/2 + 1/2 or span6 + span6.', 'js_composer' ),
+			'row_background_color' => esc_html__( 'Row background color', 'js_composer' ),
+			'row_background_image' => esc_html__( 'Row background image', 'js_composer' ),
+			'column_background_color' => esc_html__( 'Column background color', 'js_composer' ),
+			'column_background_image' => esc_html__( 'Column background image', 'js_composer' ),
+			'grid_container_background_color' => esc_html__( 'Grid container background color', 'js_composer' ),
+			'grid_container_background_image' => esc_html__( 'Grid container background image', 'js_composer' ),
+			'grid_container_item_background_color' => esc_html__( 'Grid item background color', 'js_composer' ),
+			'grid_container_item_background_image' => esc_html__( 'Grid item background image', 'js_composer' ),
+			'flexbox_container_background_color' => esc_html__( 'Flexbox container background color', 'js_composer' ),
+			'flexbox_container_background_image' => esc_html__( 'Flexbox container background image', 'js_composer' ),
+			'flexbox_container_item_background_color' => esc_html__( 'Flexbox item background color', 'js_composer' ),
+			'flexbox_container_item_background_image' => esc_html__( 'Flexbox item background image', 'js_composer' ),
+			'gitem_background_image' => esc_html__( 'Grid builder item background image', 'js_composer' ),
+			'gitem_background_color' => esc_html__( 'Grid builder item background color', 'js_composer' ),
+			'guides_on' => esc_html__( 'Guides ON', 'js_composer' ),
+			'guides_off' => esc_html__( 'Guides OFF', 'js_composer' ),
+			'template_save' => esc_html__( 'New template successfully saved.', 'js_composer' ),
+			'template_added' => esc_html__( 'Template added to the page.', 'js_composer' ),
+			'template_added_with_id' => esc_html__( 'Template added to the page. Template has ID attributes, make sure that they are not used more than once on the same page.', 'js_composer' ),
+			'template_removed' => esc_html__( 'Template successfully removed.', 'js_composer' ),
+			'template_is_empty' => esc_html__( 'Template is empty: There is no content to be saved as a template.', 'js_composer' ),
+			'template_save_error' => esc_html__( 'Error while saving template.', 'js_composer' ),
+			'page_settings_updated' => esc_html__( 'Page settings updated!', 'js_composer' ),
+			'custom_code_updated' => esc_html__( 'Custom CSS/JS updated!', 'js_composer' ),
+			'seo_settings_updated' => esc_html__( 'SEO settings updated!', 'js_composer' ),
+			'update_all' => esc_html__( 'Update all', 'js_composer' ),
+			'confirm_to_leave' => esc_html__( 'The changes you made will be lost if you navigate away from this page.', 'js_composer' ),
+			'inline_element_saved' => esc_html__( '%s saved!', 'js_composer' ),
+			'inline_element_deleted' => esc_html__( '%s deleted!', 'js_composer' ),
+            // phpcs:ignore
+			'inline_element_cloned' => sprintf( __( '%%1$s cloned. %2$sEdit now?%s', 'js_composer' ), '<a href="#" class="vc_edit-cloned" data-model-id="%s">', '</a>' ),
+			'gfonts_loading_google_font_failed' => esc_html__( 'Loading font failed', 'js_composer' ),
+			'gfonts_loading_google_font' => esc_html__( 'Loading Font...', 'js_composer' ),
+			'gfonts_unable_to_load_google_fonts' => esc_html__( 'Unable to load Google Fonts', 'js_composer' ),
+			'no_title_parenthesis' => sprintf( '(%s)', esc_html__( 'no title', 'js_composer' ) ),
+			'no_elements_found' => esc_html__( 'No elements found', 'js_composer' ),
+			'no_addons_found' => esc_html__( 'No addons found', 'js_composer' ),
+			'error_while_saving_image_filtered' => esc_html__( 'Error while applying filter to the image. Check your server and memory settings.', 'js_composer' ),
+			'ui_saved' => sprintf( '<i class="vc-composer-icon vc-c-icon-check"></i> %s', esc_html__( 'Saved!', 'js_composer' ) ),
+			'ui_danger' => sprintf( '<i class="vc-composer-icon vc-c-icon-close"></i> %s', esc_html__( 'Failed to Save!', 'js_composer' ) ),
+			'delete_preset_confirmation' => esc_html__( 'You are about to delete this preset. This action can not be undone.', 'js_composer' ),
+			'ui_template_downloaded' => esc_html__( 'Downloaded', 'js_composer' ),
+			'ui_template_update' => esc_html__( 'Update', 'js_composer' ),
+			'ui_templates_failed_to_download' => esc_html__( 'Failed to download template', 'js_composer' ),
+			'preset_removed' => esc_html__( 'Element successfully removed.', 'js_composer' ),
+			'vc_successfully_updated' => esc_html__( 'Successfully updated!', 'js_composer' ),
+			'gutenbergDoesntWorkProperly' => esc_html__( 'Gutenberg plugin doesn\'t work properly. Please check Gutenberg plugin.', 'js_composer' ),
+			'unfiltered_html_access' => esc_html__( 'Custom HTML is disabled for your user role. Please contact your site Administrator to change your capabilities.', 'js_composer' ),
+			'not_editable_post' => sprintf(
+				'%s %s %s %s',
+				esc_html__( 'This', 'js_composer' ),
+				get_post_type() ? get_post_type() : 'post',
+				esc_html__( 'can not be edited with WPBakery since it is missing a WordPress default content area. ', 'js_composer' ),
+				'<a href="https://kb.wpbakery.com/docs/faq/how-to-fix-this-page-can-not-be-edited-with-wpbakery-since-it-is-missing-a-wordpress-default-content-area/" target="_blank" rel="noreferrer noopener">Learn how to fix this issue</a>.'
+			),
+			'generate' => esc_html__( 'Generate', 'js_composer' ),
+			'regenerate' => esc_html__( 'Regenerate', 'js_composer' ),
+			'problems' => esc_html__( 'Problems', 'js_composer' ),
+			'warnings' => esc_html__( 'Warnings', 'js_composer' ),
+			'success' => esc_html__( 'Success', 'js_composer' ),
+			'goodJob' => esc_html__( 'Good job!', 'js_composer' ),
+			'wellDone' => esc_html__( 'Well done!', 'js_composer' ),
+			'greatWork' => esc_html__( 'Great work!', 'js_composer' ),
+			'great' => esc_html__( 'Great!', 'js_composer' ),
+			'internalLinks' => esc_html__( 'Internal links', 'js_composer' ),
+			'outboundLinks' => esc_html__( 'Outbound links', 'js_composer' ),
+			'noOutboundLinks' => esc_html__( 'No outbound links appear in this page.', 'js_composer' ),
+			'noInternalLinks' => esc_html__( 'No internal links appear in this page, make sure to add some!', 'js_composer' ),
+			'images' => esc_html__( 'Images', 'js_composer' ),
+			'noImages' => esc_html__( 'No images appear on this page. Add some!', 'js_composer' ),
+			'focusKeywordTitle' => esc_html__( 'Focus keyphrase', 'js_composer' ),
+			'noFocusKeyword' => esc_html__( 'No focus keyphrase was set for this page.', 'js_composer' ),
+			'seoTitle' => esc_html__( 'SEO title width', 'js_composer' ),
+			'seoTitleWidthTooLong' => esc_html__( 'The SEO title is wider than the viewable limit. Try to make it shorter.', 'js_composer' ),
+			'textLength' => esc_html__( 'Text Length', 'js_composer' ),
+			'textLengthLess' => esc_html__( 'The text contains %1$s words. This is %2$s the recommended minimum of 300 words.', 'js_composer' ),
+			'textLengthSuccess' => esc_html__( 'The text contains %s words. Good job!', 'js_composer' ),
+			'seoTitleEmpty' => esc_html__( 'Please create an SEO title.', 'js_composer' ),
+			'seoDescription' => esc_html__( 'Meta description length', 'js_composer' ),
+			'seoDescriptionEmpty' => esc_html__( 'No meta description has been specified. Search engines will display copy from the page instead. Make sure to write one!', 'js_composer' ),
+			'seoDescriptionTooShort' => esc_html__( 'The meta description is too short (under 120 characters). Up to 156 characters are available. Use the space!', 'js_composer' ),
+			'seoDescriptionTooLong' => esc_html__( 'The meta description is over 156 characters. To ensure the entire description will be visible, you should reduce the length!', 'js_composer' ),
+			'keyphraseInTitleText' => esc_html__( 'Keyphrase in SEO title', 'js_composer' ),
+			'keyphraseInTitleWarn' => esc_html__( 'The exact match of the focus keyphrase appears in the SEO title, but not at the beginning.', 'js_composer' ),
+			'keyphraseInTitleEmpty' => esc_html__( 'Not all the words from your keyphrase "%1$s" appear in the SEO title.', 'js_composer' ),
+			'keyphraseInDescriptionText' => esc_html__( 'Keyphrase in meta description', 'js_composer' ),
+			'keyphraseInDescriptionEmpty' => esc_html__( 'The meta description has been specified, but it does not contain the keyphrase', 'js_composer' ),
+			'keyphraseInDescriptionSuccess' => esc_html__( 'Keyphrase appears in the meta description. Well done!', 'js_composer' ),
+			'keyphraseInSlug' => esc_html__( 'Keyphrase in slug', 'js_composer' ),
+			'keyphraseInSlugProblem' => esc_html__( '(Part of) your keyphrase does not appear in the slug.', 'js_composer' ),
+			'imageKeyphrase' => esc_html__( 'Image Keyphrase', 'js_composer' ),
+			'imageKeyphraseTooMuch' => esc_html__( 'Out of %1$s images on this page, %2$s have alt attributes with words from your keyphrase or synonyms. That\'s a bit much. Only include the keyphrase or its synonyms when it really fits the image.', 'js_composer' ),
+			'imageKeyphraseNotEnough' => esc_html__( 'Out of %1$s images on this page, only %2$s has an alt attribute that reflects the topic of your text. Add your keyphrase or synonyms to the alt tags of more relevant images!', 'js_composer' ),
+			'imageKeyphraseMissing' => esc_html__( 'Images on this page do not have alt attributes with at least half of the words from your keyphrase.', 'js_composer' ),
+			'keyphraseInIntroductionText' => esc_html__( 'Keyphrase in introduction', 'js_composer' ),
+			'keyphraseInIntroductionEmpty' => esc_html__( 'Your keyphrase do not appear in the first paragraph.', 'js_composer' ),
+			'keyphraseDensity' => esc_html__( 'Keyphrase density', 'js_composer' ),
+			'keyphraseDensitySuccess' => esc_html__( 'The keyphrase was found %1$s times. This is great!', 'js_composer' ),
+			'keyphraseDensityNotEnough' => esc_html__( 'The keyphrase was found %1$s time. That\'s less than the recommended minimum of %2$s times for a text of this length.', 'js_composer' ),
+			'keyphraseDensityTooMuch' => esc_html__( 'The keyphrase was found %1$s times. That\'s way more than the recommended maximum of %2$s times for a text of this length.', 'js_composer' ),
+			'consecutiveSentences' => esc_html__( 'Consecutive sentences', 'js_composer' ),
+			'consecutiveSentencesSuccess' => esc_html__( 'There is enough variety in your sentences. That\'s great!', 'js_composer' ),
+			'consecutiveSentencesFail' => esc_html__( 'The text contains %1$s consecutive sentences starting with the same word.', 'js_composer' ),
+			'passiveVoice' => esc_html__( 'Passive voice', 'js_composer' ),
+			'passiveVoiceError' => esc_html__( '%s of the sentences contain passive voice, which is more than the recommended maximum of 10%', 'js_composer' ),
+			'passiveVoiceSuccess' => esc_html__( 'You\'re using enough active voice. That\'s great!', 'js_composer' ),
+			'paragraphLength' => esc_html__( 'Paragraph length', 'js_composer' ),
+			'paragraphLengthError' => esc_html__( '%s of the paragraphs contains more than the recommended maximum of 150 words.', 'js_composer' ),
+			'paragraphLengthSuccess' => esc_html__( 'None of the paragraphs are too long. Great job!', 'js_composer' ),
+			'sentenceLength' => esc_html__( 'Sentence length', 'js_composer' ),
+			'sentenceLengthError' => esc_html__( '%s%% of the sentences contain more than 20 words, which is more than the recommended maximum of 25%.', 'js_composer' ),
+			'subheadingDistribution' => esc_html__( 'Subheading distribution', 'js_composer' ),
+			'subheadingDistributionFail' => esc_html__( 'You are not using any subheadings, although your text is rather long. Try and add some subheadings.', 'js_composer' ),
+			'subheadingDistributionWarn' => esc_html__( '%s section of your text is longer than 300 words and is not separated by any subheadings. Add subheadings to improve readability.', 'js_composer' ),
+			'previouslyUsedKeyphrase' => esc_html__( 'Previously used keyphrase', 'js_composer' ),
+			'previouslyUsedKeyphraseSuccess' => esc_html__( 'You\'ve not used this keyphrase before, very good.', 'js_composer' ),
+			'previouslyUsedKeyphraseWarn' => esc_html__( 'You\'ve used this keyphrase before', 'js_composer' ),
+			'copied' => esc_html__( 'Copied', 'js_composer' ),
+			'page_settings_confirm' => esc_html__( 'Are you sure you want to close the window without saving your changes?', 'js_composer' ),
+			'post_title' => esc_html__( '%s title', 'js_composer' ),
+			'edit' => esc_html__( 'Edit', 'js_composer' ),
+			'preview_error' => esc_html__( 'An error occurred while generating the preview. ', 'js_composer' ),
+		]);
+	}
+
+	/**
+	 * Get array of string for jsData.
+	 *
+	 * @return array
+	 * @since 7.9
+	 */
+	public function getEditorsWpbData() {
+		return apply_filters( 'vc_get_editor_wpb_data', [] );
 	}
 }

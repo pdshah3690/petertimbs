@@ -10,6 +10,8 @@
 @import "lib/elements_icons.less";
 // Add element box
 @import "popups/modal_add_element.less";
+// Element teasers
+@import "popups/modal_teasers.less";
 // Edit form for shortcode
 @import "popups/panel_edit_form.less";
 // Template library
@@ -29,6 +31,7 @@
 @import "shortcodes/vc_button3_editform.less";
 
 @import (reference)"shortcodes/vc_icon_element.less";
+@import "modules/vc_welcome.less";
 
 @import (reference)"shortcodes/vc_call_to_action3.less";
 @import "shortcodes/vc_cta3_editform.less";
@@ -36,6 +39,7 @@
 @import "shortcodes/vc_message_box/vc_message_box_front.less";
 @import "backend_shortcodes/vc_charts.less";
 // edit form for vc_line_chart
+@import "modules/vc_info_tooltip.less";
 
 .vc_editor {
   // Fix admin page
@@ -70,9 +74,10 @@
   #vc_inline-frame {
     margin: 0 auto;
     display: block;
-    position: initial !important;
+    position: relative !important;
+    z-index: 9;
   }
-  #wpb_csseditor {
+  .custom_code {
     border: 1px solid #BABABA;
   }
 }
@@ -83,6 +88,7 @@
 @import "vendor/layerslider.less";
 @import "vendor/rev_slider.less";
 @import "vendor/jwplayer.less";
+@import "vendor/woocommerce_product_editor.less";
 
 .vc_shortcode-param[data-param_type="iconpicker"] {
   .vc-icons-selector .selected-icon {

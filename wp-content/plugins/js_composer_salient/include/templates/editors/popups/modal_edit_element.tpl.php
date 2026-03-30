@@ -1,4 +1,8 @@
 <?php
+/**
+ * Modal edit element template.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -16,9 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="modal-body vc_properties-list"></div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default"
-					data-dismiss="modal"><?php _e( 'Close', 'js_composer' ); ?></button>
+					data-dismiss="modal"><?php esc_html_e( 'Close', 'js_composer' ); ?></button>
 				<button type="button"
-					class="btn btn-primary vc_save"><?php _e( 'Save Changes', 'js_composer' ); ?></button>
+					class="btn btn-primary vc_save"><?php esc_html_e( 'Save Changes', 'js_composer' ); ?></button>
 			</div>
 		</div>
 		<!-- /.modal-content -->

@@ -29,8 +29,11 @@
   z-index: 100001;
   top: 90px;
   left: 50%;
-  .vc_row_layout {
+  input.vc_row_layout[type="text"] {
     width: 288px;
+    padding: 8px;
+    line-height: 1;
+    height: 44px;
   }
   .vc_layout-panel-switcher {
     .vc_layout-panel-switcher;
@@ -40,6 +43,24 @@
   }
 }
 
-.vc_general.vc_ui-button-update-layout {
-  vertical-align: top;
+.vc_general.vc_ui-button.vc_ui-button-update-layout {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  padding-right: 21px;
+  padding-left: 21px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.vc_row-layout-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-15px / 2);
+  margin-right: calc(-15px / 2);
+}
+
+.vc_row-layout-column {
+  padding-left: calc(15px / 2);
+  padding-right: calc(15px / 2);
 }

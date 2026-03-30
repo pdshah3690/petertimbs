@@ -1,25 +1,43 @@
 <?php
+/**
+ * Class that handles specific [vc_hoverbox] shortcode.
+ *
+ * @see js_composer/include/templates/shortcodes/vc_hoverbox.php
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-class WPBakeryShortCode_VC_Hoverbox extends WPBakeryShortCode {
+/**
+ * Class WPBakeryShortCode_Vc_Hoverbox
+ */
+class WPBakeryShortCode_Vc_Hoverbox extends WPBakeryShortCode {
 
-	public function getHeading( $tag, $atts, $align ) {
+	/**
+	 * Get element heading.
+	 *
+	 * @param string $tag
+	 * @param array $atts
+	 * @param string $align
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function getHeading( $tag, $atts, $align ) { // phpcs:ignore:CognitiveComplexity.Complexity.MaximumComplexity.TooHigh
 		if ( isset( $atts[ $tag ] ) && '' !== trim( $atts[ $tag ] ) ) {
 			if ( isset( $atts[ 'use_custom_fonts_' . $tag ] ) && 'true' === $atts[ 'use_custom_fonts_' . $tag ] ) {
-				$custom_heading = visual_composer()->getShortCode( 'vc_custom_heading' );
+				$custom_heading = wpbakery()->getShortCode( 'vc_custom_heading' );
 				$data = vc_map_integrate_parse_atts( $this->shortcode, 'vc_custom_heading', $atts, $tag . '_' );
-				$data['font_container'] = implode( '|', array_filter( array(
-					'tag:' . 'h2',
+				$data['font_container'] = implode( '|', array_filter( [
+					'tag:h2',
 					'text_align:' . esc_attr( $align ),
 					$data['font_container'],
-				) ) );
-				$data['text'] = $atts[ $tag ]; // provide text to shortcode
+				] ) );
+				$data['text'] = $atts[ $tag ]; // provide text to shortcode.
 
 				return $custom_heading->render( array_filter( $data ) );
 			} else {
-				$inline_css = array();
+				$inline_css = [];
 				$inline_css_string = '';
 				if ( isset( $atts['style'] ) && 'custom' === $atts['style'] ) {
 					if ( ! empty( $atts['custom_text'] ) ) {
@@ -40,11 +58,17 @@ class WPBakeryShortCode_VC_Hoverbox extends WPBakeryShortCode {
 		return '';
 	}
 
+	/**
+	 * Additional shortcode rendering for element button.
+	 *
+	 * @param array $atts
+	 * @return string
+	 * @throws \Exception
+	 */
 	public function renderButton( $atts ) {
 		$button_atts = vc_map_integrate_parse_atts( $this->shortcode, 'vc_btn', $atts, 'hover_btn_' );
-		$button = visual_composer()->getShortCode( 'vc_btn' );
+		$button = wpbakery()->getShortCode( 'vc_btn' );
 
 		return $button->render( array_filter( $button_atts ) );
 	}
-
 }

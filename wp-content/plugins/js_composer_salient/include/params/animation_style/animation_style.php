@@ -1,4 +1,12 @@
 <?php
+/**
+ * Param type 'animation_style'
+ *
+ * Used to create dropdown field with animation styles.
+ *
+ * @see https://kb.wpbakery.com/docs/inner-api/vc_map/#vc_map()-ParametersofparamsArray
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -9,412 +17,418 @@ if ( ! defined( 'ABSPATH' ) ) {
  * For working with animations
  * array(
  *        'type' => 'animation_style',
- *        'heading' => __( 'Animation', 'js_composer' ),
+ *        'heading' => esc_html__( 'Animation', 'js_composer' ),
  *        'param_name' => 'animation',
  * ),
- * Preview in http://daneden.github.io/animate.css/
+ * Preview in https://daneden.github.io/animate.css/
+ *
  * @since 4.4
  */
 class Vc_ParamAnimation {
 	/**
+	 * Parameter settings from vc_map.
+	 *
 	 * @since 4.4
-	 * @var array $settings parameter settings from vc_map
+	 * @var array $settings
 	 */
 	protected $settings;
 	/**
+	 * Parameter value.
+	 *
 	 * @since 4.4
-	 * @var string $value parameter value
+	 * @var string $value
 	 */
 	protected $value;
 
 	/**
-	 * Define available animation effects
+	 * Define available animation effects.
+	 *
 	 * @since 4.4
-	 * vc_filter: vc_param_animation_style_list - to override animation styles
-	 *     array
+	 * @see vc_filter: vc_param_animation_style_list - to override animation styles array.
 	 * @return array
 	 */
 	protected function animationStyles() {
-		$styles = array(
-			array(
-				'values' => array(
-					__( 'None', 'js_composer' ) => 'none',
-				),
-			),
-			array(
-				'label' => __( 'Attention Seekers', 'js_composer' ),
-				'values' => array(
-					// text to display => value
-					__( 'bounce', 'js_composer' ) => array(
+		$styles = [
+			[
+				'values' => [
+					esc_html__( 'None', 'js_composer' ) => 'none',
+				],
+			],
+			[
+				'label' => esc_html__( 'Attention Seekers', 'js_composer' ),
+				'values' => [
+					// text to display => value.
+					esc_html__( 'bounce', 'js_composer' ) => [
 						'value' => 'bounce',
 						'type' => 'other',
-					),
-					__( 'flash', 'js_composer' ) => array(
+					],
+					esc_html__( 'flash', 'js_composer' ) => [
 						'value' => 'flash',
 						'type' => 'other',
-					),
-					__( 'pulse', 'js_composer' ) => array(
+					],
+					esc_html__( 'pulse', 'js_composer' ) => [
 						'value' => 'pulse',
 						'type' => 'other',
-					),
-					__( 'rubberBand', 'js_composer' ) => array(
+					],
+					esc_html__( 'rubberBand', 'js_composer' ) => [
 						'value' => 'rubberBand',
 						'type' => 'other',
-					),
-					__( 'shake', 'js_composer' ) => array(
+					],
+					esc_html__( 'shake', 'js_composer' ) => [
 						'value' => 'shake',
 						'type' => 'other',
-					),
-					__( 'swing', 'js_composer' ) => array(
+					],
+					esc_html__( 'swing', 'js_composer' ) => [
 						'value' => 'swing',
 						'type' => 'other',
-					),
-					__( 'tada', 'js_composer' ) => array(
+					],
+					esc_html__( 'tada', 'js_composer' ) => [
 						'value' => 'tada',
 						'type' => 'other',
-					),
-					__( 'wobble', 'js_composer' ) => array(
+					],
+					esc_html__( 'wobble', 'js_composer' ) => [
 						'value' => 'wobble',
 						'type' => 'other',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Bouncing Entrances', 'js_composer' ),
-				'values' => array(
-					// text to display => value
-					__( 'bounceIn', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Bouncing Entrances', 'js_composer' ),
+				'values' => [
+					// text to display => value.
+					esc_html__( 'bounceIn', 'js_composer' ) => [
 						'value' => 'bounceIn',
 						'type' => 'in',
-					),
-					__( 'bounceInDown', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceInDown', 'js_composer' ) => [
 						'value' => 'bounceInDown',
 						'type' => 'in',
-					),
-					__( 'bounceInLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceInLeft', 'js_composer' ) => [
 						'value' => 'bounceInLeft',
 						'type' => 'in',
-					),
-					__( 'bounceInRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceInRight', 'js_composer' ) => [
 						'value' => 'bounceInRight',
 						'type' => 'in',
-					),
-					__( 'bounceInUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceInUp', 'js_composer' ) => [
 						'value' => 'bounceInUp',
 						'type' => 'in',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Bouncing Exits', 'js_composer' ),
-				'values' => array(
-					// text to display => value
-					__( 'bounceOut', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Bouncing Exits', 'js_composer' ),
+				'values' => [
+					// text to display => value.
+					esc_html__( 'bounceOut', 'js_composer' ) => [
 						'value' => 'bounceOut',
 						'type' => 'out',
-					),
-					__( 'bounceOutDown', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceOutDown', 'js_composer' ) => [
 						'value' => 'bounceOutDown',
 						'type' => 'out',
-					),
-					__( 'bounceOutLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceOutLeft', 'js_composer' ) => [
 						'value' => 'bounceOutLeft',
 						'type' => 'out',
-					),
-					__( 'bounceOutRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceOutRight', 'js_composer' ) => [
 						'value' => 'bounceOutRight',
 						'type' => 'out',
-					),
-					__( 'bounceOutUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'bounceOutUp', 'js_composer' ) => [
 						'value' => 'bounceOutUp',
 						'type' => 'out',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Fading Entrances', 'js_composer' ),
-				'values' => array(
-					// text to display => value
-					__( 'fadeIn', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Fading Entrances', 'js_composer' ),
+				'values' => [
+					// text to display => value.
+					esc_html__( 'fadeIn', 'js_composer' ) => [
 						'value' => 'fadeIn',
 						'type' => 'in',
-					),
-					__( 'fadeInDown', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInDown', 'js_composer' ) => [
 						'value' => 'fadeInDown',
 						'type' => 'in',
-					),
-					__( 'fadeInDownBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInDownBig', 'js_composer' ) => [
 						'value' => 'fadeInDownBig',
 						'type' => 'in',
-					),
-					__( 'fadeInLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInLeft', 'js_composer' ) => [
 						'value' => 'fadeInLeft',
 						'type' => 'in',
-					),
-					__( 'fadeInLeftBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInLeftBig', 'js_composer' ) => [
 						'value' => 'fadeInLeftBig',
 						'type' => 'in',
-					),
-					__( 'fadeInRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInRight', 'js_composer' ) => [
 						'value' => 'fadeInRight',
 						'type' => 'in',
-					),
-					__( 'fadeInRightBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInRightBig', 'js_composer' ) => [
 						'value' => 'fadeInRightBig',
 						'type' => 'in',
-					),
-					__( 'fadeInUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInUp', 'js_composer' ) => [
 						'value' => 'fadeInUp',
 						'type' => 'in',
-					),
-					__( 'fadeInUpBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeInUpBig', 'js_composer' ) => [
 						'value' => 'fadeInUpBig',
 						'type' => 'in',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Fading Exits', 'js_composer' ),
-				'values' => array(
-					__( 'fadeOut', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Fading Exits', 'js_composer' ),
+				'values' => [
+					esc_html__( 'fadeOut', 'js_composer' ) => [
 						'value' => 'fadeOut',
 						'type' => 'out',
-					),
-					__( 'fadeOutDown', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutDown', 'js_composer' ) => [
 						'value' => 'fadeOutDown',
 						'type' => 'out',
-					),
-					__( 'fadeOutDownBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutDownBig', 'js_composer' ) => [
 						'value' => 'fadeOutDownBig',
 						'type' => 'out',
-					),
-					__( 'fadeOutLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutLeft', 'js_composer' ) => [
 						'value' => 'fadeOutLeft',
 						'type' => 'out',
-					),
-					__( 'fadeOutLeftBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutLeftBig', 'js_composer' ) => [
 						'value' => 'fadeOutLeftBig',
 						'type' => 'out',
-					),
-					__( 'fadeOutRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutRight', 'js_composer' ) => [
 						'value' => 'fadeOutRight',
 						'type' => 'out',
-					),
-					__( 'fadeOutRightBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutRightBig', 'js_composer' ) => [
 						'value' => 'fadeOutRightBig',
 						'type' => 'out',
-					),
-					__( 'fadeOutUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutUp', 'js_composer' ) => [
 						'value' => 'fadeOutUp',
 						'type' => 'out',
-					),
-					__( 'fadeOutUpBig', 'js_composer' ) => array(
+					],
+					esc_html__( 'fadeOutUpBig', 'js_composer' ) => [
 						'value' => 'fadeOutUpBig',
 						'type' => 'out',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Flippers', 'js_composer' ),
-				'values' => array(
-					__( 'flip', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Flippers', 'js_composer' ),
+				'values' => [
+					esc_html__( 'flip', 'js_composer' ) => [
 						'value' => 'flip',
 						'type' => 'other',
-					),
-					__( 'flipInX', 'js_composer' ) => array(
+					],
+					esc_html__( 'flipInX', 'js_composer' ) => [
 						'value' => 'flipInX',
 						'type' => 'in',
-					),
-					__( 'flipInY', 'js_composer' ) => array(
+					],
+					esc_html__( 'flipInY', 'js_composer' ) => [
 						'value' => 'flipInY',
 						'type' => 'in',
-					),
-					__( 'flipOutX', 'js_composer' ) => array(
+					],
+					esc_html__( 'flipOutX', 'js_composer' ) => [
 						'value' => 'flipOutX',
 						'type' => 'out',
-					),
-					__( 'flipOutY', 'js_composer' ) => array(
+					],
+					esc_html__( 'flipOutY', 'js_composer' ) => [
 						'value' => 'flipOutY',
 						'type' => 'out',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Lightspeed', 'js_composer' ),
-				'values' => array(
-					__( 'lightSpeedIn', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Lightspeed', 'js_composer' ),
+				'values' => [
+					esc_html__( 'lightSpeedIn', 'js_composer' ) => [
 						'value' => 'lightSpeedIn',
 						'type' => 'in',
-					),
-					__( 'lightSpeedOut', 'js_composer' ) => array(
+					],
+					esc_html__( 'lightSpeedOut', 'js_composer' ) => [
 						'value' => 'lightSpeedOut',
 						'type' => 'out',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Rotating Entrances', 'js_composer' ),
-				'values' => array(
-					__( 'rotateIn', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Rotating Entrances', 'js_composer' ),
+				'values' => [
+					esc_html__( 'rotateIn', 'js_composer' ) => [
 						'value' => 'rotateIn',
 						'type' => 'in',
-					),
-					__( 'rotateInDownLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateInDownLeft', 'js_composer' ) => [
 						'value' => 'rotateInDownLeft',
 						'type' => 'in',
-					),
-					__( 'rotateInDownRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateInDownRight', 'js_composer' ) => [
 						'value' => 'rotateInDownRight',
 						'type' => 'in',
-					),
-					__( 'rotateInUpLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateInUpLeft', 'js_composer' ) => [
 						'value' => 'rotateInUpLeft',
 						'type' => 'in',
-					),
-					__( 'rotateInUpRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateInUpRight', 'js_composer' ) => [
 						'value' => 'rotateInUpRight',
 						'type' => 'in',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Rotating Exits', 'js_composer' ),
-				'values' => array(
-					__( 'rotateOut', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Rotating Exits', 'js_composer' ),
+				'values' => [
+					esc_html__( 'rotateOut', 'js_composer' ) => [
 						'value' => 'rotateOut',
 						'type' => 'out',
-					),
-					__( 'rotateOutDownLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateOutDownLeft', 'js_composer' ) => [
 						'value' => 'rotateOutDownLeft',
 						'type' => 'out',
-					),
-					__( 'rotateOutDownRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateOutDownRight', 'js_composer' ) => [
 						'value' => 'rotateOutDownRight',
 						'type' => 'out',
-					),
-					__( 'rotateOutUpLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateOutUpLeft', 'js_composer' ) => [
 						'value' => 'rotateOutUpLeft',
 						'type' => 'out',
-					),
-					__( 'rotateOutUpRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'rotateOutUpRight', 'js_composer' ) => [
 						'value' => 'rotateOutUpRight',
 						'type' => 'out',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Specials', 'js_composer' ),
-				'values' => array(
-					__( 'hinge', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Specials', 'js_composer' ),
+				'values' => [
+					esc_html__( 'hinge', 'js_composer' ) => [
 						'value' => 'hinge',
 						'type' => 'out',
-					),
-					__( 'rollIn', 'js_composer' ) => array(
+					],
+					esc_html__( 'rollIn', 'js_composer' ) => [
 						'value' => 'rollIn',
 						'type' => 'in',
-					),
-					__( 'rollOut', 'js_composer' ) => array(
+					],
+					esc_html__( 'rollOut', 'js_composer' ) => [
 						'value' => 'rollOut',
 						'type' => 'out',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Zoom Entrances', 'js_composer' ),
-				'values' => array(
-					__( 'zoomIn', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Zoom Entrances', 'js_composer' ),
+				'values' => [
+					esc_html__( 'zoomIn', 'js_composer' ) => [
 						'value' => 'zoomIn',
 						'type' => 'in',
-					),
-					__( 'zoomInDown', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomInDown', 'js_composer' ) => [
 						'value' => 'zoomInDown',
 						'type' => 'in',
-					),
-					__( 'zoomInLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomInLeft', 'js_composer' ) => [
 						'value' => 'zoomInLeft',
 						'type' => 'in',
-					),
-					__( 'zoomInRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomInRight', 'js_composer' ) => [
 						'value' => 'zoomInRight',
 						'type' => 'in',
-					),
-					__( 'zoomInUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomInUp', 'js_composer' ) => [
 						'value' => 'zoomInUp',
 						'type' => 'in',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Zoom Exits', 'js_composer' ),
-				'values' => array(
-					__( 'zoomOut', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Zoom Exits', 'js_composer' ),
+				'values' => [
+					esc_html__( 'zoomOut', 'js_composer' ) => [
 						'value' => 'zoomOut',
 						'type' => 'out',
-					),
-					__( 'zoomOutDown', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomOutDown', 'js_composer' ) => [
 						'value' => 'zoomOutDown',
 						'type' => 'out',
-					),
-					__( 'zoomOutLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomOutLeft', 'js_composer' ) => [
 						'value' => 'zoomOutLeft',
 						'type' => 'out',
-					),
-					__( 'zoomOutRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomOutRight', 'js_composer' ) => [
 						'value' => 'zoomOutRight',
 						'type' => 'out',
-					),
-					__( 'zoomOutUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'zoomOutUp', 'js_composer' ) => [
 						'value' => 'zoomOutUp',
 						'type' => 'out',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Slide Entrances', 'js_composer' ),
-				'values' => array(
-					__( 'slideInDown', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Slide Entrances', 'js_composer' ),
+				'values' => [
+					esc_html__( 'slideInDown', 'js_composer' ) => [
 						'value' => 'slideInDown',
 						'type' => 'in',
-					),
-					__( 'slideInLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'slideInLeft', 'js_composer' ) => [
 						'value' => 'slideInLeft',
 						'type' => 'in',
-					),
-					__( 'slideInRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'slideInRight', 'js_composer' ) => [
 						'value' => 'slideInRight',
 						'type' => 'in',
-					),
-					__( 'slideInUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'slideInUp', 'js_composer' ) => [
 						'value' => 'slideInUp',
 						'type' => 'in',
-					),
-				),
-			),
-			array(
-				'label' => __( 'Slide Exits', 'js_composer' ),
-				'values' => array(
-					__( 'slideOutDown', 'js_composer' ) => array(
+					],
+				],
+			],
+			[
+				'label' => esc_html__( 'Slide Exits', 'js_composer' ),
+				'values' => [
+					esc_html__( 'slideOutDown', 'js_composer' ) => [
 						'value' => 'slideOutDown',
 						'type' => 'out',
-					),
-					__( 'slideOutLeft', 'js_composer' ) => array(
+					],
+					esc_html__( 'slideOutLeft', 'js_composer' ) => [
 						'value' => 'slideOutLeft',
 						'type' => 'out',
-					),
-					__( 'slideOutRight', 'js_composer' ) => array(
+					],
+					esc_html__( 'slideOutRight', 'js_composer' ) => [
 						'value' => 'slideOutRight',
 						'type' => 'out',
-					),
-					__( 'slideOutUp', 'js_composer' ) => array(
+					],
+					esc_html__( 'slideOutUp', 'js_composer' ) => [
 						'value' => 'slideOutUp',
 						'type' => 'out',
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 
 		/**
 		 * Used to override animation style list
+		 *
 		 * @since 4.4
 		 */
 
@@ -422,21 +436,23 @@ class Vc_ParamAnimation {
 	}
 
 	/**
-	 * @param array $styles - array of styles to group
-	 * @param string|array $type - what type to return
+	 * Group styles by type.
 	 *
-	 * @since 4.4
+	 * @param array $styles - array of styles to group.
+	 * @param string|array $type - what type to return.
+	 *
 	 * @return array
+	 * @since 4.4
 	 */
-	public function groupStyleByType( $styles, $type ) {
-		$grouped = array();
+	public function groupStyleByType( $styles, $type ) { // phpcs:ignore:CognitiveComplexity.Complexity.MaximumComplexity.TooHigh
+		$grouped = [];
 		foreach ( $styles as $group ) {
-			$inner_group = array( 'values' => array() );
+			$inner_group = [ 'values' => [] ];
 			if ( isset( $group['label'] ) ) {
 				$inner_group['label'] = $group['label'];
 			}
 			foreach ( $group['values'] as $key => $value ) {
-				if ( ( is_array( $value ) && isset( $value['type'] ) && ( ( is_string( $type ) && $value['type'] == $type ) || is_array( $type ) && in_array( $value['type'], $type ) ) ) || ! is_array( $value ) || ! isset( $value['type'] ) ) {
+				if ( ( is_array( $value ) && isset( $value['type'] ) && ( ( is_string( $type ) && $value['type'] === $type ) || is_array( $type ) && in_array( $value['type'], $type, true ) ) ) || ! is_array( $value ) || ! isset( $value['type'] ) ) {
 					$inner_group['values'][ $key ] = $value;
 				}
 			}
@@ -449,26 +465,27 @@ class Vc_ParamAnimation {
 	}
 
 	/**
-	 * Set variables and register animate-css asset
-	 * @since 4.4
+	 * Set variables and register animate-css asset.
 	 *
-	 * @param $settings
-	 * @param $value
+	 * @param array $settings
+	 * @param string $value
+	 * @since 4.4
 	 */
 	public function __construct( $settings, $value ) {
 		$this->settings = $settings;
 		$this->value = $value;
-		wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION );
+		wp_register_style( 'vc_animate-css', vc_asset_url( 'lib/vendor/dist/animate.css/animate.min.css' ), [], WPB_VC_VERSION );
 	}
 
 	/**
-	 * Render edit form output
-	 * @since 4.4
+	 * Render edit form output.
+	 *
 	 * @return string
+	 * @since 4.4
 	 */
-	public function render() {
+	public function render() { // phpcs:ignore:Generic.Metrics.CyclomaticComplexity.TooHigh, CognitiveComplexity.Complexity.MaximumComplexity.TooHigh
 		$output = '<div class="vc_row">';
-		wp_enqueue_style( 'animate-css' );
+		wp_enqueue_style( 'vc_animate-css' );
 
 		$styles = $this->animationStyles();
 		if ( isset( $this->settings['settings']['type'] ) ) {
@@ -480,29 +497,34 @@ class Vc_ParamAnimation {
 
 		if ( is_array( $styles ) && ! empty( $styles ) ) {
 			$left_side = '<div class="vc_col-sm-6">';
-			$build_style_select = "\n" . '<select class="vc_param-animation-style">' . "\n";
+			$build_style_select = '<select class="vc_param-animation-style">';
 			foreach ( $styles as $style ) {
-				$build_style_select .= "\t\t" . '<optgroup ' . ( isset( $style['label'] ) ? 'label="' . $style['label'] . '"' : '' ) . '>' . "\n";
+				$build_style_select .= '<optgroup ' . ( isset( $style['label'] ) ? 'label="' . esc_attr( $style['label'] ) . '"' : '' ) . '>';
 				if ( is_array( $style['values'] ) && ! empty( $style['values'] ) ) {
 					foreach ( $style['values'] as $key => $value ) {
-						$build_style_select .= "\t\t\t" . '<option value="' . ( is_array( $value ) ? $value['value'] : $value ) . '">' . $key . '</option>' . "\n";
+						$selected = '';
+						$option_value = is_array( $value ) ? $value['value'] : $value;
+						if ( $option_value === $this->value ) {
+							$selected = 'selected="selected"';
+						}
+						$build_style_select .= '<option value="' . ( $option_value ) . '" ' . $selected . '>' . esc_html( $key ) . '</option>';
 					}
 				}
-				$build_style_select .= "\t\t" . '</optgroup>' . "\n";
+				$build_style_select .= '</optgroup>';
 			}
-			$build_style_select .= '</select>' . "\n";
+			$build_style_select .= '</select>';
 			$left_side .= $build_style_select;
-			$left_side .= '</div>'; // Close left_side div
+			$left_side .= '</div>';
 			$output .= $left_side;
 
 			$right_side = '<div class="vc_col-sm-6">';
-			$right_side .= '<div class="vc_param-animation-style-preview"><button class="vc_btn vc_btn-grey vc_btn-sm vc_param-animation-style-trigger">' . __( 'Animate it', 'js_composer' ) . '</button></div>';
-			$right_side .= '</div>'; // Close right_side div
+			$right_side .= '<div class="vc_param-animation-style-preview"><button class="vc_btn-grey vc_general vc_param-animation-style-trigger vc_ui-button vc_ui-button-shape-rounded">' . esc_html__( 'Animate it', 'js_composer' ) . '</button></div>';
+			$right_side .= '</div>';
 			$output .= $right_side;
 		}
 
-		$output .= '</div>'; // Close Row
-		$output .= '<input name="' . $this->settings['param_name'] . '" class="wpb_vc_param_value  ' . $this->settings['param_name'] . ' ' . $this->settings['type'] . '_field" type="hidden" value="' . $this->value . '" ' . ' />';
+		$output .= '</div>'; // Close Row.
+		$output .= sprintf( '<input name="%s" class="wpb_vc_param_value  %s %s_field" type="hidden" value="%s"  />', esc_attr( $this->settings['param_name'] ), esc_attr( $this->settings['param_name'] ), esc_attr( $this->settings['type'] ), $this->value );
 
 		return $output;
 	}
@@ -512,26 +534,26 @@ class Vc_ParamAnimation {
  * Function for rendering param in edit form (add element)
  * Parse settings from vc_map and entered 'values'.
  *
- * @param array $settings - parameter settings in vc_map
- * @param string $value - parameter value
- * @param string $tag - shortcode tag
+ * @param array $settings - parameter settings in vc_map.
+ * @param string $value - parameter value.
+ * @param string $tag - shortcode tag.
  *
- * vc_filter: vc_animation_style_render_filter - filter to override editor form
+ * @see vc_filter: vc_animation_style_render_filter - filter to override editor form
  *     field output
  *
- * @since 4.4
- * @return mixed|void rendered template for params in edit form
+ * @return mixed rendered template for params in edit form
  *
+ * @since 4.4
  */
 function vc_animation_style_form_field( $settings, $value, $tag ) {
 
-	$field = new Vc_ParamAnimation( $settings, $value, $tag );
+	$field = new Vc_ParamAnimation( $settings, $value );
 
 	/**
 	 * Filter used to override full output of edit form field animation style
+	 *
 	 * @since 4.4
 	 */
 
 	return apply_filters( 'vc_animation_style_render_filter', $field->render(), $settings, $value, $tag );
 }
-

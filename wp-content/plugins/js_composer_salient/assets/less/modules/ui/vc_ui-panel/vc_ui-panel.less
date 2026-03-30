@@ -1,4 +1,4 @@
-@import "../vc_ui-fonts.less";
+
 @import "../vc_ui-panel/vc_ui-panel-window.less";
 @import "../vc_ui-panel/vc_ui-panel-header.less";
 @import "../vc_ui-panel/vc_ui-panel-content.less";
@@ -7,6 +7,7 @@
 @import "../vc_ui-prompt.less";
 @import "../vc_ui-gaps.less";
 @import "../vc_ui-flex-bootstrap.less";
+@import "../vc_ui-multi-select.less";
 
 @vcui-panel-width: 650px;
 
@@ -31,6 +32,11 @@
   .vc_layout-onion {
     width: 350px;
     flex-grow: initial;
+  }
+}
+@media screen and (max-width: 782px) {
+  .vc_layout-onion input[type="text"] {
+    min-height: 30px;
   }
 }
 

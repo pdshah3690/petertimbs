@@ -1,34 +1,41 @@
 <?php
+/**
+ * Configuration file for [vc_video] shortcode of 'Video Player' element.
+ *
+ * @see https://kb.wpbakery.com/docs/inner-api/vc_map/ for more detailed information about element attributes.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-return array(
-	'name' => __( 'Video Player', 'js_composer' ),
+return [
+	'name' => esc_html__( 'Video Player', 'js_composer' ),
 	'base' => 'vc_video',
 	'icon' => 'icon-wpb-film-youtube',
-	'category' => __( 'Content', 'js_composer' ),
-	'description' => __( 'Embed YouTube/Vimeo player', 'js_composer' ),
-	'params' => array(
-		array(
+	'element_default_class' => 'wpb_content_element',
+	'category' => esc_html__( 'Content', 'js_composer' ),
+	'description' => esc_html__( 'Embed YouTube/Vimeo player', 'js_composer' ),
+	'params' => [
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Widget title', 'js_composer' ),
+			'heading' => esc_html__( 'Widget title', 'js_composer' ),
 			'param_name' => 'title',
-			'description' => __( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
-		),
-		array(
+			'description' => esc_html__( 'Enter text used as widget title (Note: located above content element).', 'js_composer' ),
+		],
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Video link', 'js_composer' ),
+			'heading' => esc_html__( 'Video link', 'js_composer' ),
 			'param_name' => 'link',
-			'value' => 'https://vimeo.com/51589652',
+			'value' => 'https://vimeo.com/channels/staffpicks/181907337',
 			'admin_label' => true,
-			'description' => sprintf( __( 'Enter link to video (Note: read more about available formats at WordPress <a href="%s" target="_blank">codex page</a>).', 'js_composer' ), 'http://codex.wordpress.org/Embeds#Okay.2C_So_What_Sites_Can_I_Embed_From.3F' ),
-		),
-		array(
+			'description' => sprintf( esc_html__( 'Enter link to video (Note: read more about available formats at WordPress %1$scodex page%2$s).', 'js_composer' ), '<a href="https://codex.wordpress.org/Embeds#Okay.2C_So_What_Sites_Can_I_Embed_From.3F" target="_blank">', '</a>' ),
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Video width', 'js_composer' ),
+			'heading' => esc_html__( 'Video width', 'js_composer' ),
 			'param_name' => 'el_width',
-			'value' => array(
+			'value' => [
 				'100%' => '100',
 				'90%' => '90',
 				'80%' => '80',
@@ -39,49 +46,55 @@ return array(
 				'30%' => '30',
 				'20%' => '20',
 				'10%' => '10',
-			),
-			'description' => __( 'Select video width (percentage).', 'js_composer' ),
-		),
-		array(
+			],
+			'description' => esc_html__( 'Select video width (percentage).', 'js_composer' ),
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Video aspect ration', 'js_composer' ),
+			'heading' => esc_html__( 'Video aspect ratio', 'js_composer' ),
 			'param_name' => 'el_aspect',
-			'value' => array(
+			'value' => [
 				'16:9' => '169',
 				'4:3' => '43',
 				'2.35:1' => '235',
-			),
-			'description' => __( 'Select video aspect ratio.', 'js_composer' ),
-		),
-		array(
+				'9:16' => '916',
+				'3:4' => '34',
+				'1:2.35' => '1235',
+			],
+			'description' => esc_html__( 'Select video aspect ratio.', 'js_composer' ),
+		],
+		[
 			'type' => 'dropdown',
-			'heading' => __( 'Alignment', 'js_composer' ),
+			'heading' => esc_html__( 'Alignment', 'js_composer' ),
 			'param_name' => 'align',
-			'description' => __( 'Select video alignment.', 'js_composer' ),
-			'value' => array(
-				__( 'Left', 'js_composer' ) => 'left',
-				__( 'Right', 'js_composer' ) => 'right',
-				__( 'Center', 'js_composer' ) => 'center',
-			),
-		),
+			'description' => esc_html__( 'Select video alignment.', 'js_composer' ),
+			'value' => [
+				esc_html__( 'Left', 'js_composer' ) => 'left',
+				esc_html__( 'Right', 'js_composer' ) => 'right',
+				esc_html__( 'Center', 'js_composer' ) => 'center',
+			],
+		],
 		vc_map_add_css_animation(),
-		array(
+		[
 			'type' => 'el_id',
-			'heading' => __( 'Element ID', 'js_composer' ),
+			'heading' => esc_html__( 'Element ID', 'js_composer' ),
 			'param_name' => 'el_id',
-			'description' => sprintf( __( 'Enter element ID (Note: make sure it is unique and valid according to <a href="%s" target="_blank">w3c specification</a>).', 'js_composer' ), 'http://www.w3schools.com/tags/att_global_id.asp' ),
-		),
-		array(
+			'description' => sprintf( esc_html__( 'Enter element ID (Note: make sure it is unique and valid according to %1$sw3c specification%2$s).', 'js_composer' ), '<a href="https://www.w3schools.com/tags/att_global_id.asp" target="_blank">', '</a>' ),
+		],
+		[
 			'type' => 'textfield',
-			'heading' => __( 'Extra class name', 'js_composer' ),
+			'heading' => esc_html__( 'Extra class name', 'js_composer' ),
 			'param_name' => 'el_class',
-			'description' => __( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
-		),
-		array(
+			'description' => esc_html__( 'Style particular content element differently - add a class name and refer to it in custom CSS.', 'js_composer' ),
+		],
+		[
 			'type' => 'css_editor',
-			'heading' => __( 'CSS box', 'js_composer' ),
+			'heading' => esc_html__( 'CSS box', 'js_composer' ),
 			'param_name' => 'css',
-			'group' => __( 'Design Options', 'js_composer' ),
-		),
-	),
-);
+			'group' => esc_html__( 'Design Options', 'js_composer' ),
+			'value' => [
+				'margin-bottom' => '35px',
+			],
+		],
+	],
+];

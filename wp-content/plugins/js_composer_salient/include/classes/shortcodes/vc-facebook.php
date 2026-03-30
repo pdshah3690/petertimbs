@@ -1,19 +1,37 @@
 <?php
+/**
+ * Class that handles specific [vc_facebook] shortcode.
+ *
+ * @see js_composer/include/templates/shortcodes/vc_facebook.php
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-class WPBakeryShortCode_VC_Facebook extends WPBakeryShortCode {
+/**
+ * Class WPBakeryShortCode_Vc_Facebook
+ */
+class WPBakeryShortCode_Vc_Facebook extends WPBakeryShortCode {
+	/**
+	 * Get shortcode inline html.
+	 *
+	 * @param array $atts
+	 * @param null $content
+	 * @return string
+	 * @throws \Exception
+	 */
 	protected function contentInline( $atts, $content = null ) {
 		/**
 		 * Shortcode attributes
+		 *
 		 * @var $atts
 		 * @var $type
 		 * @var $el_class
 		 * @var $css
 		 * @var $css_animation
 		 * Shortcode class
-		 * @var $this WPBakeryShortCode_VC_Facebook
+		 * @var WPBakeryShortCode_Vc_Facebook $this
 		 */
 		$type = $css = $el_class = '';
 		$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
@@ -28,6 +46,6 @@ class WPBakeryShortCode_VC_Facebook extends WPBakeryShortCode {
 		$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
 		$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
-		return '<a href="' . $url . '" class="' . esc_attr( $css_class ) . '"></a>';
+		return '<a href="' . esc_url( $url ) . '" class="' . esc_attr( $css_class ) . '"></a>';
 	}
 }

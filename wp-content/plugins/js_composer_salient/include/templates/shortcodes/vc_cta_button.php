@@ -1,10 +1,19 @@
 <?php
+/**
+ * The template for displaying [vc_cta_button] shortcode output.
+ *
+ * This template can be overridden by copying it to yourtheme/vc_templates/vc_cta_button.php.
+ *
+ * @see https://kb.wpbakery.com/docs/developers-how-tos/change-shortcodes-html-output
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
  * Shortcode attributes
+ *
  * @var $atts
  * @var $color
  * @var $icon
@@ -17,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $el_class
  * @var $css_animation
  * Shortcode class
- * @var $this WPBakeryShortCode_VC_Cta_button
+ * @var WPBakeryShortCode_Vc_Cta_button $this
  */
 $color = $icon = $size = $target = $href = $target = $call_text = $position = $el_class = $css_animation = '';
 $output = '';
@@ -40,19 +49,10 @@ $color = ( '' !== $color ) ? ' wpb_' . $color : '';
 $size = ( '' !== $size && 'wpb_regularsize' !== $size ) ? ' wpb_' . $size : ' ' . $size;
 
 $a_class = '';
-if ( '' !== $el_class ) {
-	$tmp_class = explode( ' ', $el_class );
-	if ( in_array( 'prettyphoto', $tmp_class ) ) {
-		wp_enqueue_script( 'prettyphoto' );
-		wp_enqueue_style( 'prettyphoto' );
-		$a_class .= ' prettyphoto';
-		$el_class = str_ireplace( 'prettyphoto', '', $el_class );
-	}
-}
 
 if ( '' !== $href ) {
-	$button = '<span class="wpb_button ' . esc_attr( $color . $size . $icon ) . '">' . $title . $i_icon . '</span>';
-	$button = '<a class="wpb_button_a' . esc_attr( $a_class ) . '" href="' . $href . '"' . $target . '>' . $button . '</a>';
+	$button = '<span class="wpb_button ' . esc_attr( $color . $size . $icon ) . '">' . esc_html( $title ) . $i_icon . '</span>';
+	$button = '<a class="wpb_button_a' . esc_attr( $a_class ) . '" href="' . esc_url( $href ) . '"' . $target . '>' . $button . '</a>';
 } else {
 	$button = '';
 	$el_class .= ' cta_no_button';
@@ -64,10 +64,10 @@ $output .= '<div class="' . esc_attr( $css_class ) . '">';
 if ( 'cta_align_bottom' !== $position ) {
 	$output .= $button;
 }
-$output .= apply_filters( 'wpb_cta_text', '<h2 class="wpb_call_text">' . $call_text . '</h2>', array( 'content' => $call_text ) );
+$output .= apply_filters( 'wpb_cta_text', '<h2 class="wpb_call_text">' . $call_text . '</h2>', [ 'content' => $call_text ] );
 if ( 'cta_align_bottom' === $position ) {
 	$output .= $button;
 }
 $output .= '</div>';
 
-echo $output;
+return $output;

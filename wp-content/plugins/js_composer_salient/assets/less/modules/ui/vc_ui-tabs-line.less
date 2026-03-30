@@ -4,7 +4,8 @@
 @vcui-tabs-line-padding-horizontal: 12px;
 @vcui-tabs-line-padding-vertical: 16px;
 @vcui-tabs-line-active-background: #fff;
-@vcui-tabs-line-hover-background: rgba(0, 0, 0, .1);
+@vcui-tabs-line-hover-background: @vc_main_color_hover;
+@vcui-tabs-line-hover-text: #fff;
 @vcui-tabs-line-active-color: #5e5e5e;
 @vcui-tabs-line-transition-duration: .2s;
 @vcui-tabs-line-transition-properties: color, background, border;
@@ -14,7 +15,7 @@
 @vcui-tabs-line-dropdown-border-size: 1px;
 @vcui-tabs-line-dropdown-border-color: #dbdbdb;
 @vcui-tabs-line-dropdown-background: #f5f5f5;
-@vcui-tabs-line-dropdown-background-hover: #eaeaea;
+@vcui-tabs-line-dropdown-background-hover: @vc_main_color_hover;
 @vcui-tabs-line-dropdown-trigger-color: #5e5e5e;
 @vcui-tabs-line-dropdown-trigger-padding-vertical: 10px;
 @vcui-tabs-line-dropdown-trigger-padding-horizontal: 10px;
@@ -61,6 +62,7 @@
     &:focus {
       border: @vcui-tabs-line-border solid transparent;
       background-color: @vcui-tabs-line-hover-background;
+      color: @vcui-tabs-line-hover-text;
     }
     &:active {
       box-shadow: none;
@@ -134,6 +136,7 @@
     border-radius: 0;
     font-size: @vcui-tabs-line-dropdown-font-size;
     color: @vcui-tabs-line-dropdown-trigger-color;
+    width: 100%;
     &:hover {
       background-color: @vcui-tabs-line-dropdown-background-hover;
     }
@@ -141,6 +144,7 @@
   .vc_active {
     .vc_ui-tabs-line-trigger {
       background-color: @vcui-tabs-line-dropdown-background-hover;
+      color: @vcui-tabs-line-hover-text;
       cursor: default;
     }
   }

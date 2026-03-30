@@ -1,16 +1,25 @@
 <?php
+/**
+ * The template for displaying [vc_tab] shortcode output.
+ *
+ * This template can be overridden by copying it to yourtheme/vc_templates/vc_tab.php.
+ *
+ * @see https://kb.wpbakery.com/docs/developers-how-tos/change-shortcodes-html-output
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 /**
  * Shortcode attributes
+ *
  * @var $atts
  * @var $tab_id
  * @var $title
  * @var $content - shortcode content
  * Shortcode class
- * @var $this WPBakeryShortCode_VC_Tab
+ * @var WPBakeryShortCode_Vc_Tab $this
  */
 $tab_id = $title = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
@@ -22,8 +31,8 @@ $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'wpb_tab ui-tabs
 
 $output = '
 	<div id="tab-' . ( empty( $tab_id ) ? sanitize_title( $title ) : esc_attr( $tab_id ) ) . '" class="' . esc_attr( $css_class ) . '">
-		' . ( ( '' === trim( $content ) ) ? __( 'Empty tab. Edit page to add content here.', 'js_composer' ) : wpb_js_remove_wpautop( $content ) ) . '
+		' . ( ( '' === trim( $content ) ) ? esc_html__( 'Empty tab. Edit page to add content here.', 'js_composer' ) : wpb_js_remove_wpautop( $content ) ) . '
 	</div>
 ';
 
-echo $output;
+return $output;
