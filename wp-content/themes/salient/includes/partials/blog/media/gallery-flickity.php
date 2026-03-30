@@ -25,12 +25,21 @@ if ( ! empty( $enable_gallery_slider ) && 'on' === $enable_gallery_slider ) {
   
   wp_enqueue_script( 'flickity' );
   wp_enqueue_style( 'nectar-flickity' );
-
-  $gallery_ids = nectar_grab_ids_from_gallery();
   
-  $flickity_masonry_class = ( is_single() ) ? '' : 'masonry';
+  // Alter image size when on single post.
+  if( is_single() ) {
+    $img_size = 'large';
+    $flickity_masonry_class  = '';
+    $flickity_controls_style = 'material_pagination';
+  } else {
+    $flickity_masonry_class  = 'masonry';
+    $flickity_controls_style = '';
+  }
+  
+  $gallery_ids = nectar_grab_ids_from_gallery();
 
-  echo '<div class="nectar-flickity ' . $flickity_masonry_class . ' not-initialized" data-controls><div class="flickity-viewport"> <div class="flickity-slider">';
+
+  echo '<div class="nectar-flickity ' . $flickity_masonry_class . ' not-initialized" data-controls="'. esc_attr($flickity_controls_style) .'"><div class="flickity-viewport"> <div class="flickity-slider">';
   
   foreach ( $gallery_ids as $image_id ) {
     

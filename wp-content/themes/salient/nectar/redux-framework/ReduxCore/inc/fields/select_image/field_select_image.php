@@ -17,13 +17,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'ReduxFramework_select_image' ) ) {
     class ReduxFramework_select_image {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
          *
          * @since ReduxFramework 1.0.0
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field = array(), $value = '', $parent = null ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -67,7 +71,7 @@ if ( ! class_exists( 'ReduxFramework_select_image' ) ) {
                     $select2_params = htmlspecialchars( $select2_params, ENT_QUOTES );
 
                     echo '<input type="hidden" class="select2_params" value="' . $select2_params . '">';
-                }                    
+                }
 
                 // Begin the <select> tag
                 echo '<select data-id="' . esc_attr($this->field['id']) . '" data-placeholder="' . $placeholder . '" name="' . esc_attr($this->field['name']) . esc_attr($this->field['name_suffix']) . '" class="redux-select-item redux-select-images ' . esc_attr($this->field['class']) . '"' . $width . ' rows="6">';
@@ -156,7 +160,7 @@ if ( ! class_exists( 'ReduxFramework_select_image' ) ) {
 
             wp_enqueue_script(
                 'field-select-image-js',
-                ReduxFramework::$_url . 'inc/fields/select_image/field_select_image' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/select_image/field_select_image' . Redux_Functions::isMin() . '.js',
                 array('jquery', 'select2-js', 'redux-js'),
                 time(),
                 true
@@ -165,7 +169,7 @@ if ( ! class_exists( 'ReduxFramework_select_image' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-select-image-css',
-                    ReduxFramework::$_url . 'inc/fields/select_image/field_select_image.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/select_image/field_select_image.css',
                     array(),
                     time(),
                     'all'

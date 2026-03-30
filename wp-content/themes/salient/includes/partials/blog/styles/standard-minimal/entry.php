@@ -4,7 +4,7 @@
 *
 * Used when "Minimal" standard style is selected.
 *
-* @version 10.5
+* @version 11.0
 */
 
 // Exit if accessed directly
@@ -16,34 +16,24 @@ global $post;
 global $nectar_options;
 
 $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_options['blog_auto_excerpt'] === '1' ) ? 'true' : 'false';
+$excerpt_length = ( ! empty( $nectar_options['blog_excerpt_length'] ) ) ? intval( $nectar_options['blog_excerpt_length'] ) : 30;
 
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>  
-  
   <div class="inner-wrap animated">
-    
     <div class="post-content">
-      
       <?php get_template_part( 'includes/partials/blog/styles/standard-minimal/post-author' ); ?>
-      
       <div class="content-inner">
-
         <div class="article-content-wrap">
-          
           <div class="post-header">
-            
             <h2 class="title"><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h2>
-
-          </div><!--/post-header-->
+          </div>
           
           <?php
           
           // Featured image.
-          $image_attrs = array(
-            'title' => ''
-          );
-          echo '<a href="' . esc_url( get_permalink() ) . '"><span class="post-featured-img">' . get_the_post_thumbnail( $post->ID, 'full', $image_attrs ) . '</span></a>';
+          get_template_part( 'includes/partials/blog/styles/standard-minimal/post-image' );
           
           // Full content.
           if ( empty( $post->post_excerpt ) && $use_excerpt !== 'true'  ) {
@@ -54,20 +44,18 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
           else {
             
             echo '<div class="excerpt">';
-            the_excerpt();
+            echo nectar_excerpt( $excerpt_length );
             echo '</div>';
+
+            do_action('nectar_after_archive_post_item_content');
             
             echo '<a class="more-link" href="' . esc_url( get_permalink() ) . '"><span class="continue-reading">' . esc_html__( 'Read More', 'salient' ) . '</span></a>';
           } 
           
           ?>
           
-        </div><!--article-content-wrap-->
-        
-      </div><!--content-inner-->
-      
-    </div><!--/post-content-->
-    
-  </div><!--/inner-wrap-->
-  
+        </div>
+      </div>
+    </div>
+  </div>
 </article>

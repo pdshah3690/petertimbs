@@ -6,8 +6,8 @@ $nectar_options = get_nectar_theme_options();
 
 if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 
-<div id="featured" data-caption-animation="<?php echo (!empty($nectar_options['slider-caption-animation']) && $nectar_options['slider-caption-animation'] === '1') ? '1' : '0'; ?>" data-bg-color="<?php if(!empty($nectar_options['slider-bg-color'])) echo esc_attr( $nectar_options['slider-bg-color'] ); ?>" data-slider-height="<?php if(!empty($nectar_options['slider-height'])) echo esc_attr( $nectar_options['slider-height'] ); ?>" data-animation-speed="<?php if(!empty($nectar_options['slider-animation-speed'])) echo esc_attr( $nectar_options['slider-animation-speed'] ); ?>" data-advance-speed="<?php if(!empty($nectar_options['slider-advance-speed'])) echo esc_attr( $nectar_options['slider-advance-speed'] ); ?>" data-autoplay="<?php echo esc_attr( $nectar_options['slider-autoplay'] );?>"> 
-	
+<div id="featured" data-caption-animation="<?php echo (!empty($nectar_options['slider-caption-animation']) && $nectar_options['slider-caption-animation'] === '1') ? '1' : '0'; ?>" data-bg-color="<?php if(!empty($nectar_options['slider-bg-color'])) echo esc_attr( $nectar_options['slider-bg-color'] ); ?>" data-slider-height="<?php if(!empty($nectar_options['slider-height'])) echo esc_attr( $nectar_options['slider-height'] ); ?>" data-animation-speed="800" data-advance-speed="<?php if(!empty($nectar_options['slider-advance-speed'])) echo esc_attr( $nectar_options['slider-advance-speed'] ); ?>" data-autoplay="<?php echo esc_attr( $nectar_options['slider-autoplay'] );?>">
+
 	<?php
 	$slides = new WP_Query(
 		array(
@@ -29,15 +29,20 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 			$video_poster = get_post_meta( $post->ID, '_nectar_video_poster', true );
 
 			?>
-			
+
 			<div class="slide orbit-slide <?php if ( ! empty( $video_embed ) || ! empty( $video_m4v ) || ! empty( $video_ogv ) ) { echo 'has-video'; } else { echo esc_attr( $alignment ); } ?> ">
-				
-				<?php $image = get_post_meta( $post->ID, '_nectar_slider_image', true ); ?>
+
+				<?php
+				$image = get_post_meta( $post->ID, '_nectar_slider_image', true );
+				if( $image ) {
+					$image = nectar_options_img($image);
+				}
+				?>
 				<article data-background-cover="<?php echo ( ! empty( $nectar_options['slider-background-cover'] ) && $nectar_options['slider-background-cover'] === '1' ) ? '1' : '0'; ?>" style="background-image: url('<?php echo esc_url( $image ); ?>')">
 					<div class="container">
 						<div class="col span_12">
 							<div class="post-title">
-								
+
 								<?php
 									$wp_version = floatval( get_bloginfo( 'version' ) );
 
@@ -66,18 +71,18 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 								}
 
 								?>
-								
+
 								 <?php
 									// mobile more info button for video
 									if ( ! empty( $video_embed ) || ! empty( $video_m4v ) ) {
 										echo '<div><a href="#" class="more-info"><span class="mi">' . esc_html__( 'More Info', 'salient' ) . '</span><span class="btv">' . esc_html__( 'Back to Video', 'salient' ) . '</span></a></div>'; }
 									?>
-								 
+
 								 <?php $caption = get_post_meta( $post->ID, '_nectar_slider_caption', true ); ?>
 								<h2 data-has-caption="<?php echo ( ! empty( $caption ) ) ? '1' : '0'; ?>"><span>
 									<?php echo wp_kses_post( $caption ); ?>
 								</span></h2>
-								
+
 								<?php
 									$button     = get_post_meta( $post->ID, '_nectar_slider_button', true );
 									$button_url = get_post_meta( $post->ID, '_nectar_slider_button_url', true );
@@ -86,7 +91,7 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 									?>
 										<a href="<?php echo esc_url( $button_url ); ?>" class="uppercase"><?php echo wp_kses_post( $button ); ?></a>
 									<?php } ?>
-								 
+
 
 							</div><!--/post-title-->
 						</div>
@@ -105,10 +110,10 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 
 <div class="home-wrap">
 
-	<div class="container main-content">
-		
+	<div class="container main-content" role="main">
+
 		<div class="row">
-	
+
 			<?php
 			if ( have_posts() ) :
 				while ( have_posts() ) :
@@ -119,14 +124,14 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 				endwhile;
 			endif;
 			?>
-				
+
 		</div><!--/row-->
-		
-		
+
+
 			<?php
-				
+
 				if( class_exists('Salient_Portfolio') ) {
-							
+
 						$portfolio_link = get_portfolio_page_link( get_the_ID() );
 						if ( ! empty( $nectar_options['main-portfolio-link'] ) ) {
 							$portfolio_link = $nectar_options['main-portfolio-link'];
@@ -138,13 +143,13 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 						);
 						query_posts( $portfolio );
 						?>
-						
-						
+
+
 						<?php if ( have_posts() ) { ?>
-							
+
 							<div class="carousel-wrap recent-work-carousel" data-full-width="false">
-							
-							
+
+
 							<div class="carousel-heading">
 								<div class="container">
 									<h2 class="uppercase"><?php echo ( ! empty( $nectar_options['carousel-title'] ) ) ? esc_html( $nectar_options['carousel-title'] ) : 'Recent Work'; ?><a href="<?php echo esc_url( $portfolio_link ); ?>" class="button"> / <?php echo ( ! empty( $nectar_options['carousel-link'] ) ) ? esc_html( $nectar_options['carousel-link'] ) : 'View all work'; ?></a></h2>
@@ -152,18 +157,18 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 									<a class="carousel-next" href="#"><i class="icon-angle-right"></i></a></div>
 								</div>
 							</div>
-							
+
 							<ul class="row portfolio-items text-align-center carousel" data-scroll-speed="800" data-easing="easeInOutQuart">
 						<?php }
-						
+
 						if ( have_posts() ) :
 							while ( have_posts() ) :
 								the_post();
 								?>
-						
-							
+
+
 						<li class="col span_4">
-							
+
 							<div class="work-item">
 								<?php
 								// custom thumbnail
@@ -182,10 +187,10 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 									}
 								}
 								?>
-								
+
 								<div class="work-info-bg"></div>
 								<div class="work-info">
-									
+
 									<div class="vert-center">
 
 									<?php
@@ -212,13 +217,13 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 
 									 echo '<a href="' . esc_url( $the_project_link ) . '">' . esc_html__( 'More Details', 'salient' ) . '</a>';
 									?>
-										
-										
+
+
 									</div><!--/vert-center-->
-									
+
 								</div>
 							</div><!--work-item-->
-							
+
 							<div class="work-meta">
 								<h4 class="title"><?php the_title(); ?></h4>
 													<?php
@@ -233,28 +238,28 @@ if ( class_exists( 'Salient_Home_Slider' ) ) { ?>
 								if ( function_exists( 'nectar_love' ) ) {
 									nectar_love();}
 								?>
-							</div><!--/nectar-love-wrap-->	
-							
+							</div><!--/nectar-love-wrap-->
+
 							<div class="clear"></div>
-							
+
 						</li><!--/span_4-->
-						
+
 								<?php
 						endwhile;
 					endif;
 					?>
-						
-					
+
+
 					<?php if ( have_posts() ) { ?>
 					</ul><!--/carousel-->
-					
+
 					</div><!--/carousel-wrap-->
 					<?php } ?>
-	
-			<?php } //class exists ?>		
-				
-	</div><!--/container-->
 
+			<?php } //class exists ?>
+
+	</div><!--/container-->
+	<?php nectar_hook_before_container_wrap_close(); ?>
 </div><!--/home-wrap-->
-	
+
 <?php get_footer(); ?>

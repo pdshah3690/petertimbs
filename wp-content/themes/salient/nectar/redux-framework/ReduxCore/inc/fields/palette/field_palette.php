@@ -26,6 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'ReduxFramework_palette' ) ) {
     class ReduxFramework_palette {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -34,12 +38,12 @@ if ( ! class_exists( 'ReduxFramework_palette' ) ) {
          * @access      public
          * @return      void
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field = array(), $value = '', $parent = null ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
         }
-        
+
         /**
          * Field Render Function.
          * Takes the vars and outputs the HTML for the field in the settingss
@@ -53,22 +57,22 @@ if ( ! class_exists( 'ReduxFramework_palette' ) ) {
                 echo 'No palettes have been set.';
                 return;
             }
-            
+
             echo '<div id="' . esc_attr($this->field['id']) . '" class="buttonset">';
 
             foreach ( $this->field['palettes'] as $value => $colorSet ) {
                 $checked = checked( $this->value , $value, false );
                 echo '<input type="radio" value="' . esc_attr($value) . '" name="' . esc_attr($this->field['name']) . esc_attr($this->field['name_suffix']) . '" class="redux-palette-set ' . esc_attr($this->field['class']) . '" id="' . esc_attr($this->field['id']) . '-' . esc_attr($value) . '"' . $checked . '>';
                 echo '<label for="' . esc_attr($this->field['id']) . '-' . esc_attr($value) . '">';
-                
+
                 foreach ( $colorSet as $color ) {
                     printf( "<span style='background: {$color}'>{$color}</span>" );
-                }                
-                
+                }
+
                 echo '</label>';
                 echo '</input>';
             }
-            
+
             echo '</div>';
         }
 
@@ -82,29 +86,29 @@ if ( ! class_exists( 'ReduxFramework_palette' ) ) {
          */
         public function enqueue() {
             $min = Redux_Functions::isMin();
-            
+
             wp_enqueue_script(
                 'redux-field-palette-js',
-                ReduxFramework::$_url . 'inc/fields/palette/field_palette' . $min . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/palette/field_palette' . $min . '.js',
                 array( 'jquery', 'redux-js', 'jquery-ui-button', 'jquery-ui-core' ),
                 time(),
                 true
-            );  
-            
+            );
+
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-palette-css',
-                    ReduxFramework::$_url . 'inc/fields/palette/field_palette.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/palette/field_palette.css',
                     array(),
                     time(),
                     'all'
                 );
-            }            
-        }        
-        
-        
+            }
+        }
+
+
         public function output() {
-            
+
         }
     }
 }

@@ -4,7 +4,7 @@
  *
  * Used when "Auto Masonry: Meta Overlaid Spaced" masonry style is selected.
  *
- * @version 10.5
+ * @version 11.0
  */
  
 // Exit if accessed directly
@@ -29,20 +29,12 @@ $nectar_post_class_additions = ' masonry-blog-item';
         
         <?php get_template_part( 'includes/partials/blog/media/play-button-transparent' ); ?>
         
-        <a class="entire-meta-link" href="<?php the_permalink(); ?>"></a>
+        <a class="entire-meta-link" href="<?php the_permalink(); ?>" aria-label="<?php the_title(); ?>"></a>
         
         <?php
         
-          // Featured image.
-          $image_attrs = array(
-            'title' => '',
-            'sizes' => '(min-width: 1600px) 20vw, (min-width: 1300px) 25vw, (min-width: 1000px) 33.3vw, (min-width: 690px) 50vw, 100vw',
-          );
-          if( has_post_thumbnail() ) { 
-            echo '<span class="post-featured-img" style="background-image: url(' . get_the_post_thumbnail_url( $post->ID, 'medium_featured', array( 'title' => '' ) ) . ');"></span>';
-          } else {
-            echo '<span class="post-featured-img no-img"></span>';
-          }
+        // Featured image.
+        get_template_part( 'includes/partials/blog/styles/masonry-auto-meta-overlaid-spaced/post-image' );
 
         ?>
         
@@ -57,6 +49,7 @@ $nectar_post_class_additions = ' masonry-blog-item';
           
           <div class="post-header">
             <h3 class="title"><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h3>
+            <?php do_action('nectar_after_archive_post_item_content'); ?>
           </div>
           
         </div><!--article-content-wrap-->

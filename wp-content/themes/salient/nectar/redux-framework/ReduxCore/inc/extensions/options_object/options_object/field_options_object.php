@@ -31,6 +31,13 @@
          */
         class ReduxFramework_options_object {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+            public $extension_dir = '';
+            public $extension_url = '';
+            public $is_field = '';
+
             /**
              * Field Constructor.
              * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -39,7 +46,7 @@
              * @access      public
              * @return      void
              */
-            function __construct( $field = array(), $value = '', $parent ) {
+            function __construct( $field, $value, $parent ) {
                 
                 $this->parent   = $parent;
                 $this->field    = $field;

@@ -8,6 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
   if ( ! class_exists( 'ReduxFramework_add_remove' ) ) {
         class ReduxFramework_add_remove {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+            public $args = array();
             /**
              * Field Constructor.
              *
@@ -15,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
              *
              * @since Redux_Options 1.0.0
             */
-            function __construct($field = array(), $value ='', $parent) {
+            function __construct($field = array(), $value ='', $parent = null) {
                 $this->field = $field;
         		$this->value = $value;
         		$this->args = $parent->args;
@@ -45,8 +49,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             */
             function enqueue() {
                 wp_enqueue_script(
-                    'redux-opts-field-add_remove-js', 
-                   ReduxFramework::$_url . 'inc/fields/add_remove/field_add_remove.js', 
+                    'redux-opts-field-add_remove-js',
+                   get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/add_remove/field_add_remove.js',
                     array('jquery', 'jquery-ui-core', 'jquery-ui-dialog'),
                     time(),
                     true

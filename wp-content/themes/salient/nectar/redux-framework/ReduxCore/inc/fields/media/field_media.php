@@ -35,6 +35,10 @@ if ( ! class_exists( 'ReduxFramework_media' ) ) {
      */
     class ReduxFramework_media {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+        
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -43,7 +47,7 @@ if ( ! class_exists( 'ReduxFramework_media' ) ) {
          * @access      public
          * @return      void
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -78,8 +82,8 @@ if ( ! class_exists( 'ReduxFramework_media' ) ) {
              /* nectar addition */
             //upgrade proof
             $fixed_ID = $this->field['id'];
-            $legacy_media = (!empty($old_options[$fixed_ID])) ? $old_options[$fixed_ID] : '-';
-            $old_image_id = ($legacy_media != '-') ? fjarrett_get_attachment_id_from_url( $legacy_media ) : '-';
+            $legacy_media = (isset($old_options[$fixed_ID]) && !empty($old_options[$fixed_ID])) ? $old_options[$fixed_ID] : '-';
+            $old_image_id = ($legacy_media != '-' && is_string($legacy_media)) ? fjarrett_get_attachment_id_from_url( $legacy_media ) : '-';
             $display_val = (isset($salient_redux[$this->field['id']]['id']) || $legacy_media == '-') ? $this->value['id'] : $old_image_id;
             /* nectar addition end */
 
@@ -243,7 +247,7 @@ if ( ! class_exists( 'ReduxFramework_media' ) ) {
             
             wp_enqueue_script(
                 'redux-field-media-js',
-                ReduxFramework::$_url . 'assets/js/media/media' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/js/media/media' . Redux_Functions::isMin() . '.js',
                 array( 'jquery', 'redux-js' ),
                 time(),
                 true

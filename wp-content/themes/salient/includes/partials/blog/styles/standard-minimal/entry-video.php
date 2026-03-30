@@ -20,23 +20,14 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>  
-  
   <div class="inner-wrap animated">
-    
     <div class="post-content">
-      
       <?php get_template_part( 'includes/partials/blog/styles/standard-minimal/post-author' ); ?>
-      
       <div class="content-inner">
-
         <div class="article-content-wrap">
-          
           <div class="post-header">
-            
             <h2 class="title"><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h2>
-
-          </div><!--/post-header-->
-          
+          </div>
           <?php
           
           // Output Video.
@@ -53,18 +44,15 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
             echo '<div class="excerpt">';
             the_excerpt();
             echo '</div>';
+
+            do_action('nectar_after_archive_post_item_content');
             
             echo '<a class="more-link" href="' . esc_url( get_permalink() ) . '"><span class="continue-reading">' . esc_html__( 'Read More', 'salient' ) . '</span></a>';
           } 
           
           ?>
-          
-        </div><!--article-content-wrap-->
-        
-      </div><!--content-inner-->
-      
-    </div><!--/post-content-->
-    
-  </div><!--/inner-wrap-->
-  
+        </div>
+      </div>
+    </div>
+  </div>
 </article>

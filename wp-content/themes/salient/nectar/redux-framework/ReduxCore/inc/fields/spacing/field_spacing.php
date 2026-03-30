@@ -8,13 +8,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'ReduxFramework_spacing' ) ) {
     class ReduxFramework_spacing {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
          *
          * @since ReduxFramework 1.0.0
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -212,28 +215,28 @@ if ( ! class_exists( 'ReduxFramework_spacing' ) ) {
                  * Top
                  * */
                 if ( $this->field['top'] === true ) {
-                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-arrow-up icon-large"></i></span><input type="text" class="redux-spacing-top redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Top', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-top" value="' . $this->value['top'] . '"></div>';
+                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-resize-vertical"></i></span><input type="text" class="redux-spacing-top redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Top / Bottom', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-top" value="' . $this->value['top'] . '"></div>';
                 }
 
                 /**
                  * Right
                  * */
                 if ( $this->field['right'] === true ) {
-                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-arrow-right icon-large"></i></span><input type="text" class="redux-spacing-right redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Right', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-right" value="' . $this->value['right'] . '"></div>';
+                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-resize-horizontal"></i></span><input type="text" class="redux-spacing-right redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Left / Right', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-right" value="' . $this->value['right'] . '"></div>';
                 }
 
                 /**
                  * Bottom
                  * */
                 if ( $this->field['bottom'] === true ) {
-                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-arrow-down icon-large"></i></span><input type="text" class="redux-spacing-bottom redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Bottom', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-bottom" value="' . $this->value['bottom'] . '"></div>';
+                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-arrow-down"></i></span><input type="text" class="redux-spacing-bottom redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Bottom', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-bottom" value="' . $this->value['bottom'] . '"></div>';
                 }
 
                 /**
                  * Left
                  * */
                 if ( $this->field['left'] === true ) {
-                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-arrow-left icon-large"></i></span><input type="text" class="redux-spacing-left redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Left', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-left" value="' . $this->value['left'] . '"></div>';
+                    echo '<div class="field-spacing-input input-prepend"><span class="add-on"><i class="el el-arrow-left"></i></span><input type="text" class="redux-spacing-left redux-spacing-input mini ' . esc_attr( $this->field['class'] ) . '" placeholder="' . __( 'Left', 'redux-framework' ) . '" rel="' . esc_attr( $this->field['id'] ) . '-left" value="' . $this->value['left'] . '"></div>';
                 }
             }
 
@@ -280,7 +283,7 @@ if ( ! class_exists( 'ReduxFramework_spacing' ) ) {
             
             wp_enqueue_script(
                 'redux-field-spacing-js',
-                ReduxFramework::$_url . 'inc/fields/spacing/field_spacing' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/spacing/field_spacing' . Redux_Functions::isMin() . '.js',
                 array( 'jquery', 'select2-js', 'redux-js' ),
                 time(),
                 true
@@ -289,7 +292,7 @@ if ( ! class_exists( 'ReduxFramework_spacing' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-spacing-css',
-                    ReduxFramework::$_url . 'inc/fields/spacing/field_spacing.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/spacing/field_spacing.css',
                     array(),
                     time(),
                     'all'

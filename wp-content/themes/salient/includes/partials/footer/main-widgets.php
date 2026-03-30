@@ -42,7 +42,6 @@ if ( $using_footer_widget_area === 'true' ) { ?>
 				?>
 				
 				<div class="col <?php echo esc_attr( $footer_column_class ); // WPCS: XSS ok. ?>">
-					<!-- Footer widget area 1 -->
 					<?php
 					if ( function_exists( 'dynamic_sidebar' ) && dynamic_sidebar( 'Footer Area 1' ) ) :
 						else :
@@ -50,7 +49,7 @@ if ( $using_footer_widget_area === 'true' ) { ?>
 							<div class="widget">			
 							</div>
 						<?php endif; ?>
-					</div><!--/span_3-->
+					</div>
 					
 					<?php 
 					if ( $footer_columns === '2' || 
@@ -59,7 +58,6 @@ if ( $using_footer_widget_area === 'true' ) { ?>
 					$footer_columns === '5' ) { ?>
 						
 						<div class="col <?php echo esc_attr( $footer_column_class ); // WPCS: XSS ok. ?>">
-							<!-- Footer widget area 2 -->
 							<?php
 							if ( function_exists( 'dynamic_sidebar' ) && dynamic_sidebar( 'Footer Area 2' ) ) :
 								else :
@@ -68,7 +66,7 @@ if ( $using_footer_widget_area === 'true' ) { ?>
 									</div>
 								<?php endif; ?>
 								
-							</div><!--/span_3-->
+							</div>
 							
 						<?php } ?>
 						
@@ -78,7 +76,6 @@ if ( $using_footer_widget_area === 'true' ) { ?>
 						$footer_columns === '4' || 
 						$footer_columns === '5' ) { ?>
 							<div class="col <?php echo esc_attr( $footer_column_class ); // WPCS: XSS ok. ?>">
-								<!-- Footer widget area 3 -->
 								<?php
 								if ( function_exists( 'dynamic_sidebar' ) && dynamic_sidebar( 'Footer Area 3' ) ) :
 									else :
@@ -87,29 +84,25 @@ if ( $using_footer_widget_area === 'true' ) { ?>
 										</div>		   
 									<?php endif; ?>
 									
-								</div><!--/span_3-->
+								</div>
 							<?php } ?>
 							
 							<?php if ( $footer_columns === '4' || $footer_columns === '5' ) { ?>
 								<div class="col <?php echo esc_attr( $footer_column_class ); // WPCS: XSS ok. ?>">
-									<!-- Footer widget area 4 -->
 									<?php
 									if ( function_exists( 'dynamic_sidebar' ) && dynamic_sidebar( 'Footer Area 4' ) ) :
 										else :
 											?>
 											<div class="widget">		
-											</div><!--/widget-->	
+											</div>
 										<?php endif; ?>
 										
-									</div><!--/span_3-->
+									</div>
 								<?php } ?>
 								
-							</div><!--/row-->
-							
+							</div>
 							<?php nectar_hook_after_footer_widget_area(); ?>
-							
 						</div><!--/container-->
-						
 					</div><!--/footer-widgets-->
 					
 					<?php

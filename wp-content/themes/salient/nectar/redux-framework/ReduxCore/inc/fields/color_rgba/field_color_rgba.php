@@ -33,6 +33,10 @@
          */
         class ReduxFramework_color_rgba {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+
             /**
              * Class Constructor. Defines the args for the extions class
              *
@@ -45,7 +49,7 @@
              *
              * @return      void
              */
-            public function __construct( $field = array(), $value = '', $parent ) {
+            public function __construct( $field = array(), $value = '', $parent = null ) {
 
                 // Set required variables
                 $this->parent = $parent;
@@ -99,8 +103,8 @@
                 $field_id = $this->field['id'];
 
                 // Color picker container
-                echo '<div 
-                      class="redux-color-rgba-container ' . esc_attr( $this->field['class'] ) . '" 
+                echo '<div
+                      class="redux-color-rgba-container ' . esc_attr( $this->field['class'] ) . '"
                       data-id="' . esc_attr( $field_id ) . '"
                       data-show-input="' . esc_attr( $this->field['options']['show_input'] ) . '"
                       data-show-initial="' . esc_attr( $this->field['options']['show_initial'] ) . '"
@@ -192,7 +196,7 @@
                 if ( ! wp_script_is( 'redux-field-color-rgba-js' ) ) {
                     wp_enqueue_script(
                         'redux-field-color-rgba-js',
-                        ReduxFramework::$_url . 'inc/fields/color_rgba/field_color_rgba' . Redux_Functions::isMin() . '.js',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/color_rgba/field_color_rgba' . Redux_Functions::isMin() . '.js',
                         array( 'jquery', 'redux-spectrum-js' ),
                         time(),
                         true
@@ -208,7 +212,7 @@
                     if ( ! wp_style_is( 'redux-field-color-rgba-css' ) ) {
                         wp_enqueue_style(
                             'redux-field-color-rgba-css',
-                            ReduxFramework::$_url . 'inc/fields/color_rgba/field_color_rgba.css',
+                            get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/color_rgba/field_color_rgba.css',
                             array(),
                             time(),
                             'all'

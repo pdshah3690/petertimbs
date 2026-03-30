@@ -20,30 +20,19 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('link'); ?>>  
-  
   <div class="inner-wrap animated">
-    
     <div class="post-content">
-      
       <?php get_template_part( 'includes/partials/blog/styles/standard-minimal/post-author' ); ?>
-      
       <div class="content-inner">
-
         <div class="article-content-wrap">
-
           <?php
           
           // Output Link.
           get_template_part( 'includes/partials/blog/media/link' );
 
           ?>
-          
-        </div><!--article-content-wrap-->
-        
-      </div><!--content-inner-->
-      
-    </div><!--/post-content-->
-    
-  </div><!--/inner-wrap-->
-  
+        </div>
+      </div>
+    </div>
+  </div>
 </article>

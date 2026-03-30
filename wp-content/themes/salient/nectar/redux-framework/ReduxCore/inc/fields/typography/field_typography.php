@@ -41,13 +41,17 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
 
         private $user_fonts = true;
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
          *
          * @since ReduxFramework 1.0.0
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -99,8 +103,11 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
                 'font-variant'    => '',
                 'text-decoration' => '',
                 'line-height'     => '',
+                'line-height-units' => '',
                 'word-spacing'    => '',
                 'letter-spacing'  => '',
+                'letter-spacing-units'  => '',
+                'font-size-units' => '',
                 'subsets'         => '',
                 'google'          => false,
                 'font-script'     => '',
@@ -400,7 +407,7 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
                 $fixed_ID = str_replace('_family', '', $this->field['id']);
                 $legacy_font_transform = (!empty($old_options[$fixed_ID .'_transform'])) ? $old_options[$fixed_ID .'_transform'] : '-';
                 $display_val = (isset($salient_redux[$this->field['id']]['text-transform']) || $legacy_font_transform == '-' ) ? $this->value['text-transform'] : $legacy_font_transform;
-                
+
                 echo '<div class="select_wrapper typography-transform tooltip" original-title="' . __( 'Text Transform', 'redux-framework' ) . '">';
                 echo '<label>' . __( 'Text Transform', 'redux-framework' ) . '</label>';
                 echo '<select data-placeholder="' . __( 'Text Transform', 'redux-framework' ) . '" class="redux-typography redux-typography-transform ' . esc_attr($this->field['class']) . '" original-title="' . __( 'Text Transform', 'redux-framework' ) . '"  id="' . esc_attr($this->field['id']) . '-transform" name="' . esc_attr($this->field['name']) . $this->field['name_suffix'] . '[text-transform]' . '" data-value="' . $display_val . '" data-id="' . $this->field['id'] . '" >';
@@ -479,10 +486,26 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
 
                 echo '<div class="input_wrapper font-size redux-container-typography">';
                 echo '<label>' . __( 'Font Size', 'redux-framework' ) . '</label>';
-                echo '<div class="input-append"><input type="text" class="span2 redux-typography redux-typography-size mini typography-input ' . esc_attr($this->field['class']) . '" title="' . __( 'Font Size', 'redux-framework' ) . '" placeholder="' . __( 'Size', 'redux-framework' ) . '" id="' . $this->field['id'] . '-size" name="' . $this->field['name'] . $this->field['name_suffix'] . '[font-size]' . '" value="' . str_replace( $unit, '', $display_val ) . '" data-value="' . str_replace( $unit, '', $display_val ) . '"><span class="add-on">' . $unit . '</span></div>';
+                $current_fs_units = ( isset($this->value['font-size-units']) && !empty($this->value['font-size-units']) ) ? $this->value['font-size-units'] : 'px';
+                echo '<div class="input-append"><input type="text" class="span2 redux-typography redux-typography-size mini typography-input ' . esc_attr($this->field['class']) . '" title="' . __( 'Font Size', 'redux-framework' ) . '" placeholder="' . __( 'Size', 'redux-framework' ) . '" id="' . $this->field['id'] . '-size" name="' . $this->field['name'] . $this->field['name_suffix'] . '[font-size]' . '" value="' . str_replace( $unit, '', $display_val ) . '" data-value="' . str_replace( $unit, '', $display_val ) . '"><span class="add-on typography-font-size-units">';
+                // Check if field has px_only property for font size
+                $fs_values = (isset($this->field['font-size-px-only']) && $this->field['font-size-px-only'] === true) ? array('px') : array('px','em','rem');
+                if (count($fs_values) === 1) {
+                    // Only one option, display as text instead of dropdown
+                    echo '<span class="unit-display">' . $fs_values[0] . '</span>';
+                    echo '<input type="hidden" name="' . esc_attr($this->field['name']) . $this->field['name_suffix'] . '[font-size-units]' . '" value="' . $fs_values[0] . '" />';
+                } else {
+                    // Multiple options, show dropdown
+                    echo '<select data-placeholder="' . __( 'px', 'redux-framework' ) . '" class="redux-typography-units ' . esc_attr($this->field['class']) . '"  id="' . esc_attr($this->field['id']) . '-font-size-units" name="' . esc_attr($this->field['name']) . $this->field['name_suffix'] . '[font-size-units]' . '" data-value="' . $current_fs_units . '" data-id="' . esc_attr($this->field['id']) . '" >';
+                    foreach ( $fs_values as $v ) { echo '<option value="' . $v . '" ' . selected( $current_fs_units, $v, false ) . '>' . $v  . '</option>'; }
+                    echo '</select>';
+                }
+                echo '</span></div>';
                 echo '<input type="hidden" class="typography-font-size" name="' . esc_attr($this->field['name']) . esc_attr($this->field['name_suffix']) . '[font-size]' . '" value="' . esc_attr( $display_val ) . '" data-id="' . esc_attr($this->field['id']) . '"  />';
                 /* nectar addition end */
                 echo '</div>';
+
+
             }
 
             /* Line Height */
@@ -495,10 +518,26 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
 
                 echo '<div class="input_wrapper line-height redux-container-typography">';
                 echo '<label>' . __( 'Line Height', 'redux-framework' ) . '</label>';
-                echo '<div class="input-append"><input type="text" class="span2 redux-typography redux-typography-height mini typography-input ' . esc_attr($this->field['class']) . '" title="' . __( 'Line Height', 'redux-framework' ) . '" placeholder="' . __( 'Height', 'redux-framework' ) . '" id="' . $this->field['id'] . '-height" value="' . str_replace( $unit, '', $display_val ) . '" data-value="' . str_replace( $unit, '', $display_val ) . '"><span class="add-on">' . $unit . '</span></div>';
+                $current_lh_units = ( isset($this->value['line-height-units']) && !empty($this->value['line-height-units']) ) ? $this->value['line-height-units'] : 'px';
+                echo '<div class="input-append"><input type="text" class="span2 redux-typography redux-typography-height mini typography-input ' . esc_attr($this->field['class']) . '" title="' . __( 'Line Height', 'redux-framework' ) . '" placeholder="' . __( 'Height', 'redux-framework' ) . '" id="' . $this->field['id'] . '-height" value="' . str_replace( $unit, '', $display_val ) . '" data-value="' . str_replace( $unit, '', $display_val ) . '"><span class="add-on typography-line-height-units">';
+                // Check if field has px_only property for line height
+                $lh_values = (isset($this->field['line-height-px-only']) && $this->field['line-height-px-only'] === true) ? array('px') : array('px','unitless');
+                if (count($lh_values) === 1) {
+                    // Only one option, display as text instead of dropdown
+                    echo '<span class="unit-display">' . $lh_values[0] . '</span>';
+                    echo '<input type="hidden" name="' . esc_attr($this->field['name']) . $this->field['name_suffix'] . '[line-height-units]' . '" value="' . $lh_values[0] . '" />';
+                } else {
+                    // Multiple options, show dropdown
+                    echo '<select data-placeholder="' . __( 'px', 'redux-framework' ) . '" class="redux-typography-units ' . esc_attr($this->field['class']) . '"  id="' . esc_attr($this->field['id']) . '-line-height-units" name="' . esc_attr($this->field['name']) . $this->field['name_suffix'] . '[line-height-units]' . '" data-value="' . $current_lh_units . '" data-id="' . esc_attr($this->field['id']) . '" >';
+                    foreach ( $lh_values as $v ) { echo '<option value="' . $v . '" ' . selected( $current_lh_units, $v, false ) . '>' . $v  . '</option>'; }
+                    echo '</select>';
+                }
+                echo '</span></div>';
                 echo '<input type="hidden" class="typography-line-height" name="' . esc_attr($this->field['name']) . esc_attr($this->field['name_suffix']) . '[line-height]' . '" value="' . esc_attr($display_val) . '" data-id="' . esc_attr($this->field['id']) . '"  />';
                  /* nectar addition end */
                 echo '</div>';
+
+
             }
 
             /* Word Spacing */
@@ -521,10 +560,19 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
 
                 echo '<div class="input_wrapper letter-spacing redux-container-typography">';
                 echo '<label>' . __( 'Letter Spacing', 'redux-framework' ) . '</label>';
-                echo '<div class="input-append"><input type="text" class="span2 redux-typography redux-typography-letter mini typography-input ' . esc_attr($this->field['class']) . '" title="' . __( 'Letter Spacing', 'redux-framework' ) . '" placeholder="' . __( 'Letter Spacing', 'redux-framework' ) . '" id="' . $this->field['id'] . '-letter" value="' . str_replace( $unit, '', $display_val ) . '" data-value="' . str_replace( $unit, '', $display_val ) . '"><span class="add-on">' . $unit . '</span></div>';
+                $current_ls_units = ( isset($this->value['letter-spacing-units']) && !empty($this->value['letter-spacing-units']) ) ? $this->value['letter-spacing-units'] : 'px';
+                echo '<div class="input-append"><input type="text" class="span2 redux-typography redux-typography-letter mini typography-input ' . esc_attr($this->field['class']) . '" title="' . __( 'Letter Spacing', 'redux-framework' ) . '" placeholder="' . __( 'Letter Spacing', 'redux-framework' ) . '" id="' . $this->field['id'] . '-letter" value="' . str_replace( $unit, '', $display_val ) . '" data-value="' . str_replace( $unit, '', $display_val ) . '"><span class="add-on typography-letter-spacing-units">';
+                echo '<select data-placeholder="' . __( 'px', 'redux-framework' ) . '" class="redux-typography-units ' . esc_attr($this->field['class']) . '"  id="' . esc_attr($this->field['id']) . '-letter-spacing-units" name="' . esc_attr($this->field['name']) . $this->field['name_suffix'] . '[letter-spacing-units]' . '" data-value="' . $current_ls_units . '" data-id="' . esc_attr($this->field['id']) . '" >';
+                $values = array('px','em'); foreach ( $values as $v ) { echo '<option value="' . $v . '" ' . selected( $current_ls_units, $v, false ) . '>' . $v  . '</option>'; }
+                echo '</select></span></div>';
                 echo '<input type="hidden" class="typography-letter-spacing" name="' . esc_attr($this->field['name']) . esc_attr($this->field['name_suffix']) . '[letter-spacing]' . '" value="' . esc_attr($display_val) . '" data-id="' . esc_attr($this->field['id']) . '"  />';
                 /* nectar addition end */
                 echo '</div>';
+
+
+
+
+
             }
 
             echo '<div class="clearfix"></div>';
@@ -567,11 +615,11 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
                                 'font-style' => array( $this->value['font-weight'] . $this->value['font-style'] ),
                                 'subset'     => array( $this->value['subsets'] )
                             );
-                            
+
                             // nectar addition
                             $protocol = ( is_ssl() ) ? "https:" : "http:";
                             // nectar addition end
-                            
+
                             wp_deregister_style( 'redux-typography-preview' );
                             wp_dequeue_style( 'redux-typography-preview' );
 
@@ -614,13 +662,13 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
             if (!wp_script_is ( 'redux-field-typography-js' )) {
                 wp_enqueue_script(
                     'redux-field-typography-js',
-                    ReduxFramework::$_url . 'inc/fields/typography/field_typography' . Redux_Functions::isMin() . '.js',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/typography/field_typography' . Redux_Functions::isMin() . '.js',
                     array( 'jquery', 'wp-color-picker', 'select2-js', 'redux-js' ),
                     time(),
                     true
                 );
             }
-            
+
             wp_localize_script(
                 'redux-field-typography-js',
                 'redux_ajax_script',
@@ -635,7 +683,7 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
                 if (!wp_style_is('redux-field-typography-css')) {
                     wp_enqueue_style(
                         'redux-field-typography-css',
-                        ReduxFramework::$_url . 'inc/fields/typography/field_typography.css',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/typography/field_typography.css',
                         array(),
                         time(),
                         'all'
@@ -681,18 +729,28 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
             /* nectar addition */
             if ( ! empty( $subsets ) ) {
 
-                function nectar_subsetFilter($string) {
-                    return strpos($string, 'subset') === false;
+                if( !function_exists('nectar_subsetFilter') ) {
+                  function nectar_subsetFilter($string) {
+                      return strpos($string, 'subset') === false;
+                  }
                 }
 
                 $filteredSubsets = array_filter($subsets, 'nectar_subsetFilter');
-                
+
                 if(!empty($filteredSubsets))
                    $link .= "&subset=" . implode( ',', $filteredSubsets );
             }
-            /* nectar addition end */
 
-            return '//fonts.googleapis.com/css?family=' . str_replace( '|', '%7C', $link );
+            $nectar_options = get_nectar_theme_options();
+            $display_swap_str = '';
+
+            if( isset($nectar_options['typography_font_swap']) && !empty($nectar_options['typography_font_swap']) && '1' === $nectar_options['typography_font_swap'] ) {
+              $display_swap_str = '&display=swap';
+            }
+
+            return '//fonts.googleapis.com/css?family=' . str_replace( '|', '%7C', $link ) . $display_swap_str;
+
+            /* nectar addition end */
         }
 
         /**
@@ -760,7 +818,7 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
 
             $fontValueSet = false;
 
-            if ( ! empty( $font ) ) {
+            if ( ! empty( $font ) && is_array( $font ) ) {
                 foreach ( $font as $key => $value ) {
                     if ( ! empty( $value ) && in_array( $key, array( 'font-family', 'font-weight' ) ) ) {
                         $fontValueSet = true;
@@ -768,7 +826,7 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
                 }
             }
 
-            if ( ! empty( $font ) ) {
+            if ( ! empty( $font ) && is_array( $font ) ) {
                 foreach ( $font as $key => $value ) {
                     if ( $key == 'font-options' ) {
                         continue;
@@ -1009,7 +1067,7 @@ if ( ! class_exists( 'ReduxFramework_typography' ) ) {
             if ( ( isset( $this->parent->fonts['google'] ) && ! empty( $this->parent->fonts['google'] ) ) || isset( $this->parent->fonts['google'] ) && $this->parent->fonts['google'] == false ) {
                 return;
             }
-            
+
             $gFile = get_parent_theme_file_path('/nectar/redux-framework/ReduxCore/inc/fields/typography/googlefonts.php');
 
             // Weekly update

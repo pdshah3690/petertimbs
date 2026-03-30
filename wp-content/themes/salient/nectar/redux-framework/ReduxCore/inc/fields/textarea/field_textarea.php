@@ -30,6 +30,10 @@
     if ( ! class_exists( 'ReduxFramework_textarea' ) ) {
         class ReduxFramework_textarea {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+
             /**
              * Field Constructor.
              *
@@ -39,7 +43,7 @@
              * @since ReduxFramework 1.0.0
              * @type string $field  [test] Description. Default <value>. Accepts <value>, <value>.
              */
-            function __construct( $field = array(), $value = '', $parent ) {
+            function __construct( $field, $value, $parent ) {
                 $this->parent = $parent;
                 $this->field  = $field;
                 $this->value  = $value;

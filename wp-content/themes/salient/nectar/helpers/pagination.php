@@ -38,7 +38,7 @@ if( !function_exists('be_get_next_post') ) {
  * @since 1.0
  */
 if( !function_exists('be_get_adjacent_post') ) {
-	
+
 	function be_get_adjacent_post( $in_same_cat = false, $excluded_categories = '', $previous = true, $taxonomy = 'category' ) {
 		global $post, $wpdb;
 
@@ -70,14 +70,14 @@ if( !function_exists('be_get_adjacent_post') ) {
 				}
 
 				$excluded_categories = array_map( 'intval', $excluded_categories );
-					
+
 				if ( ! empty( $cat_array ) ) {
 					$excluded_categories = array_diff($excluded_categories, $cat_array);
 					$posts_in_ex_cats_sql = '';
 				}
 
 				if ( !empty($excluded_categories) ) {
-					$posts_in_ex_cats_sql = " AND tt.taxonomy = '$taxonomy' AND tt.term_id NOT IN (" . implode($excluded_categories, ',') . ")";
+					$posts_in_ex_cats_sql = " AND tt.taxonomy = '$taxonomy' AND tt.term_id NOT IN (" . implode(',', $excluded_categories) . ")";
 				}
 			}
 		}
@@ -105,7 +105,7 @@ if( !function_exists('be_get_adjacent_post') ) {
 		wp_cache_set($query_key, $result, 'counts');
 		return $result;
 	}
-	
+
 }
 
 if( !function_exists('be_previous_post_link') ) {
@@ -122,7 +122,7 @@ if( !function_exists('be_next_post_link') ) {
 }
 
 if( !function_exists('be_adjacent_post_link') ) {
-	
+
 	function be_adjacent_post_link($format, $link, $in_same_cat = false, $excluded_categories = '', $previous = true, $taxonomy = 'category') {
 		if ( $previous && is_attachment() )
 			$post = & get_post($GLOBALS['post']->post_parent);
@@ -151,7 +151,7 @@ if( !function_exists('be_adjacent_post_link') ) {
 		$adjacent = $previous ? 'previous' : 'next';
 		echo apply_filters( "{$adjacent}_post_link", $format, $link );
 	}
-	
+
 }
 
 
@@ -162,38 +162,39 @@ if( !function_exists('be_adjacent_post_link') ) {
  * @since 8.0
  */
 if ( !function_exists( 'nectar_pagination' ) ) {
-	
+
 	function nectar_pagination() {
-		
+
 		global $nectar_options;
-		global $wp_query, $wp_rewrite; 
-		
-		$wp_query->query_vars['paged'] > 1 ? $current = $wp_query->query_vars['paged'] : $current = 1; 
-		$total_pages = $wp_query->max_num_pages; 
-		
-		if ( $total_pages > 1 ) {  
-			
+		global $wp_query, $wp_rewrite;
+
+		$wp_query->query_vars['paged'] > 1 ? $current = $wp_query->query_vars['paged'] : $current = 1;
+		$total_pages = $wp_query->max_num_pages;
+
+		if ( $total_pages > 1 ) {
+
 			$permalink_structure = get_option('permalink_structure');
-			$query_type          = (count($_GET)) ? '&' : '?';	
-			$format              = empty( $permalink_structure ) ? $query_type.'paged=%#%' : 'page/%#%/';  
-			
-			echo '<div id="pagination" data-is-text="'.esc_attr__("All items loaded", 'salient').'">';
-			
+			$query_type          = (count($_GET)) ? '&' : '?';
+			$format              = empty( $permalink_structure ) ? $query_type.'paged=%#%' : 'page/%#%/';
+
+			echo '<nav id="pagination" role="navigation" aria-label="'. esc_attr__("Pagination Navigation", 'salient') .'" data-is-text="'.esc_attr__("All items loaded", 'salient').'">';
+
 			$big = 999999999; // need an unlikely integer
-			
-			echo paginate_links(array(  
+
+			echo paginate_links(array(
 				'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-				'format' => $format,  
-				'current' => $current,  
-				'total' => $total_pages,  
+				'format' => $format,
+				'current' => $current,
+				'total' => $total_pages,
+				'type' => 'list',
 				'prev_text'    => esc_html__('Previous','salient'),
 				'next_text'    => esc_html__('Next','salient')
-			)); 
-			
-			echo  '</div>'; 
-			
-		}  
-		
+			));
+
+			echo  '</nav>';
+
+		}
+
 	}
-	
+
 }

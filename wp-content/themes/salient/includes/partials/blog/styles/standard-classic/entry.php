@@ -4,7 +4,7 @@
 *
 * Used when "Classic" standard style is selected.
 *
-* @version 10.5
+* @version 11.0
 */
 
 // Exit if accessed directly
@@ -16,6 +16,7 @@ global $post;
 global $nectar_options;
 
 $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_options['blog_auto_excerpt'] === '1' ) ? 'true' : 'false';
+$excerpt_length = ( ! empty( $nectar_options['blog_excerpt_length'] ) ) ? intval( $nectar_options['blog_excerpt_length'] ) : 30;
 
 ?>
 
@@ -31,10 +32,7 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
         
         <?php
         // Featured image.
-        $image_attrs = array(
-          'title' => ''
-        );
-        echo '<a href="' . esc_url( get_permalink() ) . '"><span class="post-featured-img">' . get_the_post_thumbnail( $post->ID, 'full', $image_attrs ) . '</span></a>';
+        get_template_part( 'includes/partials/blog/styles/standard-classic/post-image' );
         ?>
         
         <div class="article-content-wrap">
@@ -49,7 +47,7 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
             <span class="meta-category"><?php the_category( ', ' ); ?>
             </span><?php if ( comments_open() ) { ?>
               <span class="meta-comment-count"> <a href="<?php comments_link(); ?>">
-                <?php comments_number( esc_html__( 'No Comments', 'salient' ), esc_html__( 'One Comment ', 'salient' ), esc_html__( '% Comments', 'salient' ) ); ?></a>
+                <?php comments_number( esc_html__( 'No Comments', 'salient' ), esc_html__( 'One Comment', 'salient' ), esc_html__( '% Comments', 'salient' ) ); ?></a>
               </span>
             <?php } ?>
             
@@ -66,8 +64,10 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
           else {
             
             echo '<div class="excerpt">';
-            the_excerpt();
+              echo nectar_excerpt( $excerpt_length );
             echo '</div>';
+
+            do_action('nectar_after_archive_post_item_content');
             
             echo '<a class="more-link" href="' . esc_url( get_permalink() ) . '"><span class="continue-reading">' . esc_html__( 'Read More', 'salient' ) . '</span></a>';
           } 

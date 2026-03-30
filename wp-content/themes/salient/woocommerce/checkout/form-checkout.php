@@ -13,7 +13,7 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version   3.5.0
+ * @version   9.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,12 +31,12 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 
 if( function_exists('wc_get_checkout_url') ) { ?>
-	<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
-<?php } else { 
-	
+	<form name="checkout" method="post" class="checkout woocommerce-checkout force-contained-rows" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data" aria-label="<?php echo esc_attr__( 'Checkout', 'woocommerce' ); ?>">
+<?php } else {
+
 	// filter hook for include new pages inside the payment method
 	$get_checkout_url = apply_filters( 'woocommerce_get_checkout_url', wc_get_checkout_url() ); ?>
-	<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( $get_checkout_url ); ?>" enctype="multipart/form-data">
+	<form name="checkout" method="post" class="checkout woocommerce-checkout force-contained-rows" action="<?php echo esc_url( $get_checkout_url ); ?>" enctype="multipart/form-data">
 <?php } ?>
 
 	<?php if ( $checkout->get_checkout_fields() ) : ?>
@@ -49,8 +49,10 @@ if( function_exists('wc_get_checkout_url') ) { ?>
 				<?php do_action( 'woocommerce_checkout_shipping' ); ?>
 			</div>
 
-			<div class="col-2">
+			<div class="col-2 nectar-modal">
 				<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
+
+				<?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
 
 				<h3 id="order_review_heading"><?php esc_html_e( 'Your order', 'woocommerce' ); ?></h3>
 
@@ -64,11 +66,7 @@ if( function_exists('wc_get_checkout_url') ) { ?>
 			</div>
 		</div>
 
-		
-
 	<?php endif; ?>
-
-	
 
 </form>
 

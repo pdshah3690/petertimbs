@@ -34,6 +34,10 @@
          */
         class ReduxFramework_info {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+
             /**
              * Field Constructor.
              * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -42,7 +46,7 @@
              * @access      public
              * @return      void
              */
-            function __construct( $field = array(), $value = '', $parent ) {
+            function __construct( $field, $value, $parent ) {
                 $this->parent = $parent;
                 $this->field  = $field;
                 $this->value  = $value;
@@ -156,7 +160,7 @@
                 if ($this->parent->args['dev_mode']) {
                     wp_enqueue_style(
                         'redux-field-info-css',
-                        ReduxFramework::$_url . 'inc/fields/info/field_info.css',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/info/field_info.css',
                         array(),
                         time(),
                         'all'

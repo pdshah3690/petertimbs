@@ -4,7 +4,7 @@
  *
  * Used when "Material" masonry style is selected.
  *
- * @version 10.5
+ * @version 11.0
  */
  
 // Exit if accessed directly
@@ -29,27 +29,16 @@ $excerpt_length              = ( ! empty( $nectar_options['blog_excerpt_length']
 
       <div class="content-inner">
         
-        <a class="entire-meta-link" href="<?php the_permalink(); ?>"></a>
+        <a class="entire-meta-link" href="<?php the_permalink(); ?>" aria-label="<?php the_title(); ?>"></a>
         
         <?php
+          
+        // Featured image.
+        get_template_part( 'includes/partials/blog/styles/masonry-material/post-image' );
         
-          // Featured image.
-          $image_attrs = array(
-            'title' => '',
-            'sizes' => '(min-width: 1600px) 20vw, (min-width: 1300px) 25vw, (min-width: 1000px) 33.3vw, (min-width: 690px) 50vw, 100vw',
-          );
-          if( has_post_thumbnail() ) { 
-            echo '<a href="' . esc_url( get_permalink() ) . '"><span class="post-featured-img">';
-            
-            get_template_part( 'includes/partials/blog/media/play-button' );
-            
-            echo get_the_post_thumbnail( $post->ID, 'large', $image_attrs ) . '</span></a>';
-          }
-
-        
-          // Output categories.
-          get_template_part( 'includes/partials/blog/styles/masonry-material/post-categories' );
-        
+        // Output categories.
+        get_template_part( 'includes/partials/blog/styles/masonry-material/post-categories' );
+      
         ?>
         
         <div class="article-content-wrap">
@@ -64,6 +53,8 @@ $excerpt_length              = ( ! empty( $nectar_options['blog_excerpt_length']
             echo '<div class="excerpt">';
               echo nectar_excerpt( $excerpt_length );
             echo '</div>';
+
+            do_action('nectar_after_archive_post_item_content');
             
             // Bottom author link & date.
             get_template_part( 'includes/partials/blog/styles/masonry-material/post-bottom-meta' );

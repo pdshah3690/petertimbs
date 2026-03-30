@@ -40,13 +40,17 @@ nectar_page_header( $post->ID );
 			</div><!--/span_9-->
 			
 			<div id="sidebar" class="col span_3 col_last">
-				<?php get_sidebar(); ?>
+				<?php 
+				nectar_hook_sidebar_top();
+				get_sidebar(); 
+				nectar_hook_sidebar_bottom();
+				?>
 			</div><!--/span_9-->
 			
 		</div><!--/row-->
 		
 	</div><!--/container-->
-
+	<?php nectar_hook_before_container_wrap_close(); ?>
 </div><!--/container-wrap-->
 
 <?php get_footer(); ?>

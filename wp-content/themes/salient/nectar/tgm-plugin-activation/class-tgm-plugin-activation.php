@@ -1110,6 +1110,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 			}
 			
 			/* nectar addition */
+			$theme = wp_get_theme();
+			$salient_on_theme_options_page_bool = ( is_admin() && isset($_GET['page']) && $_GET['page'] === sanitize_html_class($theme->get( 'Name' )) ) ? true : false;
 			$nectar_plugins_not_active = false;
 			if( ! class_exists('Salient_Portfolio') ||
 				! class_exists('Salient_Nectar_Slider') ||
@@ -1118,12 +1120,15 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				! class_exists('Salient_Demo_Importer') ||
 				! class_exists('Salient_Core') ||
 				! class_exists('Salient_Widgets') ||
-				! class_exists('Salient_Social') ) {
-					$nectar_plugins_not_active = true;
+				! class_exists('Salient_Social') ||
+				! class_exists('Salient_Custom_Branding') ) {
+					if( $salient_on_theme_options_page_bool ) {
+						$nectar_plugins_not_active = true;
+					}
 				}
 			// Do not show on welcome page or if Salient notice is present.
 			if( isset( $_GET['page'] ) && 'salient-welcome-screen' === $_GET['page'] || 
-					get_option( 'nectar_dismiss_plugin_notice' ) !== 'true' && $nectar_plugins_not_active) {
+				get_option( 'nectar_dismiss_plugin_notice' ) !== 'true' && $nectar_plugins_not_active) {
 				return;
 			}
 			
@@ -1267,7 +1272,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				'install'  => '',
 				'update'   => '',
 				'activate' => '',
-				'dismiss'  => $this->dismissable ? '<a href="' . esc_url( wp_nonce_url( add_query_arg( 'tgmpa-dismiss', 'dismiss_admin_notices' ), 'tgmpa-dismiss-' . get_current_user_id() ) ) . '" class="dismiss-notice" target="_parent">' . esc_html( $this->strings['dismiss'] ) . '</a>' : '',
+				// nectar addition - switched to nectar_tgmpa_nonce from _wpnonce due to conflict in WooCommerce HPOS
+				'dismiss'  => $this->dismissable ? '<a href="' . esc_url( wp_nonce_url( add_query_arg( 'tgmpa-dismiss', 'dismiss_admin_notices' ), 'tgmpa-dismiss-' . get_current_user_id(), 'nectar_tgmpa_nonce' ) ) . '" class="dismiss-notice" target="_parent">' . esc_html( $this->strings['dismiss'] ) . '</a>' : '',
 			);
 
 			$link_template = '<a href="%2$s">%1$s</a>';
@@ -1360,7 +1366,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		 * @since 2.1.0
 		 */
 		public function dismiss() {
-			if ( isset( $_GET['tgmpa-dismiss'] ) && check_admin_referer( 'tgmpa-dismiss-' . get_current_user_id() ) ) {
+			// nectar addition - switched to nectar_tgmpa_nonce from _wpnonce due to conflict in WooCommerce HPOS
+			if ( isset( $_GET['tgmpa-dismiss'] ) && check_admin_referer( 'tgmpa-dismiss-' . get_current_user_id(), 'nectar_tgmpa_nonce' ) ) {
 				update_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice_' . $this->id, 1 );
 			}
 		}

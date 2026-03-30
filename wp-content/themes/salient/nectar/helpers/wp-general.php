@@ -19,15 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 2.0
  */
 function nectar_add_theme_support() {
-	
+
 	add_theme_support( 'post-formats', array( 'quote', 'video', 'audio', 'gallery', 'link' ) );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'automatic-feed-links' );
-	
+
 	// Add custom editor style.
 	add_editor_style( 'css/style-editor.css' );
-	
+
 }
 
 add_action( 'after_setup_theme', 'nectar_add_theme_support' );
@@ -35,7 +35,9 @@ add_action( 'after_setup_theme', 'nectar_add_theme_support' );
 
 // Default WP video size.
 global $content_width;
-$content_width = 1080;
+if ( ! isset( $content_width ) ) {
+	$content_width = 1080;
+}
 
 
 /**
@@ -45,7 +47,7 @@ $content_width = 1080;
  */
 if ( ! function_exists( '_wp_render_title_tag' ) ) {
 	function nectar_theme_slug_render_title() { ?>
-			<title><?php wp_title( '|', true, 'right' ); ?></title> 
+			<title><?php wp_title( '|', true, 'right' ); ?></title>
 			<?php
 	}
 		add_action( 'wp_head', 'nectar_theme_slug_render_title' );
@@ -70,6 +72,28 @@ function nectar_custom_wpkses_post_tags( $tags, $context ) {
 			'width'           => true,
 			'frameborder'     => true,
 			'allowfullscreen' => true,
+		);
+		$tags['img'] = array(
+			'src' => true,
+			'alt' => true,
+			'class' => true,
+			'style' => true,
+			'width' => true,
+			'height' => true,
+			'srcset' => true,
+			'sizes' => true,
+			'loading' => true,
+			'fetchpriority' => true,
+			'data-nectar-img-src' => true,
+			'data-nectar-img-srcset' => true
+		);
+		$tags['picture'] = array();
+		$tags['source'] = array(
+			'media' => true,
+			'srcset' => true,
+			'loading' => true,
+			'data-nectar-img-src' => true,
+			'data-nectar-img-srcset' => true
 		);
 	}
 	return $tags;
@@ -117,6 +141,26 @@ if ( ! function_exists( 'nectar_ssl_check' ) ) {
 }
 
 
+/**
+ * Verify theme option isset and is not empty
+ *
+ * @since 12.2.0
+ */
+
+if ( ! function_exists( 'nectar_option_isset' ) ) {
+	function nectar_option_isset( $option ) {
+
+		if( isset($option) && !empty($option) ) {
+			return true;
+		}
+
+		return false;
+
+	}
+}
+
+
+
 
 /**
 * Helper to strip paragraph tags.
@@ -124,10 +168,67 @@ if ( ! function_exists( 'nectar_ssl_check' ) ) {
 * @param string $content text to remove p tags from.
 * @since 10.5
 */
-function nectar_remove_p_tags( $content ) { 
-	
-	$content = preg_replace('/<p[^>]*>[\s|&nbsp;]*<\/p>/', '', $content);	
+function nectar_remove_p_tags( $content ) {
+
+	$content = preg_replace('/<p[^>]*>[\s|&nbsp;]*<\/p>/', '', $content);
 	return $content;
 }
 
 
+/**
+* Determine the Salient grid system.
+*
+* @since 10.6
+*/
+function nectar_use_flexbox_grid() {
+
+	if( class_exists( 'WPBakeryVisualComposerAbstract' ) &&
+		defined( 'SALIENT_VC_ACTIVE' ) &&
+		version_compare( WPB_VC_VERSION, '6.0.5', '>=' ) &&
+		defined( 'SALIENT_CORE_VERSION' ) &&
+		version_compare( SALIENT_CORE_VERSION, '1.2', '>=' ) ) {
+		/* Salient provides a modern flexbox grid system as of v10.6 as long
+		as the Salient core and Salient page builder plugins are up to date. */
+		$nectar_modern_grid_compat = true;
+	} else {
+		$nectar_modern_grid_compat = false;
+	}
+
+	return $nectar_modern_grid_compat;
+
+}
+
+
+/**
+ * Allow users to enable the old double
+ * mobile menu functionality via a child
+ *
+ * @since 13.0
+ */
+ if ( ! function_exists( 'nectar_legacy_mobile_double_menu' ) ) {
+ 	function nectar_legacy_mobile_double_menu() {
+		return false;
+	}
+}
+
+
+// Fix for Safari 18 negative horizontal margin on floats.
+add_action( 'admin_print_styles', 'nectar_safari_18_temp_fix' );
+
+if ( !function_exists('nectar_safari_18_temp_fix') ) {
+	function nectar_safari_18_temp_fix() {
+		global $current_screen;
+
+		if ( isset( $current_screen->base ) && 'post' === $current_screen->base ) {
+			$clear = is_rtl() ? 'right' : 'left';
+
+			?>
+			<style id="nectar-classic-editor-safari-18-temp-fix">
+			_::-webkit-full-page-media, _:future, :root #post-body #postbox-container-2 {
+				clear: <?php echo $clear; ?>;
+			}
+			</style>
+			<?php
+		}
+	}
+}

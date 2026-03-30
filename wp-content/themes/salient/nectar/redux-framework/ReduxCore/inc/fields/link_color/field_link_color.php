@@ -36,6 +36,10 @@ if ( ! class_exists( 'ReduxFramework_link_color' ) ) {
      */
     class ReduxFramework_link_color {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -44,7 +48,7 @@ if ( ! class_exists( 'ReduxFramework_link_color' ) ) {
          * @access      public
          * @return      void
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field = array(), $value = '', $parent = null ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -101,11 +105,11 @@ if ( ! class_exists( 'ReduxFramework_link_color' ) ) {
             if ( $this->field['active'] === true && $this->field['default']['active'] !== false ) {
                 echo '<span class="linkColor"><strong>' . __( 'Active', 'redux-framework' ) . '</strong>&nbsp;<input id="' . esc_attr( $this->field['id'] ) . '-active" name="' . esc_attr( $this->field['name'] ) . esc_attr( $this->field['name_suffix'] ) . '[active]' . '" value="' . esc_attr( $this->value['active'] ) . '" class="redux-color redux-color-active redux-color-init ' . esc_attr( $this->field['class'] ) . '"  type="text" data-default-color="' . $this->field['default']['active'] . '" /></span>';
             }
-            
+
             if ( $this->field['focus'] === true && $this->field['default']['focus'] !== false ) {
                 echo '<span class="linkColor"><strong>' . __( 'Focus', 'redux-framework' ) . '</strong>&nbsp;<input id="' . esc_attr( $this->field['id'] ) . '-focus" name="' . esc_attr( $this->field['name'] ) . esc_attr( $this->field['name_suffix'] ) . '[focus]' . '" value="' . esc_attr( $this->value['focus'] ) . '" class="redux-color redux-color-focus redux-color-init ' . esc_attr( $this->field['class'] ) . '"  type="text" data-default-color="' . $this->field['default']['focus'] . '" /></span>';
             }
-            
+
         }
 
         /**
@@ -118,10 +122,10 @@ if ( ! class_exists( 'ReduxFramework_link_color' ) ) {
          */
         public function enqueue() {
             wp_enqueue_style( 'wp-color-picker' );
-            
+
             wp_enqueue_script(
                 'redux-field-link-color-js',
-                ReduxFramework::$_url . 'inc/fields/link_color/field_link_color' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/link_color/field_link_color' . Redux_Functions::isMin() . '.js',
                 array( 'jquery', 'wp-color-picker', 'redux-js' ),
                 time(),
                 true
@@ -132,7 +136,7 @@ if ( ! class_exists( 'ReduxFramework_link_color' ) ) {
 
                 wp_enqueue_style(
                     'redux-field-link_color-js',
-                    ReduxFramework::$_url . 'inc/fields/link_color/field_link_color.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/link_color/field_link_color.css',
                     array(),
                     time(),
                     'all'
@@ -163,7 +167,7 @@ if ( ! class_exists( 'ReduxFramework_link_color' ) ) {
             if ( ! empty( $this->value['focus'] ) && $this->field['focus'] === true && $this->field['default']['focus'] !== false ) {
                 $style['focus'] = 'color:' . $this->value['focus'] . ';';
             }
-            
+
             if ( ! empty( $style ) ) {
                 if ( ! empty( $this->field['output'] ) && is_array( $this->field['output'] ) ) {
                     $styleString = "";
@@ -176,15 +180,15 @@ if ( ! class_exists( 'ReduxFramework_link_color' ) ) {
                                 foreach($this->field['output'] as $sel => $elem) {
                                     continue;
                                 }
-                                
+
                                 if (strpos($elem, ',') != false) {
                                     $selector_arr = explode(',',$elem);
                                     $sel_list = '';
-                                    
+
                                     foreach($selector_arr as $idx => $selector) {
                                         $sel_list .= $selector . ":" . $key . ",";
                                     }
-                                    
+
                                     $sel_list = rtrim($sel_list,',');
                                     $styleString .= $sel_list . "{" . $value . '}';
                                 } else {

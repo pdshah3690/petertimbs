@@ -32,6 +32,10 @@
          */
         class ReduxFramework_section {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+
             /**
              * Field Constructor.
              * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -40,7 +44,7 @@
              * @access        public
              * @return        void
              */
-            public function __construct( $field = array(), $value = '', $parent ) {
+            public function __construct( $field, $value, $parent ) {
                 $this->parent = $parent;
                 $this->field  = $field;
                 $this->value  = $value;
@@ -75,7 +79,7 @@
                     $add_class = " hide";
                 }
 
-                echo '<input type="hidden" id="' . esc_attr($this->field['id']) . '-marker"></td></tr></table>';
+                echo '<input type="hidden" id="' . esc_attr($this->field['id']) . '-marker"></fieldset></td></tr></table>';
 
                 echo '<div id="section-' . esc_attr($this->field['id']) . '" class="redux-section-field redux-field ' . esc_attr($this->field['style']) . ' ' . esc_attr($this->field['class']) . ' ">';
 
@@ -120,7 +124,7 @@
                 if ( $this->parent->args['dev_mode'] ) {
                     wp_enqueue_style(
                         'redux-field-section-css',
-                        ReduxFramework::$_url . 'inc/fields/section/field_section.css',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/section/field_section.css',
                         array(),
                         time(),
                         'all'

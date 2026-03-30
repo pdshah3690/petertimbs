@@ -35,6 +35,10 @@ if ( ! class_exists( 'ReduxFramework_multi_text' ) ) {
      */
     class ReduxFramework_multi_text {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -43,7 +47,7 @@ if ( ! class_exists( 'ReduxFramework_multi_text' ) ) {
          * @access      public
          * @return      void
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field = array(), $value = '', $parent = null ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -84,12 +88,12 @@ if ( ! class_exists( 'ReduxFramework_multi_text' ) ) {
             if (isset($this->value) && empty($this->value) && $this->show_empty == false) {
                 $the_name = $this->field['name'] . $this->field['name_suffix'];
             }
-            
+
             echo     '<li style="display:none;"><input type="text" id="' . esc_attr( $this->field['id'] ) . '" name="' . esc_attr( $the_name ) . '" value="" class="regular-text" /> ';
             echo         '<a' . ' data-id="' . esc_attr( $this->field['id'] ) . '-ul" href="javascript:void(0);" class="deletion redux-multi-text-remove">' . __( 'Remove', 'redux-framework' ) . '</a>';
             echo     '</li>';
             echo '</ul>';
-            
+
             echo '<span style="clear:both;display:block;height:0;" /></span>';
             $this->field['add_number'] = ( isset( $this->field['add_number'] ) && is_numeric( $this->field['add_number'] ) ) ? $this->field['add_number'] : 1;
             echo '<a href="javascript:void(0);" class="button button-primary redux-multi-text-add" data-add_number="' . esc_attr( $this->field['add_number'] ) . '" data-id="' . esc_attr( $this->field['id'] ) . '-ul" data-name="' . esc_attr( $this->field['name'] ) . esc_attr( $this->field['name_suffix'] ) . '">' . $this->add_text . '</a><br/>';
@@ -107,7 +111,7 @@ if ( ! class_exists( 'ReduxFramework_multi_text' ) ) {
 
             wp_enqueue_script(
                 'redux-field-multi-text-js',
-                ReduxFramework::$_url . 'inc/fields/multi_text/field_multi_text' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/multi_text/field_multi_text' . Redux_Functions::isMin() . '.js',
                 array( 'jquery', 'redux-js' ),
                 time(),
                 true
@@ -116,7 +120,7 @@ if ( ! class_exists( 'ReduxFramework_multi_text' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-multi-text-css',
-                    ReduxFramework::$_url . 'inc/fields/multi_text/field_multi_text.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/multi_text/field_multi_text.css',
                     array(),
                     time(),
                     'all'

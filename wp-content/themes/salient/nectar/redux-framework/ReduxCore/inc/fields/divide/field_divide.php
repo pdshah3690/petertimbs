@@ -26,13 +26,17 @@ if ( !defined ( 'ABSPATH' ) ) {
 
 // Don't duplicate me!
 if ( !class_exists ( 'ReduxFramework_divide' ) ) {
-
+    
     /**
      * Main ReduxFramework_divide class
      *
      * @since       1.0.0
      */
     class ReduxFramework_divide {
+
+        public $field = array();
+        public $value = '';
+        public $parent = null;
 
         /**
          * Field Constructor.
@@ -42,7 +46,7 @@ if ( !class_exists ( 'ReduxFramework_divide' ) ) {
          * @access        public
          * @return        void
          */
-        function __construct ( $field = array(), $value = '', $parent ) {
+        function __construct ( $field, $value, $parent ) {
             $this->parent = $parent;
             $this->field = $field;
             $this->value = $value;
@@ -74,7 +78,7 @@ if ( !class_exists ( 'ReduxFramework_divide' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-divide',
-                    ReduxFramework::$_url . 'inc/fields/divide/field_divide.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/divide/field_divide.css',
                     array(),
                     time(),
                     'all'

@@ -14,7 +14,7 @@
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	line-height: 20px!important;
-	text-shadow: 0px 0px 0px!important;	
+	text-shadow: 0px 0px 0px!important;
 	background-color: rgba(255,255,255,0.25)!important;
 	background-image: none!important;
 	border-top: 0px!important;
@@ -43,11 +43,11 @@
 	-ms-transition: 0.1s linear all;
 	-o-transition: 0.1s linear all;
 	transition: 0.1s linear all;
-	text-shadow: 0px 0px 0px!important;	
+	text-shadow: 0px 0px 0px!important;
 }
 
 #redux-opts-header .button-primary:hover {
-	text-shadow: 0px 0px 0px!important;	
+	text-shadow: 0px 0px 0px!important;
 	background-color: #77cc6d!important;
 	opacity: 0.9;
 }
@@ -72,11 +72,11 @@
 	-ms-transition: 0.1s linear all;
 	-o-transition: 0.1s linear all;
 	transition: 0.1s linear all;
-	text-shadow: 0px 0px 0px transparent!important;	
+	text-shadow: 0px 0px 0px transparent!important;
 }
 
 .add-remove-controls .button-primary:hover {
-	text-shadow: 0px 0px 0px!important;	
+	text-shadow: 0px 0px 0px!important;
 	background-color: #77cc6d!important;
 	opacity: 0.9;
 }
@@ -101,16 +101,16 @@
 
 tr.font-option {
 	float: left;
-	position: relative;	
+	position: relative;
 }
 
 
-div[id*="nectar-metabox"] .ui-buttonset .ui-button {
+div[id*="nectar-metabox"] .buttonset .ui-button {
 	box-sizing: border-box;
 }
 
-div[id*="nectar-metabox"] fieldset.buttonset:not(.ui-buttonset) { 
-	opacity: 0;
+body div[id*="nectar-metabox"] fieldset.buttonset:not(.ui-buttonset) {
+	opacity: 1;
 }
 
 tr.font-option th {
@@ -140,7 +140,7 @@ tr.font-family td, tr.font-family {
 	margin: 0;
 	left: 0!important;
 }
-.redux-group-tab[data-rel="12"] .redux-field-container {
+.redux-group-tab[data-rel="13"] .redux-field-container {
 	padding: 0;
 }
 
@@ -221,21 +221,21 @@ tr.font-family th {
 
 tr.font-option td, tr.font-family td {
 	padding-left: 4px!important;
-	padding-right: 4px!important;	
+	padding-right: 4px!important;
 	padding-top: 25px!important;
 	padding-bottom: 25px!important;
 }
 
 body tr.font-family td {
-	padding-right: 16px!important;	
+	padding-right: 16px!important;
 }
 
 tr.font-option select {
 	min-width: 100px;
 }
 
-tr.font-family, 
-tr.font-family, 
+tr.font-family,
+tr.font-family,
 tr.font-option  {
 	border-bottom: 0px!important;
 }
@@ -250,6 +250,14 @@ tr.font-option  {
 .nectar-metabox-table th {
     width: 25%;
 }
+
+.nectar-metabox-table .field__nectar_portfolio_extra_content th {
+	display: none;
+}
+.nectar-metabox-table .field__nectar_portfolio_extra_content .nectar-shortcode-generator img {
+	width: 13px;
+	display: inline-block;
+}
 .nectar-metabox-table label span {
     color: #999999;
     font-size: 12px;
@@ -258,10 +266,21 @@ tr.font-option  {
     margin: 0px 0 0;
     font-weight: normal;
 }
+.nectar-metabox-table .buttonset .ui-state-active,
+#nectar_slider_canvas_shape a.button-primary {
+	background-image: none;
+	background-color: #3a67ff!important;
+	color: #fff;
+}
+.nectar-metabox-table .buttonset label span.ui-icon-background {
+	visibility: hidden;
+    position: absolute;
+    pointer-events: none;
+}
 .nectar-metabox-table label .ui-button-text {
 	line-height: 16px;
 }
-.nectar-metabox-table input, 
+.nectar-metabox-table input,
 .nectar-metabox-table textarea {
     float: left;
     margin-right: 20px;
@@ -272,11 +291,11 @@ tr.font-option  {
     -o-transition: all 0.2s linear;
 }
 
-.nectar-metabox-table .ui-buttonset input[type=radio] {
+.nectar-metabox-table .buttonset input[type=radio] {
 	width: auto;
 }
 
-.nectar-metabox-table textarea#_nectar_slider_caption, 
+.nectar-metabox-table textarea#_nectar_slider_caption,
 .nectar-metabox-table input#_nectar_slider_heading {
   	transition: border-color 0.2s linear;
   	-webkit-transition: border-color 0.2s linear;
@@ -305,7 +324,7 @@ tr.font-option  {
 .redux-opts-screenshot[src=""] {
 	height:1px;
 	width: 1px;
-	opacity: 0;	
+	opacity: 0;
 }
 
 body.taxonomy-category .form-field  .redux-opts-upload-remove,
@@ -353,7 +372,7 @@ td.caption.column-caption, td.actions.column-actions, td.menu_order.column-menu_
 	display: none;
 }
 
-.type-home_slider td.column-title .row-actions, 
+.type-home_slider td.column-title .row-actions,
 .type-nectar_slider td.column-title .row-actions {
 	visibility: visible;
 }
@@ -382,7 +401,7 @@ td.caption.column-caption {
 	line-height: 28px;
 }
 
-.post-type-nectar_slider td.caption.column-caption img, 
+.post-type-nectar_slider td.caption.column-caption img,
 .nectar_slider_page_nectar-slide-order td.caption.column-caption img {
 	max-width: 35%;
 	display: block;
@@ -449,6 +468,13 @@ div.theme-logo {
 	width: 92%;
 }
 
+.wp-admin.post-type-portfolio.salient-portfolio-page-builder-layout #postdivrich,
+.wp-admin.post-type-portfolio.salient-portfolio-page-builder-layout .field__nectar_portfolio_item_layout,
+.wp-admin.post-type-portfolio.salient-portfolio-page-builder-layout .field__nectar_hide_featured {
+	display: none!important;
+}
+
+
 td.inline {
 	width: 40%!important;
 	vertical-align: top;
@@ -486,7 +512,7 @@ td.inline textarea {
 }
 
 .five-columns.header-colors {
-	display: none;	
+	display: none;
 }
 
 .font-attrs-loading {
@@ -508,7 +534,7 @@ td.inline textarea {
 .wpb-elements-list-modal, .wpb-elements-list-modal .modal-header, .wpb-elements-list-modal .modal-footer, .wpb-elements-list-modal .modal-body {
    -webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 }
 
 .modal.wpb-element-edit-modal .modal-header {
@@ -530,7 +556,7 @@ td.inline textarea {
 	max-height: 60px;
 	padding: 11px;
 	position: absolute;
-	bottom: 0px!important;	
+	bottom: 0px!important;
 }
 
 .modal.wpb-element-edit-modal .modal-body {
@@ -568,8 +594,6 @@ td.inline textarea {
 
 
 
-
-
 #menu-posts-nectar_slider .wp-menu-image:before {
 	padding-top: 6px;
 }
@@ -601,12 +625,12 @@ body #adminmenu .wp-menu-image img {
 	opacity: 9;
 }
 
-.compat-item tr.compat-field-image-url, .compat-item tr.compat-field-shape-bg-color, .compat-item tr.compat-field-shape-color-mapping, .compat-item tr.compat-field-shape-particle-color, 
+.compat-item tr.compat-field-image-url, .compat-item tr.compat-field-shape-bg-color, .compat-item tr.compat-field-shape-color-mapping, .compat-item tr.compat-field-shape-particle-color,
 .compat-item tr.compat-field-shape-density, .compat-item tr.compat-field-shape-max-particle-size, .compat-item tr.compat-field-shape-color-alpha, .compat-item tr.compat-field-masonry-image-sizing {
 	display: none;
 }
 
-#nectar_slider_canvas_shape .redux-option-image, 
+#nectar_slider_canvas_shape .redux-option-image,
 #_nectar_3d_parallax_images .redux-option-image,
 #nectar_slider_canvas_shape .nectar-media-preview {
 	width: 100px;
@@ -645,9 +669,9 @@ div#nectar-metabox-page-header .inside {
 	color: #fff!important;
 }
 
-#nectar-metabox-fullscreen-rows .hndle.ui-sortable-handle, 
+#nectar-metabox-fullscreen-rows .hndle.ui-sortable-handle,
 #nectar-metabox-page-header .hndle.ui-sortable-handle,
-#poststuff #nectar-metabox-fullscreen-rows .hndle.ui-sortable-handle, 
+#poststuff #nectar-metabox-fullscreen-rows .hndle.ui-sortable-handle,
 #poststuff #nectar-metabox-page-header .hndle.ui-sortable-handle,
 #poststuff #nectar-metabox-header-nav-transparency .hndle.ui-sortable-handle,
 #nectar-metabox-post-config .hndle.ui-sortable-handle,
@@ -662,9 +686,9 @@ div#nectar-metabox-page-header .inside {
 
 #nectar-metabox-header-nav-transparency .handlediv,
 #nectar-metabox-header-nav-transparency .toggle-indicator,
-#nectar-metabox-fullscreen-rows .handlediv, 
-#nectar-metabox-page-header .handlediv, 
-#nectar-metabox-fullscreen-rows .toggle-indicator, 
+#nectar-metabox-fullscreen-rows .handlediv,
+#nectar-metabox-page-header .handlediv,
+#nectar-metabox-fullscreen-rows .toggle-indicator,
 #nectar-metabox-page-header .toggle-indicator,
 #nectar-metabox-post-config .toggle-indicator,
 #nectar-metabox-post-config .handlediv,
@@ -678,7 +702,7 @@ div#nectar-metabox-page-header .inside {
 #nectar-metabox-post-quote .toggle-indicator
 #nectar-metabox-post-link .handlediv,
 #nectar-metabox-post-link .toggle-indicator {
-	color: #fff;
+	color: inherit;
 }
 
 
@@ -705,19 +729,19 @@ box-sizing: border-box;
 }
 
 .nectar-metabox-table .switch-options.activated.salient {
-    border-color: rgba(119, 204, 109, 1);
-		background-color: rgba(119, 204, 109, 1);
-		box-shadow: inset 0px 0px 0px 15px rgba(119, 204, 109, 1);
+    border-color: rgb(58, 103, 255);
+		background-color: rgb(58, 103, 255);
+		box-shadow: inset 0px 0px 0px 15px rgb(58, 103, 255);
     -webkit-transition: box-shadow .45s cubic-bezier(0.4, 0.0, 0.2, 1), background-color 0.25s 0.1s cubic-bezier(0.4, 0.0, 0.2, 1);
     transition: box-shadow .45s cubic-bezier(0.4, 0.0, 0.2, 1), background-color 0.25s 0.1s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-.nectar-metabox-table  .cb-enable span, 
+.nectar-metabox-table  .cb-enable span,
 .nectar-metabox-table  .cb-disable span {
 	line-height: 29px;
 }
 
-.nectar-metabox-table .cb-enable span, 
+.nectar-metabox-table .cb-enable span,
 .nectar-metabox-table .cb-disable span {
 	font-weight: 600;
 	position: absolute;
@@ -728,7 +752,7 @@ box-sizing: border-box;
 }
 
 .nectar-metabox-table .cb-enable span {
-	color: rgba(119, 204, 109, 1)!important;
+	color: rgb(58, 103, 255)!important;
 }
 
 .nectar-metabox-table .cb-disable.selected span {
@@ -747,7 +771,7 @@ box-sizing: border-box;
 		display: block;
 		content: '';
     background-color: #999;
-    border-radius: 19px; 
+    border-radius: 19px;
     cursor: pointer;
     -webkit-transition: all .35s cubic-bezier(0.4, 0.0, 0.2, 1);
     transition: all .35s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -769,7 +793,7 @@ box-sizing: border-box;
     text-align: left;
     font-size: 14px;
     cursor: pointer;
-    -webkit-user-select: none; /* Chrome/Safari */    
+    -webkit-user-select: none; /* Chrome/Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
 		-webkit-transition: color .3s;
@@ -796,7 +820,7 @@ box-sizing: border-box;
     line-height: 36px;
     font-size: 14px;
     font-weight: bold;
-    -webkit-user-select: none; /* Chrome/Safari */        
+    -webkit-user-select: none; /* Chrome/Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
 		text-align: right;
@@ -934,12 +958,12 @@ transform: scale(0.8); }
 .nectar-demo-importer-selection-modal a.submit {
 	background-color: #19a1f7!important;
 	color: #fff!important;
-	padding: 13px 25px; 
+	padding: 13px 25px;
 	height: auto;
 }
 
 .nectar-demo-importer-selection-modal a.close {
-	padding: 13px 25px; 
+	padding: 13px 25px;
 	height: auto;
 	margin-left: 15px;
 }
@@ -947,6 +971,28 @@ transform: scale(0.8); }
 .nectar-demo-importer-selection-modal a.submit:hover,
 .nectar-demo-importer-selection-modal a.close:hover {
 	opacity: 0.8!important;
+}
+
+.redux-main .letter-spacing.redux-container-typography {
+  margin-right: 0;
+}
+
+.redux-main .letter-spacing.redux-container-typography.input_wrapper .input-append {
+  margin-right: 0;
+}
+
+
+
+.redux-main .redux-typography-container .typography-letter-spacing-units.select_wrapper {
+  float: left;
+
+  min-width: 100px!important;
+  width: auto!important;
+}
+.redux-main .redux-typography-container .typography-letter-spacing-units.select_wrapper select {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background-color: #eeeeee;
 }
 
 .tgmpa.wrap span.optional {
@@ -964,4 +1010,98 @@ transform: scale(0.8); }
   font-weight: 600;
   border-radius: 3px;
   color: #fff;
+}
+
+/* display fields specific to HTML5 canvas page header edit */
+.particle-edit .collection-settings,
+.particle-edit input[type="text"].describe,
+.particle-edit .attachment-details label[data-setting="alt"],
+.particle-edit .attachment-details label[data-setting="description"] { display: none!important; }
+
+.particle-edit .compat-item .label {
+	max-width: 30%;
+}
+
+.particle-edit p.help {
+	font-size: 12px;
+	font-style: normal;
+	color: #888;
+}
+
+.particle-edit .compat-item tr.compat-field-shape-bg-color,
+.particle-edit .compat-item tr.compat-field-shape-color-alpha,
+.particle-edit .compat-item tr.compat-field-shape-color-mapping,
+.particle-edit .compat-item tr.compat-field-shape-particle-color,
+.particle-edit .compat-item tr.compat-field-shape-density,
+.particle-edit .compat-item tr.compat-field-shape-max-particle-size {
+	display: block;
+}
+
+
+/* remove VC image filters on nectar meta image uploads */
+body.page-header-edit .media-sidebar .vc-image-filter-setting {
+	display: none;
+}
+
+/* term meta */
+.nectar-custom-term .nectar-media-preview {
+	max-width: 200px;
+}
+.nectar-custom-term .description {
+	display: block;
+	margin-top: 7px;
+}
+
+table .nectar-custom-attr,
+table #nectar-custom-attr {
+	width: 40px;
+	height: 40px;
+}
+
+
+
+table tr:hover td.nectar-custom-attr .attr-img,
+table tr:hover td.nectar-custom-attr .attr-color {
+	box-shadow: 0 0 0 2px inset #fff,
+	            0px 7px 15px rgba(0,0,0,0.15);
+}
+
+table .nectar-custom-attr .attr-img,
+table .nectar-custom-attr .attr-color {
+	transition: box-shadow 0.3s ease;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 2px solid rgba(0,0,0,0);
+	padding: 3px;
+	background-color: #fff;
+	box-sizing: border-box;
+	border-radius: 50px;
+	background-size: cover;
+	box-shadow: 0 0 0 0 inset #fff,
+	            0 0 0 rgba(0,0,0,0);
+}
+
+table .nectar-custom-attr .attr-wrap{
+	border: 1px solid rgba(0,0,0,0.1);
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+}
+table .nectar-custom-attr .attr-img span,
+table .nectar-custom-attr .attr-color span {
+	vertical-align: baseline;
+	font-size: 18px;
+	opacity: 0.35;
+	top: -1px;
+	position: relative;
+}
+
+@media only screen and (max-width: 782px) {
+
+	table #nectar-custom-attr,
+	table tr td.nectar-custom-attr {
+		display: none;
+	}
 }

@@ -1,50 +1,50 @@
-<?php 
+<?php
 /*template name: Portfolio */
-get_header(); 
+get_header();
 
-$nectar_options = get_nectar_theme_options(); 
+$nectar_options = get_nectar_theme_options();
 
 // Calculate cols.
 if(!empty($nectar_options['main_portfolio_layout'])) {
-	
+
 	switch($nectar_options['main_portfolio_layout']){
 		case '2':
 			$cols = 'cols-2';
-			break; 
+			break;
 		case '3':
 			$cols = 'cols-3';
-			break; 
+			break;
 		case '4':
 			$cols = 'cols-4';
-			break; 
+			break;
 		case 'fullwidth':
 			$cols = 'elastic';
-			break; 
+			break;
 	}
-	
+
 } else {
 	$cols = 'cols-3';
 }
-	
+
 if(!empty($cols)) {
-	
+
 	switch($cols){
 		case 'cols-2':
 			$span_num = 'span_6';
-			break; 
+			break;
 		case 'cols-3':
 			$span_num = 'span_4';
-			break; 
+			break;
 		case 'cols-4':
 			$span_num = 'span_3';
-			break; 
+			break;
 		case 'elastic':
 			$span_num = 'elastic-portfolio-item';
-			break; 
-			
+			break;
+
 	}
-	
-} 
+
+}
 
 $project_style         = ( ! empty( $nectar_options['main_portfolio_project_style'] ) ) ? $nectar_options['main_portfolio_project_style'] : '1';
 $item_spacing          = ( ! empty( $nectar_options['main_portfolio_item_spacing'] ) ) ? $nectar_options['main_portfolio_item_spacing'] : 'default';
@@ -62,31 +62,31 @@ $display_sortable = get_post_meta( $post->ID, 'nectar-metabox-portfolio-display-
 $inline_filters   = ( ! empty( $nectar_options['portfolio_inline_filters'] ) && $nectar_options['portfolio_inline_filters'] == '1' ) ? '1' : '0';
 $filters_id       = ( ! empty( $nectar_options['portfolio_inline_filters'] ) && $nectar_options['portfolio_inline_filters'] == '1' ) ? 'portfolio-filters-inline' : 'portfolio-filters';
 $bg               = get_post_meta( $post->ID, '_nectar_header_bg', true );
-			
+
 nectar_page_header($post->ID); ?>
 
 <div class="container-wrap">
-	
+
 	<div class="container" data-col-num="<?php echo esc_attr( $cols ); ?>">
-	
-		
+
+
 		<?php if(have_posts()) : while(have_posts()) : the_post(); ?>
-			
+
 			<div class="container main-content">
-				<div class="row">	
+				<div class="row">
 					<?php the_content(); ?>
 				</div>
 			</div>
-	
+
 		<?php endwhile; endif;
-	
-		
+
+
 		if( !post_password_required() && class_exists('Salient_Portfolio') ) { ?>
-			
-		
+
+
 		<?php //Inline portfolio filters
 
-			if( $display_sortable === 'on' && $inline_filters === '1') {  
+			if( $display_sortable === 'on' && $inline_filters === '1') {
 
 			$filters_width = (!empty($nectar_options['header-fullwidth']) && $nectar_options['header-fullwidth'] === '1' && $cols === 'elastic') ? 'full-width-content ': 'full-width-section ';
 
@@ -103,66 +103,70 @@ nectar_page_header($post->ID); ?>
 				</div>
 			</div>
 		<?php } ?>
-		
+
 		<div class="portfolio-wrap <?php if($project_style === '1' && $span_num === 'elastic-portfolio-item') echo 'default-style'; if($project_style === '6' && $span_num === 'elastic-portfolio-item') echo 'spaced'; ?>">
-			
+
 			<?php
-			$default_loader_class = (empty($nectar_options['loading-image']) && !empty($nectar_options['theme-skin']) && $nectar_options['theme-skin'] === 'ascend') ? 'default-loader' : null; 
-			$default_loader 			= (empty($nectar_options['loading-image']) && !empty($nectar_options['theme-skin']) && $nectar_options['theme-skin'] === 'ascend') ? true : false; 
+			$default_loader_class = (empty($nectar_options['loading-image']) && !empty($nectar_options['theme-skin']) && $nectar_options['theme-skin'] === 'ascend') ? 'default-loader' : null;
+			$default_loader 			= (empty($nectar_options['loading-image']) && !empty($nectar_options['theme-skin']) && $nectar_options['theme-skin'] === 'ascend') ? true : false;
 			$load_in_animation 		= (!empty($nectar_options['portfolio_loading_animation'])) ? $nectar_options['portfolio_loading_animation'] : 'none'; ?>
 
 			<span class="portfolio-loading <?php echo esc_attr( $default_loader_class ); ?> <?php echo (!empty($nectar_options['loading-image-animation']) && !empty($nectar_options['loading-image'])) ? $nectar_options['loading-image-animation'] : null; ?>"></span>
 
-			
+
 			<?php
-			//get categories 
+			//get categories
 			global $post;
 			$categories = get_post_meta($post->ID, 'nectar-metabox-portfolio-display', true);
 			$project_categories = null;
 			$category_count = 0;
-			
+
 			if(!empty($categories)) {
-		
+
+				if( is_string($categories) ) {
+					$categories = explode(', ', $categories);
+				}
+
 				foreach($categories as $key => $slug){
 					if($category_count == 0){
 						$project_categories .= $slug;
 					} else {
-						$project_categories .= ', '.$slug;  
+						$project_categories .= ', '.$slug;
 					}
 					$category_count++;
-					
+
 				}
-			
+
 			}
 			// incase only all was selected
 			if($project_categories === 'all') {
 				$project_categories = null;
 			}
-			
-			?>
-			
-			<div id="portfolio" class="row portfolio-items <?php if($masonry_layout === 'true') echo 'masonry-items'; else { echo 'no-masonry'; } ?> <?php echo esc_attr( $infinite_scroll_class ); ?>" data-categories-to-show="<?php echo esc_attr( $project_categories ); ?>" data-gutter="<?php echo esc_attr( $item_spacing ); ?>" data-masonry-type="<?php echo esc_attr( $masonry_sizing_type ); ?>" data-ps="<?php echo esc_attr( $project_style ); ?>" data-starting-filter="" data-col-num="<?php echo esc_attr($cols); ?>">
-				
-				<?php 
 
-				add_filter('wp_get_attachment_image_attributes','nectar_remove_lazy_load_functionality'); 
+			?>
+
+			<div id="portfolio" class="row portfolio-items <?php if($masonry_layout === 'true') echo 'masonry-items'; else { echo 'no-masonry'; } ?> <?php echo esc_attr( $infinite_scroll_class ); ?>" data-categories-to-show="<?php echo esc_attr( $project_categories ); ?>" data-gutter="<?php echo esc_attr( $item_spacing ); ?>" data-masonry-type="<?php echo esc_attr( $masonry_sizing_type ); ?>" data-ps="<?php echo esc_attr( $project_style ); ?>" data-starting-filter="" data-col-num="<?php echo esc_attr($cols); ?>">
+
+				<?php
+
+				add_filter('wp_get_attachment_image_attributes','nectar_remove_lazy_load_functionality');
 
 				$posts_per_page = '-1';
 				if(!empty($nectar_options['portfolio_pagination']) && $nectar_options['portfolio_pagination'] === '1') {
 					$posts_per_page = (!empty($nectar_options['portfolio_pagination_number'])) ? $nectar_options['portfolio_pagination_number'] : '-1';
 				}
-				
+
 				$portfolio = array(
 					'posts_per_page' => $posts_per_page,
 					'post_type' => 'portfolio',
 					'project-type'=> $project_categories,
 					'paged'=> $paged
 				);
-				
+
 				$wp_query = new WP_Query($portfolio);
-				
-				if(have_posts()) : while(have_posts()) : the_post(); 
-					
+
+				if(have_posts()) : while(have_posts()) : the_post();
+
 					$terms        = get_the_terms( $post->id, 'project-type' );
 					$project_cats = null;
 
@@ -194,7 +198,7 @@ nectar_page_header($post->ID); ?>
 					$the_project_link    = ( ! empty( $custom_project_link ) ) ? $custom_project_link : esc_url( get_permalink() );
 					$project_excerpt     = get_post_meta( $post->ID, '_nectar_project_excerpt', true );
 					$customProjectClass  = get_post_meta( $post->ID, '_nectar_project_css_class', true );
-					
+
 					if ( ! empty( $customProjectClass ) ) {
 					 $customProjectClass = ' ' . sanitize_text_field( $customProjectClass );
 					}
@@ -206,9 +210,9 @@ nectar_page_header($post->ID); ?>
 					$project_subtitle_color = get_post_meta( $post->ID, '_nectar_project_subtitle_color', true );
 
 					?>
-					
+
 					<div class="col <?php echo esc_attr( $span_num ) . ' '. esc_attr( $masonry_item_sizing ) . esc_attr( $customProjectClass ); ?> element <?php echo esc_attr( $project_cats ); ?>" data-project-cat="<?php echo esc_attr( $project_cats ); ?>" <?php if(!empty($project_accent_color)) { echo 'data-project-color="' . esc_attr( $project_accent_color ) .'"'; } else { echo 'data-default-color="true"';} ?> data-title-color="<?php echo esc_attr( $project_title_color ); ?>" data-subtitle-color="<?php echo esc_attr( $project_subtitle_color ); ?>">
-						
+
 						<div class="inner-wrap animated" data-animation="<?php echo esc_attr( $load_in_animation ); ?>">
 
 							<?php // project style 1
@@ -217,9 +221,9 @@ nectar_page_header($post->ID); ?>
 
 								$using_custom_content = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item', true );
 								$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
-								
+
 							  <div class="work-item style-1" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>">
-								  
+
 								<?php
 
 								$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
@@ -274,10 +278,10 @@ nectar_page_header($post->ID); ?>
 									}
 								}
 								?>
-								
+
 								<div class="work-info-bg"></div>
-								<div class="work-info"> 
-								   
+								<div class="work-info">
+
 								  <?php
 									// custom content
 									if ( $using_custom_content === 'on' ) {
@@ -317,43 +321,43 @@ nectar_page_header($post->ID); ?>
 											echo '<a class="default-link" href="' . esc_url( $the_project_link ) . '">' . esc_html__( 'More Details', 'salient' ) . '</a>';
 										}
 										?>
-										
+
 									</div><!--/vert-center-->
 								  </div>
 								</div><!--work-item-->
-								
+
 								<div class="work-meta">
 								  <h4 class="title"><?php the_title(); ?></h4>
-								   
+
 										<?php
 										if ( ! empty( $project_excerpt ) ) {
 											echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
 										} elseif ( ! empty( $nectar_options['portfolio_date'] ) && $nectar_options['portfolio_date'] == 1 ) {
 											echo '<p>' . get_the_date() . '</p>';}
 										?>
-								   
+
 								</div>
 								<div class="nectar-love-wrap">
 										<?php
 										if ( function_exists( 'nectar_love' ) ) {
 											nectar_love();}
 										?>
-								</div><!--/nectar-love-wrap-->	
+								</div><!--/nectar-love-wrap-->
 
 										<?php
 									}
 							} //project style 1
 
-						
-						
-						//project style 2
-						else if($project_style === '2') { 
 
-						  $using_custom_content = get_post_meta($post->ID, '_nectar_portfolio_custom_grid_item', true); 
+
+						//project style 2
+						else if($project_style === '2') {
+
+						  $using_custom_content = get_post_meta($post->ID, '_nectar_portfolio_custom_grid_item', true);
 						  $custom_content = get_post_meta($post->ID, '_nectar_portfolio_custom_grid_item_content', true); ?>
-						  
+
 						  <div class="work-item style-2" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>">
-							
+
 							<?php
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
 							if ( $masonry_sizing_type === 'photography' && ! empty( $masonry_item_sizing ) ) {
@@ -411,7 +415,7 @@ nectar_page_header($post->ID); ?>
 
 							<div class="work-info-bg"></div>
 							<div class="work-info">
-							   
+
 								<?php
 								// custom content
 								if ( $using_custom_content === 'on' ) {
@@ -421,11 +425,11 @@ nectar_page_header($post->ID); ?>
 									// default
 								} else {
 									?>
-								
+
 									<?php if ( $lightbox_only != 'true' ) { ?>
-								   
+
 								  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-								
+
 										<?php
 						} else {
 
@@ -440,20 +444,20 @@ nectar_page_header($post->ID); ?>
 
 							} else {
 								?>
-										
-										<a href="<?php echo esc_url( $featured_image[0] ); ?>" 
+
+										<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 															<?php
 															if ( ! empty( $project_image_caption ) ) {
 																echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 															?>
 										 class="pretty_photo"></a>
-										
+
 										<?php
 							}
 						}
 								}
 								?>
-							   
+
 
 							  <div class="vert-center">
 								<?php
@@ -461,8 +465,8 @@ nectar_page_header($post->ID); ?>
 									echo '<div class="custom-content">' . do_shortcode( $custom_content ) . '</div>';
 								} else {
 									?>
-									
-								  <h3><?php echo get_the_title(); ?></h3> 
+
+								  <h3><?php echo get_the_title(); ?></h3>
 									<?php
 									if ( ! empty( $project_excerpt ) ) {
 										echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
@@ -471,10 +475,10 @@ nectar_page_header($post->ID); ?>
 								}
 								?>
 							  </div><!--/vert-center-->
-							   
+
 							</div>
 						  </div><!--work-item-->
-						  
+
 						<?php
 						} //project style 2
 
@@ -482,9 +486,9 @@ nectar_page_header($post->ID); ?>
 
 							$using_custom_content = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item', true );
 							$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
-						  
+
 						  <div class="work-item style-3" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>" data-text-align="<?php echo esc_attr( $masonry_item_content_pos ); ?>">
-							
+
 							<?php
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
 							if ( $masonry_sizing_type === 'photography' && ! empty( $masonry_item_sizing ) ) {
@@ -542,7 +546,7 @@ nectar_page_header($post->ID); ?>
 
 							<div class="work-info-bg"></div>
 							<div class="work-info">
-							   
+
 							  <?php
 								// custom content
 								if ( $using_custom_content === 'on' ) {
@@ -554,9 +558,9 @@ nectar_page_header($post->ID); ?>
 
 									if ( $lightbox_only != 'true' ) {
 										?>
-								   
+
 								  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-								
+
 										<?php
 									} else {
 
@@ -571,22 +575,22 @@ nectar_page_header($post->ID); ?>
 
 										} else {
 											?>
-										
-										<a href="<?php echo esc_url( $featured_image[0] ); ?>"  
+
+										<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 															<?php
 															if ( ! empty( $project_image_caption ) ) {
 																echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 															?>
 										 class="pretty_photo"></a>
-										
+
 										<?php } ?>
 
-								   
+
 										<?php
 									}
 								}
 								?>
-							   
+
 
 							  <div class="vert-center">
 								<?php
@@ -594,8 +598,8 @@ nectar_page_header($post->ID); ?>
 									echo '<div class="custom-content">' . do_shortcode( $custom_content ) . '</div>';
 								} else {
 									?>
-									
-								  <h3><?php echo get_the_title(); ?> </h3> 
+
+								  <h3><?php echo get_the_title(); ?> </h3>
 									<?php
 									if ( ! empty( $project_excerpt ) ) {
 										echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
@@ -604,10 +608,10 @@ nectar_page_header($post->ID); ?>
 									?>
 								<?php } ?>
 							  </div><!--/vert-center-->
-							   
+
 							</div>
 						  </div><!--work-item-->
-						  
+
 							<?php
 						} //project style 3
 
@@ -618,7 +622,7 @@ nectar_page_header($post->ID); ?>
 							$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
 
 						  <div class="work-item style-4" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>">
-							
+
 							<?php
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
 							if ( $masonry_sizing_type === 'photography' && ! empty( $masonry_item_sizing ) ) {
@@ -679,7 +683,7 @@ nectar_page_header($post->ID); ?>
 							?>
 
 							<div class="work-info">
-							   
+
 							  <?php
 
 								// custom content
@@ -692,9 +696,9 @@ nectar_page_header($post->ID); ?>
 
 									if ( $lightbox_only != 'true' ) {
 										?>
-								   
+
 								  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-								
+
 										<?php
 									} else {
 
@@ -709,14 +713,14 @@ nectar_page_header($post->ID); ?>
 
 										} else {
 											?>
-										
-										<a href="<?php echo esc_url( $featured_image[0] ); ?>" 
+
+										<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 															<?php
 															if ( ! empty( $project_image_caption ) ) {
 																echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 															?>
 										 class="pretty_photo"></a>
-										
+
 											<?php
 										}
 									}
@@ -726,10 +730,10 @@ nectar_page_header($post->ID); ?>
 									echo '<div class="vert-center"><div class="custom-content">' . do_shortcode( $custom_content ) . '</div></div>';
 								} else {
 									?>
-									
+
 
 								<div class="bottom-meta">
-								  <h3><?php echo get_the_title(); ?> </h3> 
+								  <h3><?php echo get_the_title(); ?> </h3>
 									<?php
 									if ( ! empty( $project_excerpt ) ) {
 										echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
@@ -739,10 +743,10 @@ nectar_page_header($post->ID); ?>
 								</div><!--/bottom-meta-->
 
 								<?php } ?>
-							   
+
 							</div>
 						  </div><!--work-item-->
-						  
+
 							<?php
 						} //project style 4
 
@@ -751,9 +755,9 @@ nectar_page_header($post->ID); ?>
 
 							$using_custom_content = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item', true );
 							$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
-						   
+
 						  <div class="work-item style-3-alt" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>" data-text-align="<?php echo esc_attr( $masonry_item_content_pos ); ?>">
-							 
+
 							<?php
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
 							if ( $masonry_sizing_type === 'photography' && ! empty( $masonry_item_sizing ) ) {
@@ -808,10 +812,10 @@ nectar_page_header($post->ID); ?>
 								}
 							}
 							?>
-						
+
 							<div class="work-info-bg"></div>
 							<div class="work-info">
-							   
+
 							  <?php
 
 								// custom content
@@ -824,9 +828,9 @@ nectar_page_header($post->ID); ?>
 
 									if ( $lightbox_only != 'true' ) {
 										?>
-								   
+
 								  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-								 
+
 										<?php
 									} else {
 
@@ -841,43 +845,43 @@ nectar_page_header($post->ID); ?>
 
 										} else {
 											?>
-										 
-										<a href="<?php echo esc_url( $featured_image[0] ); ?>"  
+
+										<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 															<?php
 															if ( ! empty( $project_image_caption ) ) {
 																echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 															?>
 										 class="pretty_photo"></a>
-										 
+
 											<?php
 										}
 									}
 								}
 								?>
-							   
-						
+
+
 							  <div class="vert-center">
 								<?php
 								if ( ! empty( $using_custom_content ) && $using_custom_content === 'on' ) {
 									echo '<div class="custom-content">' . do_shortcode( $custom_content ) . '</div>';
 								} else {
 									?>
-									 
-								  <h3><?php echo get_the_title(); ?> </h3> 
+
+								  <h3><?php echo get_the_title(); ?> </h3>
 									<?php
 									if ( ! empty( $project_excerpt ) ) {
 										echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
 									} elseif ( ! empty( $nectar_options['portfolio_date'] ) && $nectar_options['portfolio_date'] === '1' ) {
 										echo '<p>' . get_the_date() . '</p>';}
 									?>
-								 
+
 								<?php } ?>
-								 
+
 							  </div><!--/vert-center-->
-							   
+
 							</div>
 						  </div><!--work-item-->
-						   
+
 							<?php
 						} //project style 5
 
@@ -886,9 +890,9 @@ nectar_page_header($post->ID); ?>
 
 							$using_custom_content = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item', true );
 							$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
-						   
+
 						  <div class="work-item style-5" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>" data-text-align="<?php echo esc_attr( $masonry_item_content_pos ); ?>">
-							 
+
 							<?php
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
 							if ( $masonry_sizing_type === 'photography' && ! empty( $masonry_item_sizing ) ) {
@@ -996,9 +1000,9 @@ nectar_page_header($post->ID); ?>
 
 							if ( $lightbox_only != 'true' ) {
 								?>
-								   
+
 							  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-							 
+
 								<?php
 							} else {
 
@@ -1013,25 +1017,25 @@ nectar_page_header($post->ID); ?>
 
 								} else {
 									?>
-									 
-									<a href="<?php echo esc_url( $featured_image[0] ); ?>"  
+
+									<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 														<?php
 														if ( ! empty( $project_image_caption ) ) {
 															echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 														?>
 									 class="pretty_photo"></a>
-									 
+
 									<?php
 								}
 							}
 
 							?>
-						
-						   
+
+
 						  </div><!--work-item-->
-						
-						
-						   
+
+
+
 							<?php
 						} //project style 6
 
@@ -1043,9 +1047,9 @@ nectar_page_header($post->ID); ?>
 
 							$using_custom_content = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item', true );
 							$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
-						   
+
 						  <div class="work-item style-2" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>">
-							 
+
 							<?php
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
 							if ( $masonry_sizing_type === 'photography' && ! empty( $masonry_item_sizing ) ) {
@@ -1100,10 +1104,10 @@ nectar_page_header($post->ID); ?>
 								}
 							}
 							?>
-						
+
 							<div class="work-info-bg"></div>
 							<div class="work-info">
-							   
+
 							  <?php
 								// custom content
 								if ( $using_custom_content === 'on' ) {
@@ -1113,12 +1117,12 @@ nectar_page_header($post->ID); ?>
 									// default
 								} else {
 									?>
-						
-								 
+
+
 									<?php if ( $lightbox_only != 'true' ) { ?>
-								   
+
 								  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-								 
+
 										<?php
 						} else {
 
@@ -1133,29 +1137,29 @@ nectar_page_header($post->ID); ?>
 
 							} else {
 								?>
-										 
-										<a href="<?php echo esc_url( $featured_image[0] ); ?>" 
+
+										<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 															<?php
 															if ( ! empty( $project_image_caption ) ) {
 																echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 															?>
 										 class="pretty_photo"></a>
-										 
+
 										<?php
 							}
 						}
 								}
 								?>
-							   
-						
+
+
 							  <div class="vert-center">
 								<?php
 								if ( ! empty( $using_custom_content ) && $using_custom_content === 'on' ) {
 									echo '<div class="custom-content">' . do_shortcode( $custom_content ) . '</div>';
 								} else {
 									?>
-									 
-								  <h3><?php echo get_the_title(); ?></h3> 
+
+								  <h3><?php echo get_the_title(); ?></h3>
 									<?php
 									if ( ! empty( $project_excerpt ) ) {
 										echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
@@ -1164,10 +1168,10 @@ nectar_page_header($post->ID); ?>
 								}
 								?>
 							  </div><!--/vert-center-->
-							   
+
 							</div>
 						  </div><!--work-item-->
-						   
+
 							<?php
 						} //project style 7
 
@@ -1178,9 +1182,9 @@ nectar_page_header($post->ID); ?>
 
 							$using_custom_content = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item', true );
 							$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
-						   
+
 						  <div class="work-item style-2" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>">
-							 
+
 							<?php
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
 							if ( $masonry_sizing_type === 'photography' && ! empty( $masonry_item_sizing ) ) {
@@ -1235,10 +1239,10 @@ nectar_page_header($post->ID); ?>
 								}
 							}
 							?>
-						
+
 							<div class="work-info-bg"></div>
 							<div class="work-info">
-							   
+
 							  <?php
 								// custom content
 								if ( $using_custom_content === 'on' ) {
@@ -1248,12 +1252,12 @@ nectar_page_header($post->ID); ?>
 									// default
 								} else {
 									?>
-						
-								 
+
+
 									<?php if ( $lightbox_only != 'true' ) { ?>
-								   
+
 								  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-								 
+
 										<?php
 						} else {
 
@@ -1268,56 +1272,56 @@ nectar_page_header($post->ID); ?>
 
 							} else {
 								?>
-										 
-										<a href="<?php echo esc_url( $featured_image[0] ); ?>" 
+
+										<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 															<?php
 															if ( ! empty( $project_image_caption ) ) {
 																echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 															?>
 										 class="pretty_photo"></a>
-										 
+
 										<?php
 							}
 						}
 								}
 								?>
-							   
-						
+
+
 							  <div class="vert-center">
 								<?php
 								if ( ! empty( $using_custom_content ) && $using_custom_content === 'on' ) {
 									echo '<div class="custom-content">' . do_shortcode( $custom_content ) . '</div>';
 								} else {
 									?>
-									 
-								   
+
+
 									<?php
 									if ( ! empty( $project_excerpt ) ) {
 										echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
 									} elseif ( ! empty( $nectar_options['portfolio_date'] ) && $nectar_options['portfolio_date'] === '1' ) {
 										echo '<p>' . get_the_date() . '</p>';}
 									?>
-								  <h3><?php echo get_the_title(); ?></h3> 
-						
+								  <h3><?php echo get_the_title(); ?></h3>
+
 								  <svg class="next-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 39 12"><line class="top" x1="23" y1="-0.5" x2="29.5" y2="6.5" stroke="#ffffff;"/><line class="bottom" x1="23" y1="12.5" x2="29.5" y2="5.5" stroke="#ffffff;"/></svg><span class="line"></span></span>
-						
+
 								<?php } ?>
 							  </div><!--/vert-center-->
-							   
+
 							</div>
 						  </div><!--work-item-->
-						   
+
 							<?php
 						} //project style 8
 
-						
+
 						elseif ( $project_style === '9' ) {
 
 							$using_custom_content = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item', true );
 							$custom_content       = get_post_meta( $post->ID, '_nectar_portfolio_custom_grid_item_content', true ); ?>
-						   
+
 						<div class="work-item style-1" data-custom-content="<?php echo esc_attr( $using_custom_content ); ?>">
-							
+
 							<?php
 
 							$thumb_size = ( ! empty( $masonry_item_sizing ) ) ? $masonry_item_sizing : 'portfolio-thumb';
@@ -1344,12 +1348,12 @@ nectar_page_header($post->ID); ?>
 
 										$image_srcset_values = wp_get_attachment_image_srcset( $custom_thumbnail_id, 'full' );
 										if ( $image_srcset_values ) {
-											$image_srcset .= 'srcset="' . $image_srcset_values . '" ';
+											$image_srcset .= 'srcset="' . $image_srcset_values . '" sizes="(min-width: 1000px) 50vw, (min-width: 690px) 100vw, 100vw"';
 										}
 									}
 								}
 
-								echo '<img class="custom-thumbnail skip-lazy" src="' . nectar_ssl_check( esc_url( $custom_thumbnail ) ) . '" ' . $image_srcset . $image_sizes . ' alt="' . get_the_title() . '" />';
+								echo '<img class="custom-thumbnail skip-lazy" src="' . nectar_ssl_check( esc_url( $custom_thumbnail ) ) . '" ' . $image_srcset . ' alt="' . get_the_title() . '" />';
 
 							} else {
 
@@ -1409,15 +1413,15 @@ nectar_page_header($post->ID); ?>
 								}
 							}
 							?>
-						   
-						
-						  <div class="work-info"> 
-							 
-						   
+
+
+						  <div class="work-info">
+
+
 							<?php if ( $lightbox_only != 'true' ) { ?>
-							   
+
 							  <a href="<?php echo esc_url( $the_project_link ); ?>"></a>
-							 
+
 								<?php
 						} else {
 
@@ -1433,51 +1437,51 @@ nectar_page_header($post->ID); ?>
 
 							} else {
 								?>
-									 
-									<a href="<?php echo esc_url( $featured_image[0] ); ?>" 
+
+									<a href="<?php echo esc_url( $featured_image[0] ); ?>"
 														<?php
 														if ( ! empty( $project_image_caption ) ) {
 															echo ' title="' . wp_kses_post( $project_image_caption ) . '" ';}
 														?>
 									 class="pretty_photo"></a>
-									 
+
 								<?php
 							}
 						}
 						?>
-								   
-						
+
+
 						  </div>
-							 
+
 						  </div><!--work-item-->
-						   
+
 						  <div class="work-meta">
 							<h4 class="title"><?php the_title(); ?></h4>
-							 
+
 							<?php
 							if ( ! empty( $project_excerpt ) ) {
 								echo '<p>' . wp_kses_post( $project_excerpt ) . '</p>';
 							} elseif ( ! empty( $nectar_options['portfolio_date'] ) && $nectar_options['portfolio_date'] === '1' ) {
 								echo '<p>' . get_the_date() . '</p>';}
 							?>
-							 
+
 						  </div>
-						
-						
+
+
 						<?php
-						} //project style 9  
+						} //project style 9
 						?>
 
-						
-						
+
+
 					</div><!--inner-->
 					</div><!--/col-->
-					
+
 				<?php endwhile; endif; ?>
 			</div><!--/portfolio-->
 	   </div><!--/portfolio wrap-->
-		
-		<?php 
+
+		<?php
 
 		if ( ! empty( $nectar_options['portfolio_extra_pagination'] ) && $nectar_options['portfolio_extra_pagination'] === '1' ) {
 
@@ -1522,9 +1526,9 @@ nectar_page_header($post->ID); ?>
 
 		 }
 		}
-		
+
 		}//password protection ?>
-		
+
 	</div><!--/container-->
 
 </div><!--/container-wrap-->

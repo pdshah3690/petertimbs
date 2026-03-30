@@ -125,7 +125,7 @@ function nectar_register_widget_areas() {
 			'after_title'   => '</h4>',
 		)
 	);
-	
+
 
 	if ( $copyright_footer_layout === 'centered' || $footer_columns === '1' ) {
 		register_sidebar(

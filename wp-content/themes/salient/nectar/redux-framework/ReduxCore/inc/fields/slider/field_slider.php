@@ -26,6 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'ReduxFramework_slider' ) ) {
     class ReduxFramework_slider {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+        
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -37,7 +41,7 @@ if ( ! class_exists( 'ReduxFramework_slider' ) ) {
         private $display_text = 2;
         private $display_select = 3;
 
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
 
             //parent::__construct( $parent->sections, $parent->args );
             $this->parent = $parent;
@@ -222,7 +226,7 @@ if ( ! class_exists( 'ReduxFramework_slider' ) ) {
 
             wp_enqueue_style(
                 'redux-nouislider-css',
-                ReduxFramework::$_url . 'inc/fields/slider/vendor/nouislider/redux.jquery.nouislider.css',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/slider/vendor/nouislider/redux.jquery.nouislider.css',
                 array(),
                 '5.0.0',
                 'all'
@@ -230,7 +234,7 @@ if ( ! class_exists( 'ReduxFramework_slider' ) ) {
 
             wp_register_script(
                 'redux-nouislider-js',
-                ReduxFramework::$_url . 'inc/fields/slider/vendor/nouislider/redux.jquery.nouislider' . $min . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/slider/vendor/nouislider/redux.jquery.nouislider' . $min . '.js',
                 array( 'jquery' ),
                 '5.0.0',
                 true
@@ -238,7 +242,7 @@ if ( ! class_exists( 'ReduxFramework_slider' ) ) {
 
             wp_enqueue_script(
                 'redux-field-slider-js',
-                ReduxFramework::$_url . 'inc/fields/slider/field_slider' . $min . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/slider/field_slider' . $min . '.js',
                 array( 'jquery', 'redux-nouislider-js', 'redux-js', 'select2-js' ),
                 time(),
                 true
@@ -247,7 +251,7 @@ if ( ! class_exists( 'ReduxFramework_slider' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-slider-css',
-                    ReduxFramework::$_url . 'inc/fields/slider/field_slider.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/slider/field_slider.css',
                     array(),
                     time(),
                     'all'

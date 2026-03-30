@@ -38,6 +38,56 @@
         }
     );
 
+    function sanitize(str) {
+
+        function stringToHTML () {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(str, 'text/html');
+                return doc.body || document.createElement('body');
+        }
+
+        function removeScripts (html) {
+                let scripts = html.querySelectorAll('script');
+                for (let script of scripts) {
+                        script.remove();
+                }
+        }
+
+        function isPossiblyDangerous (name, value) {
+                let val = value.replace(/\s+/g, '').toLowerCase();
+                if (['src', 'href', 'xlink:href'].includes(name)) {
+                        if (val.includes('javascript:') || val.includes('data:')) return true;
+                }
+                if (name.startsWith('on')) return true;
+        }
+
+        function removeAttributes (elem) {
+                let atts = elem.attributes;
+                for (let {name, value} of atts) {
+                        if (!isPossiblyDangerous(name, value)) continue;
+                        elem.removeAttribute(name);
+                }
+
+        }
+
+        function clean (html) {
+                let nodes = html.children;
+                for (let node of nodes) {
+                        removeAttributes(node);
+                        clean(node);
+                }
+        }
+
+        // Convert the string to HTML
+        let html = stringToHTML();
+        
+        // Sanitize it
+        removeScripts(html);
+        clean(html);
+
+        return html.innerHTML;
+    } 
+
     $.redux.ajax_save = function( button ) {
 
         var overlay = $( document.getElementById( 'redux_ajax_overlay' ) );
@@ -585,13 +635,14 @@
         );
 
         if ( redux.last_tab !== undefined ) {
-            $( '#' + redux.last_tab + '_section_group_li_a' ).trigger('click');
+            $( '#' + sanitize(redux.last_tab) + '_section_group_li_a' ).trigger('click');
             return;
         }
 
         var tab = decodeURI( (new RegExp( 'tab' + '=' + '(.+?)(&|$)' ).exec( location.search ) || [, ''])[1] );
 
         if ( tab !== "" ) {
+            tab = sanitize(tab);
             if ( $.cookie( "redux_current_tab_get" ) !== tab ) {
                 $.cookie(
                     'redux_current_tab', tab, {

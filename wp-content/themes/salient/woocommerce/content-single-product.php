@@ -31,17 +31,24 @@ global $product;
 	 	return;
 	 }
 
-$nectar_options        = get_nectar_theme_options(); 
-$product_style         = (!empty($nectar_options['product_style'])) ? $nectar_options['product_style'] : 'classic';
-$product_gallery_style = (!empty($nectar_options['single_product_gallery_type'])) ? $nectar_options['single_product_gallery_type'] : 'default';
-$product_hide_sku      = (!empty($nectar_options['woo_hide_product_sku'])) ? $nectar_options['woo_hide_product_sku'] : 'false';
+$nectar_options          = get_nectar_theme_options();
+$product_style           = (!empty($nectar_options['product_style'])) ? $nectar_options['product_style'] : 'classic';
+$product_gallery_style   = (!empty($nectar_options['single_product_gallery_type'])) ? $nectar_options['single_product_gallery_type'] : 'default';
+$product_hide_sku        = (!empty($nectar_options['woo_hide_product_sku'])) ? $nectar_options['woo_hide_product_sku'] : 'false';
+$nectar_woo_lazy_load    = (isset( $nectar_options['product_lazy_load_images'] ) && !empty( $nectar_options['product_lazy_load_images'] )) ? $nectar_options['product_lazy_load_images'] : 'off';
+$product_gallery_variant = 'default';
+$is_sold_individually    = ($product && $product->is_sold_individually()) ? 'true' : 'false';
 
+if( 'left_thumb_sticky_fullwidth' === $product_gallery_style) {
+	$product_gallery_style = 'left_thumb_sticky';
+	$product_gallery_variant = 'fullwidth';
+}
 ?>
 
 <?php if( function_exists('wc_product_class') ) { ?>
-	<div itemscope data-project-style="<?php echo esc_attr($product_style); ?>" data-hide-product-sku="<?php echo esc_attr($product_hide_sku); ?>" data-gallery-style="<?php echo esc_attr($product_gallery_style); ?>" data-tab-pos="<?php echo (!empty($nectar_options['product_tab_position'])) ? esc_attr($nectar_options['product_tab_position']) : 'default'; ?>" id="product-<?php the_ID(); ?>" <?php wc_product_class('', $product); ?>>
+	<div itemscope data-project-style="<?php echo esc_attr($product_style); ?>" data-sold-individually="<?php echo esc_attr($is_sold_individually); ?>" data-gallery-variant="<?php echo esc_attr($product_gallery_variant); ?>" data-n-lazy="<?php echo esc_attr($nectar_woo_lazy_load); ?>" data-hide-product-sku="<?php echo esc_attr($product_hide_sku); ?>" data-gallery-style="<?php echo esc_attr($product_gallery_style); ?>" data-tab-pos="<?php echo (!empty($nectar_options['product_tab_position'])) ? esc_attr($nectar_options['product_tab_position']) : 'default'; ?>" id="product-<?php the_ID(); ?>" <?php wc_product_class('', $product); ?>>
 <?php } else { ?>
-	<div itemscope data-project-style="<?php echo esc_attr($product_style); ?>" data-hide-product-sku="<?php echo esc_attr($product_hide_sku); ?>" data-gallery-style="<?php echo esc_attr($product_gallery_style); ?>" data-tab-pos="<?php echo (!empty($nectar_options['product_tab_position'])) ? esc_attr($nectar_options['product_tab_position']) : 'default'; ?>" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<div itemscope data-project-style="<?php echo esc_attr($product_style); ?>" data-gallery-variant="<?php echo esc_attr($product_gallery_variant); ?>" data-hide-product-sku="<?php echo esc_attr($product_hide_sku); ?>" data-gallery-style="<?php echo esc_attr($product_gallery_style); ?>" data-tab-pos="<?php echo (!empty($nectar_options['product_tab_position'])) ? esc_attr($nectar_options['product_tab_position']) : 'default'; ?>" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 <?php } ?>
 
 	<?php
@@ -54,7 +61,7 @@ $product_hide_sku      = (!empty($nectar_options['woo_hide_product_sku'])) ? $ne
 		do_action( 'woocommerce_before_single_product_summary' );
 	?>
 
-	<div class="summary entry-summary">
+	<div class="summary entry-summary force-contained-rows">
 
 		<?php
 			/**
@@ -88,4 +95,3 @@ $product_hide_sku      = (!empty($nectar_options['woo_hide_product_sku'])) ? $ne
 </div><!-- #product-<?php the_ID(); ?> -->
 
 <?php do_action( 'woocommerce_after_single_product' ); ?>
-

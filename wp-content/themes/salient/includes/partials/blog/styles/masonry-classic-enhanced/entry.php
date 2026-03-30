@@ -4,7 +4,7 @@
  *
  * Used when "Classic Enhanced" masonry style is selected.
  *
- * @version 10.5
+ * @version 12.5
  */
  
 // Exit if accessed directly
@@ -20,6 +20,13 @@ $masonry_item_sizing         = ( ! empty( $masonry_size_pm ) ) ? $masonry_size_p
 $nectar_post_class_additions = $masonry_item_sizing . ' masonry-blog-item';
 $excerpt_length              = ( ! empty( $nectar_options['blog_excerpt_length'] ) ) ? intval( $nectar_options['blog_excerpt_length'] ) : 15;
 
+$date_functionality = (isset($nectar_options['post_date_functionality']) && !empty($nectar_options['post_date_functionality'])) ? $nectar_options['post_date_functionality'] : 'published_date';
+
+if( 'last_editied_date' === $date_functionality ) {
+  $date = get_the_modified_date();
+} else {
+  $date = get_the_date();
+}
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( $nectar_post_class_additions ); ?>>  
@@ -29,18 +36,13 @@ $excerpt_length              = ( ! empty( $nectar_options['blog_excerpt_length']
     <div class="post-content">
       
       <?php
-        // Featured image.
-        $img_size    = ( ! empty( $masonry_item_sizing ) && 'regular' === $masonry_item_sizing ) ? 'portfolio-thumb' : 'full';
-        $image_attrs = array(
-          'title' => '',
-          'sizes' => '(min-width: 1600px) 20vw, (min-width: 1300px) 25vw, (min-width: 1000px) 33.3vw, (min-width: 690px) 50vw, 100vw',
-        );
-        echo '<a href="' . esc_url( get_permalink() ) . '" class="img-link"><span class="post-featured-img">' . get_the_post_thumbnail( $post->ID, $img_size, $image_attrs ) . '</span></a>';
+      // Featured image.
+      get_template_part( 'includes/partials/blog/styles/masonry-classic-enhanced/post-image' );
       ?>
       
       <div class="content-inner">
         
-        <a class="entire-meta-link" href="<?php the_permalink(); ?>"></a>
+        <a class="entire-meta-link" href="<?php the_permalink(); ?>"><span class="screen-reader-text"><?php echo get_the_title(); ?></span></a>
         
         <?php 
         
@@ -52,7 +54,7 @@ $excerpt_length              = ( ! empty( $nectar_options['blog_excerpt_length']
         <div class="article-content-wrap">
           
           <div class="post-header">
-            <?php echo '<span>' . get_the_date() . '</span>'; ?>
+            <?php echo '<span>' . esc_html($date) . '</span>'; ?>
             <h3 class="title"><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h3>
           </div>
           
@@ -70,6 +72,8 @@ $excerpt_length              = ( ! empty( $nectar_options['blog_excerpt_length']
               }
               
             echo '</div>';
+
+            do_action('nectar_after_archive_post_item_content');
 
           ?>
 

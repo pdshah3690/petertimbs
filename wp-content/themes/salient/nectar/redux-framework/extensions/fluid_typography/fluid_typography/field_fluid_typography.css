@@ -1,0 +1,155 @@
+.redux-fluid-typography-container {
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.redux-fluid-typography-root {
+    margin-bottom: 15px;
+}
+
+.redux-fluid-typography-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.redux-fluid-typography-root-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+    color: #333;
+}
+
+.redux-fluid-typography-device-switcher {
+    display: flex;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    padding: 2px;
+    gap: 2px;
+}
+
+.redux-fluid-typography-device-btn {
+    background: none;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    transition: all 0.2s ease;
+    min-width: 36px;
+    height: 36px;
+}
+
+.redux-fluid-typography-device-btn:hover {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.redux-fluid-typography-device-btn.active {
+    background-color: #fff;
+    color: #3452ff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.redux-fluid-typography-device-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.redux-fluid-typography-device-section {
+    transition: opacity 0.3s ease;
+}
+
+.redux-fluid-typography-device-section[style*="display: none"] {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.redux-fluid-typography-columns {
+    display: flex;
+    gap: 20px;
+}
+
+.redux-fluid-typography-column {
+    flex: 1;
+}
+
+.redux-fluid-typography-min {
+    /* Min column styling */
+}
+
+.redux-fluid-typography-max {
+    /* Max column styling */
+}
+
+.redux-fluid-typography-custom-section {
+    margin-top: 15px;
+}
+
+.redux-fluid-typography-column label,
+.redux-fluid-typography-custom-section label {
+    display: block;
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.redux-fluid-typography-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.redux-fluid-typography-input:focus {
+    outline: none;
+    border-color: #3452ff;
+    box-shadow: 0 0 0 1px #3452ff;
+}
+
+.redux-fluid-typography-custom {
+    background-color: #f9f9f9;
+}
+
+.redux-fluid-typography-custom::placeholder,
+.redux-fluid-typography-input::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.redux-fluid-typography-warning {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 1px #ff6b6b !important;
+    background-color: #fff5f5 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .redux-fluid-typography-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .redux-fluid-typography-device-switcher {
+        align-self: flex-end;
+    }
+
+    .redux-fluid-typography-columns {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

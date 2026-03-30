@@ -46,7 +46,7 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
             <span class="meta-category"><?php the_category( ', ' ); ?>
             </span><?php if ( comments_open() ) { ?>
               <span class="meta-comment-count"> <a href="<?php comments_link(); ?>">
-                <?php comments_number( esc_html__( 'No Comments', 'salient' ), esc_html__( 'One Comment ', 'salient' ), esc_html__( '% Comments', 'salient' ) ); ?></a>
+                <?php comments_number( esc_html__( 'No Comments', 'salient' ), esc_html__( 'One Comment', 'salient' ), esc_html__( '% Comments', 'salient' ) ); ?></a>
               </span>
             <?php } ?>
             

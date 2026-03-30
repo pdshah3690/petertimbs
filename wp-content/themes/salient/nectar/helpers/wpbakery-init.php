@@ -12,6 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $nectar_options;
+
+// WPBakery AI functionality.
+if ( isset($nectar_options['wpbakery-ai']) && '1' === $nectar_options['wpbakery-ai'] ) {
+	add_filter('nectar_wpbakery_ai_enabled', '__return_true');
+}
 
 // Salient WPBakery is active, but the Salient core plugin is not.
 if ( class_exists( 'WPBakeryVisualComposerAbstract' ) && defined( 'SALIENT_VC_ACTIVE' ) && ! class_exists( 'Salient_Core' ) ) {

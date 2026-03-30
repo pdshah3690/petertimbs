@@ -85,12 +85,12 @@
                 }
 
                 $hash = md5( trailingslashit( network_site_url() ) . '-redux' );
-                add_action( 'wp_ajax_nopriv_' . $hash, array( $this, 'tracking_arg' ) );
-                add_action( 'wp_ajax_' . $hash, array( $this, 'tracking_arg' ) );
+                /*add_action( 'wp_ajax_nopriv_' . $hash, array( $this, 'tracking_arg' ) );
+                add_action( 'wp_ajax_' . $hash, array( $this, 'tracking_arg' ) ); */
 
-                $hash = md5( md5( AUTH_KEY . SECURE_AUTH_KEY . '-redux' ) . '-support' );
-                add_action( 'wp_ajax_nopriv_' . $hash, array( $this, 'support_args' ) );
-                add_action( 'wp_ajax_' . $hash, array( $this, 'support_args' ) );
+                $hash = md5( md5( Redux_Helpers::get_auth_key_secret_key() . '-redux' ) . '-support' );
+                /*add_action( 'wp_ajax_nopriv_' . $hash, array( $this, 'support_args' ) );
+                add_action( 'wp_ajax_' . $hash, array( $this, 'support_args' ) );*/
 
                 if ( isset( $this->options['allow_tracking'] ) && $this->options['allow_tracking'] == 'yes' ) {
                     // The tracking checks daily, but only sends new data every 7 days.
@@ -391,7 +391,7 @@
             }
 
             function tracking_arg() {
-                echo md5( AUTH_KEY . SECURE_AUTH_KEY . '-redux' );
+                echo md5( Redux_Helpers::get_auth_key_secret_key() . '-redux' );
                 die();
             }
 
@@ -440,7 +440,7 @@
                             $array['instances'][] = $opt_name;
                         }
                     }
-                    $array['key'] = md5( AUTH_KEY . SECURE_AUTH_KEY );
+                    $array['key'] = md5( Redux_Helpers::get_auth_key_secret_key() );
                 }
 
                 echo @json_encode( $array, true );

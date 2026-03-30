@@ -19,44 +19,111 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 8.0
  */
+
 if ( ! function_exists( 'nectar_add_image_sizes' ) ) {
 
 	function nectar_add_image_sizes() {
 
-		add_image_size( 'portfolio-thumb_large', 900, 604, true );
+		global $nectar_options;
+
 		add_image_size( 'portfolio-thumb', 600, 403, true );
-		add_image_size( 'portfolio-thumb_small', 400, 269, true );
-		add_image_size( 'portfolio-widget', 100, 100, true );
 		add_image_size( 'nectar_small_square', 140, 140, true );
 
-		global $nectar_options;
+
+		if( isset($nectar_options['image-size-portfolio-thumb_large']) &&
+			'1' === $nectar_options['image-size-portfolio-thumb_large'] ) {
+			add_image_size( 'portfolio-thumb_large', 900, 604, true );
+		}
+
+		if( isset($nectar_options['image-size-portfolio-thumb_small']) &&
+			'1' === $nectar_options['image-size-portfolio-thumb_small'] ) {
+			add_image_size( 'portfolio-thumb_small', 400, 269, true );
+		}
+
+		if( isset($nectar_options['image-size-portfolio-widget']) &&
+			'1' === $nectar_options['image-size-portfolio-widget'] ) {
+			add_image_size( 'portfolio-widget', 100, 100, true );
+		}
+
+
 		$masonry_sizing_type = ( ! empty( $nectar_options['portfolio_masonry_grid_sizing'] ) && $nectar_options['portfolio_masonry_grid_sizing'] === 'photography' ) ? 'photography' : 'default';
 
 		if ( $masonry_sizing_type !== 'photography' ) {
-			
-			add_image_size( 'wide', 1000, 500, true );
-			add_image_size( 'wide_small', 670, 335, true );
-			add_image_size( 'regular', 500, 500, true );
-			add_image_size( 'regular_small', 350, 350, true );
-			add_image_size( 'tall', 500, 1000, true );
-			add_image_size( 'wide_tall', 1000, 1000, true );
-			add_image_size( 'wide_photography', 900, 600, true );
-		} else {
-			
-			// These three are still needed for meta overlaid masonry blog.
-			add_image_size( 'regular', 500, 500, true );
-			add_image_size( 'regular_small', 350, 350, true );
-			add_image_size( 'wide_tall', 1000, 1000, true );
 
-			add_image_size( 'wide_photography', 900, 600, true );
-			add_image_size( 'wide_photography_small', 675, 450, true );
-			add_image_size( 'regular_photography', 450, 600, true );
-			add_image_size( 'regular_photography_small', 350, 467, true );
-			add_image_size( 'wide_tall_photography', 900, 1200, true );
+			if( isset($nectar_options['image-size-wide']) &&
+				'1' === $nectar_options['image-size-wide'] ) {
+				add_image_size( 'wide', 1000, 500, true );
+				add_image_size( 'wide_photography', 900, 600, true );
+			}
+
+			if( isset($nectar_options['image-size-wide_small']) &&
+				'1' === $nectar_options['image-size-wide_small'] ) {
+				add_image_size( 'wide_small', 670, 335, true );
+			}
+
+			if( isset($nectar_options['image-size-regular']) &&
+				'1' === $nectar_options['image-size-regular'] ) {
+				add_image_size( 'regular', 500, 500, true );
+			}
+
+			if( isset($nectar_options['image-size-regular_small']) &&
+				'1' === $nectar_options['image-size-regular_small'] ) {
+				add_image_size( 'regular_small', 350, 350, true );
+			}
+
+			if( isset($nectar_options['image-size-tall']) &&
+				'1' === $nectar_options['image-size-tall'] ) {
+				add_image_size( 'tall', 500, 1000, true );
+			}
+
+			if( isset($nectar_options['image-size-wide_tall']) &&
+				'1' === $nectar_options['image-size-wide_tall'] ) {
+				add_image_size( 'wide_tall', 1000, 1000, true );
+			}
+
+
+		} else {
+
+			// These three are still needed for meta overlaid masonry blog.
+			if( isset($nectar_options['image-size-regular']) &&
+				'1' === $nectar_options['image-size-regular'] ) {
+				add_image_size( 'regular', 500, 500, true );
+				add_image_size( 'regular_photography', 450, 600, true );
+			}
+
+			if( isset($nectar_options['image-size-regular_small']) &&
+				'1' === $nectar_options['image-size-regular_small'] ) {
+				add_image_size( 'regular_small', 350, 350, true );
+				add_image_size( 'regular_photography_small', 350, 467, true );
+			}
+
+			if( isset($nectar_options['image-size-wide_tall']) &&
+				'1' === $nectar_options['image-size-wide_tall'] ) {
+				add_image_size( 'wide_tall', 1000, 1000, true );
+				add_image_size( 'wide_tall_photography', 900, 1200, true );
+			}
+
+			if( isset($nectar_options['image-size-wide']) &&
+				'1' === $nectar_options['image-size-wide'] ) {
+				add_image_size( 'wide_photography', 900, 600, true );
+			}
+
+			if( isset($nectar_options['image-size-wide_small']) &&
+				'1' === $nectar_options['image-size-wide_small'] ) {
+				add_image_size( 'wide_photography_small', 675, 450, true );
+			}
+
 		}
 
-		add_image_size( 'large_featured', 1700, 700, true );
-		add_image_size( 'medium_featured', 800, 800, true );
+		if( isset($nectar_options['image-size-large_featured']) &&
+			'1' === $nectar_options['image-size-large_featured'] ) {
+			add_image_size( 'large_featured', 1870, 770, true );
+		}
+
+		if( isset($nectar_options['image-size-medium_featured']) &&
+			'1' === $nectar_options['image-size-medium_featured'] ) {
+			add_image_size( 'medium_featured', 800, 800, true );
+		}
 
 	}
 }
@@ -84,7 +151,7 @@ add_action( 'after_setup_theme', 'nectar_add_image_sizes' );
 			 }
 		 }
 	 }
-	 
+
 	 foreach ( $sizes as $size => $atts ) {
 		 echo esc_html( $size ) . ' ' . implode( 'x', $atts ) . "\n";
 	 }
@@ -140,7 +207,7 @@ if ( ! empty( $nectar_options['default-lightbox'] ) && $nectar_options['default-
 
 
 /**
- * Add URL option into attachment details for visual composer image gallery element
+ * Add URL option into attachment details for wpbakery image gallery element
  *
  * @since 5.0
  */
@@ -355,6 +422,69 @@ if ( ! function_exists( 'fjarrett_get_attachment_id_from_url' ) ) {
 
 
 
+/**
+ * Returns a lightbox ready URL from youtube/vimeo embed
+ *
+ * @since 12.2
+ */
+if ( ! function_exists( 'nectar_extract_video_lightbox_link' ) ) {
+
+ function nectar_extract_video_lightbox_link( $post, $video_embed, $video_mp4 ) {
+
+	 global $nectar_options;
+
+	 $project_video_src  = null;
+	 $project_video_link = null;
+	 $using_fancybox     = ( isset($nectar_options['lightbox_script']) && $nectar_options['lightbox_script'] === 'fancybox') ? true : false;
+
+	 if ( $video_embed ) {
+
+		 $project_video_src = $video_embed;
+
+		 if ( preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $project_video_src, $video_match ) ) {
+
+			 // youtube
+			 // handle query params.
+			 $query_args = '';
+
+			 // iframe src.
+			 if(strpos($project_video_src, '<iframe') !== false && $using_fancybox === true ) {
+				 preg_match('/src="([^"]+)"/', $project_video_src, $iframe_src_match);
+				 $iframe_src = $iframe_src_match[1];
+
+				 $parsed_iframe_src = parse_url($iframe_src);
+
+				 if( isset($parsed_iframe_src['query']) && $parsed_iframe_src['query'] !== null ) {
+					 $query_args = '&' . $parsed_iframe_src['query'];
+				 }
+			 }
+
+			 $project_video_link = 'https://www.youtube.com/watch?v=' . $video_match[1] . $query_args;
+
+		 } elseif ( preg_match( '/player\.vimeo\.com\/video\/([0-9]*)/', $project_video_src, $video_match ) ) {
+
+			 // vimeo iframe
+			 $project_video_link = 'https://vimeo.com/' . $video_match[1] . '?iframe=true';
+
+		 } elseif ( preg_match( '/(https?:\/\/)?(www\.)?(player\.)?vimeo\.com\/([a-z]*\/)*([‌​0-9]{6,11})[?]?.*/', $project_video_src, $video_match ) ) {
+
+			 // reg vimeo
+			 $project_video_link = 'https://vimeo.com/' . $video_match[5] . '?iframe=true';
+
+		 }
+	 } elseif ( $video_mp4 ) {
+
+		 $project_video_link = $video_mp4;
+
+	 }
+
+
+	 return esc_url($project_video_link);
+
+ }
+
+}
+
 
 
 /**
@@ -367,7 +497,7 @@ if ( ! function_exists( 'nectar_options_img' ) ) {
 	function nectar_options_img( $image_arr_or_str ) {
 
 		// dummy data import from external
-		if ( isset( $image_arr_or_str['thumbnail'] ) && strpos( $image_arr_or_str['thumbnail'], 'http://themenectar.com' ) !== false && strpos( get_site_url(), 'themenectar.com' ) === false ) {
+		if ( isset( $image_arr_or_str['thumbnail'] ) && strpos( $image_arr_or_str['thumbnail'], '://themenectar.com' ) !== false && strpos( get_site_url(), 'themenectar.com' ) === false ) {
 			return $image_arr_or_str['thumbnail'];
 		}
 		if ( isset( $image_arr_or_str['thumbnail'] ) && strpos( $image_arr_or_str['thumbnail'], 'https://source.unsplash.com' ) !== false ) {
@@ -376,17 +506,28 @@ if ( ! function_exists( 'nectar_options_img' ) ) {
 
 		// check if URL or ID is passed
 		if ( isset( $image_arr_or_str['id'] ) ) {
-			$image = wp_get_attachment_image_src( $image_arr_or_str['id'], 'full' );
-			return $image[0];
-		} 
+
+			$image_id = apply_filters('wpml_object_id', $image_arr_or_str['id'], 'attachment', TRUE);
+			$image = wp_get_attachment_image_src( $image_id, 'full' );
+
+			if( isset($image[0]) ) {
+				return $image[0];
+			} else {
+				return '';
+			}
+
+		}
 		elseif ( isset( $image_arr_or_str['url'] ) ) {
 			return $image_arr_or_str['url'];
-		} 
+		}
 		else {
 
 			$image_id = fjarrett_get_attachment_id_from_url( $image_arr_or_str );
 
 			if ( ! is_null( $image_id ) && ! empty( $image_id ) ) {
+
+				$image_id = apply_filters('wpml_object_id', $image_id, 'attachment', TRUE);
+
 				$image = wp_get_attachment_image_src( $image_id, 'full' );
 				return $image[0];
 			} else {
@@ -395,3 +536,88 @@ if ( ! function_exists( 'nectar_options_img' ) ) {
 		}
 	}
 }
+
+
+
+/**
+ * Like nectar_options_img, but returns the full <img> tag using wp_get_attachment_image.
+ *
+ * @param array|string $image_arr_or_str Image array, ID, or URL.
+ * @param string $size Image size. Default 'full'.
+ * @param array $attr Attributes for the <img> tag.
+ * @return string <img> tag or empty string.
+ */
+if ( !function_exists('nectar_options_img_tag') ) {
+	function nectar_options_img_tag( $image_arr_or_str, $size = 'full', $alt = '' ) {
+		$alt = $alt ? $alt : get_the_title();
+		// dummy data import from external
+		if ( isset( $image_arr_or_str['thumbnail'] ) && strpos( $image_arr_or_str['thumbnail'], '://themenectar.com' ) !== false && strpos( get_site_url(), 'themenectar.com' ) === false ) {
+			return '<img src="' . esc_url( $image_arr_or_str['thumbnail'] ) . '" width="100%" height="100%" alt="' . esc_attr( $alt ) . '" />';
+		}
+		if ( isset( $image_arr_or_str['thumbnail'] ) && strpos( $image_arr_or_str['thumbnail'], 'https://source.unsplash.com' ) !== false ) {
+			return '<img src="' . esc_url( $image_arr_or_str['thumbnail'] ) . '" width="100%" height="100%" alt="' . esc_attr( $alt ) . '" />';
+		}
+
+		// check if URL or ID is passed
+		if ( isset( $image_arr_or_str['id'] ) ) {
+			$image_id = apply_filters('wpml_object_id', $image_arr_or_str['id'], 'attachment', TRUE);
+			$img_tag = wp_get_attachment_image( $image_id, $size, false );
+			return $img_tag ? $img_tag : '';
+		} elseif ( isset( $image_arr_or_str['url'] ) ) {
+			return '<img src="' . esc_url( $image_arr_or_str['url'] ) . '" width="100%" height="100%" alt="' . esc_attr( $alt ) . '" />';
+		} else {
+			$image_id = fjarrett_get_attachment_id_from_url( $image_arr_or_str );
+			if ( !$image_id && function_exists('attachment_url_to_postid') ) {
+				$image_id = attachment_url_to_postid($image_arr_or_str);
+			}
+			if ( ! is_null( $image_id ) && ! empty( $image_id ) ) {
+				$image_id = apply_filters('wpml_object_id', $image_id, 'attachment', TRUE);
+				$img_tag = wp_get_attachment_image( $image_id, $size, false);
+				return $img_tag ? $img_tag : '';
+			} else {
+				return '<img src="' . esc_url( $image_arr_or_str ) . '" width="100%" height="100%" alt="' . esc_attr( $alt ) . '" />';
+			}
+		}
+	}
+}
+
+
+
+/**
+ * Attempts to locate video ID based on URL and grab the video source
+ * through wp_get_attachment_url to allow CDNs to swap the source.
+ *
+ * @since 12.2.0
+ */
+ if( !function_exists('nectar_video_src_from_wp_attachment') ) {
+
+	 function nectar_video_src_from_wp_attachment( $url ) {
+
+
+		 if( function_exists('attachment_url_to_postid') && !empty($url) ) {
+
+			 $video_id = attachment_url_to_postid($url);
+
+			 // The ID has been found.
+			 if( 0 !== $video_id ) {
+
+				 $video_source = wp_get_attachment_url($video_id);
+
+				 // An Attachment URL has been found.
+				 if( $video_source ) {
+					 return $video_source;
+				 }
+
+			 }
+
+		 }
+
+		 // Default.
+		 return $url;
+
+	 }
+
+ }
+
+
+

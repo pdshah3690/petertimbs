@@ -34,6 +34,10 @@ if ( ! class_exists( 'ReduxFramework_color' ) ) {
      */
     class ReduxFramework_color {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+        
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -42,7 +46,7 @@ if ( ! class_exists( 'ReduxFramework_color' ) ) {
          * @access        public
          * @return        void
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
 
             $this->parent = $parent;
             $this->field  = $field;
@@ -104,7 +108,7 @@ if ( ! class_exists( 'ReduxFramework_color' ) ) {
             
             wp_enqueue_script(
                 'redux-field-color-js',
-                ReduxFramework::$_url . 'inc/fields/color/field_color' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/color/field_color' . Redux_Functions::isMin() . '.js',
                 array( 'jquery', 'wp-color-picker', 'redux-js' ),
                 time(),
                 true

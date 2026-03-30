@@ -58,7 +58,7 @@
                 //*****************************************************************
                 wp_enqueue_style(
                     'redux-admin-css',
-                    ReduxFramework::$_url . 'assets/css/redux-admin.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/redux-admin.css',
                     array(),
                     $this->timestamp,
                     'all'
@@ -70,7 +70,7 @@
                 if ( ! $this->parent->args['dev_mode'] ) {
                     wp_enqueue_style(
                         'redux-fields-css',
-                        ReduxFramework::$_url . 'assets/css/redux-fields.css',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/redux-fields.css',
                         array(),
                         $this->timestamp,
                         'all'
@@ -101,7 +101,7 @@
                 
                 wp_register_style(
                     'redux-spectrum-css',
-                    ReduxFramework::$_url . 'assets/css/vendor/spectrum/' . $css_file,
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/vendor/spectrum/' . $css_file,
                     array(),
                     '1.3.3',
                     'all'
@@ -112,7 +112,7 @@
                 //*****************************************************************
                 wp_enqueue_style(
                     'redux-elusive-icon',
-                    ReduxFramework::$_url . 'assets/css/vendor/elusive-icons/elusive-icons.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/vendor/elusive-icons/elusive-icons.css',
                     array(),
                     $this->timestamp,
                     'all'
@@ -128,7 +128,7 @@
 
                 wp_enqueue_style(
                     'qtip-css',
-                    ReduxFramework::$_url . 'assets/css/vendor/qtip/' . $css_file,
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/vendor/qtip/' . $css_file,
                     array(),
                     '2.2.0',
                     'all'
@@ -139,7 +139,7 @@
                 //*****************************************************************
                 wp_enqueue_style(
                     'jquery-ui-css',
-                    apply_filters( "redux/page/{$this->parent->args['opt_name']}/enqueue/jquery-ui-css", ReduxFramework::$_url . 'assets/css/vendor/jquery-ui-bootstrap/jquery-ui-1.10.0.custom.css' ),
+                    apply_filters( "redux/page/{$this->parent->args['opt_name']}/enqueue/jquery-ui-css", get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/vendor/jquery-ui-bootstrap/jquery-ui-1.10.0.custom.css' ),
                     array(),
                     $this->timestamp,
                     'all'
@@ -157,7 +157,7 @@
                     //*****************************************************************
                     wp_register_style(
                         'redux-color-picker-css',
-                        ReduxFramework::$_url . 'assets/css/color-picker/color-picker.css',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/color-picker/color-picker.css',
                         array( 'wp-color-picker' ),
                         $this->timestamp,
                         'all'
@@ -168,7 +168,7 @@
                     //*****************************************************************
                     wp_enqueue_style(
                         'redux-field-media-css',
-                        ReduxFramework::$_url . 'assets/css/media/media.css',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/media/media.css',
                         array(),
                         time(),
                         'all'
@@ -181,7 +181,7 @@
                 if ( is_rtl() ) {
                     wp_enqueue_style(
                         'redux-rtl-css',
-                        ReduxFramework::$_url . 'assets/css/rtl.css',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/css/rtl.css',
                         array( 'redux-admin-css' ),
                         $this->timestamp,
                         'all'
@@ -198,7 +198,7 @@
                 //*****************************************************************
                 wp_register_script(
                     'redux-select2-sortable-js',
-                    ReduxFramework::$_url . 'assets/js/vendor/redux.select2.sortable' . $this->min . '.js',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/js/vendor/redux.select2.sortable' . $this->min . '.js',
                     array( 'jquery', 'jquery-ui-core', 'jquery-ui-dialog' ),
                     $this->timestamp,
                     true
@@ -235,7 +235,7 @@
                 
                 wp_enqueue_script(
                     'qtip-js',
-                    ReduxFramework::$_url . 'assets/js/vendor/qtip/' . $js_file,
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/js/vendor/qtip/' . $js_file,
                     array( 'jquery', 'jquery-ui-core', 'jquery-ui-dialog' ),
                     '2.2.0',
                     true
@@ -251,7 +251,7 @@
                 
                 wp_register_script(
                     'redux-spectrum-js',
-                    ReduxFramework::$_url . 'assets/js/vendor/spectrum/' . $js_file,
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/js/vendor/spectrum/' . $js_file,
                     array( 'jquery' ),
                     '1.3.3',
                     true
@@ -264,7 +264,7 @@
                 //*****************************************************************
                 wp_register_script(
                     'redux-vendor',
-                    ReduxFramework::$_url . 'assets/js/vendor.min.js',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/js/vendor.min.js',
                     array( 'jquery' ),
                     $this->timestamp,
                     true
@@ -278,7 +278,7 @@
                 //*****************************************************************
                 wp_register_script(
                     'redux-js',
-                    ReduxFramework::$_url . 'assets/js/redux' . $this->min . '.js',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/assets/js/redux' . $this->min . '.js',
                     $depArray,
                     $this->timestamp,
                     true

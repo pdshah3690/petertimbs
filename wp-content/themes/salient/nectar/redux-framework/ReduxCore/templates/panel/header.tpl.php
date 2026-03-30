@@ -51,26 +51,47 @@
             <?php } elseif (isset($this->parent->args['forced_dev_mode_off']) && $this->parent->args['forced_dev_mode_off'] == true ) { ?>
                 <?php $tip_title    = 'The "forced_dev_mode_off" argument has been set to true.'; ?>
                 <?php $tip_msg      = 'Support options are not available while this argument is enabled.  You will also need to switch this argument to false before deploying your project.  If you are a user of this product and you are seeing this message, please contact the author of this theme/plugin.'; ?>
-                <div class="redux-dev-mode-notice-container redux-dev-qtip" 
+                <div class="redux-dev-mode-notice-container redux-dev-qtip"
                      qtip-title="<?php echo esc_attr( $tip_title ); ?>"
                      qtip-content="<?php echo esc_attr( $tip_msg ); ?>">
                     <span
                         class="redux-dev-mode-notice" style="background-color: #FF001D;"><?php _e( 'FORCED DEV MODE OFF ENABLED', 'redux-framework' ); ?></span>
                 </div>
-            
-            <?php } 
+
+            <?php }
             /* nectar addition */
+
+            if ( NectarThemeManager::$custom_theme_logo &&
+            isset(NectarThemeManager::$custom_theme_logo['url']) &&
+            !empty(NectarThemeManager::$custom_theme_logo['url']) ) {
+              $theme_menu_icon = esc_attr(NectarThemeManager::$custom_theme_logo['url']);
+            } else {
+                $theme_menu_icon = NECTAR_FRAMEWORK_DIRECTORY . 'assets/img/icons/salient.svg';
+            }
             ?>
-            <img src="<?php echo NECTAR_FRAMEWORK_DIRECTORY . 'assets/img/icons/salient.svg'; ?>" height="20px"  alt="salient"/>
-            <h2><?php echo wp_kses_post( $this->parent->args['display_name'] ); ?></h2>
-
-            <?php if ( ! empty( $this->parent->args['display_version'] ) ) { ?>
-                <span><?php echo wp_kses_post( $this->parent->args['display_version'] ); ?></span>
-            <?php } ?>
-
+            <div class="salient-options-logo-wrapper">
+              <img src="<?php echo esc_attr($theme_menu_icon); ?>" height="20px"  alt="salient"/>
+                <h2><?php
+                $custom_theme_name = get_option( 'salient_custom_branding_theme_name', false );
+                if ( $custom_theme_name ) {
+                    echo wp_kses_post( $custom_theme_name );
+                } else {
+                    echo wp_kses_post( $this->parent->args['display_name'] );
+                }
+                ?></h2>
+            </div>
         </div>
 
-        <div class="secondary-header"><h4><?php echo __('Options Panel','salient'); ?></h4></div>
+        <div class="secondary-header">
+            <span class="salient-options-search-wrapper">
+            <input class="redux-field-search" type="text" placeholder="<?php echo esc_attr__('Search', 'salient'); ?>" />
+            <span class="salient-options-search-icon"><i class="salient-admin-icon-search"></i></span>
+            <span class="salient-options-search-close"><i class="salient-admin-icon-x"></i></span>
+            </span>
+            <?php if ( ! empty( $this->parent->args['display_version'] ) ) { ?>
+                <span class="salient-options-version">v<?php echo nectar_get_theme_version(); ?></span>
+            <?php } ?>
+        </div>
     <?php } ?>
 
     <div class="clear"></div>

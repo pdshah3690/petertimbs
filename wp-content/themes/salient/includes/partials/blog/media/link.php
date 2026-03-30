@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $post;
+global $nectar_options;
 
 $link            = get_post_meta( $post->ID, '_nectar_link', true );
 $link_text       = get_the_content();
@@ -24,7 +25,14 @@ $link_text       = get_the_content();
   <?php if( has_post_thumbnail() ) {
     
     $link_bg_img_src = wp_get_attachment_url( get_post_thumbnail_id() );
-    echo '<div class="n-post-bg" style=" background-image: url(' . esc_url( $link_bg_img_src ) . '); "></div>';
+    
+    // Lazy load.
+    if( !empty($nectar_options['blog_lazy_load']) && '1' === $nectar_options['blog_lazy_load'] ) {
+      echo '<div class="n-post-bg" data-nectar-img-src="' . esc_url( $link_bg_img_src ) . '"></div>';
+    } else {
+      echo '<div class="n-post-bg" style=" background-image: url(' . esc_url( $link_bg_img_src ) . '); "></div>';
+    }
+    
   } else {
     echo '<div class="n-post-bg"></div>';
   } ?>

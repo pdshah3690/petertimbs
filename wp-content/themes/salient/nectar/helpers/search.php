@@ -21,36 +21,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! function_exists( 'nectar_add_ajax_to_search' ) ) {
 	function nectar_add_ajax_to_search() {
 
-		global $nectar_theme_skin;
 		global $nectar_options;
+		$nectar_theme_skin = NectarThemeManager::$skin;
 
 		$ajax_search  = ( ! empty( $nectar_options['header-disable-ajax-search'] ) && $nectar_options['header-disable-ajax-search'] === '1' ) ? 'no' : 'yes';
 		$headerSearch = ( ! empty( $nectar_options['header-disable-search'] ) && $nectar_options['header-disable-search'] === '1' ) ? 'false' : 'true';
 
+		// Legacy
 		if ( $ajax_search === 'yes' && $headerSearch !== 'false' && $nectar_theme_skin !== 'material' ) {
 			get_template_part( 'nectar/assets/functions/ajax-search/wp-search-suggest' );
 		}
+		// Modern
+		else if( $ajax_search === 'yes' && $headerSearch !== 'false' && $nectar_theme_skin === 'material' ) {
+			include NECTAR_THEME_DIRECTORY . '/includes/class-nectar-quick-search.php';
+		}
+
 	}
 }
 nectar_add_ajax_to_search();
-
-
-/**
- * Sets the search items to show per page.
- *
- * @since 5.0
- */
-if ( ! function_exists( 'nectar_change_wp_search_size' ) ) {
-	function nectar_change_wp_search_size( $query ) {
-		if ( $query->is_search ) {
-			$query->query_vars['posts_per_page'] = 12;
-			$query->query_vars['post_type'] = ['post', 'page', 'recipe', 'product'];
-		}
-
-		return $query;
-	}
-}
-if ( ! is_admin() ) {
-	add_filter( 'pre_get_posts', 'nectar_change_wp_search_size' );
-}
-

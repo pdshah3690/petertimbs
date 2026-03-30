@@ -8,13 +8,17 @@
     if ( ! class_exists( 'ReduxFramework_radio' ) ) {
         class ReduxFramework_radio {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+            
             /**
              * Field Constructor.
              * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
              *
              * @since ReduxFramework 1.0.0
              */
-            function __construct( $field = array(), $value = '', $parent ) {
+            function __construct( $field, $value, $parent ) {
                 $this->parent = $parent;
                 $this->field  = $field;
                 $this->value  = $value;

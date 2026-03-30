@@ -15,11 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 $nectar_options = get_nectar_theme_options();
 
 if ( ! empty( $nectar_options['back-to-top'] ) && $nectar_options['back-to-top'] === '1' ) { ?>
-	<a id="to-top" class="
-	<?php
+	<a id="to-top" aria-label="<?php echo esc_html__('Back to top','salient'); ?>" role="button" href="#" class="<?php
 	if ( ! empty( $nectar_options['back-to-top-mobile'] ) && $nectar_options['back-to-top-mobile'] === '1' ) {
-		echo 'mobile-enabled';}
-	?>
-	"><i class="fa fa-angle-up"></i></a>
+		echo 'mobile-enabled';} else { echo 'mobile-disabled'; }
+	?>"><i role="presentation" class="fa fa-angle-up"></i></a>
 	<?php
 }

@@ -4,33 +4,12 @@
  *
  * @package Salient WordPress Theme
  * @subpackage helpers
- * @version 9.0.2
+ * @version 18.0
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
-
-
-add_filter( 'the_password_form', 'nectar_custom_password_form' );
-
-/**
- * Password form markup modification.
- *
- * @since 3.0
- */
-function nectar_custom_password_form() {
-	
-	global $post;
-	
-	$post   = get_post( $post );
-	$label  = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
-	$output = '<form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" class="post-password-form" method="post">
-	<p>' . esc_html__( 'This content is password protected. To view it please enter your password below:', 'salient' ) . '</p>
-	<p><label for="' . esc_attr($label) . '">' . esc_html__( 'Password:', 'salient' ) . ' </label>  <input name="post_password" id="' . esc_attr($label) . '" type="password" size="20" /><input type="submit" name="Submit" value="' . esc_attr__( 'Submit', 'salient' ) . '" /></p></form>';
-	return $output;
-	
 }
 
 
@@ -66,7 +45,7 @@ function nectar_get_full_page_options() {
 	$page_full_screen_rows_content_overflow = ( isset( $post->ID ) ) ? get_post_meta( $post->ID, '_nectar_full_screen_rows_content_overflow', true ) : '';
 	$page_full_screen_rows_bg_img_animation = ( isset( $post->ID ) ) ? get_post_meta( $post->ID, '_nectar_full_screen_rows_row_bg_animation', true ) : '';
 	$page_full_screen_rows_mobile_disable   = ( isset( $post->ID ) ) ? get_post_meta( $post->ID, '_nectar_full_screen_rows_mobile_disable', true ) : '';
-	
+
 	global $nectar_using_VC_front_end_editor;
 	// On front end editor certain values are forced.
 	if($nectar_using_VC_front_end_editor) {
@@ -74,7 +53,7 @@ function nectar_get_full_page_options() {
 		$page_full_screen_rows_dot_navigation = 'tooltip_alt';
 		$page_full_screen_rows_footer = 'none';
 	}
-	
+
 	$nectar_full_page_options = array(
 		'page_full_screen_rows'                  => $page_full_screen_rows,
 		'page_full_screen_rows_animation'        => $page_full_screen_rows_animation,
@@ -91,6 +70,31 @@ function nectar_get_full_page_options() {
 }
 
 
+if ( ! function_exists( 'nectar_using_page_full_screen_rows' ) ) {
+	function nectar_using_page_full_screen_rows() {
+
+		if ( is_page() ) {
+
+			if ( is_page_template( 'template-no-footer.php' ) ||
+			is_page_template( 'template-no-header.php' ) ||
+			is_page_template( 'template-no-header-footer.php' ) ||
+			! is_page_template() ) {
+
+			$nectar_fp_options = nectar_get_full_page_options();
+
+			if ( $nectar_fp_options['page_full_screen_rows'] === 'on' ) {
+				return true;
+			}
+
+			}
+
+		}
+
+		return false;
+	}
+}
+
+
 
 /**
  * Adds a body class when using the page fullscreen rows option.
@@ -100,7 +104,7 @@ function nectar_get_full_page_options() {
 function nectar_add_pfsr_bodyclass(){
 
 		$post_id = (int) vc_get_param( 'vc_post_id' );
-		
+
 		$page_full_screen_rows = (isset($post_id)) ? get_post_meta($post_id, '_nectar_full_screen_rows', true) : '';
 		if($page_full_screen_rows === 'on') {
 			add_filter( 'body_class','nectar_using_pfsr_editor_class' );
@@ -113,8 +117,9 @@ function nectar_add_pfsr_bodyclass(){
  * @since 10.0
  */
 function nectar_using_pfsr_editor_class( $classes ) {
- 		
+
 	 	$classes[] = 'nectar_using_pfsr';
+		$classes[] = 'nectar_pfsr_compose_mode';
 		$classes[] = 'nectar-no-flex-height';
     return $classes;
 }
@@ -125,24 +130,24 @@ function nectar_using_pfsr_editor_class( $classes ) {
  * @since 10.0
  */
 function nectar_using_pfsr_class( $classes ) {
- 		
+
 		global $post;
 
-		if( !$post ) { 
-			return $classes; 
+		if( !$post ) {
+			return $classes;
 		}
-		
+
 		$page_full_screen_rows = (isset($post->ID)) ? get_post_meta($post->ID, '_nectar_full_screen_rows', true) : '';
 		if( $page_full_screen_rows === 'on' ) {
 				$classes[] = 'nectar_using_pfsr';
 				$classes[] = 'nectar-no-flex-height';
 		}
-		
+
 		$nectar_box_roll = (isset($post->ID)) ? get_post_meta($post->ID, '_nectar_header_box_roll', true) : '';
 		if( $nectar_box_roll === 'on' ) {
 				$classes[] = 'nectar_box_roll';
 		}
-	
+
     return $classes;
 }
 
@@ -152,5 +157,3 @@ if( $nectar_using_VC_front_end_editor ) {
 } else {
 	add_filter( 'body_class','nectar_using_pfsr_class' );
 }
-
-

@@ -4,7 +4,7 @@
 *
 * Used when "Meta overlaid" masonry style is selected.
 *
-* @version 10.5
+* @version 11.0
 */
 
 // Exit if accessed directly
@@ -18,7 +18,13 @@ global $nectar_options;
 $masonry_size_pm             = get_post_meta( $post->ID, '_post_item_masonry_sizing', true );
 $masonry_item_sizing         = ( ! empty( $masonry_size_pm ) ) ? $masonry_size_pm : 'regular';
 $nectar_post_class_additions = $masonry_item_sizing . ' masonry-blog-item';
+$date_functionality = (isset($nectar_options['post_date_functionality']) && !empty($nectar_options['post_date_functionality'])) ? $nectar_options['post_date_functionality'] : 'published_date';
 
+if( 'last_editied_date' === $date_functionality ) {
+  $date = get_the_modified_date();
+} else {
+  $date = get_the_date();
+}
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( $nectar_post_class_additions ); ?>>  
@@ -58,7 +64,38 @@ $nectar_post_class_additions = $masonry_item_sizing . ' masonry-blog-item';
             );
           }
           
-          echo '<a href="' . esc_url( get_permalink() ) . '"><span class="post-featured-img">' . get_the_post_thumbnail( $post->ID, $img_size, $image_attrs ) . '</span></a>';
+          // Lazy load.
+          if( !empty($nectar_options['blog_lazy_load']) && '1' === $nectar_options['blog_lazy_load'] && NectarLazyImages::activate_lazy() ) {
+            
+            // src.
+            $img_src = wp_get_attachment_image_src( get_post_thumbnail_id(), $img_size );
+            
+            // srcset.
+            $img_srcset = '';
+            if (function_exists('wp_get_attachment_image_srcset')) {
+              $img_srcset = wp_get_attachment_image_srcset(get_post_thumbnail_id(), $img_size);
+            }
+            
+            // alt.
+            $alt_tag = get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true );
+            
+            // dimensions.
+            $width  = ( 'large_featured' === $img_size ) ? '1000' : '500';
+            $height = ( 'large_featured' === $img_size  ) ? '412' : '500';
+            
+            echo '<a href="' . esc_url( get_permalink() ) . '" aria-label="'.get_the_title().'"><span class="post-featured-img">';
+            $skip_lazy_class = '';
+            $disable_third_party_lazy_loading = apply_filters('nectar_disable_third_party_lazy_loading', true);
+            if ( $disable_third_party_lazy_loading ) {
+              $skip_lazy_class = ' skip-lazy';
+            }
+            echo '<img class="nectar-lazy wp-post-image'.$skip_lazy_class.'" alt="'.esc_attr($alt_tag).'" height="'.esc_attr($height).'" width="'.esc_attr($width).'" data-nectar-img-src="'.esc_attr($img_src[0]).'" data-nectar-img-srcset="'.esc_attr($img_srcset).'" sizes="'.esc_attr($image_attrs['sizes']).'" />';
+            echo '</span></a>';
+            
+          } else {
+            echo '<a href="' . esc_url( get_permalink() ) . '" aria-label="'.get_the_title().'"><span class="post-featured-img">' . get_the_post_thumbnail( $post->ID, $img_size, $image_attrs ) . '</span></a>';
+          }
+          
           
         } else {
           // No image added.
@@ -84,11 +121,13 @@ $nectar_post_class_additions = $masonry_item_sizing . ' masonry-blog-item';
           <div class="post-header">
             
             <h3 class="title"><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h3>
+
+           <?php do_action('nectar_after_archive_post_item_content'); ?>
             
             <div class="post-meta">
               
               <div class="date">
-                <?php echo get_the_date(); ?>
+                <?php echo esc_html($date); ?>
               </div>
               
             </div>

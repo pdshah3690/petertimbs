@@ -4,7 +4,7 @@
 *
 * Used when "Featured Image Left" standard style is selected.
 *
-* @version 10.5
+* @version 11.0
 */
 
 // Exit if accessed directly
@@ -18,35 +18,19 @@ global $nectar_options;
 $excerpt_length = ( ! empty( $nectar_options['blog_excerpt_length'] ) ) ? intval( $nectar_options['blog_excerpt_length'] ) : 15;
 
 ?>
-
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>  
-  
   <div class="inner-wrap animated">
-    
     <div class="post-content">
-      
       <div class="article-content-wrap">
-        
         <div class="post-featured-img-wrap">
-          
           <?php
-          
           // Featured image.
-          if( has_post_thumbnail() ) { 
-            echo '<a href="' . esc_url( get_permalink() ) . '"><span class="post-featured-img" style="background-image: url(' . get_the_post_thumbnail_url( $post->ID, 'wide_photography', array( 'title' => '' ) ) . ');">';
-            
-            get_template_part( 'includes/partials/blog/media/play-button' );
-            
-            echo'</span></a>';
-          }
-          
+          get_template_part( 'includes/partials/blog/styles/standard-featured-img-left/post-image' );
           ?>
-        </div><!--post-featured-img-wrap-->
-        
+          
+        </div>
         <div class="post-content-wrap">
-          
-          <a class="entire-meta-link" href="<?php the_permalink(); ?>"></a>
-          
+          <a class="entire-meta-link" href="<?php the_permalink(); ?>" aria-label="<?php the_title(); ?>"></a>
           <?php 
           
           // Output categories.
@@ -64,18 +48,15 @@ $excerpt_length = ( ! empty( $nectar_options['blog_excerpt_length'] ) ) ? intval
           echo '<div class="excerpt">';
           echo nectar_excerpt( $excerpt_length );
           echo '</div>';
+
+          do_action('nectar_after_archive_post_item_content');
           
           // Bottom author link & date.
           get_template_part( 'includes/partials/blog/styles/standard-featured-img-left/post-bottom-meta' );
           
           ?>
-          
-        </div><!--post-content-wrap-->
-        
-      </div><!--/article-content-wrap-->
-      
-    </div><!--/post-content-->
-    
-  </div><!--/inner-wrap-->
-  
+        </div>
+      </div>
+    </div>
+  </div>
 </article>

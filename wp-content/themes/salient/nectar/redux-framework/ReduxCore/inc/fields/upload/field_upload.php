@@ -8,7 +8,13 @@ class Redux_Options_upload {
      *
      * @since Redux_Options 1.0.0
     */
-    function __construct($field = array(), $value ='', $parent = '') {
+    public $field = array();
+    public $value = '';
+    public $url = '';
+    public $args = array();
+    public $parent = null;
+
+    function __construct($field = array(), $value ='', $parent = null) {
         $this->field = $field;
 		$this->value = $value;
 		$this->args = $parent->args;
@@ -23,7 +29,7 @@ class Redux_Options_upload {
      * @since Redux_Options 1.0.0
     */
     function render() {
-        $class = (isset($this->field['class'])) ? $this->field['class'] : 'regular-text';        
+        $class = (isset($this->field['class'])) ? $this->field['class'] : 'regular-text';
         echo '<input type="hidden" id="' . esc_attr($this->field['id']) . '" name="' . esc_attr($this->args['opt_name']) . '[' . esc_attr($this->field['id']) . ']" value="' . esc_attr($this->value) . '" class="' . esc_attr($class) . '" />';
         echo '<img class="redux-opts-screenshot" id="redux-opts-screenshot-' . esc_attr($this->field['id']) . '" src="' . esc_attr($this->value) . '" />';
         if($this->value == '') {$remove = ' style="display:none;"'; $upload = ''; } else {$remove = ''; $upload = ' style="display:none;"'; }
@@ -43,8 +49,8 @@ class Redux_Options_upload {
 
         if ( floatval(get_bloginfo('version')) < "3.5" ) {
             wp_enqueue_script(
-                'redux-opts-field-upload-js', 
-                Redux_OPTIONS_URL . 'fields/upload/field_upload_3_4.js', 
+                'redux-opts-field-upload-js',
+                Redux_OPTIONS_URL . 'fields/upload/field_upload_3_4.js',
                 array('jquery', 'thickbox', 'media-upload'),
                 time(),
                 true
@@ -52,13 +58,13 @@ class Redux_Options_upload {
             wp_enqueue_style('thickbox');// thanks to https://github.com/rzepak
         } else {
             wp_enqueue_script(
-                'redux-opts-field-upload-js', 
-                Redux_OPTIONS_URL . 'fields/upload/field_upload.js', 
+                'redux-opts-field-upload-js',
+                Redux_OPTIONS_URL . 'fields/upload/field_upload.js',
                 array('jquery'),
                 time(),
                 true
             );
-           
+
         }
         wp_localize_script('redux-opts-field-upload-js', 'redux_upload', array('url' => $this->url.'fields/upload/blank.png'));
     }

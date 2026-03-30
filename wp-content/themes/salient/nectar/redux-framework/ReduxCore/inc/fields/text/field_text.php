@@ -8,13 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'ReduxFramework_text' ) ) {
     class ReduxFramework_text {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+        
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
          *
          * @since ReduxFramework 1.0.0
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -82,7 +86,7 @@ if ( ! class_exists( 'ReduxFramework_text' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-text-css',
-                    ReduxFramework::$_url . 'inc/fields/text/field_text.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/text/field_text.css',
                     array(),
                     time(),
                     'all'

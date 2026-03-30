@@ -20,23 +20,14 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('quote'); ?>>  
-  
   <div class="inner-wrap animated">
-    
     <div class="post-content">
-      
       <?php get_template_part( 'includes/partials/blog/styles/standard-minimal/post-author' ); ?>
-      
       <div class="content-inner">
-
         <div class="article-content-wrap">
-          
           <div class="post-header">
-            
             <h2 class="title"><a href="<?php the_permalink(); ?>"> <?php the_title(); ?></a></h2>
-
-          </div><!--/post-header-->
-          
+          </div>
           <?php
           
           // Output Quote.
@@ -58,13 +49,8 @@ $use_excerpt = ( ! empty( $nectar_options['blog_auto_excerpt'] ) && $nectar_opti
           } 
           
           ?>
-          
-        </div><!--article-content-wrap-->
-        
-      </div><!--content-inner-->
-      
-    </div><!--/post-content-->
-    
-  </div><!--/inner-wrap-->
-  
+        </div>
+      </div>
+    </div>
+  </div>
 </article>

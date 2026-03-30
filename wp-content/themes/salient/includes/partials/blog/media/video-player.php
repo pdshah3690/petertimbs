@@ -33,13 +33,17 @@ if ( ! empty( $video_embed ) || ! empty( $video_m4v ) ) {
       $video_output = '[video ';
 
       if ( ! empty( $video_m4v ) ) {
-        $video_output .= 'mp4="' . esc_url( $video_m4v ) . '" '; 
+        $video_output .= 'preload="auto" mp4="' . esc_url( $video_m4v ) . '" '; 
       }
       if ( ! empty( $video_ogv ) ) {
         $video_output .= 'ogv="' . esc_url( $video_ogv ) . '"'; 
       }
 
-      $video_output .= ' poster="' . esc_url( $video_poster ) . '"]';
+      if ( $video_poster ) {
+        $video_output .= ' poster="' . esc_url( $video_poster ) . '" ';
+      }
+
+      $video_output .= ']';
 
       echo '<div class="video">' . do_shortcode( $video_output ) . '</div>';
       

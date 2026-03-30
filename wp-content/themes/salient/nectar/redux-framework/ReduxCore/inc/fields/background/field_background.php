@@ -32,6 +32,10 @@
          */
         class ReduxFramework_background {
 
+            public $field = array();
+            public $value = '';
+            public $parent = null;
+
             /**
              * Field Constructor.
              * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -40,7 +44,7 @@
              * @access      public
              * @return      void
              */
-            function __construct( $field = array(), $value = '', $parent ) {
+            function __construct( $field = array(), $value = '', $parent = null ) {
 
                 $this->parent = $parent;
                 $this->field  = $field;
@@ -355,19 +359,19 @@
                         wp_enqueue_script( 'media-upload' );
                     }
                 }
-                
+
                 if (!wp_style_is ( 'select2-css' )) {
                     wp_enqueue_style( 'select2-css' );
                 }
-                
+
                 if (!wp_style_is ( 'wp-color-picker' )) {
                     wp_enqueue_style( 'wp-color-picker' );
                 }
-                
+
                 if (!wp_script_is ( 'redux-field-background-js' )) {
                     wp_enqueue_script(
                         'redux-field-background-js',
-                        ReduxFramework::$_url . 'inc/fields/background/field_background' . Redux_Functions::isMin() . '.js',
+                        get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/background/field_background' . Redux_Functions::isMin() . '.js',
                         array( 'jquery', 'wp-color-picker', 'select2-js', 'redux-js' ),
                         time(),
                         true
@@ -378,13 +382,13 @@
                     if (!wp_style_is ( 'redux-field-background-css' )) {
                         wp_enqueue_style(
                             'redux-field-background-css',
-                            ReduxFramework::$_url . 'inc/fields/background/field_background.css',
+                            get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/background/field_background.css',
                             array(),
                             time(),
                             'all'
                         );
                     }
-                    
+
                     if (!wp_style_is ( 'redux-color-picker-css' )) {
                         wp_enqueue_style( 'redux-color-picker-css' );
                     }

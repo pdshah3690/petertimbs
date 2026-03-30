@@ -22,7 +22,7 @@
 
     if ( ! class_exists( 'ReduxFrameworkInstances' ) ) {
         // Instance Container
-          /* nectar addition */ 
+          /* nectar addition */
         require_once get_parent_theme_file_path('/nectar/redux-framework/ReduxCore/inc/class.redux_instances.php');
         require_once get_parent_theme_file_path('/nectar/redux-framework/ReduxCore/inc/lib.redux_instances.php');
     }
@@ -57,7 +57,7 @@
         require_once get_parent_theme_file_path('/nectar/redux-framework/ReduxCore/inc/themecheck/class.redux_themecheck.php');
 
         // Welcome
-        /* nectar addition end */ 
+        /* nectar addition end */
 
         /**
          * Main ReduxFramework class
@@ -183,6 +183,15 @@
             public $reload_fields = array();
             public $omit_share_icons = false;
             public $omit_admin_items = false;
+            public $old_opt_name = '';
+            public $transients_check = '';
+            public $transients = array();
+            public $apiHasRun = null;
+            public $field_types = array();
+            public $field_head = array();
+            public $googleArray = array();
+
+            public $validation_ran; // nectar addition - missing in < v4 redux
 
             /**
              * Class Constructor. Defines the args for the theme options class
@@ -351,9 +360,9 @@
                     }
 
                     // Admin Bar menu
-                    /* nectar addition 
+                    /* nectar addition
                       remove
-                     nectar addition end */ 
+                     nectar addition end */
 
                     // Register setting
                     add_action( 'admin_init', array( $this, '_register_settings' ) );
@@ -361,7 +370,7 @@
                     // Display admin notices in dev_mode
                     if ( true == $this->args['dev_mode'] ) {
                         if ( true == $this->args['update_notice'] ) {
-                            add_action( 'admin_init', array( $this, '_update_check' ) );
+                            //add_action( 'admin_init', array( $this, '_update_check' ) );
                         }
                     }
 
@@ -379,9 +388,9 @@
                     // Output dynamic CSS
                     // Frontend: Maybe enqueue dynamic CSS and Google fonts
                     if ( empty ( $this->args['output_location'] ) || in_array( 'frontend', $this->args['output_location'] ) ) {
-                        /* nectar addition */ 
+                        /* nectar addition */
                        //add_action( 'wp_head', array( &$this, '_output_css' ), 150 );
-                       /* nectar addition end */ 
+                       /* nectar addition end */
                         add_action( 'wp_enqueue_scripts', array( &$this, '_enqueue_output' ), 150 );
                     }
 
@@ -1476,7 +1485,7 @@
 
                                 // ONLY for non-wp.org themes OR plugins. Theme-Check alert shown if used and IS theme.
                                 call_user_func( 'add_submenu_page', $this->args['page_slug'], $section['title'], $section['title'], $this->args['page_permissions'], $this->args['page_slug'] . '&tab=' . $k,
-                                    
+
                                     '__return_null' );
                             }
 
@@ -1499,7 +1508,7 @@
              * @return      void
              */
             /* nectar addition - remove admin bar menu*/
-        
+
 
             /**
              * Output dynamic CSS at bottom of HEAD
@@ -1545,9 +1554,9 @@
                         foreach ( $section['fields'] as $fieldk => $field ) {
                             if ( isset ( $field['type'] ) && $field['type'] != "callback" ) {
 
-                                /* nectar addition */ 
+                                /* nectar addition */
                                 if( $field['type'] != "typography" ) continue;
-                                /* nectar addition end */ 
+                                /* nectar addition end */
 
                                 $field_class = "ReduxFramework_{$field['type']}";
                                 if ( ! class_exists( $field_class ) ) {
@@ -1604,7 +1613,7 @@
                         foreach ( $this->typography as $key => $value ) {
                             $families[] = $key;
                         }
-                        
+
                         /* nectar addition */
                         global $nectar_get_template_directory_uri;
 
@@ -1614,7 +1623,7 @@
                             if ( typeof WebFontConfig === "undefined" ) {
                                 WebFontConfig = new Object();
                             }
-                          
+
                             WebFontConfig['google'] = {families: [<?php echo trim($typography->makeGoogleWebfontString ( $this->typography )); ?>]};
 
                             (function() {
@@ -1633,11 +1642,29 @@
                     } elseif ( ! $this->args['disable_google_fonts_link'] ) {
                         /* nectar addition */
                         $protocol = ( is_ssl() ) ? "https:" : "http:";
+
+                        // Load Google Fonts locally when enabled in Salient options.
+                        $nectar_options = function_exists('get_nectar_theme_options') ? get_nectar_theme_options() : array();
+                        $use_local_google_fonts = ( isset($nectar_options['typography_google_fonts_local']) && '1' === $nectar_options['typography_google_fonts_local'] );
+
+                        if ( $use_local_google_fonts ) {
+                            $local_css_url = get_option( 'salient_local_google_fonts_css' );
+
+                            if ( ! empty( $local_css_url ) ) {
+                                wp_register_style( 'salient-redux-local-google-fonts-' . $this->args['opt_name'], $local_css_url, '', $version );
+                                wp_enqueue_style( 'salient-redux-local-google-fonts-' . $this->args['opt_name'] );
+                            } else {
+                                // Fallback to external when local cache missing
+                                wp_register_style( 'redux-google-fonts-' . $this->args['opt_name'], $protocol . $typography->makeGoogleWebfontLink( $this->typography ), '', $version );
+                                wp_enqueue_style( 'redux-google-fonts-' . $this->args['opt_name'] );
+                            }
+                        } else {
+                            // Default: load from Google
+                            //echo '<link rel="stylesheet" id="options-google-fonts" title="" href="'.$protocol.$typography->makeGoogleWebfontLink( $this->typography ).'&amp;v='.$version.'" type="text/css" media="all" />';
+                            wp_register_style( 'redux-google-fonts-' . $this->args['opt_name'], $protocol . $typography->makeGoogleWebfontLink( $this->typography ), '', $version );
+                            wp_enqueue_style( 'redux-google-fonts-' . $this->args['opt_name'] );
+                        }
                         /* nectar addition end */
-                        
-                        //echo '<link rel="stylesheet" id="options-google-fonts" title="" href="'.$protocol.$typography->makeGoogleWebfontLink( $this->typography ).'&amp;v='.$version.'" type="text/css" media="all" />';
-                        wp_register_style( 'redux-google-fonts-' . $this->args['opt_name'], $protocol . $typography->makeGoogleWebfontLink( $this->typography ), '', $version );
-                        wp_enqueue_style( 'redux-google-fonts-' . $this->args['opt_name'] );
                     }
                 }
             }
@@ -2112,9 +2139,19 @@
                             if ( isset ( $field['permissions'] ) ) {
 
                                 if ( ! self::current_user_can( $field['permissions'] ) ) {
-                                    $data = isset ( $this->options[ $field['id'] ] ) ? $this->options[ $field['id'] ] : $this->options_defaults[ $field['id'] ];
 
-                                    $this->hidden_perm_fields[ $field['id'] ] = $data;
+                                    // nectar addition - fixes core issue that caused warnings
+                                    $data = false;
+                                    if ( isset ( $this->options[ $field['id'] ] ) ) {
+                                        $data = $this->options[ $field['id'] ];
+                                    } else if ( isset( $this->options_defaults[ $field['id'] ] ) ) {
+                                        $data = $this->options_defaults[ $field['id'] ];
+                                    }
+
+                                    if ( $data ) {
+                                        $this->hidden_perm_fields[ $field['id'] ] = $data;
+                                    }
+                                    // nectar addition end
 
                                     continue;
                                 }
@@ -2226,31 +2263,31 @@
                                     global $salient_redux;
                                     $theme_options = get_option( 'salient', array() );
                                     if(empty($salient_redux) && !empty($theme_options)) {
-    
+
                                         $redux = ReduxFrameworkInstances::get_instance( 'salient_redux' );
-                                        
+
                                         foreach($theme_options as $k => $v) {
-                                            $redux->set($k, $v); 
+                                            $redux->set($k, $v);
                                         }
-                                        
+
                                         //updates fonts separate due to different formatting
                                         $font_fields = array('navigation_font_family','navigation_dropdown_font_family','page_heading_font_family','page_heading_subtitle_font_family','off_canvas_nav_font_family','off_canvas_nav_subtext_font_family','body_font_family','h1_font_family','h2_font_family','h3_font_family','h4_font_family','h5_font_family','h6_font_family','i_font_family','label_font_family','nectar_slider_heading_font_family','home_slider_caption_font_family','testimonial_font_family','sidebar_footer_h_font_family','team_member_h_font_family','nectar_dropcap_font_family');
                                         foreach($font_fields as $k => $v) {
-                                            
-                                            $family = ( isset( $theme_options[str_replace('_family', '', $v)] ) && $theme_options[str_replace('_family', '', $v)] != '-' ) ? $theme_options[str_replace('_family', '', $v)] : ''; 
-                                            $size = ( isset( $theme_options[str_replace('_family', '', $v) . '_size'] ) && $theme_options[str_replace('_family', '', $v) . '_size'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_size'] : ''; 
-                                            $height = ( isset( $theme_options[str_replace('_family', '', $v) . '_line_height'] ) && $theme_options[str_replace('_family', '', $v) . '_line_height'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_line_height'] : ''; 
-                                            $spacing = ( isset( $theme_options[str_replace('_family', '', $v) . '_spacing'] ) && $theme_options[str_replace('_family', '', $v) . '_spacing'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_spacing'] : ''; 
-                                            $transform = ( isset( $theme_options[str_replace('_family', '', $v) . '_transform'] ) && $theme_options[str_replace('_family', '', $v) . '_transform'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_transform'] : ''; 
+
+                                            $family = ( isset( $theme_options[str_replace('_family', '', $v)] ) && $theme_options[str_replace('_family', '', $v)] != '-' ) ? $theme_options[str_replace('_family', '', $v)] : '';
+                                            $size = ( isset( $theme_options[str_replace('_family', '', $v) . '_size'] ) && $theme_options[str_replace('_family', '', $v) . '_size'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_size'] : '';
+                                            $height = ( isset( $theme_options[str_replace('_family', '', $v) . '_line_height'] ) && $theme_options[str_replace('_family', '', $v) . '_line_height'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_line_height'] : '';
+                                            $spacing = ( isset( $theme_options[str_replace('_family', '', $v) . '_spacing'] ) && $theme_options[str_replace('_family', '', $v) . '_spacing'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_spacing'] : '';
+                                            $transform = ( isset( $theme_options[str_replace('_family', '', $v) . '_transform'] ) && $theme_options[str_replace('_family', '', $v) . '_transform'] != '-' ) ? $theme_options[str_replace('_family', '', $v) . '_transform'] : '';
                                             $style = '';
                                             $weight = '';
 
                                             if( isset( $theme_options[str_replace('_family', '', $v) . '_style'] ) && $theme_options[str_replace('_family', '', $v) . '_style'] != '-' ) {
-                                                    
+
                                                 $font_style = $theme_options[str_replace('_family', '', $v) . '_style'];
-                                                    
+
                                                 if(strpos($font_style,'0italic') !== false) {
-                                                    
+
                                                     $weight = str_replace('italic', '', $font_style);
                                                     $style = 'italic';
 
@@ -2268,9 +2305,9 @@
                                                     $weight = $font_style;
                                                     $style = '';
                                                 }
-                                                
-                                            } 
-                                            
+
+                                            }
+
                                             $font_arr = array(
                                                 'font-family' => $family,
                                                 'font-size' => $size,
@@ -2280,16 +2317,16 @@
                                                 'text-transform' => $transform,
                                                 'font-style' => $style
                                             );
-                                            
-                                            $redux->set($v, $font_arr); 
-                                            
+
+                                            $redux->set($v, $font_arr);
+
                                         }
 
                                         //images separately too
                                         $image_fields = array('favicon','background_image','logo','retina-logo','header-starting-logo','header-starting-retina-logo','header-starting-logo-dark','header-starting-retina-logo-dark','loading-image');
                                         foreach($image_fields as $k => $v) {
                                             if(isset($theme_options[$v]) && $theme_options[$v] != '' && strpos($theme_options[$v], ".") !== false ) {
-                                                
+
                                                 $img_id = fjarrett_get_attachment_id_from_url( $theme_options[$v] );
                                                 $img_arr = array(
                                                     'id' => $img_id,
@@ -2298,16 +2335,16 @@
                                                     'thumbnail' => $theme_options[$v],
                                                     'url' => $theme_options[$v]
                                                 );
-                                                $redux->set($v, $img_arr); 
+                                                $redux->set($v, $img_arr);
                                             }
                                         }
-                                        
-                                        
+
+
                                     } else {
                                          $runUpdate = true;
                                     }
                                 }
-                                
+
                                 /* nectar addition end */
 
                                 // elseif($this->saved != '' && $this->saved != false) {
@@ -2461,7 +2498,7 @@
                 $path    = get_parent_theme_file_path('/nectar/redux-framework/ReduxCore/inc/extensions/');
                 $folders = scandir( $path, 1 );
                 /* nectar addition end */
-                
+
                 /**
                  * action 'redux/extensions/before'
                  *
@@ -2603,9 +2640,12 @@
 
                     if ( $plugin_options['import_code'] != '' ) {
                         $import = $plugin_options['import_code'];
-                    } elseif ( $plugin_options['import_link'] != '' ) {
-                        $import = wp_remote_retrieve_body( wp_remote_get( $plugin_options['import_link'] ) );
                     }
+
+                    // remove option to import from link
+                    // elseif ( $plugin_options['import_link'] != '' ) {
+                    //     $import = wp_remote_retrieve_body( wp_remote_get( $plugin_options['import_link'] ) );
+                    // }
 
                     if ( ! empty ( $import ) ) {
                         $imported_options = json_decode( $import, true );
@@ -2794,7 +2834,7 @@
                         }
                     }
                 }
-                
+
                 unset ( $plugin_options['defaults'], $plugin_options['defaults_section'], $plugin_options['import'], $plugin_options['import_code'], $plugin_options['import_link'], $plugin_options['compiler'], $plugin_options['redux-section'] );
                 if ( $this->args['database'] == 'transient' || $this->args['database'] == 'theme_mods' || $this->args['database'] == 'theme_mods_expanded' ) {
                     $this->set_options( $plugin_options );
@@ -2844,21 +2884,7 @@
                 if ( ! empty ( $_POST['data'] ) && ! empty ( $redux->args['opt_name'] ) ) {
 
                     $values = array();
-                    //if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
-                    //    $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-                    //    while (list($key, $val) = each($process)) {
-                    //        foreach ($val as $k => $v) {
-                    //            unset($process[$key][$k]);
-                    //            if (is_array($v)) {
-                    //                $process[$key][stripslashes($k)] = $v;
-                    //                $process[] = &$process[$key][stripslashes($k)];
-                    //            } else {
-                    //                $process[$key][stripslashes($k)] = stripslashes($v);
-                    //            }
-                    //        }
-                    //    }
-                    //    unset($process);
-                    //}
+
                     $_POST['data'] = stripslashes( $_POST['data'] );
 
                     // Old method of saving, in case we need to go back! - kp
@@ -2869,9 +2895,13 @@
 
                     $values = $values[ $redux->args['opt_name'] ];
 
-                    if ( function_exists( 'get_magic_quotes_gpc' ) && get_magic_quotes_gpc() ) {
+                    if ( function_exists('phpversion') &&
+                         version_compare(phpversion(), '6.0.0', '<') &&
+                         function_exists( 'get_magic_quotes_gpc' ) &&
+                         get_magic_quotes_gpc() ) {
                         $values = array_map( 'stripslashes_deep', $values );
                     }
+
 
                     if ( ! empty ( $values ) ) {
 
@@ -3495,10 +3525,10 @@
                             $field['name_suffix'] = "";
                         }
 
-                  
+
                         /* nectar addition - removed output buffering method of rendering field */
                         /* nectar addition end */
-                        
+
                         //save the values into a unique array in case we need it for dependencies
                         $this->fieldsValues[ $field['id'] ] = ( isset ( $value['url'] ) && is_array( $value ) ) ? $value['url'] : $value;
 
@@ -3530,7 +3560,7 @@
                             &$value
                         ) );
 
-                      
+
                         $hidden = '';
                         if ( isset ( $field['hidden'] ) && $field['hidden'] ) {
                             $hidden = 'hidden ';
@@ -3545,7 +3575,7 @@
                         }
 
                         echo '<fieldset id="' . esc_attr($this->args['opt_name']) . '-' . esc_attr($field['id']) . '" class="' . esc_attr($hidden) . 'redux-field-container redux-field redux-field-init redux-container-' . esc_attr($field['type']) . ' ' . esc_attr($class_string) . '" data-id="' . esc_attr($field['id']) . '" ' . $data_string . ' data-type="' . esc_attr($field['type']) . '">';
-                      
+
                         /* nectar addition */
                         $render = new $field_class ( $field, $value, $this );
                         $render->render();
@@ -3557,9 +3587,9 @@
 
                         echo ( isset ( $field['description'] ) && $field['type'] != "info" && $field['type'] !== "section" && ! empty ( $field['description'] ) ) ? '<div class="description field-desc">' . wp_kses_post($field['description']) . '</div>' : '';
 
-                
+
                         echo '</fieldset>';
-                      
+
 
                         /**
                          * action 'redux-after-field-{opt_name}'
@@ -4070,7 +4100,7 @@
                 $name_arr = func_get_args();
                 $args = array_merge( array( $current_user ), $name_arr );
 
-                return call_user_func_array( array( 'self', 'user_can' ), $args );
+                return call_user_func_array( array( __CLASS__, 'user_can' ), $args );
             }
 
 

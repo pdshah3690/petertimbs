@@ -10,6 +10,21 @@
     <taxonomy translate="1">project-attributes</taxonomy>
   </taxonomies>
   <custom-fields>
+    <custom-field action="copy">nectar_g_section_conditions</custom-field>
+    <custom-field action="copy">nectar_g_section_locations</custom-field>
+    <custom-field action="copy">nectar_menu_options</custom-field>
+    <custom-field action="copy">_force_transparent_header</custom-field>
+    <custom-field action="copy">_disable_transparent_header</custom-field>
+    <custom-field action="copy">_force_transparent_header_color</custom-field>
+    <custom-field action="copy">_nectar_header_bg_color</custom-field>
+    <custom-field action="copy">_nectar_header_font_color</custom-field>
+    <custom-field action="copy">_nectar_header_bg_height</custom-field>
+    <custom-field action="copy">_nectar_header_bg</custom-field>
+    <custom-field action="copy">_nectar_page_header_alignment_v</custom-field>
+    <custom-field action="copy">_nectar_page_header_alignment</custom-field>
+    <custom-field action="copy">_nectar_full_screen_rows</custom-field>
+    <custom-field action="copy">_nectar_full_screen_rows_animation</custom-field>
+    <custom-field action="copy">_nectar_full_screen_rows_dot_navigation</custom-field>
     <custom-field action="translate">_nectar_header_title</custom-field>
     <custom-field action="translate">_nectar_header_subtitle</custom-field>
     <custom-field action="copy-once">_nectar_portfolio_extra_content</custom-field>
@@ -39,16 +54,29 @@
   </custom-fields>
   <admin-texts>
     <key name="salient_redux">
+      <key name="logo"/>
+      <key name="retina-logo"/>
+      <key name="mobile-logo"/>
+      <key name="header-starting-logo"/>
+      <key name="header-starting-retina-logo"/>
+      <key name="header-starting-logo-dark"/>
+      <key name="header-starting-retina-logo-dark"/>
+      <key name="global-section-after-header-navigation"/>
+      <key name="global-section-above-footer"/>
+      <key name="header-search-ph-text"/>
       <key name="secondary-header-text"/>
+      <key name="secondary-header-link"/>
       <key name="footer-copyright-text"/>
       <key name="cta-text"/>
       <key name="cta-btn"/>
       <key name="cta-btn-link"/>
-	    <key name="carousel-title"/>
+	<key name="carousel-title"/>
       <key name="carousel-link"/>
       <key name="portfolio-sortable-text"/>
       <key name="main-portfolio-link"/>
       <key name="header-account-button-url"/>
+      <key name="header-text-widget"/>
+      <key name="header-slide-out-widget-area-bottom-text"/>
       <key name="recent-posts-title"/>
       <key name="recent-posts-link"/>
     </key>
@@ -63,6 +91,9 @@
       <shortcode>
             <tag>text-with-icon</tag>
       </shortcode>
+       <shortcode>
+            <tag>nectar_text_inline_images</tag>
+      </shortcode>
       <shortcode>
             <tag>fancy-ul</tag>
       </shortcode>
@@ -70,10 +101,14 @@
             <tag>nectar_btn</tag>
             <attributes>
                 <attribute>text</attribute>
+                <attribute type="link">url</attribute>
             </attributes>
       </shortcode>
       <shortcode>
             <tag>nectar_icon</tag>
+             <attributes>
+                <attribute type="link">url</attribute>
+            </attributes>
       </shortcode>
       <shortcode>
             <tag>bar</tag>
@@ -82,10 +117,34 @@
             </attributes>
       </shortcode>
       <shortcode>
+            <tag>nectar_rotating_words_title</tag>
+            <attributes>
+                <attribute>beginning_text</attribute>
+                <attribute>dynamic_text</attribute>
+                <attribute>ending_text</attribute>
+            </attributes>
+      </shortcode>
+      <shortcode>
             <tag>split_line_heading</tag>
+            <attributes>
+                <attribute>text_content</attribute>
+                <attribute type="link">link_href</attribute>
+            </attributes>
+      </shortcode>
+      <shortcode>
+            <tag>nectar_highlighted_text</tag>
+      </shortcode>
+      <shortcode>
+            <tag>nectar_responsive_text</tag>
+            <attributes>
+                <attribute type="link">link_href</attribute>
+            </attributes>
       </shortcode>
       <shortcode>
             <tag>image_with_animation</tag>
+             <attributes>
+                  <attribute type="link">img_link</attribute>
+            </attributes>
       </shortcode>
       <shortcode>
             <tag>nectar_horizontal_list_item</tag>
@@ -105,17 +164,31 @@
             </attributes>
       </shortcode>
       <shortcode>
+            <tag>nectar_badge</tag>
+            <attributes>
+                <attribute>text</attribute>
+            </attributes>
+      </shortcode>
+       <shortcode>
+            <tag>nectar_video_player_self_hosted</tag>
+            <attributes>
+                  <attribute>video_mp4</attribute>
+                  <attribute>video_image</attribute>
+            </attributes>
+      </shortcode>
+      <shortcode>
             <tag>nectar_cta</tag>
             <attributes>
                 <attribute>link_text</attribute>
                 <attribute>text</attribute>
-                <attribute>url</attribute>
+                <attribute type="link">url</attribute>
             </attributes>
       </shortcode>
       <shortcode>
             <tag>nectar_video_lightbox</tag>
             <attributes>
                 <attribute>link_text</attribute>
+                <attribute type="post-ids" sub-type="attachment">image_url</attribute>
             </attributes>
       </shortcode>
       <shortcode>
@@ -129,14 +202,24 @@
             <attributes>
                 <attribute>name</attribute>
                 <attribute>job_position</attribute>
-                <attribute>team_member_bio</attribute>
+                <attribute type="area">description</attribute>
+                <attribute type="area">team_member_mini_bio</attribute>
+                <attribute type="area">team_member_bio</attribute>
+                <attribute>social</attribute>
             </attributes>
       </shortcode>
       <shortcode>
             <tag>fancy_box</tag>
             <attributes>
-                <attribute>link_url</attribute>
+                <attribute type="link">link_url</attribute>
                 <attribute>link_text</attribute>
+                <attribute type="area">hover_content</attribute>
+            </attributes>
+      </shortcode>
+      <shortcode>
+            <tag>nectar_flip_box</tag>
+            <attributes>
+                <attribute type="area">front_content</attribute>
             </attributes>
       </shortcode>
       <shortcode>
@@ -162,11 +245,17 @@
       </shortcode>
       <shortcode>
             <tag>tabbed_section</tag>
+            <attributes>
+                <attribute>vs_text_content</attribute>
+                <attribute>vs_cta_text</attribute>
+                <attribute>vs_cta_link</attribute>
+            </attributes>
       </shortcode>
       <shortcode>
             <tag>tab</tag>
             <attributes>
                 <attribute>title</attribute>
+                <attribute>sub_desc</attribute>
             </attributes>
       </shortcode>
       <shortcode>
@@ -187,10 +276,18 @@
             <tag>client</tag>
             <attributes>
                 <attribute>name</attribute>
+                <attribute type="post-ids" sub-type="attachment">image</attribute>
+                <attribute type="link" encoding="vc_link">url</attribute>
             </attributes>
       </shortcode>
       <shortcode>
             <tag>nectar_icon_list</tag>
+      </shortcode>
+      <shortcode>
+            <tag>nectar_single_testimonial</tag>
+            <attributes>
+                <attribute>quote</attribute>
+            </attributes>
       </shortcode>
       <shortcode>
             <tag>nectar_icon_list_item</tag>
@@ -222,6 +319,9 @@
       </shortcode>
       <shortcode>
             <tag>carousel</tag>
+            <attributes>
+                <attribute type="area">flickity_fixed_content</attribute>
+            </attributes>
       </shortcode>
       <shortcode>
             <tag>item</tag>
@@ -252,6 +352,10 @@
       </shortcode>
       <shortcode>
           <tag>vc_column</tag>
+          <attributes>
+                <attribute type="link">column_link</attribute>
+                <attribute>column_link_screen_reader</attribute>
+            </attributes>
       </shortcode>
       <shortcode>
           <tag>vc_column_inner</tag>
@@ -291,7 +395,10 @@
         <shortcode>
             <tag>vc_gallery</tag>
             <attributes>
-                <attribute>title</attribute>
+                  <attribute encoding="allow_html_tags">title</attribute>
+                  <attribute encoding="vc_safe">custom_links</attribute>
+                  <attribute type="media-ids">images</attribute>
+                  <attribute encoding="base64">items</attribute>
             </attributes>
         </shortcode>
         <shortcode>
@@ -304,6 +411,12 @@
             <tag>vc_video</tag>
             <attributes>
                 <attribute>title</attribute>
+            </attributes>
+        </shortcode>
+        <shortcode>
+            <tag>nectar_global_section</tag>
+            <attributes>
+                <attribute>id</attribute>
             </attributes>
         </shortcode>
         <shortcode>

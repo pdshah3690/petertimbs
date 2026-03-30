@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Salient WordPress Theme
- * @version 10.5
+ * @version 15.5
  */
 
 if ( post_password_required() ) {
@@ -17,7 +17,7 @@ $comments_open_attr = (comments_open() || have_comments()) ? 'true' : 'false';
 <div class="comment-wrap <?php echo esc_attr($fw_class); ?>" data-midnight="dark" data-comments-open="<?php echo esc_attr($comments_open_attr); ?>">
 
 <?php if ( have_comments() ) : ?>
-	<h3 id="comments"><?php if(!empty($nectar_options['theme-skin']) && $nectar_options['theme-skin'] === 'ascend') echo '<span><i>'. esc_html__("Join the discussion", 'salient').'</i></span>' ?> <?php comments_number(esc_html__('No Comments','salient'), esc_html__('One Comment', 'salient'), esc_html__('% Comments', 'salient') );?></h3>
+	<h3 id="comments" class="<?php echo apply_filters('nectar_comments_title_class', 'nectar-comments-title'); ?>"><?php if(!empty($nectar_options['theme-skin']) && $nectar_options['theme-skin'] === 'ascend') echo '<span><i>'. esc_html__("Join the discussion", 'salient').'</i></span>' ?> <?php comments_number(esc_html__('No Comments','salient'), esc_html__('One Comment', 'salient'), esc_html__('% Comments', 'salient') );?></h3>
 
 	<div class="navigation">
 		<div class="alignleft"><?php previous_comments_link() ?></div>
@@ -80,7 +80,9 @@ $args = array(
   'comment_notes_before' => '',
 
   'comment_notes_after' => '',
-
+    
+  'title_reply_before' => '<h3 id="reply-title" class="'.apply_filters('nectar_comments_title_class', 'comment-reply-title').'">',
+  'title_reply_after' => '</h3>',
   'fields' => apply_filters( 'comment_form_default_fields', array(
 
     'author' =>

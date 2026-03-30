@@ -3,6 +3,11 @@
     if ( ! class_exists( 'Redux_Validation_numeric' ) ) {
         class Redux_Validation_numeric {
 
+            public $parent;
+            public $field = array();
+            public $value;
+            public $current;
+            
             /**
              * Field Constructor.
              * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function

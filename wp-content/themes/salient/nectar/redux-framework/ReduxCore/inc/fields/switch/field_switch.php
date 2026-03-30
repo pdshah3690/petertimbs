@@ -8,13 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'ReduxFramework_switch' ) ) {
     class ReduxFramework_switch {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+        
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
          *
          * @since ReduxFramework 0.0.4
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -76,7 +80,7 @@ if ( ! class_exists( 'ReduxFramework_switch' ) ) {
         function enqueue() {
             wp_enqueue_script(
                 'redux-field-switch-js',
-                ReduxFramework::$_url . 'inc/fields/switch/field_switch' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/switch/field_switch' . Redux_Functions::isMin() . '.js',
                 array( 'jquery', 'redux-js' ),
                 time(),
                 true
@@ -85,7 +89,7 @@ if ( ! class_exists( 'ReduxFramework_switch' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-switch-css',
-                    ReduxFramework::$_url . 'inc/fields/switch/field_switch.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/switch/field_switch.css',
                     array(),
                     time(),
                     'all'

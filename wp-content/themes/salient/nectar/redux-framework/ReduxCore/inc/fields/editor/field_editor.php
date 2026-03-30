@@ -35,6 +35,10 @@ if ( ! class_exists( 'ReduxFramework_editor' ) ) {
      */
     class ReduxFramework_editor {
 
+        public $field = array();
+        public $value = '';
+        public $parent = null;
+        
         /**
          * Field Constructor.
          * Required - must call the parent constructor, then assign field and value to vars, and obviously call the render field function
@@ -43,7 +47,7 @@ if ( ! class_exists( 'ReduxFramework_editor' ) ) {
          * @access      public
          * @return      void
          */
-        function __construct( $field = array(), $value = '', $parent ) {
+        function __construct( $field, $value, $parent ) {
             $this->parent = $parent;
             $this->field  = $field;
             $this->value  = $value;
@@ -96,7 +100,7 @@ if ( ! class_exists( 'ReduxFramework_editor' ) ) {
             if ($this->parent->args['dev_mode']) {
                 wp_enqueue_style(
                     'redux-field-editor-css',
-                    ReduxFramework::$_url . 'inc/fields/editor/field_editor.css',
+                    get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/editor/field_editor.css',
                     array(),
                     time(),
                     'all'
@@ -105,7 +109,7 @@ if ( ! class_exists( 'ReduxFramework_editor' ) ) {
 
             wp_enqueue_script(
                 'redux-field-editor-js',
-                ReduxFramework::$_url . 'inc/fields/editor/field_editor' . Redux_Functions::isMin() . '.js',
+                get_template_directory_uri() . '/nectar/redux-framework/ReduxCore/inc/fields/editor/field_editor' . Redux_Functions::isMin() . '.js',
                 array( 'jquery', 'redux-js' ),
                 time(),
                 true

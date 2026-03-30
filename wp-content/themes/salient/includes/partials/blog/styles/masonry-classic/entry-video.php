@@ -61,6 +61,8 @@ $use_excerpt                 = ( ! empty( $nectar_options['blog_auto_excerpt'] )
             echo '<div class="excerpt">';
             the_excerpt();
             echo '</div>';
+
+            do_action('nectar_after_archive_post_item_content');
             
             echo '<a class="more-link" href="' . esc_url( get_permalink() ) . '"><span class="continue-reading">' . __( 'Read More', 'salient' ) . '</span></a>';
           } 
