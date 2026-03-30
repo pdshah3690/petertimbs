@@ -3,7 +3,7 @@
  * Plugin Name: Redis Object Cache Drop-In
  * Plugin URI: https://wordpress.org/plugins/redis-cache/
  * Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, Relay, replication, sentinels, clustering and WP-CLI.
- * Version: 2.5.2
+ * Version: 2.7.0
  * Author: Till Krüss
  * Author URI: https://objectcache.pro
  * License: GPLv3
@@ -50,17 +50,17 @@ function wp_cache_supports( $feature ) {
  * If the specified key already exists, the value is not stored and the function
  * returns false.
  *
- * @param string $key        The key under which to store the value.
- * @param mixed  $value      The value to store.
- * @param string $group      The group value appended to the $key.
- * @param int    $expiration The expiration time, defaults to 0.
+ * @param string $key    The key under which to store the value.
+ * @param mixed  $data   The value to store.
+ * @param string $group  The group value appended to the $key.
+ * @param int    $expire The expiration time, defaults to 0.
  *
- * @return bool              Returns TRUE on success or FALSE on failure.
+ * @return bool          Returns TRUE on success or FALSE on failure.
  */
-function wp_cache_add( $key, $value, $group = '', $expiration = 0 ) {
+function wp_cache_add( $key, $data, $group = '', $expire = 0 ) {
     global $wp_object_cache;
 
-    return $wp_object_cache->add( $key, $value, $group, $expiration );
+    return $wp_object_cache->add( $key, $data, $group, $expire );
 }
 
 /**
@@ -263,17 +263,17 @@ function wp_cache_init() {
  * This method is similar to "add"; however, is does not successfully set a value if
  * the object's key is not already set in cache.
  *
- * @param string $key        The key under which to store the value.
- * @param mixed  $value      The value to store.
- * @param string $group      The group value appended to the $key.
- * @param int    $expiration The expiration time, defaults to 0.
+ * @param string $key    The key under which to store the value.
+ * @param mixed  $data   The value to store.
+ * @param string $group  The group value appended to the $key.
+ * @param int    $expire The expiration time, defaults to 0.
  *
- * @return bool              Returns TRUE on success or FALSE on failure.
+ * @return bool          Returns TRUE on success or FALSE on failure.
  */
-function wp_cache_replace( $key, $value, $group = '', $expiration = 0 ) {
+function wp_cache_replace( $key, $data, $group = '', $expire = 0 ) {
     global $wp_object_cache;
 
-    return $wp_object_cache->replace( $key, $value, $group, $expiration );
+    return $wp_object_cache->replace( $key, $data, $group, $expire );
 }
 
 /**
@@ -281,17 +281,17 @@ function wp_cache_replace( $key, $value, $group = '', $expiration = 0 ) {
  *
  * The value is set whether or not this key already exists in Redis.
  *
- * @param string $key        The key under which to store the value.
- * @param mixed  $value      The value to store.
- * @param string $group      The group value appended to the $key.
- * @param int    $expiration The expiration time, defaults to 0.
+ * @param string $key    The key under which to store the value.
+ * @param mixed  $data   The value to store.
+ * @param string $group  The group value appended to the $key.
+ * @param int    $expire The expiration time, defaults to 0.
  *
- * @return bool              Returns TRUE on success or FALSE on failure.
+ * @return bool          Returns TRUE on success or FALSE on failure.
  */
-function wp_cache_set( $key, $value, $group = '', $expiration = 0 ) {
+function wp_cache_set( $key, $data, $group = '', $expire = 0 ) {
     global $wp_object_cache;
 
-    return $wp_object_cache->set( $key, $value, $group, $expiration );
+    return $wp_object_cache->set( $key, $data, $group, $expire );
 }
 
 /**
@@ -315,14 +315,14 @@ function wp_cache_set_multiple( array $data, $group = '', $expire = 0 ) {
  *
  * This changes the blog id used to create keys in blog specific groups.
  *
- * @param  int $_blog_id The blog ID.
+ * @param  int $blog_id The blog ID.
  *
  * @return bool
  */
-function wp_cache_switch_to_blog( $_blog_id ) {
+function wp_cache_switch_to_blog( $blog_id ) {
     global $wp_object_cache;
 
-    return $wp_object_cache->switch_to_blog( $_blog_id );
+    return $wp_object_cache->switch_to_blog( $blog_id );
 }
 
 /**
@@ -354,6 +354,7 @@ function wp_cache_add_non_persistent_groups( $groups ) {
 /**
  * Object cache class definition
  */
+#[AllowDynamicProperties]
 class WP_Object_Cache {
     /**
      * The Redis client.
@@ -382,6 +383,13 @@ class WP_Object_Cache {
      * @var bool
      */
     private $fail_gracefully = true;
+
+    /**
+     * Whether to use igbinary serialization.
+     *
+     * @var bool
+     */
+    private $use_igbinary = false;
 
     /**
      * Holds the non-Redis objects.
@@ -518,20 +526,13 @@ class WP_Object_Cache {
 
         $this->cache_group_types();
 
-        if ( function_exists( '_doing_it_wrong' ) ) {
-            if ( defined( 'WP_REDIS_TRACE' ) && WP_REDIS_TRACE ) {
-                _doing_it_wrong( __FUNCTION__ , 'Tracing feature was removed.' , '2.1.2' );
-            }
-        }
+        $this->use_igbinary = defined( 'WP_REDIS_IGBINARY' ) && WP_REDIS_IGBINARY && extension_loaded( 'igbinary' );
 
         $client = $this->determine_client();
         $parameters = $this->build_parameters();
 
         try {
             switch ( $client ) {
-                case 'hhvm':
-                    $this->connect_using_hhvm( $parameters );
-                    break;
                 case 'phpredis':
                     $this->connect_using_phpredis( $parameters );
                     break;
@@ -601,7 +602,7 @@ class WP_Object_Cache {
         $client = 'predis';
 
         if ( class_exists( 'Redis' ) ) {
-            $client = defined( 'HHVM_VERSION' ) ? 'hhvm' : 'phpredis';
+            $client = 'phpredis';
         }
 
         if ( defined( 'WP_REDIS_CLIENT' ) ) {
@@ -690,6 +691,14 @@ class WP_Object_Cache {
                     $args['password'] = $parameters['password'];
                 }
 
+                if ( version_compare( $version, '5.3.0', '>=' ) && defined( 'WP_REDIS_SSL_CONTEXT' ) && ! empty( WP_REDIS_SSL_CONTEXT ) ) {
+                    if ( ! array_key_exists( 'password', $args ) ) {
+                        $args['password'] = null;
+                    }
+
+                    $args['ssl'] = WP_REDIS_SSL_CONTEXT;
+                }
+
                 $this->redis = new RedisCluster( null, ...array_values( $args ) );
                 $this->diagnostics += $args;
             }
@@ -745,14 +754,6 @@ class WP_Object_Cache {
             }
 
             $this->diagnostics += $args;
-        }
-
-        if ( defined( 'WP_REDIS_SERIALIZER' ) && ! empty( WP_REDIS_SERIALIZER ) ) {
-            $this->redis->setOption( Redis::OPT_SERIALIZER, WP_REDIS_SERIALIZER );
-
-            if ( function_exists( '_doing_it_wrong' ) ) {
-                _doing_it_wrong( __FUNCTION__ , 'The `WP_REDIS_SERIALIZER` configuration constant has been deprecated, use `WP_REDIS_IGBINARY` instead.', '2.3.1' );
-            }
         }
     }
 
@@ -821,14 +822,6 @@ class WP_Object_Cache {
             }
 
             $this->diagnostics += $args;
-        }
-
-        if ( defined( 'WP_REDIS_SERIALIZER' ) && ! empty( WP_REDIS_SERIALIZER ) ) {
-            $this->redis->setOption( Relay\Relay::OPT_SERIALIZER, WP_REDIS_SERIALIZER );
-
-            if ( function_exists( '_doing_it_wrong' ) ) {
-                _doing_it_wrong( __FUNCTION__ , 'The `WP_REDIS_SERIALIZER` configuration constant has been deprecated, use `WP_REDIS_IGBINARY` instead.', '2.3.1' );
-            }
         }
     }
 
@@ -940,11 +933,11 @@ class WP_Object_Cache {
      * @param  array $parameters Connection parameters built by the `build_parameters` method.
      * @throws \Exception If the Credis library was not found or is unreadable.
      * @throws \Exception If redis sharding should be configured as Credis does not support sharding.
-     * @throws \Exception If more than one seninel is configured as Credis does not support multiple sentinel servers.
+     * @throws \Exception If more than one sentinel is configured as Credis does not support multiple sentinel servers.
      * @return void
      */
     protected function connect_using_credis( $parameters ) {
-        _doing_it_wrong( __FUNCTION__ , 'Credis support will be removed in future versions.' , '2.0.26' );
+        trigger_error( 'Credis support is deprecated and will be removed in the future', E_USER_DEPRECATED );
 
         $client = 'Credis';
 
@@ -1071,57 +1064,8 @@ class WP_Object_Cache {
         }
 
         $this->diagnostics = array_merge(
-            [ 'client' => sprintf( '%s (v%s)', $client, Credis_Client::VERSION ) ],
+            [ 'client' => sprintf( '%s (%s)', $client, 'bundled' ) ],
             $args
-        );
-    }
-
-    /**
-     * Connect to Redis using HHVM's Redis extension.
-     *
-     * @param  array $parameters Connection parameters built by the `build_parameters` method.
-     * @return void
-     */
-    protected function connect_using_hhvm( $parameters ) {
-        _doing_it_wrong( __FUNCTION__ , 'HHVM support will be removed in future versions.' , '2.0.26' );
-
-        $this->redis = new Redis();
-
-        // Adjust host and port if the scheme is `unix`.
-        if ( strcasecmp( 'unix', $parameters['scheme'] ) === 0 ) {
-            $parameters['host'] = 'unix://' . $parameters['path'];
-            $parameters['port'] = 0;
-        }
-
-        $this->redis->connect(
-            $parameters['host'],
-            $parameters['port'],
-            $parameters['timeout'],
-            null,
-            $parameters['retry_interval']
-        );
-
-        if ( $parameters['read_timeout'] ) {
-            $this->redis->setOption( Redis::OPT_READ_TIMEOUT, $parameters['read_timeout'] );
-        }
-
-        if ( isset( $parameters['password'] ) ) {
-            $this->redis->auth( $parameters['password'] );
-        }
-
-        if ( isset( $parameters['database'] ) ) {
-            if ( ctype_digit( (string) $parameters['database'] ) ) {
-                $parameters['database'] = (int) $parameters['database'];
-            }
-
-            if ( $parameters['database'] ) {
-                $this->redis->select( $parameters['database'] );
-            }
-        }
-
-        $this->diagnostics = array_merge(
-            [ 'client' => sprintf( 'HHVM Extension (v%s)', HHVM_VERSION ) ],
-            $parameters
         );
     }
 
@@ -1131,24 +1075,30 @@ class WP_Object_Cache {
      * @return void
      */
     public function fetch_info() {
-        $options = method_exists( $this->redis, 'getOptions' )
-            ? $this->redis->getOptions()
-            : new stdClass();
-
-        if ( isset( $options->replication ) && $options->replication ) {
-            return;
-        }
-
         if ( defined( 'WP_REDIS_CLUSTER' ) ) {
             $connectionId = is_string( WP_REDIS_CLUSTER )
                 ? 'SERVER'
                 : current( $this->build_cluster_connection_array() );
 
-            $info = $this->determine_client() === 'predis'
+            $info = $this->is_predis()
                 ? $this->redis->getClientBy( 'id', $connectionId )->info()
                 : $this->redis->info( $connectionId );
+        } else if ($this->is_predis() && $this->redis->getConnection() instanceof Predis\Connection\Replication\MasterSlaveReplication) {
+            $info = $this->redis->getClientBy( 'role' , 'master' )->info();
         } else {
+            if ( $this->is_predis() ) {
+                $connection = $this->redis->getConnection();
+                if ( $connection instanceof Predis\Connection\Replication\ReplicationInterface ) {
+                    $node = $connection->getCurrent();
+                    $connection->switchToMaster();
+                }
+            }
+
             $info = $this->redis->info();
+
+            if ( isset( $connection, $node ) ) {
+                $connection->switchTo($node);
+            }
         }
 
         if ( isset( $info['redis_version'] ) ) {
@@ -1604,8 +1554,14 @@ class WP_Object_Cache {
         $flushTimeout = defined( 'WP_REDIS_FLUSH_TIMEOUT' ) ? WP_REDIS_FLUSH_TIMEOUT : 5;
 
         if ( $this->is_predis() ) {
-            $timeout = $this->redis->getConnection()->getParameters()->read_write_timeout ?? ini_get( 'default_socket_timeout' );
-            stream_set_timeout( $this->redis->getConnection()->getResource(), $flushTimeout );
+            $connection = $this->redis->getConnection();
+
+            if ($connection instanceof Predis\Connection\Replication\ReplicationInterface) {
+                $connection = $connection->getMaster();
+            }
+
+            $timeout = $connection->getParameters()->read_write_timeout ?? ini_get( 'default_socket_timeout' );
+            stream_set_timeout( $connection->getResource(), $flushTimeout );
         } else {
             $timeout = $this->redis->getOption( Redis::OPT_READ_TIMEOUT );
             $this->redis->setOption( Redis::OPT_READ_TIMEOUT, $flushTimeout );
@@ -1619,7 +1575,7 @@ class WP_Object_Cache {
         }
 
         if ( $this->is_predis() ) {
-            stream_set_timeout( $this->redis->getConnection()->getResource(), $timeout );
+            stream_set_timeout( $connection->getResource(), $timeout ); // @phpstan-ignore variable.undefined
         } else {
             $this->redis->setOption( Redis::OPT_READ_TIMEOUT, $timeout );
         }
@@ -1756,6 +1712,10 @@ class WP_Object_Cache {
 	 * @return bool Returns TRUE on success or FALSE on failure.
 	 */
     public function flush_group( $group ) {
+        if ( defined( 'WP_REDIS_DISABLE_GROUP_FLUSH' ) && WP_REDIS_DISABLE_GROUP_FLUSH ) {
+            return $this->flush();
+        }
+
         $san_group = $this->sanitize_key_part( $group );
 
         if ( is_multisite() && ! $this->is_global_group( $san_group ) ) {
@@ -1855,6 +1815,7 @@ class WP_Object_Cache {
         $salt = $escape ? $this->glob_quote( $salt ) : $salt;
 
         return function () use ( $salt ) {
+            // phpcs:disable Squiz.PHP.Heredoc.NotAllowed
             $script = <<<LUA
                 local cur = 0
                 local i = 0
@@ -1872,7 +1833,7 @@ class WP_Object_Cache {
                 return i
 LUA;
 
-            if ( version_compare( $this->redis_version(), '5', '<' ) && version_compare( $this->redis_version(), '3.2', '>=' ) ) {
+            if ( isset($this->redis_version) && version_compare( $this->redis_version, '5', '<' ) && version_compare( $this->redis_version, '3.2', '>=' ) ) {
                 $script = 'redis.replicate_commands()' . "\n" . $script;
             }
 
@@ -1924,7 +1885,7 @@ LUA;
                 until 0 == cur
                 return i
 LUA;
-            if ( version_compare( $this->redis_version(), '5', '<' ) && version_compare( $this->redis_version(), '3.2', '>=' ) ) {
+            if ( isset($this->redis_version) && version_compare( $this->redis_version, '5', '<' ) && version_compare( $this->redis_version, '3.2', '>=' ) ) {
                 $script = 'redis.replicate_commands()' . "\n" . $script;
             }
 
@@ -2392,9 +2353,29 @@ LUA;
         }
 
         try {
-            $result = $this->parse_redis_response( $this->redis->incrBy( $derived_key, $offset ) );
+            if ( $this->use_igbinary ) {
+                $value = (int) $this->parse_redis_response( $this->maybe_unserialize( $this->redis->get( $derived_key ) ) );
+                $value += $offset;
+                $serialized = $this->maybe_serialize( $value );
 
-            $this->add_to_internal_cache( $derived_key, (int) $this->redis->get( $derived_key ) );
+                if ( ($pttl = $this->redis->pttl( $derived_key )) > 0 ) {
+                    if ( $this->is_predis() ) {
+                        $result = $this->parse_redis_response( $this->redis->set( $derived_key, $serialized, 'px', $pttl ) );
+                    } else {
+                        $result = $this->parse_redis_response( $this->redis->set( $derived_key, $serialized, [ 'px' => $pttl ] ) );
+                    }
+                } else {
+                    $result = $this->parse_redis_response( $this->redis->set( $derived_key, $serialized ) );
+                }
+
+                if ( $result ) {
+                    $this->add_to_internal_cache( $derived_key, $value );
+                    $result = $value;
+                }
+            } else {
+                $result = $this->parse_redis_response( $this->redis->incrBy( $derived_key, $offset ) );
+                $this->add_to_internal_cache( $derived_key, (int) $this->redis->get( $derived_key ) );
+            }
         } catch ( Exception $exception ) {
             $this->handle_exception( $exception );
 
@@ -2449,9 +2430,29 @@ LUA;
         }
 
         try {
-            $result = $this->parse_redis_response( $this->redis->decrBy( $derived_key, $offset ) );
+            if ( $this->use_igbinary ) {
+                $value = (int) $this->parse_redis_response( $this->maybe_unserialize( $this->redis->get( $derived_key ) ) );
+                $value -= $offset;
+                $serialized = $this->maybe_serialize( $value );
 
-            $this->add_to_internal_cache( $derived_key, (int) $this->redis->get( $derived_key ) );
+                if ( ($pttl = $this->redis->pttl( $derived_key )) > 0 ) {
+                    if ( $this->is_predis() ) {
+                        $result = $this->parse_redis_response( $this->redis->set( $derived_key, $serialized, 'px', $pttl ) );
+                    } else {
+                        $result = $this->parse_redis_response( $this->redis->set( $derived_key, $serialized, [ 'px' => $pttl ] ) );
+                    }
+                } else {
+                    $result = $this->parse_redis_response( $this->redis->set( $derived_key, $serialized ) );
+                }
+
+                if ( $result ) {
+                    $this->add_to_internal_cache( $derived_key, $value );
+                    $result = $value;
+                }
+            } else {
+                $result = $this->parse_redis_response( $this->redis->decrBy( $derived_key, $offset ) );
+                $this->add_to_internal_cache( $derived_key, (int) $this->redis->get( $derived_key ) );
+            }
         } catch ( Exception $exception ) {
             $this->handle_exception( $exception );
 
@@ -2486,24 +2487,26 @@ LUA;
      * @return void
      */
     public function stats() {
-        ?>
-    <p>
-        <strong>Redis Status:</strong>
-        <?php echo $this->redis_status() ? 'Connected' : 'Not connected'; ?>
-        <br />
-        <strong>Redis Client:</strong>
-        <?php echo $this->diagnostics['client'] ?: 'Unknown'; ?>
-        <br />
-        <strong>Cache Hits:</strong>
-        <?php echo (int) $this->cache_hits; ?>
-        <br />
-        <strong>Cache Misses:</strong>
-        <?php echo (int) $this->cache_misses; ?>
-        <br />
-        <strong>Cache Size:</strong>
-        <?php echo number_format_i18n( strlen( serialize( $this->cache ) ) / 1024, 2 ); ?> KB
-    </p>
-        <?php
+        // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+    ?>
+        <p>
+            <strong>Redis Status:</strong>
+            <?php echo $this->redis_status() ? 'Connected' : 'Not connected'; ?>
+            <br />
+            <strong>Redis Client:</strong>
+            <?php echo $this->diagnostics['client'] ?: 'Unknown'; ?>
+            <br />
+            <strong>Cache Hits:</strong>
+            <?php echo (int) $this->cache_hits; ?>
+            <br />
+            <strong>Cache Misses:</strong>
+            <?php echo (int) $this->cache_misses; ?>
+            <br />
+            <strong>Cache Size:</strong>
+            <?php echo number_format_i18n( strlen( serialize( $this->cache ) ) / 1024, 2 ); ?> KB
+        </p>
+    <?php
+        // phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
@@ -2547,7 +2550,6 @@ LUA;
      *
      * @param   string $key        The key under which to store the value, pre-sanitized.
      * @param   string $group      The group value appended to the $key, pre-sanitized.
-     *
      * @return  string
      */
     public function build_key( $key, $group = 'default' ) {
@@ -2566,7 +2568,6 @@ LUA;
      *
      * @param   string $key        The key under which to store the value, pre-sanitized.
      * @param   string $group      The group value appended to the $key, pre-sanitized.
-     *
      * @return  string
      */
     public function fast_build_key( $key, $group = 'default' ) {
@@ -2577,7 +2578,7 @@ LUA;
         $salt = defined( 'WP_REDIS_PREFIX' ) ? trim( WP_REDIS_PREFIX ) : '';
 
         $prefix = $this->is_global_group( $group ) ? $this->global_prefix : $this->blog_prefix;
-        $prefix = trim( $prefix, '_-:$' );
+        $prefix = trim( (string) $prefix, '_-:$' );
 
         return "{$salt}{$prefix}:{$group}:{$key}";
     }
@@ -2585,7 +2586,7 @@ LUA;
     /**
      * Replaces the set group separator by another one
      *
-     * @param string $part   The string to sanitize.
+     * @param  string $part  The string to sanitize.
      * @return string        Sanitized string.
      */
     protected function sanitize_key_part( $part ) {
@@ -2778,11 +2779,7 @@ LUA;
      * @return mixed            Unserialized data can be any type.
      */
     protected function maybe_unserialize( $original ) {
-        if ( defined( 'WP_REDIS_SERIALIZER' ) && ! empty( WP_REDIS_SERIALIZER ) ) {
-            return $original;
-        }
-
-        if ( defined( 'WP_REDIS_IGBINARY' ) && WP_REDIS_IGBINARY && function_exists( 'igbinary_unserialize' ) ) {
+        if ( $this->use_igbinary ) {
             return igbinary_unserialize( $original );
         }
 
@@ -2808,11 +2805,7 @@ LUA;
             $data = clone $data;
         }
 
-        if ( defined( 'WP_REDIS_SERIALIZER' ) && ! empty( WP_REDIS_SERIALIZER ) ) {
-            return $data;
-        }
-
-        if ( defined( 'WP_REDIS_IGBINARY' ) && WP_REDIS_IGBINARY && function_exists( 'igbinary_serialize' ) ) {
+        if ( $this->use_igbinary ) {
             return igbinary_serialize( $data );
         }
 
@@ -2959,6 +2952,8 @@ LUA;
             add_filter( 'pre_determine_locale', function () {
                 return defined( 'WPLANG' ) ? WPLANG : 'en_US';
             } );
+
+            add_filter( 'pre_get_language_files_from_path', '__return_empty_array' );
         }
 
         // Load custom Redis error template, if present.
@@ -3001,7 +2996,9 @@ LUA;
             '<code>/wp-content/</code>'
         ) . "</p>\n";
 
+        // phpcs:disable WordPress.Security.EscapeOutput
         wp_die( $message );
+        // phpcs:enable
     }
 
     /**
@@ -3013,13 +3010,31 @@ LUA;
         $cluster = array_values( WP_REDIS_CLUSTER );
 
         foreach ( $cluster as $key => $server ) {
-            $connection_string = parse_url( $server );
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url
+            $components = parse_url( $server );
 
-            $cluster[ $key ] = sprintf(
-                "%s:%s",
-                $connection_string['host'],
-                $connection_string['port']
-            );
+            if ( ! empty( $components['scheme'] ) ) {
+                $scheme = $components['scheme'];
+            } elseif ( defined( 'WP_REDIS_SCHEME' ) ) {
+                $scheme = WP_REDIS_SCHEME;
+            } else {
+                $scheme = null;
+            }
+
+            if ( isset( $scheme ) ) {
+                $cluster[ $key ] = sprintf(
+                    '%s://%s:%d',
+                    $scheme,
+                    $components['host'],
+                    $components['port']
+                );
+            } else {
+                $cluster[ $key ] = sprintf(
+                    '%s:%d',
+                    $components['host'],
+                    $components['port']
+                );
+            }
         }
 
         return $cluster;
