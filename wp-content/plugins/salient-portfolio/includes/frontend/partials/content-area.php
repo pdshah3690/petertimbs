@@ -3,7 +3,7 @@
  * Portfolio single content area
  *
  * @package Salient Portfolio
- * @version 1.0
+ * @version 1.6
  */
 
 // Exit if accessed directly
@@ -14,9 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post;
 
 $fwp = get_post_meta( $post->ID, '_nectar_portfolio_item_layout', true );
+
 if ( empty( $fwp ) ) {
 	$fwp = 'false';
 }
+
 
 if( defined( 'NECTAR_THEME_NAME' ) ) {
 	$options = get_nectar_theme_options(); 
@@ -29,6 +31,15 @@ $hidden_featured_media     = get_post_meta( $post->ID, '_nectar_hide_featured', 
 $hidden_project_title      = get_post_meta( $post->ID, '_nectar_hide_title', true );
 $portfolio_remove_comments = ( ! empty( $options['portfolio_remove_comments'] ) ) ? $options['portfolio_remove_comments'] : '0';
 $theme_skin                = ( ! empty( $options['theme-skin'] ) && $options['theme-skin'] == 'ascend' ) ? 'ascend' : 'default';
+$using_vcv                 = false; // core vc
+
+if( class_exists('Salient_Portfolio_Single_Layout') && Salient_Portfolio_Single_Layout::$is_full_width ) {
+	$fwp = 'enabled';
+	$hidden_featured_media = 'on';
+} 
+if ( class_exists('Salient_Portfolio_Single_Layout') && Salient_Portfolio_Single_Layout::$using_vcv == true ) {
+	$using_vcv = true;
+}
 
 ?>
 
@@ -83,11 +94,35 @@ $theme_skin                = ( ! empty( $options['theme-skin'] ) && $options['th
   
 	<?php
 	// extra content
-	if ( ! post_password_required() ) {
+	//// Skip for password protected & core visual composer.
+	if ( ! post_password_required() && $using_vcv !== true ) {
 
 		$portfolio_extra_content = get_post_meta( $post->ID, '_nectar_portfolio_extra_content', true );
+		
+		if( is_preview() && current_user_can( 'edit_post', $post->ID) ) {
+			
+			// Preview content.
+			$portfolio_extra_content_preview = get_post_meta( $post->ID, '_nectar_portfolio_extra_content_preview', true );
+			
+			if( !empty($portfolio_extra_content_preview) ) {
+				$portfolio_extra_content = $portfolio_extra_content_preview;
+				
+				// design options css.
+				if (class_exists('Vc_Base')) {
+					$vc = new Vc_Base();
+					if ( method_exists($vc,'parseShortcodesCss') ) {
+						$css = $vc->parseShortcodesCss( $portfolio_extra_content_preview, 'custom' );
+						$portfolio_extra_content .= '<style type="text/css" data-type="nectar-portfolio-core-wbb-css-preview">'.$css.'</style>';
+					}
+				}
+			}
 
-		if ( ! empty( $portfolio_extra_content ) ) {
+			
+		} // end preview
+
+		$nectar_using_VC_front_end_editor = (isset($_GET['vc_editable'])) ? sanitize_text_field($_GET['vc_editable']) : '';
+		$nectar_using_VC_front_end_editor = ($nectar_using_VC_front_end_editor == 'true') ? true : false;
+		if ( ! empty( $portfolio_extra_content ) || $nectar_using_VC_front_end_editor ) {
 			echo '<div id="portfolio-extra">';
 
 			$extra_content = nectar_shortcode_empty_paragraph_fix( apply_filters( 'the_content', $portfolio_extra_content ) );

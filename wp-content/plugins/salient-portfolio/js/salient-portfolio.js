@@ -15,19 +15,24 @@
   /*	1.	Salient Portfolio Element
   /*-------------------------------------------------------------------------*/
   
-  function SalientPortfolio(el, fullWidthContentColumns) {
+  function SalientPortfolio(el, fullWidthContentColumns, fullscreenSelector, fullWidthSections) {
     
     this.$el = el;
     this.fullWidthContentColumns = fullWidthContentColumns;
-    
+    this.fullWidthSections = fullWidthSections;
+
     this.$window = $(window);
     this.onMobile = false;
     this.clearIsoAnimation = null;
     this.mediaQuerySize = '';
-    
+    this.fullscreenSelector = fullscreenSelector;
+    this.initialized = false;
+    this.total = 0;
+    this.totalLoaded = 0;
+
     this.mouseEventHandler();
     this.portfolioFiltersInit();
-    this.masonryInit();
+    this.portfolioInit();
     this.resizeHandler();
     
     if( this.$el.find('.inner-wrap[data-animation="perspective"]').length > 0) {
@@ -40,94 +45,143 @@
     
   }
   
+  SalientPortfolio.prototype.portfolioInit = function() {
+
+    var that = this;
+
+    this.total = this.$el.find('img').length;
+
+    // Lazy loading gallery
+    if( this.$el.parents('.wpb_gallery').length > 0 && this.$el.find('.nectar-lazy').length > 0 ) {
+      
+      this.fullWidthSections();
+
+      // Set image sizes
+      this.$el.find('img.nectar-lazy:not(.loaded)').each(function() {
+
+        $(this).css({
+          'height': '',
+          'width' : ''
+        });
+
+        var heightAttr = parseInt($(this).attr('height'));
+        var widthAttr = parseInt($(this).attr('width'));
+        var width = $(this).width();
+        var dimensions = that.imageAspectRatio( widthAttr, heightAttr, width, 2000 );
+
+        $(this).css({
+          'height':  dimensions.height + 'px',
+          'width' :  dimensions.width + 'px'
+        });
+
+      });
+
+      // Start masonry
+      this.masonryInit('0s');
+      this.initialized = true;
+
+      // Image loading progress.
+      $(window).on('salient-portfolio-recalculate', this.imageLoadLayout.bind(this) );
+      
+    } 
+    // Regular Portfolio.
+    else {
+      this.$el.imagesLoaded(function(){
+        that.masonryInit('0.6s');
+        that.initialized = true;
+      });
+    }
+  };
+
+  SalientPortfolio.prototype.imageLoadLayout = function() {
+    this.totalLoaded = this.totalLoaded + 1;
+
+    if( this.initialized == true  ) {
+      this.$el.isotope('layout');
+    } 
+  };
+
+  SalientPortfolio.prototype.imageAspectRatio = function(srcWidth, srcHeight, maxWidth, maxHeight) {
+    var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+    return { width: srcWidth*ratio, height: srcHeight*ratio };
+  }
   
-  SalientPortfolio.prototype.masonryInit = function() {
+  SalientPortfolio.prototype.masonryInit = function(transitionDur) {
     
     var instance = this;
     
-    this.$el.imagesLoaded(function(){
+    // initial call to setup isotope.
+    var $layoutMode = ( instance.$el.hasClass('masonry-items')) ? 'packery' : 'fitRows';
+    var $startingFilter = (instance.$el.attr('data-starting-filter') != '' && instance.$el.attr('data-starting-filter') != 'default') ? '.' + instance.$el.attr('data-starting-filter') : '*';
+    var $rtlLayout = ( $('body.rtl').length > 0 ) ? false : true;
+    instance.beforeReLayout();
+    
+    instance.$el.addClass('isotope-activated');
+    
+    instance.$el.isotope({
+      itemSelector : '.element',
+      filter: $startingFilter,
+      layoutMode: $layoutMode,
+      transitionDuration: transitionDur,
+      isOriginLeft: $rtlLayout,
+      packery: {
+        gutter: 0
+      }
+    }).isotope( 'layout' );
 
-      // initial call to setup isotope.
-      var $layoutMode = ( instance.$el.hasClass('masonry-items')) ? 'packery' : 'fitRows';
-      var $startingFilter = (instance.$el.attr('data-starting-filter') != '' && instance.$el.attr('data-starting-filter') != 'default') ? '.' + instance.$el.attr('data-starting-filter') : '*';
+    // Starting filters.
+    if($startingFilter != '*'){
       
-      instance.reLayout();
-      
-      instance.$el.addClass('isotope-activated');
-      
-      instance.$el.isotope({
-        itemSelector : '.element',
-        filter: $startingFilter,
-        layoutMode: $layoutMode,
-        transitionDuration: '0.6s',
-        packery: {
-          gutter: 0
-        }
-      }).isotope( 'layout' );
-      
-      // Starting filters.
-      if($startingFilter != '*'){
-        
-        // Custom starting filter.
-        if( instance.$el.parent().parent().find('.portfolio-filters').length > 0 ) {
-          instance.$el.parent().parent().find('.portfolio-filters ul a[data-filter="'+$startingFilter+'"]').trigger('click');
-        } else {
-          instance.$el.parent().parent().find('.portfolio-filters-inline ul a[data-filter="'+$startingFilter+'"]').trigger('click');
-        }
-        
-        
+      // Custom starting filter.
+      if( instance.$el.parent().parent().find('.portfolio-filters').length > 0 ) {
+        instance.$el.parent().parent().find('.portfolio-filters ul a[data-filter="'+$startingFilter+'"]').trigger('click');
       } else {
-        
-        // Default filter of "all".
-        if(instance.$el.parent().parent().find('.portfolio-filters-inline[data-alignment="left"]').length > 0 || 
-        instance.$el.parent().parent().find('.portfolio-filters-inline[data-alignment="center"]').length > 0) {
-          instance.$el.parent().parent().find('.portfolio-filters-inline .container > ul > li:nth-child(1) a').trigger('click').addClass('active');
-        } else {
-          instance.$el.parent().parent().find('.portfolio-filters-inline .container > ul > li:nth-child(2) a').trigger('click').addClass('active');
-        }
-        
+        instance.$el.parent().parent().find('.portfolio-filters-inline ul a[data-filter="'+$startingFilter+'"]').trigger('click');
+      }
+
+    } else {
+      
+      // Default filter of "all".
+      if(instance.$el.parent().parent().find('.portfolio-filters-inline[data-alignment="left"]').length > 0 || 
+      instance.$el.parent().parent().find('.portfolio-filters-inline[data-alignment="center"]').length > 0) {
+        instance.$el.parent().parent().find('.portfolio-filters-inline .container > ul > li:nth-child(1) a').trigger('click').addClass('active');
+      } else {
+        instance.$el.parent().parent().find('.portfolio-filters-inline .container > ul > li:nth-child(2) a').trigger('click').addClass('active');
       }
       
-      instance.loadAnimationWaypoint();
-      
-      // Call the reLayout to get things rollin'.
-      instance.masonryZindex();
-      var self = this;
-      setTimeout(function(){ instance.masonryZindex(); },800);
-      
-      
-      
-      // Inside full width content.
-      if(instance.$el.parents('.full-width-content').length > 0) { 
-        setTimeout(function(){ instance.fullWidthContentColumns(); },200); 
-       }
-      
-      // fadeout the loading animation
-      $('.portfolio-loading').stop(true,true).fadeOut(200);
-      
-      // FadeIn items one by one.
-      if(instance.$el.find('.inner-wrap').attr('data-animation') === 'none') {
-        instance.$el.find('.inner-wrap').removeClass('animated');
-      } 
-      
-    });
+    }
+    
+    
+    if(instance.$el.find('.inner-wrap').attr('data-animation') === 'none') {
+      instance.$el.find('.inner-wrap').removeClass('animated');
+    }
+    
+    instance.loadAnimationWaypoint();
+    $(window).on('nectar-waypoints-reinit', instance.loadAnimationWaypoint.bind(instance));
+    
+    // Call the reLayout to get things rollin'.
+    instance.masonryZindex();
+    var self = this;
+    setTimeout(function(){ instance.masonryZindex(); },800);
+
+    // Inside full width content.
+    if(instance.$el.parents('.full-width-content').length > 0) { 
+      setTimeout(function(){ instance.fullWidthContentColumns(); },200); 
+    }
+    
+    // fadeout the loading animation
+    $('.portfolio-loading').stop(true,true).fadeOut(200);
     
 
-    // Portfolio external links.
-    $(".portfolio-items").find("a[href*='http://']:not([href*='" + window.location.hostname + "'])").attr("target", "_blank");
-    $(".recent_projects_widget").find("a[href*='http://']:not([href*='" + window.location.hostname + "'])").attr("target", "_blank");
-    
-    $(".portfolio-items").find("a[href*='https://']:not([href*='" + window.location.hostname + "'])").attr("target", "_blank");
-    $(".recent_projects_widget").find("a[href*='https://']:not([href*='" + window.location.hostname + "'])").attr("target", "_blank");
-    
   };
+
   
   SalientPortfolio.prototype.resizeHandler = function(){
     
     var self = this;
     
-    this.$window.resize( function(){
-      
+    this.$window.on('resize', function(){
+    
       setTimeout(function(){
         self.reLayout();
         self.masonryZindex();
@@ -147,6 +201,10 @@
     } else {
       this.$el.parent().parent().find('.portfolio-filters-inline ul li a').on('click', this.isoClickFilter.bind(this));
     }
+    
+    if( $('body.page-template-template-portfolio').length > 0 && $('#page-header-wrap .portfolio-filters').length > 0 ) {
+      $('#page-header-wrap .portfolio-filters ul li a').on('click', this.isoClickFilter.bind(this));
+    } 
     
     // portfolio sort
     $('body').on('mouseenter','.portfolio-filters',function(){
@@ -180,17 +238,23 @@
     });
     
     // portfolio description remove on hover
-    var $tmpTitle = null;
+    var $tmpTitle = '';
     $('.portfolio-items > .col a[title]').on('mouseenter', function () {
-      $tmpTitle = $(this).attr('title');
-      $(this).attr('title', '');
+      if( $(this).attr('title').length > 0 ) {
+        $tmpTitle = $(this).attr('title');
+        $(this).attr('title', '');
+      }
     });
     $('.portfolio-items > .col a[title]').on('mouseleave', function () {
-      $(this).attr('title', $tmpTitle);
+      if( $tmpTitle.length > 0 ) {
+        $(this).attr('title', $tmpTitle);
+      }
     });
     
-    $('.portfolio-items > .col a[title]').on('click', function () {
-      $(this).attr('title', $tmpTitle);
+    $('.portfolio-items > .col a[title]').on('mousedown', function () {
+      if( $tmpTitle.length > 0 ) {
+        $(this).attr('title', $tmpTitle);
+      }
     });
     
 
@@ -203,10 +267,22 @@
     if( $('body').hasClass('mobile') || navigator.userAgent.match(/(iPad|IEMobile)/) ) {
       
       this.onMobile = true;
+      
       $('body').off('mouseenter mouseleave', '.portfolio-filters');
-      this.$el.parent().parent().find('.portfolio-filters > a, .portfolio-filters ul li a').on('click',function(e) {
+      
+      this.$el.parent().parent().find('.portfolio-filters > a').on('click',function(e) {
         if(e.originalEvent !== undefined) { 
           $(this).parents('.portfolio-filters').find('> ul').stop(true,true).slideToggle(600,'easeOutCubic'); 
+        }
+      });
+      
+      this.$el.parent().parent().find('.portfolio-filters ul li a').on('click',function(e) {
+        if(e.originalEvent !== undefined) { 
+          $(this).parents('.portfolio-filters').find('> ul').stop(true,true).slideToggle(600,'easeOutCubic'); 
+          
+          var $activeCat = $(this).html();
+          $(this).parents('.portfolio-filters').find('a#sort-portfolio span').html($activeCat);
+          
         }
       });
       
@@ -214,12 +290,20 @@
     
     // portfolio more details page menu highlight
     $('body.single-portfolio #header-outer nav > ul > li > a:contains("Portfolio")').parents('li').addClass('current-menu-item');
+
+    // Portfolio external links.
+    $(".portfolio-items").find("a[href*='http://']:not([href*='" + window.location.hostname + "'])").attr("target", "_blank").attr('rel','nofollow');
+    $(".recent_projects_widget").find("a[href*='http://']:not([href*='" + window.location.hostname + "'])").attr("target", "_blank").attr('rel','nofollow');
+    
+    $(".portfolio-items").find("a[href*='https://']:not([href*='" + window.location.hostname + "']):not([href*='youtube.com']):not([href*='vimeo.com'])").attr("target", "_blank").attr('rel','nofollow');
+    $(".recent_projects_widget").find("a[href*='https://']:not([href*='" + window.location.hostname + "'])").attr("target", "_blank").attr('rel','nofollow');
     
   };
   
   
   
   SalientPortfolio.prototype.isoClickFilter = function(e) {
+  
     var $timeout;		 
     var self = this;
 
@@ -240,7 +324,7 @@
     }
     
     // active classes
-    $(e.target).parent().parent().find('li a').removeClass('active');
+    $(e.target).closest('ul:not(.children)').find('li a').removeClass('active');
     $(e.target).addClass('active');
     
     if($(e.target).parents('.portfolio-filters-inline').length > 0) {
@@ -255,6 +339,11 @@
     else {
       setTimeout(this.updateMagPrettyPhotoGallery.bind(this),170);
     }
+
+    // Resize.
+    if (typeof window.Waypoint != 'undefined') {
+     Waypoint.refreshAll();
+    }
     
     return false;
   };
@@ -265,7 +354,8 @@
     
     
     var $portfolioOffsetPos = ($('#nectar_fullscreen_rows').length > 0) ? '200%' : '90%';
-    
+    var instance = this;
+
     if(this.$el.find('.inner-wrap').attr('data-animation') === 'none') { return; }
     
     this.$el.find('.col').each(function(i) {
@@ -274,6 +364,12 @@
       
       //loaded visible
       if($(this).visible(true) || $(this).parents('#nectar_fullscreen_rows').length > 0) {
+
+        if( $(this).parents('#nectar_fullscreen_rows').length > 0 && 
+            instance.fullscreenSelector.length > 0 &&
+            $(this).parents(instance.fullscreenSelector).length == 0 ) {
+          return true;
+        }
         
         var $portfolioAnimationDelay = ($that.is('[data-masonry-type="photography"].masonry-items')) ? 90 : 115;
         $(this).delay($portfolioAnimationDelay *i).queue(function(next){
@@ -346,7 +442,7 @@
 
     if(isFullWidth) { 
       
-      var $elWidth = this.$el.width();
+      var $elWidth = Math.floor(this.$el.width());
       var $colSize = 4;
       var $mult    = (this.mediaQuerySize === 'one') ? 1 : 2;
       
@@ -480,9 +576,9 @@
   };
   
   
-  
-  SalientPortfolio.prototype.reLayout = function() {
-    
+
+  SalientPortfolio.prototype.beforeReLayout = function() {
+
     var self = this;
     clearTimeout(this.clearIsoAnimation);
     
@@ -632,8 +728,12 @@
       }
       
     }
+
+  };
+
+  SalientPortfolio.prototype.reLayout = function() {
     
-    
+    this.beforeReLayout();
     
     if(this.$el.isotope()) {
       this.$el.isotope( 'layout' );
@@ -671,23 +771,23 @@
         $(this).find('a.gallery').removeClass('gallery').removeClass('magnific');
         
         if($(this).is($currentCat)) {
-          
+
           // parallax styles
           if($(this).find('.parallaxImg-wrap').length > 0) {
             
             if($('body[data-ls="fancybox"]').length > 0) {
-              $(this).find('.work-item > a').attr('data-fancybox','group_'+$unique_id);
+              $(this).find('.work-item > a:not([target="_blank"])').attr('data-fancybox','group_'+$unique_id);
             } else {
-              $(this).find('.work-item > a').addClass('gallery').addClass('magnific');
+              $(this).find('.work-item > a:not([target="_blank"])').addClass('gallery').addClass('magnific');
             }
             
           } else {
             // others
             
             if($('body[data-ls="fancybox"]').length > 0) {
-              $(this).find('.work-item a').attr('data-fancybox','group_'+$unique_id);
+              $(this).find('.work-item a:not([target="_blank"])').attr('data-fancybox','group_'+$unique_id);
             } else {
-              $(this).find('.work-info a').addClass('gallery').addClass('magnific');
+              $(this).find('.work-item a:not([target="_blank"])').addClass('gallery').addClass('magnific');
             }
             
           }
@@ -756,19 +856,26 @@
     isotopeCatArr.shift();
     
     
-    var itemCats = '';
+    var allItemCats = '';
     var self = this;
     
     this.$el.find('> div').each(function(){
-      itemCats += $(this).attr('data-project-cat');
+      allItemCats += $(this).attr('data-project-cat');
     });
-    itemCats = itemCats.split(' ');
+    allItemCats = allItemCats.split(' ');
     
     // remove the extra item on the end of blank space
-    itemCats.pop();
+    allItemCats.pop();
     
     // make sure the array has no duplicates
-    itemCats = jQuery.unique(itemCats);
+    var itemCats = [];
+    $.each(allItemCats, function(i, el){
+        if($.inArray(el, itemCats) === -1) {
+          itemCats.push(el);
+        }
+    });
+
+
     
     // if user has chosen a set of filters to display - only show those
     var $userSelectedCats;
@@ -907,7 +1014,7 @@
   
   
   SalientRecentProjectsFullScreen.prototype.sliderRotate = function(){
-    
+
     if($('body.vc_editor').length > 0) { return; }
     
     var $controlSelector = (this.$el.find('.project-slides').length > 0) ? '.dot-nav > span' : '.controls > li';
@@ -940,7 +1047,7 @@
     
     
     var $slideClass = (this.$el.find('.project-slides').length > 0) ? '.project-slide' : '.nectar-recent-post-slide';
-    var $slideInfoClass = (this.$el.find('.project-slides').length > 0) ? '.project-info h1' : '.inner-wrap h2 a';
+    var $slideInfoClass = (this.$el.find('.project-slides').length > 0) ? '.project-slide__title' : '.inner-wrap h2 a';
     
     this.$el.find($slideClass).each(function(i){
       
@@ -996,7 +1103,7 @@
       $(this).parent().addClass('timeout');
       
       // switch logic
-      self.sliderResetRotate(self.$el.bind(self));
+      self.sliderResetRotate();
       
       var $current = $(this).parents('.nectar_fullscreen_zoom_recent_projects').find('.project-slide.current');
       var $sliderInstance = $(this).parents('.nectar_fullscreen_zoom_recent_projects');
@@ -1069,7 +1176,7 @@
       
       $(this).parent().addClass('timeout');
       
-      self.sliderResetRotate(self.$el.bind(self));
+      self.sliderResetRotate();
       
       // switch logic
       var $current = $(this).parents('.nectar_fullscreen_zoom_recent_projects').find('.project-slide.current');
@@ -1159,7 +1266,7 @@
       
       $(this).parent().addClass('timeout');
       
-      self.sliderResetRotate(self.$el.bind(self));
+      self.sliderResetRotate();
       
       // switch logic
       $(this).parent().find('span.active').removeClass('active');

@@ -1,5 +1,9 @@
 <?php
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 #-----------------------------------------------------------------#
 # Create the Portfolio meta boxes
@@ -26,13 +30,19 @@ if( !function_exists('salient_portfolio_metabox') ) {
 		}
 		
 		
+		if( class_exists('Salient_Portfolio_Single_Layout') && Salient_Portfolio_Single_Layout::$is_full_width ) {
+			$extra_content_meta_desc  = '';
+		} else {
+			$extra_content_meta_desc  = esc_html__('Please use this section to place any extra content you would like to appear in the main content area under your portfolio item. (The above default editor is only used to populate your items sidebar content)', 'salient-portfolio');
+		}
+		
 		#-----------------------------------------------------------------#
 		# Extra Content
 		#-----------------------------------------------------------------# 
 		$meta_box = array(
 			'id' => 'nectar-metabox-portfolio-extra',
-			'title' =>  esc_html__('Extra Content', 'salient-portfolio'),
-			'description' => esc_html__('Please use this section to place any extra content you would like to appear in the main content area under your portfolio item. (The above default editor is only used to populate your items sidebar content)', 'salient-portfolio'),
+			'title' => esc_html__('Extra Content', 'salient-portfolio'),
+			'description' => $extra_content_meta_desc,
 			'post_type' => 'portfolio',
 			'context' => 'normal',
 			'priority' => 'high',
@@ -126,8 +136,15 @@ if( !function_exists('salient_portfolio_metabox') ) {
 						'type' => 'file',
 						'std' => ''
 					),
+          array( 
+						'name' => esc_html__('Secondary Overlaid Image', 'salient-portfolio'),
+						'desc' => esc_html__('Certain styles within the Post Loop Builder page builder element will allow for this to be overlaid on top of your featured image.', 'salient-portfolio'),
+						'id' => '_nectar_portfolio_secondary_thumbnail',
+						'type' => 'file',
+						'std' => ''
+					),
 					array(
-						'name' =>  esc_html__('Hide Featured Image/Video on Single Project Page?', 'salient-portfolio'),
+						'name' =>  esc_html__('Hide Featured Media on Single Project Page?', 'salient-portfolio'),
 						'desc' => esc_html__('You can choose to hide your featured image/video from automatically displaying on the top of the main project page.', 'salient-portfolio'),
 						'id' => '_nectar_hide_featured',
 						'type' => 'checkbox',
@@ -243,28 +260,28 @@ if( !function_exists('salient_portfolio_metabox') ) {
 					),
 					array( 
 						'name' => esc_html__('Custom Content Grid Item Content', 'salient-portfolio'),
-						'desc' => esc_html__('Use this to populate what will display as your project content in place of the default meta info', 'salient-portfolio'),
+						'desc' => esc_html__('Use this to populate what will display as your project content in place of the default meta info.', 'salient-portfolio'),
 						'id' => '_nectar_portfolio_custom_grid_item_content',
 						'type' => 'slim_editor',
 						'std' => ''
 					),
-					array( 
-						'name' => esc_html__('Custom Thumbnail Image', 'salient-portfolio'),
-						'desc' => esc_html__('If you would like to have a separate thumbnail for your portfolio item, upload it here. If left blank, a cropped version of your featured image will be automatically used instead. The recommended dimensions are 600px by 403px.', 'salient-portfolio'),
-						'id' => '_nectar_portfolio_custom_thumbnail',
-						'type' => 'file',
-						'std' => ''
-					),
 					array(
-						'name' =>  esc_html__('Hide Featured Image/Video on Single Project Page?', 'salient-portfolio'),
+						'name' =>  esc_html__('Hide Featured Media on Single Project Page?', 'salient-portfolio'),
 						'desc' => esc_html__('You can choose to hide your featured image/video from automatically displaying on the top of the main project page.', 'salient-portfolio'),
 						'id' => '_nectar_hide_featured',
 						'type' => 'checkbox',
 						'std' => 1
 					),
+					array(
+						'name' =>  esc_html__('Lightbox Only Grid Item', 'salient-portfolio'),
+						'desc' => esc_html__('Prevents the single project template from being used and instead opens the featured image/video in a lightbox when your project is clicked.', 'salient-portfolio'),
+						'id' => '_nectar_portfolio_lightbox_only_grid_item',
+						'type' => 'checkbox',
+						'std' => ''
+					),
 					array( 
 						'name' => esc_html__('Masonry Item Sizing', 'salient-portfolio'),
-						'desc' => esc_html__('This will only be used if you choose to display your portfolio in the masonry format', 'salient-portfolio'),
+						'desc' => esc_html__('This will only be used if you choose to display your portfolio in the masonry format.', 'salient-portfolio'),
 						'id' => '_portfolio_item_masonry_sizing',
 						'type' => 'select',
 						'std' => 'tall_regular',
@@ -277,7 +294,7 @@ if( !function_exists('salient_portfolio_metabox') ) {
 					),
 					array( 
 						'name' => esc_html__('Masonry Content Position', 'salient-portfolio'),
-						'desc' => esc_html__('This will only be used on project styles which show the content overlaid before hover', 'salient-portfolio'),
+						'desc' => esc_html__('This will only be used on project styles which show the content overlaid before hover.', 'salient-portfolio'),
 						'id' => '_portfolio_item_masonry_content_pos',
 						'type' => 'select',
 						'std' => 'middle',
@@ -290,6 +307,27 @@ if( !function_exists('salient_portfolio_metabox') ) {
 						)
 					),
 					$gallery_slider,
+					array( 
+						'name' => esc_html__('Project Video (.mp4)', 'salient-portfolio'),
+						'desc' => esc_html__('Supply an .mp4 video file that will be used for Portfolio items in the Post Loop builder element.', 'salient-portfolio'),
+						'id' => '_nectar_portfolio_custom_video',
+						'type' => 'media',
+						'std' => ''
+					),
+          			array( 
+						'name' => esc_html__('Custom Thumbnail Image', 'salient-portfolio'),
+						'desc' => esc_html__('If you would like to have a separate thumbnail for your portfolio item, upload it here. If left blank, a cropped version of your featured image will be automatically used instead. The recommended dimensions are 600px by 403px.', 'salient-portfolio'),
+						'id' => '_nectar_portfolio_custom_thumbnail',
+						'type' => 'file',
+						'std' => ''
+					),
+					array( 
+						'name' => esc_html__('Secondary Overlaid Image', 'salient-portfolio'),
+						'desc' => esc_html__('Certain styles within the Post Loop Builder page builder element will allow for this to be overlaid on top of your featured image.', 'salient-portfolio'),
+						'id' => '_nectar_portfolio_secondary_thumbnail',
+						'type' => 'file',
+						'std' => ''
+					),
 					array( 
 						'name' => esc_html__('External Project URL', 'salient-portfolio'),
 						'desc' => esc_html__('If you would like your project to link to a custom location, enter it here (remember to include "http://")', 'salient-portfolio'),
@@ -309,7 +347,7 @@ if( !function_exists('salient_portfolio_metabox') ) {
 						'name' => esc_html__('Project Excerpt', 'salient-portfolio'),
 						'desc' => esc_html__('If you would like your project to display a small excerpt of text under the title in portfolio element, enter it here.', 'salient-portfolio'),
 						'id' => '_nectar_project_excerpt',
-						'type' => 'text',
+						'type' => 'textarea',
 						'std' => ''
 					),
 					array( 
@@ -457,6 +495,25 @@ if( !function_exists('salient_portfolio_metabox') ) {
 					'std' => ''
 				),
 				array( 
+					'name' => esc_html__('Page Header Overlay Opacity', 'salient-portfolio'),
+					'desc' => '',
+					'id' => '_nectar_header_bg_overlay_opacity',
+					'type' => 'select',
+					'std' => 'default',
+					'options' => array(
+						"default" => esc_html__("Default", 'salient-portfolio'),
+						"0.9" => esc_html__("0.9", 'salient-portfolio'),
+						"0.8" => esc_html__("0.8", 'salient-portfolio'),
+						"0.7" => esc_html__("0.7", 'salient-portfolio'),
+						"0.6" => esc_html__("0.6", 'salient-portfolio'),
+						"0.5" => esc_html__("0.5", 'salient-portfolio'),
+						"0.4" => esc_html__("0.4", 'salient-portfolio'),
+						"0.3" => esc_html__("0.3", 'salient-portfolio'),
+						"0.2" => esc_html__("0.2", 'salient-portfolio'),
+						"0.1" => esc_html__("0.1", 'salient-portfolio'),
+					)
+				),
+				array( 
 					'name' => esc_html__('Page Header Subtitle', 'salient-portfolio'),
 					'desc' => esc_html__('Enter in the page header subtitle', 'salient-portfolio'),
 					'id' => '_nectar_header_subtitle',
@@ -482,6 +539,14 @@ if( !function_exists('salient_portfolio_metabox') ) {
 		#-----------------------------------------------------------------#
 		# Header Navigation Transparency
 		#-----------------------------------------------------------------#
+		$salient_options_panel_text = esc_html__('you have activated in the Salient options panel.', 'salient-core');
+
+		if ( class_exists('NectarThemeManager') && 
+			property_exists('NectarThemeManager', 'custom_theme_name') &&
+			NectarThemeManager::$custom_theme_name ) {
+			$salient_options_panel_text = esc_html__('you have activated in the') . ' ' . esc_html(NectarThemeManager::$custom_theme_name) . ' ' . esc_html__('options panel.', 'salient-core');
+		}
+
 		$meta_box = array(
 			'id' => 'nectar-metabox-header-nav-transparency',
 			'title' => esc_html__('Navigation Transparency', 'salient-portfolio'),
@@ -492,7 +557,7 @@ if( !function_exists('salient_portfolio_metabox') ) {
 			'fields' => array(
 				array( 
 					'name' =>  esc_html__('Disable Transparency From Navigation', 'salient-portfolio'),
-					'desc' => esc_html__('You can use this option to force your navigation header to stay a solid color even if it qualifies to trigger the','salient-portfolio') . '<a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'"> transparent effect</a> ' . esc_html__('you have activated in the Salient options panel.', 'salient-portfolio'),
+					'desc' => esc_html__('You can use this option to force your navigation header to stay a solid color even if it qualifies to trigger the','salient-portfolio') . '<a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'"> transparent effect</a> ' . $salient_options_panel_text,
 					'id' => '_disable_transparent_header',
 					'type' => 'checkbox',
 					'std' => ''
@@ -513,6 +578,22 @@ if( !function_exists('salient_portfolio_metabox') ) {
 		
 		// only add header options when using Salient
 		if( defined( 'NECTAR_THEME_NAME' ) && !empty($options['transparent-header']) && $options['transparent-header'] == '1' ) {
+			
+			if( isset($options['portfolio_remove_single_header']) && 
+					!empty($options['portfolio_remove_single_header']) && 
+					'1' === $options['portfolio_remove_single_header'] ) {
+						
+						$force_transparency = array( 
+		          'name' =>  esc_html__('Force Transparency On Navigation', 'salient-core'),
+		          'desc' => esc_html__('You can use this option to force your navigation header to start transparent even if it does not qualify to trigger the','salient-core') . '<a target="_blank" href="'. esc_url(admin_url('?page=Salient#16_section_group_li_a')) .'"> transparent effect</a> ' . $salient_options_panel_text,
+		          'id' => '_force_transparent_header',
+		          'type' => 'checkbox',
+		          'std' => ''
+		        );
+						
+						array_unshift($meta_box['fields'], $force_transparency);
+			} 
+			
 			nectar_reg_meta_box( $meta_box['id'], $meta_box['title'], 'nectar_metabox_portfolio_callback', $meta_box['post_type'], $meta_box['context'], $meta_box['priority'], $meta_box );
 		}
 		
@@ -522,8 +603,8 @@ if( !function_exists('salient_portfolio_metabox') ) {
 		#-----------------------------------------------------------------#
 		$meta_box = array( 
 			'id' => 'nectar-metabox-portfolio-video',
-			'title' => esc_html__('Video Settings', 'salient-portfolio'),
-			'description' => esc_html__('If you have a video, please fill out the fields below.', 'salient-portfolio'),
+			'title' => esc_html__('Lightbox/Single Project Video Settings', 'salient-portfolio'),
+			'description' => esc_html__('Videos added here will be shown when clicking on a project either via a lightbox or on the single template.', 'salient-portfolio'),
 			'post_type' => 'portfolio',
 			'context' => 'normal',
 			'priority' => 'high',
@@ -536,7 +617,7 @@ if( !function_exists('salient_portfolio_metabox') ) {
 					'std' => ''
 				),
 				array( 
-					'name' => esc_html__('OGV File URL', 'salient-portfolio'),
+					'name' => esc_html__('OGV File URL (Optional)', 'salient-portfolio'),
 					'desc' => esc_html__('Please upload the .ogv video file.', 'salient-portfolio'),
 					'id' => '_nectar_video_ogv',
 					'type' => 'media',
@@ -616,3 +697,125 @@ if( !function_exists('salient_portfolio_page_metabox') ) {
 }
 
 add_action('add_meta_boxes_page', 'salient_portfolio_page_metabox');
+
+
+
+
+/**
+ * Preview
+ *
+ * Allows WP to show changes in preview when only 
+ * custom metabox values have changed.
+ *
+ * @since 1.6
+ */
+add_filter('_wp_post_revision_fields', 'salient_portfolio_post_preview_fix', 10, 2);
+
+function salient_portfolio_post_preview_fix( $fields ) {
+		
+		if( isset( $_POST['wp-preview'] ) && 'dopreview' === $_POST['wp-preview'] && 
+				isset( $_POST['post_type'] ) && 'portfolio' === $_POST['post_type']) {
+					
+			$fields['_salient_portfolio_preview_changed'] = 'value other than 0';
+		} 
+		
+		return $fields;
+}
+
+/**
+ * Forces WP to save a revision, which is needed since when generating previews
+ * only the title/content is taken into consideraiton.
+ *
+ * @since 1.7
+ */
+add_filter('wp_save_post_revision_check_for_changes', 'salient_portfolio_post_preview_draft_fix', 10, 3);
+
+function salient_portfolio_post_preview_draft_fix( $return, $last_revision, $post ) {
+
+	if( isset( $_POST['wp-preview'] ) && 'dopreview' === $_POST['wp-preview'] && 
+			isset( $_POST['post_type'] ) && 'portfolio' === $_POST['post_type'] && 
+		  in_array($post->post_status, array('auto-draft','draft')) ) {
+				// stop compare logic and force a new version to display.
+				return false;
+	}
+	
+	return $return;
+	
+}
+
+add_action( 'edit_form_after_title', 'salient_portfolio_post_preview_field' );
+
+function salient_portfolio_post_preview_field($post) {
+	 if( isset( $post->post_type ) && 'portfolio' === $post->post_type ) {
+		  echo '<input type="hidden" name="_salient_portfolio_preview_changed" value="0">';
+	 }
+  
+}
+
+
+/**
+ * Default WPBakery template 
+ *
+ * Different logic is needed from the default
+ * since the portfolio content is a custom metabox.
+ *
+ * @since 1.6
+ */
+ function salient_portfolio_insert_new_project($post_id, $post, $update) {
+	
+	 if (false === $update && 
+	 'portfolio' === $post->post_type && 
+	 'auto-draft' === $post->post_status && 
+	 empty(get_post_meta( $post_id, '_salient_project_initialized' )) ) {
+		 
+		 $salient_project_extra_content = get_post_meta( $post_id, '_nectar_portfolio_extra_content' );
+		 
+		 if( empty($salient_project_extra_content) && 
+		 class_exists( 'WPBakeryVisualComposerAbstract' ) &&
+		 class_exists( 'Vc_Setting_Post_Type_Default_Template_Field' ) ) {
+			 
+			 $template_settings = new Vc_Setting_Post_Type_Default_Template_Field( 'general', 'default_template_post_type' );
+			 $new_post_content = $template_settings->getTemplateByPostType( 'portfolio' );
+			 
+			 if ( null !== $new_post_content ) {
+				 update_post_meta( $post_id, '_nectar_portfolio_extra_content', $new_post_content ); 
+			 }	
+			 
+		 } // Make sure VC Class exists.
+		 
+		 // run only once	
+		 update_post_meta( $post_id, '_salient_project_initialized', true ); 
+		 
+	 }
+	 
+ }
+ 
+ add_action( 'wp_insert_post', 'salient_portfolio_insert_new_project', 10, 3 );
+
+
+ /**
+  * Edit project body class
+  *
+  * Add a specific class when using the theme option
+  * for page builder layout.
+  *
+  * @since 1.6
+  */
+	add_filter('admin_body_class', 'salient_portfolio_edit_project_admin_body_class');
+	
+	function salient_portfolio_edit_project_admin_body_class($classes) {
+		
+	    global $post;
+
+	    if( isset($post) && 
+			isset($post->post_type) && 
+			'portfolio' === $post->post_type && 
+			class_exists('Salient_Portfolio_Single_Layout') &&
+			Salient_Portfolio_Single_Layout::$is_full_width ) {
+				
+		    $classes .= ' salient-portfolio-page-builder-layout ';
+
+	    } // on portfolio post type.
+	
+	    return $classes;
+	}

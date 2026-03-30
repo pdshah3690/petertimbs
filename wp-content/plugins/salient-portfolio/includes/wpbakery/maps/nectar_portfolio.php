@@ -1,5 +1,10 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $is_admin = is_admin();
 
 $portfolio_types = ($is_admin) ? get_terms('project-type') : array('All' => 'all');
@@ -28,7 +33,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 		"base" => "nectar_portfolio",
 		"weight" => 8,
 		"icon" => "icon-wpb-portfolio",
-		"category" => esc_html__('Nectar Elements', 'salient-portfolio'),
+		"category" => esc_html__('Query', 'salient-portfolio'),
 		"description" => esc_html__('Add a portfolio element', 'salient-portfolio'),
 		"params" => array(
 			array(
@@ -52,6 +57,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 				"param_name" => "constrain_max_cols",
 				"description" => esc_html__("This will change the max columns to 4 (default is 5 for fullwidth). Activating this will make it easier to create a grid with no empty spaces at the end of the list on all screen sizes.", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"dependency" => Array('element' => "layout", 'value' => 'fullwidth')
 			),
 			array(
@@ -118,6 +124,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Masonry Style", "salient-portfolio"),
 				"param_name" => "masonry_style",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__('This will allow your portfolio items to display in a masonry layout as opposed to a fixed grid. When using a fullwidth layout, project image sizes will be determined based on the size set in each project via the "Masonry Item Sizing" field.', "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -126,6 +133,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Bypass Image Cropping", "salient-portfolio"),
 				"param_name" => "bypass_image_cropping",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("Enabling this will cause your portfolio to bypass the default Salient image cropping which varies based on project settings/above layout selection. The result will be a traditional masonry layout rather than a structured grid.", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -134,6 +142,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Enable Sortable", "salient-portfolio"),
 				"param_name" => "enable_sortable",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("Checking this box will allow your portfolio to display sortable filters", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -141,6 +150,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Horizontal Filters", "salient-portfolio"),
 				"param_name" => "horizontal_filters",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("This will allow your filters to display horizontally instead of in a dropdown. (Only used if you enable sortable above.)", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
 				"dependency" => Array('element' => "enable_sortable", 'not_empty' => true)
@@ -183,6 +193,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Enable Pagination", "salient-portfolio"),
 				"param_name" => "enable_pagination",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("Would you like to enable pagination for this portfolio?", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -215,6 +226,7 @@ if( defined('NECTAR_THEME_NAME') ) {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Lightbox Only", "salient-portfolio"),
 				"param_name" => "lightbox_only",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("This will remove the single project page from being accessible thus rendering your portfolio into only a gallery.", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -267,6 +279,7 @@ else {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Constrain Max Columns to 4?", "salient-portfolio"),
 				"param_name" => "constrain_max_cols",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("This will change the max columns to 4 (default is 5 for fullwidth). Activating this will make it easier to create a grid with no empty spaces at the end of the list on all screen sizes.", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
 				"dependency" => Array('element' => "layout", 'value' => 'fullwidth')
@@ -335,6 +348,7 @@ else {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Masonry Style", "salient-portfolio"),
 				"param_name" => "masonry_style",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__('This will allow your portfolio items to display in a masonry layout as opposed to a fixed grid. When using a fullwidth layout, project image sizes will be determined based on the size set in each project via the "Masonry Item Sizing" field.', "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -343,6 +357,7 @@ else {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Bypass Image Cropping", "salient-portfolio"),
 				"param_name" => "bypass_image_cropping",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("Enabling this will cause your portfolio to bypass the default Salient image cropping which varies based on project settings/above layout selection. The result will be a traditional masonry layout rather than a structured grid.", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -351,6 +366,7 @@ else {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Enable Sortable", "salient-portfolio"),
 				"param_name" => "enable_sortable",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("Checking this box will allow your portfolio to display sortable filters", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),
@@ -358,6 +374,7 @@ else {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Horizontal Filters", "salient-portfolio"),
 				"param_name" => "horizontal_filters",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("This will allow your filters to display horizontally instead of in a dropdown. (Only used if you enable sortable above.)", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
 				"dependency" => Array('element' => "enable_sortable", 'not_empty' => true)
@@ -379,6 +396,7 @@ else {
 				"type" => 'checkbox',
 				"heading" => esc_html__("Enable Pagination", "salient-portfolio"),
 				"param_name" => "enable_pagination",
+				'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 				"description" => esc_html__("Would you like to enable pagination for this portfolio?", "salient-portfolio"),
 				"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true')
 			),

@@ -1,5 +1,10 @@
 <?php 
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $is_admin = is_admin();
 
 $portfolio_types = ($is_admin) ? get_terms('project-type') : array('All' => 'all');
@@ -23,7 +28,7 @@ return array(
 	"base" => "recent_projects",
 	"weight" => 8,
 	"icon" => "icon-wpb-recent-projects",
-	"category" => esc_html__('Nectar Elements', 'salient-portfolio'),
+	"category" => esc_html__('Query', 'salient-portfolio'),
 	"description" => esc_html__('Show off some recent projects', 'salient-portfolio'),
 	"params" => array(
 		array(
@@ -79,6 +84,19 @@ return array(
 		),
 		array(
 			"type" => "dropdown",
+			"heading" => esc_html__("Slider Heading Structure", "salient-portfolio"),
+			"param_name" => "slider_heading_structure",
+			"dependency" => Array('element' => "project_style", 'value' => array('fullscreen_zoom_slider')),
+			"admin_label" => true,
+			"value" => array(
+				esc_html__( 'Default (H1)', 'salient-portfolio' )  => 'default',
+				esc_html__( 'First Project (H1), Subsequent Projects (H2)', 'salient-portfolio' ) => 'first_h1',
+				esc_html__( 'All Projects (H2)', 'salient-portfolio' )  => 'h2',
+			),
+			'save_always' => true
+		),
+		array(
+			"type" => "dropdown",
 			"heading" => esc_html__("Overlay Strength", "salient-portfolio"),
 			"param_name" => "overlay_strength",
 			"admin_label" => true,
@@ -113,6 +131,7 @@ return array(
 			"param_name" => "display_project_excerpt",
 			"description" => esc_html__("This will add the project excerpt below the project title on your slider", "salient-portfolio"),
 			"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"dependency" => Array('element' => "project_style", 'value' => array('fullscreen_zoom_slider')),
 		),
 		array(
@@ -129,6 +148,7 @@ return array(
 			"param_name" => "full_width",
 			"description" => esc_html__("This will make your carousel extend the full width of the page.", "salient-portfolio"),
 			"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"dependency" => Array('element' => "project_style", 'value' => array('1','2','3','4')),
 		),
 		array(
@@ -168,6 +188,7 @@ return array(
 			"type" => 'checkbox',
 			"heading" => esc_html__("Hide Carousel Controls", "salient-portfolio"),
 			"param_name" => "hide_controls",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => esc_html__("Checking this box will remove the controls from your carousel", "salient-portfolio"),
 			"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
 			"dependency" => Array('element' => "project_style", 'value' => array('1','2','3','4'))
@@ -188,6 +209,7 @@ return array(
 			"type" => 'checkbox',
 			"heading" => esc_html__("Lightbox Only", "salient-portfolio"),
 			"param_name" => "lightbox_only",
+			'edit_field_class' => 'vc_col-xs-12 salient-fancy-checkbox',
 			"description" => esc_html__("This will remove the single project page from being accessible thus rendering your portfolio into only a gallery.", "salient-portfolio"),
 			"value" => Array(esc_html__("Yes, please", "salient-portfolio") => 'true'),
 			"dependency" => Array('element' => "project_style", 'value' => array('1','2','3','4'))

@@ -32,6 +32,9 @@ global $post;
 		
   <div id="sidebar-inner">
 	
+  <?php 
+	do_action( 'nectar_hook_sidebar_top' );
+  ?>
 	<div id="project-meta">
 
 		<ul class="project-sharing" data-sharing-style="<?php echo esc_attr( $project_social_style ); ?>"> 
@@ -108,7 +111,9 @@ global $post;
 	  </ul>
 	<?php } ?>
   
-
+	<?php 
+	do_action( 'nectar_hook_sidebar_bottom' );
+  	?>
   </div>
   
 </div><!--/sidebar-->
