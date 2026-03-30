@@ -3,9 +3,6 @@
  * Prerequisite handler.
  *
  * @package PopupMaker\Vendor\CodeAtlantic\PrerequisiteChecks;
- *
- * @license GPL-2.0+
- * Modified by popupmaker on 30-May-2025 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace PopupMaker\Vendor\CodeAtlantic\PrerequisiteChecks;

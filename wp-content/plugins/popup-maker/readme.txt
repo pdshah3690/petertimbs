@@ -4,18 +4,18 @@ Author URI: https://wppopupmaker.com/?utm_campaign=readme&utm_medium=referral&ut
 Plugin URI: https://wppopupmaker.com/?utm_campaign=readme&utm_medium=referral&utm_source=readme-header&utm_content=plugin-url
 Donate link:
 Tags:  marketing, popup, popups, optin, conversion
-Requires at least: 4.9
-Tested up to: 6.8.1
-Requires PHP: 5.6
-Stable tag: 1.20.5
+Requires at least: 6.6
+Tested up to: 6.8.2
+Requires PHP: 7.4
+Stable tag: 1.21.5
 License: GPLv2 or later
 License URI:  http://www.gnu.org/licenses/gpl-2.0.html
 
-Want to boost sales & marketing efforts? Using popups are a great way to increase conversions! Use your favorite forms & builder, keep your data.
+Want to boost sales & marketing efforts? Use your favorite forms & builder. Unlimited popups & impressions, keep your data, no monthly subscription.
 
 == Description ==
 
-<h3>📈 Drive More Sales, Leads & Email List Opt-Ins Using Popups</h3>
+<h3>📈 Drive More Sales, Leads & Email List Opt-Ins Using Popup Maker</h3>
 
 **Popup Maker™**, rated as the **[best WordPress popup plugin](https://wppopupmaker.com/conversion-optimization/best-wordpress-popup-plugins/)** by our community of 780,000+ users, empowers you to create stunning popups, modals, and overlays in minutes. Whether you're a beginner or a pro, our versatile toolkit makes it easy to boost your WordPress site's engagement.
 
@@ -238,10 +238,129 @@ For the latest updates and release information:
 * Visit our [changelog](https://wppopupmaker.com/changelog/) for detailed version history
 * View our [complete development changelog](https://github.com/PopupMaker/Popup-Maker/blob/master/CHANGELOG.md)
 
+= 1.21.5 - 2025-10-13 =
+
+**Improvements**
+
+-   Optimized Google Fonts integration by eliminating database transients and API calls in favor of direct JSON loading with in-memory caching. This resolves reported database crashes from large font data and improves performance by 83% (file size reduced from 1.5MB to 255KB) while eliminating all database overhead.
+
+**Fixes**
+
+-   Fixed accessibility tab trapping JavaScript error "trigger is not a function" when using keyboard navigation in popups.
+-   Fixed potential error when get_current_screen() is not available.
+
+= 1.21.4 - 2025-09-25 =
+
+**Improvements**
+
+-   Prevented misleading "Lite" messaging when extensions are active. Extension functionality will continue to work as expected.
+
+**Fixes**
+
+-   Fixed Editor role users not being able to edit popups and themes, changing default permissions from `manage_options` to `edit_others_posts`.
+-   Fixed issue with conditions not working properly when advanced cookie rules were enabled in Advanced Targeting.
+-   Fixed popup titles being cleared when editing popups.
+
+**Developers**
+
+-   Added `popup_maker/permissions` filter to allow customization of user permissions for Popup Maker functionality.
+
+= 1.21.3 - 2025-09-21 =
+
+**Fixes**
+
+-   Fixed page builder compatibility issues by reverting popup preloading timing to wp_enqueue_scripts:11 (matching v1.20.6 behavior).
+-   Fixed delayed initialization of $.fn.popmake.triggers object for proper backward compatibility with legacy extensions.
+-   Fixed prevent popup init console notice when Debug Mode is not enabled.
+
+= 1.21.2 - 2025-09-18 =
+
+**Fixes**
+
+-   Fixed Beaver Builder compatibility issue that appeared in v1.21.0, special thanks to @robbymccullough at Beaver Buidler for the assist
+-   Fixed PHP warning "Undefined property: stdClass::$post_content" in Assets.php when post object lacks post_content property.
+-   Fixed Restore missing initialization of $.fn.popmake.conditions object for backward compatibility You with legacy extensions.
+
+= 1.21.1 - 2025-09-16 =
+
+**Fixes**
+
+-   PHP 7.4 errors due to strict function return types with union types that are not supported.
+-   Ensure bundled scripts & styles dependencies are properly loaded.
+
+= 1.21.0 - 2025-09-15 =
+
+This update begins the process of modernizing our codebase while polishing existing stuff & adding new features.
+
+**Minimum Requirements Change**
+
+-   PHP: 7.4+
+-   WordPress: 6.6+
+
+**Features**
+
+-   Trackable Call to Actions
+    -   Create as many as you need.
+    -   Track results, per link & per popup.
+    -   Redirect to any page or url.
+    -   Call To Action Button blocks for gutenberg to easily insert trackable links with style.
+    -   CTA Shortcode to insert them without Gutenberg.
+    -   Works with premium Popup Analytics.
+    -   Upgrade to Popup Maker Pro or Pro+ to use them outside popups, for quick import/export, or to create WooCommerce add to cart & apply discount buttons.
+-   Conversion tracking for all internal popup links enabling better analysis of popup performance and user engagement.
+-   New `On Conversion` cookie event to disable popups once they convert.
+-   New Bricks Builder form integration for conversion tracking, form based cookies, closing popups after submission, and more.
+
+**Security**
+
+-   Minor:Removed Easy Modal v2 [modal] shortcode compatibility mode as it has been deprecated for a long and was recently reported to include an unescaped title output.
+
+**Improvements**
+
+-   Refactored core analytics to prevent duplicate conversion tracking when Pro is active.
+-   Block editor is now the default for new popups, replacing the previous opt-in beta approach for a more streamlined editing experience.
+    -   Added "Use Classic Editor" setting for users who prefer the traditional popup editor interface.
+    -   Existing users who previously disabled the block editor will see a one-time migration notice with options to continue using the block editor or switch to classic.
+    -   Updated new user onboarding to include guidance about the classic editor option for users who prefer the traditional interface.
+-   Optimized popup `open` functions to improve browser animation reliability and consistent user experience. This update aims to eliminate visual inconsistencies and resolve issues where popups occasionally failed to display.
+-   Fixed settings page save notifications that previously only appeared after redirects, now displays success notice on all settings saves.
+-   Added plugin settings shortcut to the admin toolbar menu.
+-   Updated CSS selector generation tool with click-to-copy and improved selectors.
+-   Better grouping of Popup Maker extensions in the Plugins page.
+-   Updated build processes to rely on @wordpress/scripts & Webpack, as well as improved developer tooling. This should result in smaller JS & CSS file sizes, more reliable builds, and faster development cycles.
+-   Updated all branding to use SVGs and new marks/logos.
+-   Improve reliability of admin notice dismissals.
+-   Use `navigator.sendBeacon` when available for more reliable analytics.
+-   Better handling of version changes & migration processing during plugin updates.
+-   Added ability to search multiple post types in postselect fields.
+-   Added ability to search multiple taxonomies in taxonomyselect fields.
+-   Added validation for hex color conversion to prevent deprecated notices.
+
+**Fixes**
+
+-   Fixed multicheck fields not properly saving when all options were unchecked, preventing users from clearing all selections in settings like analytics reporting permissions.
+-   `Close on overlay click` & `Close on ESC press` stopped working if 2 popups were open and one closed.
+-   Potential error due to post object missing a post type.
+-   Prevent missing options data in DB from throwing errors on PHP 8.3+.
+-   Prevent error when Gravity Forms settings are not set.
+
+**Developers**
+
+-   Optimized plugin loading & activation mechanisms.
+-   First stage of modernizing & reorganizing to use PHP namespaces & other PHP 7.4 optimizations.
+-   Updating frontend JavaScript to use hooks/filters system instead of global variables over time.
+    -   Added new JS `popupMaker.triggers` filter to allow adding custom triggers.
+-   Added new helper methods for registering Popup Maker custom scripts & styles that will be bundled with our plugin JS/CSS files automatically via AssetCache API.
+-   Lots of WPCS & TypeScript/PHP Type enforcement fixes.
+
+= 1.20.6 - 2025-08-14 =
+
+-   Fix: WordPress 4.9 compatibility by checking has_blocks() function existence before calling it.
+-   Fix: WordPress 4.9 compatibility by checking wp_date() function existence before calling it.
+
 = 1.20.5 - 2025-05-30 =
 
 -   Security: Fix potential XSS for custom HTML based popups.
-
 
 = 1.20.4 - 2025-01-29 =
 

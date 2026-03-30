@@ -1,10 +1,5 @@
 <?php
 /**
- * @license GPL-2.0+
- *
- * Modified by popupmaker on 30-May-2025 using {@see https://github.com/BrianHenryIE/strauss}.
- */
-/**
  * Includes the composer Autoloader used for packages and classes in the classes/ directory.
  *
  * @package CodeAtlantic\Autoloader
@@ -37,7 +32,12 @@ class Autoloader {
 	 * @return boolean
 	 */
 	public static function init( $name = '', $path = '', $failure_notice = null ) {
-		$autoloader = $path . '/vendor/autoload.php';
+		// If $path includes autoload.php, use it directly, otherwise append /vendor/autoload.php
+		if ( str_ends_with( $path, '.php' ) ) {
+			$autoloader = $path;
+		} else {
+			$autoloader = $path . '/vendor/autoload.php';
+		}
 
 		if ( ! \is_readable( $autoloader ) ) {
 			self::missing_autoloader( $name, $failure_notice );
