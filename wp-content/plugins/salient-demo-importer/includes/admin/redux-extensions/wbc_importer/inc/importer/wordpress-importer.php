@@ -880,7 +880,12 @@ class WP_Import extends WP_Importer {
 		} else {
 			$menu_id = is_array( $menu_id ) ? $menu_id['term_id'] : $menu_id;
 		}
-
+		
+		/* nectar addition - used below */
+		$stored_menu_item_meta = array();
+		$stored_menu_item_meta['postmeta'] = $item['postmeta'];
+		/* nectar addition end */
+		
 		foreach ( $item['postmeta'] as $meta )
 			${$meta['key']} = $meta['value'];
 
@@ -924,6 +929,23 @@ class WP_Import extends WP_Importer {
 
 		$id = wp_update_nav_menu_item( $menu_id, 0, $args );
 		if ( $id && ! is_wp_error( $id ) )
+		
+			/* nectar addition to import nectar menu options */
+			$menu_item_db_id = $id;
+			
+			if (isset($stored_menu_item_meta['postmeta']) && 
+			    is_array($stored_menu_item_meta['postmeta']) ) {
+						
+						foreach ( $stored_menu_item_meta['postmeta'] as $meta ) {
+							if( $meta['key'] === 'nectar_menu_options' ) {
+								update_post_meta( $menu_item_db_id, 'nectar_menu_options', $meta['value']);
+							}
+							
+						}
+						
+			}
+			/* nectar addition end */
+			
 			$this->processed_menu_items[intval($item['post_id'])] = (int) $id;
 	}
 

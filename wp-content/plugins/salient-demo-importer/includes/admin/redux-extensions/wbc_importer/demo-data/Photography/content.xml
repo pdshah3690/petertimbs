@@ -35,7 +35,7 @@
 	<wp:base_site_url>http://themenectar.com/demo/salient-photography</wp:base_site_url>
 	<wp:base_blog_url>http://themenectar.com/demo/salient-photography</wp:base_blog_url>
 
-	<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[ThemeNectar]]></wp:author_login><wp:author_email><![CDATA[themenectar@gmail.com]]></wp:author_email><wp:author_display_name><![CDATA[ThemeNectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+	<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[ThemeNectar]]></wp:author_login><wp:author_email><![CDATA[nectar@themenectar.com]]></wp:author_email><wp:author_display_name><![CDATA[ThemeNectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
 	<wp:category>
 		<wp:term_id>1</wp:term_id>
@@ -306,7 +306,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -717,7 +717,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -887,7 +887,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -1059,7 +1059,7 @@
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -1196,136 +1196,6 @@
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wpb_shortcodes_custom_css]]></wp:meta_key>
 			<wp:meta_value><![CDATA[.vc_custom_1473972829522{margin-bottom: 30px !important;}]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Contact form 1</title>
-		<link>http://themenectar.com/demo/salient-photography/?post_type=wpcf7_contact_form&#038;p=122</link>
-		<pubDate>Thu, 15 Sep 2016 20:10:00 +0000</pubDate>
-		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
-		<guid isPermaLink="false">http://themenectar.com/demo/salient-photography/?post_type=wpcf7_contact_form&#038;p=122</guid>
-		<description></description>
-		<content:encoded><![CDATA[<label> Your Name *
-    [text* your-name] </label>
-
-<label> Your Email *
-    [email* your-email] </label>
-
-<label> Your Message
-    [textarea your-message] </label>
-
-[submit "Send Message"]
-Salient Photography "[your-subject]"
-[your-name] <wordpress@themenectar.com>
-From: [your-name] <[your-email]>
-Subject: [your-subject]
-
-Message Body:
-[your-message]
-
---
-This e-mail was sent from a contact form on Salient Photography (http://themenectar.com/demo/salient-photography)
-themenectar@gmail.com
-Reply-To: [your-email]
-
-
-
-
-Salient Photography "[your-subject]"
-Salient Photography <wordpress@themenectar.com>
-Message Body:
-[your-message]
-
---
-This e-mail was sent from a contact form on Salient Photography (http://themenectar.com/demo/salient-photography)
-[your-email]
-Reply-To: themenectar@gmail.com
-
-
-
-Thank you for your message. It has been sent.
-There was an error trying to send your message. Please try again later.
-One or more fields have an error. Please check and try again.
-There was an error trying to send your message. Please try again later.
-You must accept the terms and conditions before sending your message.
-The field is required.
-The field is too long.
-The field is too short.
-The date format is incorrect.
-The date is before the earliest one allowed.
-The date is after the latest one allowed.
-There was an unknown error uploading the file.
-You are not allowed to upload files of this type.
-The file is too big.
-There was an error uploading the file.
-The number format is invalid.
-The number is smaller than the minimum allowed.
-The number is larger than the maximum allowed.
-The answer to the quiz is incorrect.
-Your entered code is incorrect.
-The e-mail address entered is invalid.
-The URL is invalid.
-The telephone number is invalid.]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>122</wp:post_id>
-		<wp:post_date><![CDATA[2016-09-15 20:10:00]]></wp:post_date>
-		<wp:post_date_gmt><![CDATA[2016-09-15 20:10:00]]></wp:post_date_gmt>
-		<wp:comment_status><![CDATA[closed]]></wp:comment_status>
-		<wp:ping_status><![CDATA[closed]]></wp:ping_status>
-		<wp:post_name><![CDATA[contact-form-1]]></wp:post_name>
-		<wp:status><![CDATA[publish]]></wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type><![CDATA[wpcf7_contact_form]]></wp:post_type>
-		<wp:post_password><![CDATA[]]></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_vc_post_settings]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{s:10:"vc_grid_id";a:0:{}}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_form]]></wp:meta_key>
-			<wp:meta_value><![CDATA[<label> Your Name *
-    [text* your-name] </label>
-
-<label> Your Email *
-    [email* your-email] </label>
-
-<label> Your Message
-    [textarea your-message] </label>
-
-[submit "Send Message"]]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_mail]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:8:{s:7:"subject";s:36:"Salient Photography "[your-subject]"";s:6:"sender";s:39:"[your-name] <wordpress@themenectar.com>";s:4:"body";s:204:"From: [your-name] <[your-email]>
-Subject: [your-subject]
-
-Message Body:
-[your-message]
-
---
-This e-mail was sent from a contact form on Salient Photography (http://themenectar.com/demo/salient-photography)";s:9:"recipient";s:21:"themenectar@gmail.com";s:18:"additional_headers";s:22:"Reply-To: [your-email]";s:11:"attachments";s:0:"";s:8:"use_html";b:0;s:13:"exclude_blank";b:0;}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_mail_2]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:9:{s:6:"active";b:0;s:7:"subject";s:36:"Salient Photography "[your-subject]"";s:6:"sender";s:47:"Salient Photography <wordpress@themenectar.com>";s:4:"body";s:146:"Message Body:
-[your-message]
-
---
-This e-mail was sent from a contact form on Salient Photography (http://themenectar.com/demo/salient-photography)";s:9:"recipient";s:12:"[your-email]";s:18:"additional_headers";s:31:"Reply-To: themenectar@gmail.com";s:11:"attachments";s:0:"";s:8:"use_html";b:0;s:13:"exclude_blank";b:0;}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_messages]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:23:{s:12:"mail_sent_ok";s:45:"Thank you for your message. It has been sent.";s:12:"mail_sent_ng";s:71:"There was an error trying to send your message. Please try again later.";s:16:"validation_error";s:61:"One or more fields have an error. Please check and try again.";s:4:"spam";s:71:"There was an error trying to send your message. Please try again later.";s:12:"accept_terms";s:69:"You must accept the terms and conditions before sending your message.";s:16:"invalid_required";s:22:"The field is required.";s:16:"invalid_too_long";s:22:"The field is too long.";s:17:"invalid_too_short";s:23:"The field is too short.";s:12:"invalid_date";s:29:"The date format is incorrect.";s:14:"date_too_early";s:44:"The date is before the earliest one allowed.";s:13:"date_too_late";s:41:"The date is after the latest one allowed.";s:13:"upload_failed";s:46:"There was an unknown error uploading the file.";s:24:"upload_file_type_invalid";s:49:"You are not allowed to upload files of this type.";s:21:"upload_file_too_large";s:20:"The file is too big.";s:23:"upload_failed_php_error";s:38:"There was an error uploading the file.";s:14:"invalid_number";s:29:"The number format is invalid.";s:16:"number_too_small";s:47:"The number is smaller than the minimum allowed.";s:16:"number_too_large";s:46:"The number is larger than the maximum allowed.";s:23:"quiz_answer_not_correct";s:36:"The answer to the quiz is incorrect.";s:17:"captcha_not_match";s:31:"Your entered code is incorrect.";s:13:"invalid_email";s:38:"The e-mail address entered is invalid.";s:11:"invalid_url";s:19:"The URL is invalid.";s:11:"invalid_tel";s:32:"The telephone number is invalid.";}]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_additional_settings]]></wp:meta_key>
-			<wp:meta_value><![CDATA[]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_locale]]></wp:meta_key>
-			<wp:meta_value><![CDATA[en_US]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 </channel>

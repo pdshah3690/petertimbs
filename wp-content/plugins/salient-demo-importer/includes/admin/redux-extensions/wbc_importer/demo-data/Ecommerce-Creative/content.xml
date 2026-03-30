@@ -1935,7 +1935,7 @@ Lorem ipsum dolor set[/fancy_box][/vc_column_inner][/vc_row_inner][divider line_
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -2190,7 +2190,7 @@ No problem." font_container="tag:h2|text_align:left|color:%23ffffff" use_theme_f
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -3656,28 +3656,6 @@ Take advantage of our mailing list to get exclusive offers and notifications bef
 			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>8</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[hello@themenectar.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-23 11:47:16]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-23 11:47:16]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[3]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Camden Shorts</title>
@@ -3867,28 +3845,6 @@ Take advantage of our mailing list to get exclusive offers and notifications bef
 			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>4</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[hello@themenectar.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-23 11:44:36]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-23 11:44:36]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[3]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>St. Louis beanie</title>
@@ -4655,50 +4611,6 @@ Take advantage of our mailing list to get exclusive offers and notifications bef
 			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>7</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[hello@themenectar.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-23 11:46:25]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-23 11:46:25]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[4]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>10</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[hello@themenectar.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-23 11:49:00]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-23 11:49:00]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[5]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Fitted Nectar Shirt</title>
@@ -4886,28 +4798,6 @@ Take advantage of our mailing list to get exclusive offers and notifications bef
 			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>6</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[hello@themenectar.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-23 11:44:57]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-23 11:44:57]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[5]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Basic Shirt</title>
@@ -5301,28 +5191,6 @@ Lorem ipsum dolor sit sodales, augue velit cursus nunc.[/nectar_hotspot][/nectar
 			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>2</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[hello@themenectar.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-23 11:44:11]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-23 11:44:11]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[5]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>T-Shirt Nectar Logo</title>
@@ -6251,28 +6119,6 @@ Lorem ipsum dolor sit sodales, augue velit cursus nunc.[/nectar_hotspot][/nectar
 			<wp:meta_key><![CDATA[_edit_last]]></wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>9</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[hello@themenectar.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-23 11:47:21]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-23 11:47:21]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[5]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Oakland Hat</title>

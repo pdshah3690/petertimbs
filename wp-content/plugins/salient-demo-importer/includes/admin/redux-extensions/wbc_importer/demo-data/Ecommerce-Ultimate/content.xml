@@ -35,7 +35,7 @@
 	<wp:base_site_url>http://themenectar.com/demo/salient-ecommerce-ultimate</wp:base_site_url>
 	<wp:base_blog_url>http://themenectar.com/demo/salient-ecommerce-ultimate</wp:base_blog_url>
 
-	<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[themenectar]]></wp:author_login><wp:author_email><![CDATA[themenectar@gmail.com]]></wp:author_email><wp:author_display_name><![CDATA[themenectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+	<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[themenectar]]></wp:author_login><wp:author_email><![CDATA[nectar@themenectar.com]]></wp:author_email><wp:author_display_name><![CDATA[themenectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
 	<wp:category>
 		<wp:term_id>43</wp:term_id>
@@ -3913,7 +3913,7 @@
 <h5>Look Inside</h5>
 [/vc_column_text][nectar_highlighted_text highlight_color="#ff1053" style="half_text"]
 <h2>Why We're The Most <em>Awesome</em> eCommerce Business</h2>
-[/nectar_highlighted_text][/vc_column_inner][/vc_row_inner][carousel script="flickity" flickity_formatting="default" desktop_cols_flickity="1" desktop_small_cols_flickity="1" tablet_cols_flickity="1" pagination_alignment_flickity="left" column_padding="5px" autorotate="true" border_radius="none" autorotation_speed="9000"][item id="1531926429-2-75" tab_id="1531926651954-9" title="Item"][nectar_single_testimonial testimonial_style="basic" image="5635" style="bold" quote="I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now." name="Mr. ThemeNectar" subtitle="Pro Acrobat"][/item][item id="1531926429-1-21" tab_id="1531926651819-3" title="Item"][nectar_single_testimonial testimonial_style="basic" image="23" style="bold" quote="A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring. I am alone, and feel the charm of existence in this spot." name="Adam Martin" subtitle="Pro Acrobat"][/item][item id="1531926429-3-51" tab_id="1531926652117-10" title="Item"][nectar_single_testimonial testimonial_style="basic" image="229" style="bold" quote="When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, I throw myself down among the tall grass by the trickling stream." name="Kara James" subtitle="Pro Acrobat"][/item][/carousel][/vc_column][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_link_target="_self" column_shadow="none" column_border_radius="none" width="1/4" tablet_width_inherit="default" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid" offset="vc_hidden-sm vc_hidden-xs"][/vc_column][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_link_target="_self" column_shadow="none" column_border_radius="none" width="1/4" tablet_width_inherit="default" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][nectar_video_lightbox link_style="play_button" video_url="https://www.youtube.com/watch?v=6oTurM7gESE"][/vc_column][/vc_row][vc_row type="full_width_background" full_screen_row_position="middle" bg_color="#ffffff" scene_position="center" text_color="dark" text_align="left" top_padding="10%" bottom_padding="2%" overlay_strength="1" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_link_target="_self" column_shadow="none" column_border_radius="none" width="1/1" tablet_width_inherit="default" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_row_inner column_margin="default" text_align="left"][vc_column_inner column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" column_link_target="_self" width="1/1" tablet_width_inherit="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+[/nectar_highlighted_text][/vc_column_inner][/vc_row_inner][carousel script="flickity" flickity_formatting="default" desktop_cols_flickity="1" desktop_small_cols_flickity="1" tablet_cols_flickity="1" pagination_alignment_flickity="left" column_padding="5px" autorotate="true" border_radius="none" autorotation_speed="9000"][item id="1531926429-2-75" tab_id="1531926651954-9" title="Item"][nectar_single_testimonial testimonial_style="basic" image="5635" style="bold" quote="I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet I feel that I never was a greater artist than now." name="Mr. ThemeNectar" subtitle="Pro Acrobat"][/item][item id="1531926429-1-21" tab_id="1531926651819-3" title="Item"][nectar_single_testimonial testimonial_style="basic" image="23" style="bold" quote="A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring. I am alone, and feel the charm of existence in this spot." name="Adam Martin" subtitle="Pro Acrobat"][/item][item id="1531926429-3-51" tab_id="1531926652117-10" title="Item"][nectar_single_testimonial testimonial_style="basic" image="229" style="bold" quote="When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, I throw myself down among the tall grass by the trickling stream." name="Kara James" subtitle="Pro Acrobat"][/item][/carousel][/vc_column][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_link_target="_self" column_shadow="none" column_border_radius="none" width="1/4" tablet_width_inherit="default" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid" offset="vc_hidden-sm vc_hidden-xs"][/vc_column][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_link_target="_self" column_shadow="none" column_border_radius="none" width="1/4" tablet_width_inherit="default" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][nectar_video_lightbox link_style="play_button" video_url="https://www.youtube.com/watch?v=6oTurM7gESE"][/vc_column][/vc_row][vc_row type="full_width_background" full_screen_row_position="middle" bg_color="#ffffff" scene_position="center" text_color="dark" text_align="left" top_padding="10%" bottom_padding="2%" overlay_strength="1" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_link_target="_self" column_shadow="none" column_border_radius="none" width="1/1" tablet_width_inherit="default" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_row_inner column_margin="default" text_align="left"][vc_column_inner column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" column_link_target="_self" width="1/1" tablet_width_inherit="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h2>If you wish to make an apple</h2>
 <h2>pie from scratch, you must first</h2>
 <h2>invent the universe.</h2>
@@ -3953,7 +3953,7 @@ A small river named Duden flows by their place and supplies it with the necessar
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -4606,7 +4606,7 @@ A small river named Duden flows by their place and supplies it with the necessar
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -4796,7 +4796,7 @@ A small river named Duden flows by their place and supplies it with the necessar
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -5000,7 +5000,7 @@ hello@themenectar.com[/vc_column_text][nectar_cta btn_style="material" heading_t
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -5285,10 +5285,6 @@ far from the countries Vokalia and Consonantia, there live the blind texts. Sepa
 			<wp:meta_value><![CDATA[off]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2013/03/mountains-preview3.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_old_slug]]></wp:meta_key>
 			<wp:meta_value><![CDATA[nulla-fringilla-magna]]></wp:meta_value>
 		</wp:postmeta>
@@ -5332,76 +5328,6 @@ far from the countries Vokalia and Consonantia, there live the blind texts. Sepa
 			<wp:meta_key><![CDATA[_force_transparent_header_color]]></wp:meta_key>
 			<wp:meta_value><![CDATA[light]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>2</wp:comment_id>
-			<wp:comment_author><![CDATA[Jeremy]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[unrivaledreview@gmail.com]]></wp:comment_author_email>
-			<wp:comment_author_url>http://www.unrivaledreview.com/</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2017-11-21 15:41:27]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2017-11-21 15:41:27]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Great theme]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>3</wp:comment_id>
-			<wp:comment_author><![CDATA[John]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[john@domain.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-03-15 13:47:26]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-03-15 13:47:26]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Test]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>4</wp:comment_id>
-			<wp:comment_author><![CDATA[Tufik Chediak]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[tufik2@gmail.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-05-23 03:16:14]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-05-23 03:16:14]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Test]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>5</wp:comment_id>
-			<wp:comment_author><![CDATA[1]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[sample@email.tst]]></wp:comment_author_email>
-			<wp:comment_author_url>http://1</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-05-28 13:13:19]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-05-28 13:13:19]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[1]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>6</wp:comment_id>
-			<wp:comment_author><![CDATA[David Johns]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[David.Johns@gmail.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-07-30 16:07:31]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-07-30 16:07:31]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[this is Best theme in themeforest]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Doing a cross country road trip</title>
@@ -5543,10 +5469,6 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 			<wp:meta_value><![CDATA[off]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2013/03/bird1.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_old_slug]]></wp:meta_key>
 			<wp:meta_value><![CDATA[auctor-consectetur-ligula]]></wp:meta_value>
 		</wp:postmeta>
@@ -5590,76 +5512,6 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 			<wp:meta_key><![CDATA[_thumbnail_id]]></wp:meta_key>
 			<wp:meta_value><![CDATA[5635]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>7</wp:comment_id>
-			<wp:comment_author><![CDATA[asd]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[as@sdas.com]]></wp:comment_author_email>
-			<wp:comment_author_url>http://ad</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2017-10-29 20:21:54]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2017-10-29 20:21:54]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[sdasd]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>8</wp:comment_id>
-			<wp:comment_author><![CDATA[Test]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[Test@spammail.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2017-12-30 18:06:41]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2017-12-30 18:06:41]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Test]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>9</wp:comment_id>
-			<wp:comment_author><![CDATA[qwd]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[qwd@qawd.com]]></wp:comment_author_email>
-			<wp:comment_author_url>http://qwd</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-03-27 23:42:06]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-03-27 23:42:06]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[qwsdqw]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>10</wp:comment_id>
-			<wp:comment_author><![CDATA[John]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[john@john.com]]></wp:comment_author_email>
-			<wp:comment_author_url>http://john.com</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-05-27 07:35:04]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-05-27 07:35:04]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Test Comment]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>11</wp:comment_id>
-			<wp:comment_author><![CDATA[Me]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[Me@me.site]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-06-06 19:49:45]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-06-06 19:49:45]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Test]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Deep down in the water</title>
@@ -5668,7 +5520,7 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=110</guid>
 		<description></description>
-		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]<iframe src="https://www.youtube.com/embed/4BfKFCOCJe8" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap]S[/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]<iframe src="https://www.youtube.com/embed/4BfKFCOCJe8" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap]S[/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h3>But nothing the copy said could convince her</h3>
 <h3>and so it didn’t take long until a few insidious</h3>
 <h3>Copy Writers ambushed her</h3>
@@ -5809,14 +5661,6 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 			<wp:meta_value><![CDATA[amazing-post-with-all-the-goodies]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-description]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Nulla sed mi leo, sit amet molestie nulla. Phasellus lobortis blandit ipsum, at adipiscing eros porta quis. Phasellus in nisi ipsum, quis dapibus magna]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2013/03/tumblr_n6rzpcsMk41st5lhmo1_12802.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_post_item_masonry_sizing]]></wp:meta_key>
 			<wp:meta_value><![CDATA[regular]]></wp:meta_value>
 		</wp:postmeta>
@@ -5856,62 +5700,6 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 			<wp:meta_key><![CDATA[_force_transparent_header_color]]></wp:meta_key>
 			<wp:meta_value><![CDATA[light]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>12</wp:comment_id>
-			<wp:comment_author><![CDATA[crydagon]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[crowone@outlook.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2017-11-01 11:46:15]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2017-11-01 11:46:15]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Тест]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>13</wp:comment_id>
-			<wp:comment_author><![CDATA[TEST]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[DSAMWELL@HOTMAIL.COM]]></wp:comment_author_email>
-			<wp:comment_author_url>http://TEST</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2017-12-05 11:42:56]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2017-12-05 11:42:56]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[TEST]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>14</wp:comment_id>
-			<wp:comment_author><![CDATA[sdfsadf]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[dsfsdffas@gdsg.com]]></wp:comment_author_email>
-			<wp:comment_author_url>http://dsfsdfa</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2017-12-07 06:47:05]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2017-12-07 06:47:05]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[dsfsadf]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
-		<wp:comment>
-			<wp:comment_id>15</wp:comment_id>
-			<wp:comment_author><![CDATA[Julien]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[julien.fiset@gmail.com]]></wp:comment_author_email>
-			<wp:comment_author_url>http://montreal.com</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-06-27 20:00:18]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-06-27 20:00:18]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[lorem ipsum simdut dlamsodjkioajdinaewjdnl kaojdo iams pdoka sodka]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
 	</item>
 	<item>
 		<title>Ambrose Redmoon</title>
@@ -6087,10 +5875,6 @@ She packed her seven versalia, put her initial into the belt and made herself on
 			<wp:meta_value><![CDATA[ambrose-redmoon-2]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-description]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Courage is not the absence of fear, but rather the judgment that something else is more important than fear]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_post_item_masonry_sizing]]></wp:meta_key>
 			<wp:meta_value><![CDATA[regular]]></wp:meta_value>
 		</wp:postmeta>
@@ -6121,21 +5905,7 @@ She packed her seven versalia, put her initial into the belt and made herself on
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[_force_transparent_header_color]]></wp:meta_key>
 			<wp:meta_value><![CDATA[light]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>17</wp:comment_id>
-			<wp:comment_author><![CDATA[1]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[sample@email.tst]]></wp:comment_author_email>
-			<wp:comment_author_url>http://1</wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-05-28 13:30:12]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-05-28 13:30:12]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[1]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[0]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>0</wp:comment_user_id>
-		</wp:comment>
+		</wp:postmeta>	
 	</item>
 	<item>
 		<title>10 Tips for what to do downtown</title>
@@ -6364,7 +6134,7 @@ Integer convallis, odio ut rutrum euismod, mi purus pulvinar justo, quis mollis 
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.
 
-It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h3>But nothing the copy said could convince her</h3>
 <h3>and so it didn’t take long until a few insidious</h3>
 <h3>Copy Writers ambushed her</h3>
@@ -6820,7 +6590,7 @@ Cras a lorem lorem, et feugiat leo. Nunc vestibulum venenatis est nec tempor. Nu
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -9079,28 +8849,6 @@ Lorem ipsum dolor sit sodales, augue velit cursus nunc.[/nectar_hotspot][/nectar
 			<wp:meta_key><![CDATA[_wpb_vc_js_status]]></wp:meta_key>
 			<wp:meta_value><![CDATA[true]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>18</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[themenectar@gmail.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-06 17:10:23]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-06 17:10:23]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Awesome style shirt! I just received mine in the mail today and the fit and comfort are excellent.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[5]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>T-Shirt Nectar Logo</title>
@@ -10686,28 +10434,6 @@ Lorem ipsum dolor sit sodales, augue velit cursus nunc.[/nectar_hotspot][/nectar
 			<wp:meta_key><![CDATA[_product_attributes]]></wp:meta_key>
 			<wp:meta_value><![CDATA[a:1:{s:8:"pa_color";a:6:{s:4:"name";s:8:"pa_color";s:5:"value";s:0:"";s:8:"position";i:1;s:10:"is_visible";i:0;s:12:"is_variation";i:0;s:11:"is_taxonomy";i:1;}}]]></wp:meta_value>
 		</wp:postmeta>
-		<wp:comment>
-			<wp:comment_id>19</wp:comment_id>
-			<wp:comment_author><![CDATA[themenectar]]></wp:comment_author>
-			<wp:comment_author_email><![CDATA[themenectar@gmail.com]]></wp:comment_author_email>
-			<wp:comment_author_url></wp:comment_author_url>
-			<wp:comment_author_IP><![CDATA[127.0.0.1]]></wp:comment_author_IP>
-			<wp:comment_date><![CDATA[2018-08-06 17:50:56]]></wp:comment_date>
-			<wp:comment_date_gmt><![CDATA[2018-08-06 17:50:56]]></wp:comment_date_gmt>
-			<wp:comment_content><![CDATA[Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows.]]></wp:comment_content>
-			<wp:comment_approved><![CDATA[1]]></wp:comment_approved>
-			<wp:comment_type><![CDATA[]]></wp:comment_type>
-			<wp:comment_parent>0</wp:comment_parent>
-			<wp:comment_user_id>1</wp:comment_user_id>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[rating]]></wp:meta_key>
-				<wp:meta_value><![CDATA[4]]></wp:meta_value>
-			</wp:commentmeta>
-			<wp:commentmeta>
-				<wp:meta_key><![CDATA[verified]]></wp:meta_key>
-				<wp:meta_value><![CDATA[0]]></wp:meta_value>
-			</wp:commentmeta>
-		</wp:comment>
 	</item>
 	<item>
 		<title>V-Neck T-Shirt - Gray</title>

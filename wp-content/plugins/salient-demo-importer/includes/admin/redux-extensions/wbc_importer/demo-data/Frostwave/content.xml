@@ -35,7 +35,7 @@
 	<wp:base_site_url>http://localhost/wordpress-3-8</wp:base_site_url>
 	<wp:base_blog_url>http://localhost/wordpress-3-8</wp:base_blog_url>
 
-	<wp:author><wp:author_id>1</wp:author_id><wp:author_login>ThemeNectar</wp:author_login><wp:author_email>themenectar@gmail.com</wp:author_email><wp:author_display_name><![CDATA[ThemeNectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+	<wp:author><wp:author_id>1</wp:author_id><wp:author_login>ThemeNectar</wp:author_login><wp:author_email>nectar@themenectar.com</wp:author_email><wp:author_display_name><![CDATA[ThemeNectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
 	<wp:category><wp:term_id>2</wp:term_id><wp:category_nicename>dining</wp:category_nicename><wp:category_parent></wp:category_parent><wp:cat_name><![CDATA[Dining]]></wp:cat_name></wp:category>
 	<wp:category><wp:term_id>3</wp:term_id><wp:category_nicename>fashion</wp:category_nicename><wp:category_parent></wp:category_parent><wp:cat_name><![CDATA[Fashion]]></wp:cat_name></wp:category>
@@ -77,7 +77,7 @@
 	<wp:term><wp:term_id>35</wp:term_id><wp:term_taxonomy>project-type</wp:term_taxonomy><wp:term_slug>print</wp:term_slug><wp:term_parent></wp:term_parent><wp:term_name><![CDATA[Print]]></wp:term_name></wp:term>
 	<wp:term><wp:term_id>36</wp:term_id><wp:term_taxonomy>project-type</wp:term_taxonomy><wp:term_slug>video</wp:term_slug><wp:term_parent></wp:term_parent><wp:term_name><![CDATA[Video]]></wp:term_name></wp:term>
 	<wp:term><wp:term_id>37</wp:term_id><wp:term_taxonomy>slider-locations</wp:term_taxonomy><wp:term_slug>weather-app</wp:term_slug><wp:term_parent></wp:term_parent><wp:term_name><![CDATA[Weather App]]></wp:term_name></wp:term>
-	<wp:term><wp:term_id>38</wp:term_id><wp:term_taxonomy>nav_menu</wp:term_taxonomy><wp:term_slug>main-navigation</wp:term_slug><wp:term_name><![CDATA[Main Navigation]]></wp:term_name></wp:term>
+	<wp:term><wp:term_id>38</wp:term_id><wp:term_taxonomy>nav_menu</wp:term_taxonomy><wp:term_slug>frostwave-main-navigation</wp:term_slug><wp:term_name><![CDATA[Frostwave Main Navigation]]></wp:term_name></wp:term>
 
 	<generator>http://wordpress.org/?v=3.9.1</generator>
 
@@ -410,7 +410,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -465,7 +465,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -520,7 +520,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -575,7 +575,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -630,7 +630,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -685,7 +685,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -740,7 +740,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -795,7 +795,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -850,7 +850,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -905,7 +905,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -960,7 +960,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1015,7 +1015,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1070,7 +1070,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1125,7 +1125,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1180,7 +1180,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1235,7 +1235,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1290,7 +1290,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1345,7 +1345,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[custom]]></wp:meta_value>
@@ -1400,7 +1400,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1455,7 +1455,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1510,7 +1510,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1565,7 +1565,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1620,7 +1620,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1675,7 +1675,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1730,7 +1730,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1785,7 +1785,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1840,7 +1840,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1895,7 +1895,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -1950,7 +1950,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2005,7 +2005,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2060,7 +2060,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2115,7 +2115,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2170,7 +2170,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2225,7 +2225,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2280,7 +2280,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2335,7 +2335,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2800,7 +2800,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2855,7 +2855,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2910,7 +2910,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -2965,7 +2965,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3020,7 +3020,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3075,7 +3075,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3130,7 +3130,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3185,7 +3185,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3240,7 +3240,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3295,7 +3295,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3350,7 +3350,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3405,7 +3405,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3460,7 +3460,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3515,7 +3515,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3570,7 +3570,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3625,7 +3625,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3680,7 +3680,7 @@
 		<wp:post_type>nav_menu_item</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="nav_menu" nicename="main-navigation"><![CDATA[Main Navigation]]></category>
+		<category domain="nav_menu" nicename="frostwave-main-navigation"><![CDATA[Frostwave Main Navigation]]></category>
 		<wp:postmeta>
 			<wp:meta_key>_menu_item_type</wp:meta_key>
 			<wp:meta_value><![CDATA[post_type]]></wp:meta_value>
@@ -3867,7 +3867,7 @@ Aliquam dictum pharetra pretium. Lorem ipsum dolor sit amet, consectetur adipisc
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4013,7 +4013,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac lacus massa. A
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4112,7 +4112,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adi
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4270,7 +4270,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta, mi ut faci
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4316,9 +4316,9 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 <h4>Clean Modern Code</h4>
 Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et. Quisque euismod orci ut et lobortis aliquam. Aliquam in tortor enim.[/text-with-icon][/vc_column][vc_column width="1/3" enable_animation="true" animation="fade-in" delay="1000"][text-with-icon icon_type="font_icon" icon="linecon-icon-settings" color="Accent-Color"]
 <h4>Free Updates &amp; Support</h4>
-Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et. Quisque euismod orci ut et lobortis aliquam. Aliquam in tortor enim.[/text-with-icon][/vc_column][/vc_row][vc_row type="full_width_content" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="0" bottom_padding="0"][vc_column width="1/1"][nectar_portfolio layout="fullwidth" constrain_max_cols="true" category="all" starting_category="default" project_style="3" lightbox_only="true" projects_per_page="8"][/vc_column][/vc_row][full_width_section bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="60" bottom_padding="40" background_color="#6b58cd" type="full_width_background" text_align="left"][vc_column width="1/1"][vc_column_text]
+Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et. Quisque euismod orci ut et lobortis aliquam. Aliquam in tortor enim.[/text-with-icon][/vc_column][/vc_row][vc_row type="full_width_content" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="0" bottom_padding="0"][vc_column width="1/1"][nectar_portfolio layout="fullwidth" constrain_max_cols="true" category="all" starting_category="default" project_style="3" lightbox_only="true" projects_per_page="8"][/vc_column][/vc_row][vc_row bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="60" bottom_padding="40" bg_color="#6b58cd" type="full_width_background" text_align="left"][vc_column width="1/1"][vc_column_text]
 <h2 class="light" style="text-align: center;">Like What You See? We're Just Getting Started [button color="See-Through" image="default-arrow" size="medium" url="http://themenectar.com/demo/salient-frostwave/portfolio-fullwidth-masonry/" text="View Portfolio"]</h2>
-[/vc_column_text][/vc_column][/full_width_section][full_width_section bg_pos="Center Center" bg_repeat="No-Repeat" text_color="dark" bottom_padding="90" type="full_width_background" text_align="left" top_padding="120"][vc_column width="1/3" animation="none" column_padding="no-extra-padding" background_color_opacity="1" centered_text="true"][fancy-ul icon_type="standard_dash" icon="icon-glass" color="Accent-Color" enable_animation="true"]
+[/vc_column_text][/vc_column][/vc_row][vc_row bg_pos="Center Center" bg_repeat="No-Repeat" text_color="dark" bottom_padding="90" type="full_width_background" text_align="left" top_padding="120"][vc_column width="1/3" animation="none" column_padding="no-extra-padding" background_color_opacity="1" centered_text="true"][fancy-ul icon_type="standard_dash" icon="icon-glass" color="Accent-Color" enable_animation="true"]
 <ul>
 	<li>Drag &amp; drop page builder</li>
 	<li>Responsive &amp; retina ready design</li>
@@ -4348,7 +4348,7 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 	<li>Built in "love" system</li>
 	<li>Built in mega menu</li>
 </ul>
-[/fancy-ul][/vc_column][/full_width_section][vc_row type="full_width_content" bg_position="center center" bg_repeat="repeat" text_color="light" text_align="center" bg_color="#0e1015" top_padding="60" bottom_padding="60"][vc_column width="1/6" animation="fade-in" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="14" subject="Theme Users" symbol_position="after" symbol="k"][/vc_column][vc_column width="1/6" animation="fade-in" delay="0" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="1538" subject="Cups of Coffee" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" delay="0" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="463" subject="Features Added" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" delay="0" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="7200" subject="Tickets Answered" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" column_padding="padding-1-percent" background_color_opacity="1" delay="0" enable_animation="true"][milestone color="Extra-Color-2" number="1000" subject="YouTube Subscribers" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" column_padding="padding-1-percent" background_color_opacity="1" delay="0" enable_animation="true"][milestone color="Extra-Color-2" number="600" subject="Google Fonts" symbol_position="after" symbol="*"][/vc_column][/vc_row][full_width_section bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" image_url="2265" parallax_bg="true" vertically_center_columns="true" background_color="#101012"][vc_column width="1/3" animation="none" column_padding="padding-5-percent" background_color="#1c202b" background_color_opacity="0.5" font_color="#ffffff" centered_text="true"][testimonial_slider autorotate="7000"][testimonial name=" apawlik, Theme User" quote="It's easy to see why this is one of the most downloaded themes on themeforest. It's a real game-changer, and a breathe of fresh air if you work with Wordpress a lot. " id="t1" title="Testimonial"][/testimonial][testimonial name="Editor02, Theme User" quote="I literally could not be happier that I chose to buy your theme! Your regular updates and superb attention to detail blows me away every time I visit my new site!" id="t2" title="Testimonial"][/testimonial][testimonial name="mdriess, Theme User" quote="Amazing work! You didn’t just make a great looking theme, but you made one that is a pleasure to customize and not the least bit difficult to keep looking classy." id="t3" title="Testimonial"][/testimonial][/testimonial_slider][/vc_column][vc_column width="2/3" animation="none" column_padding="padding-4-percent" background_color_opacity="0.7" background_color="#1c202b"][clients columns="5" carousel="true" disable_autorotate="true"][client title="Client" id="1395635698-1-67" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Fluid"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395636117002-0-4" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Gladiator"][/client][client title="Client" id="1395635965058-0-2" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Location Point"][/client][client title="Client" id="1395635698-2-45" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="hive"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395636055291-0-6" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="X"][/client][client title="Client" id="1395635975628-0-8" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="SL City"][/client][/clients][/vc_column][/full_width_section][full_width_section bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" parallax_bg="true" background_color="#171920"][vc_column width="1/3" animation="flip-in" column_padding="padding-4-percent" background_color="#20cfef" background_color_opacity="1" enable_animation="true"][vc_row_inner][vc_column_inner width="1/1" enable_animation="true" animation="fade-in-from-left" column_padding="no-extra-padding" delay="500"][vc_column_text]
+[/fancy-ul][/vc_column][/vc_row][vc_row type="full_width_content" bg_position="center center" bg_repeat="repeat" text_color="light" text_align="center" bg_color="#0e1015" top_padding="60" bottom_padding="60"][vc_column width="1/6" animation="fade-in" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="14" subject="Theme Users" symbol_position="after" symbol="k"][/vc_column][vc_column width="1/6" animation="fade-in" delay="0" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="1538" subject="Cups of Coffee" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" delay="0" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="463" subject="Features Added" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" delay="0" column_padding="padding-1-percent" background_color_opacity="1" enable_animation="true"][milestone color="Extra-Color-2" number="7200" subject="Tickets Answered" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" column_padding="padding-1-percent" background_color_opacity="1" delay="0" enable_animation="true"][milestone color="Extra-Color-2" number="1000" subject="YouTube Subscribers" symbol_position="after"][/vc_column][vc_column width="1/6" animation="fade-in" column_padding="padding-1-percent" background_color_opacity="1" delay="0" enable_animation="true"][milestone color="Extra-Color-2" number="600" subject="Google Fonts" symbol_position="after" symbol="*"][/vc_column][/vc_row][vc_row bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" image_url="2265" parallax_bg="true" vertically_center_columns="true" background_color="#101012"][vc_column width="1/3" animation="none" column_padding="padding-5-percent" background_color="#1c202b" background_color_opacity="0.5" font_color="#ffffff" centered_text="true"][testimonial_slider autorotate="7000"][testimonial name=" apawlik, Theme User" quote="It's easy to see why this is one of the most downloaded themes on themeforest. It's a real game-changer, and a breathe of fresh air if you work with Wordpress a lot. " id="t1" title="Testimonial"][/testimonial][testimonial name="Editor02, Theme User" quote="I literally could not be happier that I chose to buy your theme! Your regular updates and superb attention to detail blows me away every time I visit my new site!" id="t2" title="Testimonial"][/testimonial][testimonial name="mdriess, Theme User" quote="Amazing work! You didn’t just make a great looking theme, but you made one that is a pleasure to customize and not the least bit difficult to keep looking classy." id="t3" title="Testimonial"][/testimonial][/testimonial_slider][/vc_column][vc_column width="2/3" animation="none" column_padding="padding-4-percent" background_color_opacity="0.7" background_color="#1c202b"][clients columns="5" carousel="true" disable_autorotate="true"][client title="Client" id="1395635698-1-67" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Fluid"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395636117002-0-4" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Gladiator"][/client][client title="Client" id="1395635965058-0-2" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Location Point"][/client][client title="Client" id="1395635698-2-45" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="hive"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395636055291-0-6" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="X"][/client][client title="Client" id="1395635975628-0-8" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="SL City"][/client][/clients][/vc_column][/vc_row][vc_row bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" parallax_bg="true" background_color="#171920"][vc_column width="1/3" animation="flip-in" column_padding="padding-4-percent" background_color="#20cfef" background_color_opacity="1" enable_animation="true"][vc_row_inner][vc_column_inner width="1/1" enable_animation="true" animation="fade-in-from-left" column_padding="no-extra-padding" delay="500"][vc_column_text]
 <h3>A Breeze To Build With</h3>
 Take full control of the power Salient has to offer with our new exciting page builder. You'll be grinning in delight when you see just how easy it is to create stunning layouts with little effort.
 
@@ -4360,7 +4360,7 @@ The days of being overwhelmed by long documents without any visual guidance are 
 <h3>Show Off In Style</h3>
 The looks &amp; functionality you've been dying for are finally easily accessible. We know you'll enjoy the freedom to showcase your content in the way that it deserves.
 
-[button color="See-Through" size="large" url="http://themenectar.com/demo/salient-frostwave/portfolio/mobile-weather-app/" text="Shine Like A Star" image="steadysets-icon-star"][/vc_column_text][/vc_column_inner][/vc_row_inner][/vc_column][/full_width_section][vc_row type="in_container" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="120" bottom_padding="80" parallax_bg="true"][vc_column centered_text="true" width="1/4" animation="fade-in-from-bottom" enable_animation="true" column_padding="no-extra-padding" background_color_opacity="1"][vc_row_inner][vc_column_inner width="1/1" enable_animation="true" animation="fade-in" delay="400" column_padding="no-extra-padding"][vc_column_text][icon size="large" image="icon-tablet" color="Extra-Color-3"][/vc_column_text][/vc_column_inner][/vc_row_inner][vc_column_text]
+[button color="See-Through" size="large" url="http://themenectar.com/demo/salient-frostwave/portfolio/mobile-weather-app/" text="Shine Like A Star" image="steadysets-icon-star"][/vc_column_text][/vc_column_inner][/vc_row_inner][/vc_column][/vc_row][vc_row type="in_container" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="120" bottom_padding="80" parallax_bg="true"][vc_column centered_text="true" width="1/4" animation="fade-in-from-bottom" enable_animation="true" column_padding="no-extra-padding" background_color_opacity="1"][vc_row_inner][vc_column_inner width="1/1" enable_animation="true" animation="fade-in" delay="400" column_padding="no-extra-padding"][vc_column_text][icon size="large" image="icon-tablet" color="Extra-Color-3"][/vc_column_text][/vc_column_inner][/vc_row_inner][vc_column_text]
 <h4>100% Responsive Design</h4>
 Accusantium quam, ultri eget tempor id, aliquam eget nibh et. Maecen aliquam, risus at semper ullamcorper[/vc_column_text][/vc_column][vc_column width="1/4" animation="fade-in-from-bottom" centered_text="true" enable_animation="true" column_padding="no-extra-padding" background_color_opacity="1" delay="200"][vc_row_inner][vc_column_inner width="1/1" enable_animation="true" animation="fade-in" delay="600" column_padding="no-extra-padding"][vc_column_text][icon size="large" image="steadysets-icon-diamond" color="Extra-Color-3"][/vc_column_text][/vc_column_inner][/vc_row_inner][vc_column_text]
 <h4>Award Winning Quality</h4>
@@ -4392,7 +4392,7 @@ Accusantium quam, ultri eget tempor id, aliquam eget nibh et. Maecen aliquam, ri
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4483,7 +4483,7 @@ your WooCommerce shop. They will also have access to view the contents of their 
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4545,11 +4545,11 @@ your WooCommerce shop. They will also have access to view the contents of their 
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://localhost/wordpress-3-6/?page_id=596</guid>
 		<description></description>
-		<content:encoded><![CDATA[[vc_row][vc_column width="1/1"][nectar_slider full_width="true" location="About" fullscreen="true" flexible_slider_height="true" min_slider_height="250" parallax="true"][/vc_column][/vc_row][full_width_section bg_pos="Left Top" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" background_color="#fbfbfb" type="full_width_content" text_align="left" parallax_bg="true" vertically_center_columns="true"][vc_column width="2/3" animation="none" column_padding="padding-5-percent" background_color="#fe4641" background_color_opacity="1"][vc_column_text]
+		<content:encoded><![CDATA[[vc_row][vc_column width="1/1"][nectar_slider full_width="true" location="About" fullscreen="true" flexible_slider_height="true" min_slider_height="250" parallax="true"][/vc_column][/vc_row][vc_row bg_pos="Left Top" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" background_color="#fbfbfb" type="full_width_content" text_align="left" parallax_bg="true" vertically_center_columns="true"][vc_column width="2/3" animation="none" column_padding="padding-5-percent" background_color="#fe4641" background_color_opacity="1"][vc_column_text]
 <h2 style="text-align: center;">We've had the privilege to work with some awesome clients</h2>
 <h4 class="light" style="text-align: center;">Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna.
 lobortis aliquam. Aliquam in tortor enim. orci ut et lobortis aliquam landit.</h4>
-[/vc_column_text][/vc_column][vc_column width="1/3" animation="none" column_padding="padding-5-percent" background_color="#20cfef" background_color_opacity="1"][clients columns="4" carousel="true"][client title="Client" id="1395988736-1-29" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Fluid"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395988736-2-10" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="squirrel"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395989142478-0-0" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Location point"][/client][client title="Client" id="1395989250503-0-1" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="X"][/client][client title="Client" id="135948736-1-29" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Fluid"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395788736-2-10" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="squirrel"] Click the edit button to add your testimonial. [/client][client title="Client" id="139999142478-0-0" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Location point"][/client][client title="Client" id="1393989250503-0-1" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="X"][/client][/clients][/vc_column][/full_width_section][vc_row type="full_width_content" bg_position="left top" bg_repeat="no-repeat" bg_color="#fbfbfb" text_color="dark" text_align="left" bottom_padding="0" top_padding="0" vertically_center_columns="true"][vc_column width="2/3" animation="fade-in" delay="0" column_padding="padding-5-percent" background_color="#f5f5f5" background_color_opacity="1"][vc_row_inner][vc_column_inner width="1/3" animation="fade-in" column_padding="padding-1-percent" enable_animation="true"][text-with-icon icon_type="font_icon" icon="steadysets-icon-atom" color="Accent-Color"]
+[/vc_column_text][/vc_column][vc_column width="1/3" animation="none" column_padding="padding-5-percent" background_color="#20cfef" background_color_opacity="1"][clients columns="4" carousel="true"][client title="Client" id="1395988736-1-29" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Fluid"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395988736-2-10" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="squirrel"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395989142478-0-0" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Location point"][/client][client title="Client" id="1395989250503-0-1" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="X"][/client][client title="Client" id="135948736-1-29" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Fluid"] Click the edit button to add your testimonial. [/client][client title="Client" id="1395788736-2-10" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="squirrel"] Click the edit button to add your testimonial. [/client][client title="Client" id="139999142478-0-0" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="Location point"][/client][client title="Client" id="1393989250503-0-1" image="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/sample-logo.png" name="X"][/client][/clients][/vc_column][/vc_row][vc_row type="full_width_content" bg_position="left top" bg_repeat="no-repeat" bg_color="#fbfbfb" text_color="dark" text_align="left" bottom_padding="0" top_padding="0" vertically_center_columns="true"][vc_column width="2/3" animation="fade-in" delay="0" column_padding="padding-5-percent" background_color="#f5f5f5" background_color_opacity="1"][vc_row_inner][vc_column_inner width="1/3" animation="fade-in" column_padding="padding-1-percent" enable_animation="true"][text-with-icon icon_type="font_icon" icon="steadysets-icon-atom" color="Accent-Color"]
 <h4>Web Development</h4>
 Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et. Quisque euismod orci ut et lobortis et.[/text-with-icon][/vc_column_inner][vc_column_inner width="1/3" animation="fade-in" column_padding="padding-1-percent" enable_animation="true" delay="200"][text-with-icon icon_type="font_icon" icon="steadysets-icon-email2" color="Accent-Color"]
 <h4>Social Marketing</h4>
@@ -4561,7 +4561,7 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 <h4>Web Design</h4>
 Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et. Quisque euismod orci ut et lobortis et.[/text-with-icon][/vc_column_inner][vc_column_inner width="1/3" animation="fade-in" column_padding="padding-1-percent" enable_animation="true" delay="1000"][divider line_type="No Line" custom_height="20"][text-with-icon icon_type="font_icon" icon="steadysets-icon-meter" color="Accent-Color"]
 <h4>Server Optimization</h4>
-Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et. Quisque euismod orci ut et lobortis et.[/text-with-icon][/vc_column_inner][/vc_row_inner][/vc_column][vc_column width="1/3" animation="fade-in" delay="200" column_padding="padding-5-percent" background_color="#ffffff" background_color_opacity="1" enable_animation="true"][toggles accordion="true"][toggle title="Building your brand" color="Extra-Color-1"][vc_column_text]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellent esque cursus arcu id magna et euismod in elem entum purus molestie. Cura bitur et arcu  pellen tesque massa eu nulla conse quat sed porttitor porttitor. Adipiscing condimentum.[/vc_column_text][/toggle][toggle title="Working with the best" color="Extra-Color-1"][vc_column_text]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellent esque cursus arcu id magna et euismod in elem entum purus molestie. Cura bitur et arcu  pellen tesque massa eu nulla conse quat sed porttitor porttitor. Adipiscing condimentum.[/vc_column_text][/toggle][toggle title="Project availability " color="Extra-Color-1"][vc_column_text]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellent esque cursus arcu id magna et euismod in elem entum purus molestie. Cura bitur et arcu  pellen tesque massa eu nulla conse quat sed porttitor porttitor. Adipiscing condimentum.[/vc_column_text][/toggle][/toggles][/vc_column][/vc_row][full_width_section bg_pos="Left Top" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" parallax_bg="true" background_color="#171920"][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2309" name="Trevor Smith" job_position="Founder / Project Lead" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2310" name="Lauren Clark" job_position="Graphic Designer" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2305" name="Andrew Johnson" job_position="Front-end Developer" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][/full_width_section][full_width_section bg_pos="Left Top" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" parallax_bg="true" background_color="#171920"][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2308" name="Tyler Kendall" job_position="Art Director" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2306" name="Jacob King" job_position="UX Director" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2307" name="Amanda Kliens" job_position="Human Resources" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][/full_width_section][full_width_section bg_pos="Center Center" bg_repeat="Repeat" text_color="light" top_padding="120" bottom_padding="120" background_color="#6b58cd" type="full_width_background" text_align="left"][vc_column width="1/1"][testimonial_slider][testimonial name="Greg Ross, ThemeNectar" quote="By far the best team I've ever worked with. They truly understood the look I was going for and completely nailed it! I would highly recommend them as a company, you simply just won't find any better team!" id="t1" title="Testimonial"][/testimonial][testimonial name="Jeff Gemmell, ThemeNectar" quote="It was really fun getting to know the team during the project. They were all helpful in answering my questions and made me feel at ease. The design ended up being twice as good as I could've envisioned!" id="t2" title="Testimonial"][/testimonial][testimonial name="Mark Levin, ThemeNectar" quote="I'm wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective fields and knocked my concept out of the ballpark. Thanks for an amazing experience!" id="t3" title="Testimonial"][/testimonial][/testimonial_slider][/vc_column][/full_width_section]]]></content:encoded>
+Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et. Quisque euismod orci ut et lobortis et.[/text-with-icon][/vc_column_inner][/vc_row_inner][/vc_column][vc_column width="1/3" animation="fade-in" delay="200" column_padding="padding-5-percent" background_color="#ffffff" background_color_opacity="1" enable_animation="true"][toggles accordion="true"][toggle title="Building your brand" color="Extra-Color-1"][vc_column_text]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellent esque cursus arcu id magna et euismod in elem entum purus molestie. Cura bitur et arcu  pellen tesque massa eu nulla conse quat sed porttitor porttitor. Adipiscing condimentum.[/vc_column_text][/toggle][toggle title="Working with the best" color="Extra-Color-1"][vc_column_text]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellent esque cursus arcu id magna et euismod in elem entum purus molestie. Cura bitur et arcu  pellen tesque massa eu nulla conse quat sed porttitor porttitor. Adipiscing condimentum.[/vc_column_text][/toggle][toggle title="Project availability " color="Extra-Color-1"][vc_column_text]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. Pellent esque cursus arcu id magna et euismod in elem entum purus molestie. Cura bitur et arcu  pellen tesque massa eu nulla conse quat sed porttitor porttitor. Adipiscing condimentum.[/vc_column_text][/toggle][/toggles][/vc_column][/vc_row][vc_row bg_pos="Left Top" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" parallax_bg="true" background_color="#171920"][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2309" name="Trevor Smith" job_position="Founder / Project Lead" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2310" name="Lauren Clark" job_position="Graphic Designer" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2305" name="Andrew Johnson" job_position="Front-end Developer" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][/vc_row][vc_row bg_pos="Left Top" bg_repeat="No-Repeat" text_color="light" top_padding="0" bottom_padding="0" type="full_width_content" text_align="left" parallax_bg="true" background_color="#171920"][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2308" name="Tyler Kendall" job_position="Art Director" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2306" name="Jacob King" job_position="UX Director" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][vc_column width="1/3" enable_animation="true" animation="flip-in" column_padding="no-extra-padding" background_color_opacity="1"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="2307" name="Amanda Kliens" job_position="Human Resources" color="Extra-Color-2" team_memeber_style="meta_overlaid" link_element="none" link_url_2="#"][/vc_column][/vc_row][vc_row bg_pos="Center Center" bg_repeat="Repeat" text_color="light" top_padding="120" bottom_padding="120" background_color="#6b58cd" type="full_width_background" text_align="left"][vc_column width="1/1"][testimonial_slider][testimonial name="Greg Ross, ThemeNectar" quote="By far the best team I've ever worked with. They truly understood the look I was going for and completely nailed it! I would highly recommend them as a company, you simply just won't find any better team!" id="t1" title="Testimonial"][/testimonial][testimonial name="Jeff Gemmell, ThemeNectar" quote="It was really fun getting to know the team during the project. They were all helpful in answering my questions and made me feel at ease. The design ended up being twice as good as I could've envisioned!" id="t2" title="Testimonial"][/testimonial][testimonial name="Mark Levin, ThemeNectar" quote="I'm wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective fields and knocked my concept out of the ballpark. Thanks for an amazing experience!" id="t3" title="Testimonial"][/testimonial][/testimonial_slider][/vc_column][/vc_row]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>596</wp:post_id>
 		<wp:post_date>2013-08-12 07:09:46</wp:post_date>
@@ -4585,7 +4585,7 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4834,7 +4834,7 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -4912,7 +4912,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adi
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -5510,7 +5510,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adi
 <h2>How We Got Started</h2>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem quam, adipiscing condimentum tristique vel, eleifend sed et turpis. Pellentesque cursus arcu id magna euismod in elementum molestie. Curabitur pellentesque massa eu nulla consequat sed porttitor arcu porttitor. Quisque volutpat pharetra felis, eu cursus lorem molestie vitae. Morbi ut arcu dolor. Maecenas id nulla nec nibh viverra vehicula. Cras feugiat, magna eu lacinia vulputate cursus arcu id magna augue est sed nunc.[/vc_column_text][/vc_column][vc_column width="2/3"][vc_column_text]
 <h2>Our Skills</h2>
-[/vc_column_text][bar title="Branding" percent="70" id="b1"][bar title="Graphic Design " percent="80" id="b2"][bar title="Responsive Web Design" percent="100" id="b3"][bar title="iOS Development" percent="90" id="b4"][bar title="JavaScript Development" percent="75" id="b5" color="Accent-Color"][/vc_column][/vc_row][vc_row type="full_width_background" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="0" bottom_padding="60"][vc_column width="1/1" animation="none" column_padding="no-extra-padding" background_color_opacity="1"][carousel easing="easeInOutQuart" carousel_title="Our Team" scroll_speed="1000"][item id="1389858025982-8" title="Item"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" name="Trevor Smith" job_position="Founder / Project Lead" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][item id="1389858026029-3" title="Item"][team_member image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg"  name="Carlton Harris" job_position="Developer" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][item id="1389858026071-1" title="Item"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" name="Amanda Kliens" job_position="Graphic Designer" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][item id="1389858026114-10" title="Item"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" name="Tyler Johnson" job_position="Front-End Developer" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][/carousel][/vc_column][/vc_row][full_width_section parallax_bg="true" bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="100" bottom_padding="90" type="full_width_background" background_color="#6b58cd" text_align="left"][vc_column width="1/1"][testimonial_slider autorotate="6500"][testimonial name="Greg Ross, ThemeNectar" quote="By far the best team I've ever worked with. They truly understood the look I was going for and completely nailed it! I would highly recommend them as a company, you simply just won't find any better team!" id="t1" title="Testimonial"][/testimonial][testimonial name="Jeff Gemmell, ThemeNectar" quote="It was really fun getting to know the team during the project. They were all helpful in answering my questions and made me feel at ease. The design ended up being twice as good as I could've envisioned!" id="t2" title="Testimonial"][/testimonial][testimonial name="Mark Levin, ThemeNectar" quote="I'm wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective fields and knocked my concept out of the ballpark. Thanks for an amazing experience!" id="t3" title="Testimonial"][/testimonial][/testimonial_slider][/vc_column][/full_width_section]]]></content:encoded>
+[/vc_column_text][bar title="Branding" percent="70" id="b1"][bar title="Graphic Design " percent="80" id="b2"][bar title="Responsive Web Design" percent="100" id="b3"][bar title="iOS Development" percent="90" id="b4"][bar title="JavaScript Development" percent="75" id="b5" color="Accent-Color"][/vc_column][/vc_row][vc_row type="full_width_background" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="0" bottom_padding="60"][vc_column width="1/1" animation="none" column_padding="no-extra-padding" background_color_opacity="1"][carousel easing="easeInOutQuart" carousel_title="Our Team" scroll_speed="1000"][item id="1389858025982-8" title="Item"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" name="Trevor Smith" job_position="Founder / Project Lead" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][item id="1389858026029-3" title="Item"][team_member image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg"  name="Carlton Harris" job_position="Developer" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][item id="1389858026071-1" title="Item"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" name="Amanda Kliens" job_position="Graphic Designer" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][item id="1389858026114-10" title="Item"][team_member description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adipiscing condimentum tristique vel, eleifend sed turpis. " social="Facebook, http://facebook.com, Twitter, http://twitter.com, Youtube, http://youtube.com" image_url="http://themenectar.com/demo/salient-frostwave/wp-content/uploads/2013/03/no-portfolio-item.jpg" name="Tyler Johnson" job_position="Front-End Developer" team_memeber_style="meta_below" link_element="none" color="Accent-Color"][/item][/carousel][/vc_column][/vc_row][vc_row parallax_bg="true" bg_pos="Center Center" bg_repeat="No-Repeat" text_color="light" top_padding="100" bottom_padding="90" type="full_width_background" background_color="#6b58cd" text_align="left"][vc_column width="1/1"][testimonial_slider autorotate="6500"][testimonial name="Greg Ross, ThemeNectar" quote="By far the best team I've ever worked with. They truly understood the look I was going for and completely nailed it! I would highly recommend them as a company, you simply just won't find any better team!" id="t1" title="Testimonial"][/testimonial][testimonial name="Jeff Gemmell, ThemeNectar" quote="It was really fun getting to know the team during the project. They were all helpful in answering my questions and made me feel at ease. The design ended up being twice as good as I could've envisioned!" id="t2" title="Testimonial"][/testimonial][testimonial name="Mark Levin, ThemeNectar" quote="I'm wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective fields and knocked my concept out of the ballpark. Thanks for an amazing experience!" id="t3" title="Testimonial"][/testimonial][/testimonial_slider][/vc_column][/vc_row]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>704</wp:post_id>
 		<wp:post_date>2013-03-23 13:05:30</wp:post_date>
@@ -5550,7 +5550,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem quam, adipiscing 
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -5868,7 +5868,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://localhost/wordpress-3-6/?page_id=669</guid>
 		<description></description>
-		<content:encoded><![CDATA[[vc_row][vc_column width="1/1"][nectar_slider full_width="true" parallax="true" fullscreen="true" location="Home Portfolio Eye Candy"][/vc_column][/vc_row][vc_row type="full_width_content" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="0" bottom_padding="0"][vc_column width="1/1"][nectar_portfolio project_style="2" category="all" layout="fullwidth" projects_per_page="20" masonry_style="true"][/vc_column][/vc_row][full_width_section bg_pos="Left Top" bg_repeat="No-Repeat" text_color="Light" top_padding="90" bottom_padding="90" background_color="#5b63cf"][vc_column width="1/1"][testimonial_slider autorotate="6500"][testimonial name="Greg Ross, ThemeNectar" quote="By far the best team I've ever worked with. They truly understood the look I was going for and completely nailed it! I would highly recommend them as a company, you simply just won't find any better team!" id="t1" title="Testimonial"][testimonial name="Jeff Gemmell, ThemeNectar" quote="It was really fun getting to know the team during the project. They were all helpful in answering my questions and made me feel completely at ease. The design ended up being twice as good as I could have ever envisioned! Don't wait any longer to call up the team, you're only hurting yourself by postponing!" id="t2" title="Testimonial"][testimonial name="Mark Levin, ThemeNectar" quote="I'm wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective fields and knocked my concept out of the ballpark. Thanks for an amazing experience!" id="t3" title="Testimonial"][/testimonial_slider][/vc_column][/full_width_section]]]></content:encoded>
+		<content:encoded><![CDATA[[vc_row][vc_column width="1/1"][nectar_slider full_width="true" parallax="true" fullscreen="true" location="Home Portfolio Eye Candy"][/vc_column][/vc_row][vc_row type="full_width_content" bg_position="left top" bg_repeat="no-repeat" text_color="dark" text_align="left" top_padding="0" bottom_padding="0"][vc_column width="1/1"][nectar_portfolio project_style="2" category="all" layout="fullwidth" projects_per_page="20" masonry_style="true"][/vc_column][/vc_row][vc_row bg_pos="Left Top" bg_repeat="No-Repeat" text_color="Light" top_padding="90" bottom_padding="90" bg_color="#5b63cf"][vc_column width="1/1"][testimonial_slider autorotate="6500"][testimonial name="Greg Ross, ThemeNectar" quote="By far the best team I've ever worked with. They truly understood the look I was going for and completely nailed it! I would highly recommend them as a company, you simply just won't find any better team!" id="t1" title="Testimonial"][testimonial name="Jeff Gemmell, ThemeNectar" quote="It was really fun getting to know the team during the project. They were all helpful in answering my questions and made me feel completely at ease. The design ended up being twice as good as I could have ever envisioned! Don't wait any longer to call up the team, you're only hurting yourself by postponing!" id="t2" title="Testimonial"][testimonial name="Mark Levin, ThemeNectar" quote="I'm wondering why I never contacted these guys sooner! Seriously, they all have commendable talent in their respective fields and knocked my concept out of the ballpark. Thanks for an amazing experience!" id="t3" title="Testimonial"][/testimonial_slider][/vc_column][/vc_row]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>669</wp:post_id>
 		<wp:post_date>2013-11-10 18:55:21</wp:post_date>
@@ -5892,7 +5892,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -5938,7 +5938,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://localhost/wordpress-3-6/?page_id=709</guid>
 		<description></description>
-		<content:encoded><![CDATA[[vc_row][vc_column width="1/1"][nectar_slider full_width="true" parallax="true" arrow_navigation="true" bullet_navigation="true" desktop_swipe="true" location="Home" slider_height="700" loop="true"][/vc_column][/vc_row][full_width_section bg_pos="Left Top" bg_repeat="No-Repeat" text_color="Dark" top_padding="70" bottom_padding="20" background_color="#f5f5f5"][vc_column width="1/1"][nectar_blog layout="masonry-blog-full-screen-width" category="all" posts_per_page="20"][/vc_column][/full_width_section][vc_row type="full_width_background" bg_position="left top" bg_repeat="no-repeat" text_color="light" text_align="center" top_padding="120" bottom_padding="120" video_overlay_color="#1fd9fb" bg_color="#020202"][vc_column width="1/1"][vc_column_text]
+		<content:encoded><![CDATA[[vc_row][vc_column width="1/1"][nectar_slider full_width="true" parallax="true" arrow_navigation="true" bullet_navigation="true" desktop_swipe="true" location="Home" slider_height="700" loop="true"][/vc_column][/vc_row][vc_row bg_pos="Left Top" bg_repeat="No-Repeat" text_color="Dark" top_padding="70" bottom_padding="20" bg_color="#f5f5f5"][vc_column width="1/1"][nectar_blog blog_masonry_style="inherit" layout="masonry-blog-full-screen-width" category="all" posts_per_page="20"][/vc_column][/vc_row][vc_row type="full_width_background" bg_position="left top" bg_repeat="no-repeat" text_color="light" text_align="center" top_padding="120" bottom_padding="120" video_overlay_color="#1fd9fb" bg_color="#020202"][vc_column width="1/1"][vc_column_text]
 <h1>Ready To Stand Out?</h1>
 [divider line_type="No Line" custom_height="30"]
 
@@ -5968,7 +5968,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6050,7 +6050,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6132,7 +6132,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6214,7 +6214,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6296,7 +6296,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6378,7 +6378,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6460,7 +6460,7 @@ never be unprepared for the weather again!]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6549,7 +6549,7 @@ need and none of the extra bloat usually seen with such power.</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6637,7 +6637,7 @@ all without memorizing or knowing any shortcode parameters.</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6726,7 +6726,7 @@ all without memorizing or knowing any shortcode parameters.</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6808,7 +6808,7 @@ all without memorizing or knowing any shortcode parameters.</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6890,7 +6890,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -6976,7 +6976,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -7054,7 +7054,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -7132,7 +7132,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -7210,7 +7210,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -7256,7 +7256,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-frostwave/?page_id=2034</guid>
 		<description></description>
-		<content:encoded><![CDATA[[nectar_blog layout="masonry-blog-full-screen-width" category="all" posts_per_page="20"]]]></content:encoded>
+		<content:encoded><![CDATA[[nectar_blog layout="masonry-blog-full-screen-width" blog_masonry_style="inherit" category="all" posts_per_page="20"]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>2034</wp:post_id>
 		<wp:post_date>2014-03-30 20:54:11</wp:post_date>
@@ -7288,7 +7288,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -7334,7 +7334,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-frostwave/?page_id=2036</guid>
 		<description></description>
-		<content:encoded><![CDATA[[nectar_blog layout="masonry-blog-fullwidth" category="all" posts_per_page=""]]]></content:encoded>
+		<content:encoded><![CDATA[[nectar_blog layout="masonry-blog-fullwidth" blog_masonry_style="inherit" category="all" posts_per_page=""]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>2036</wp:post_id>
 		<wp:post_date>2014-03-30 20:54:51</wp:post_date>
@@ -7366,7 +7366,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -7412,7 +7412,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-frostwave/?page_id=2038</guid>
 		<description></description>
-		<content:encoded><![CDATA[[nectar_blog enable_pagination="true" layout="masonry-blog-sidebar" category="all" posts_per_page="7"]]]></content:encoded>
+		<content:encoded><![CDATA[[nectar_blog enable_pagination="true" layout="masonry-blog-sidebar" blog_masonry_style="inherit" category="all" posts_per_page="7"]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>2038</wp:post_id>
 		<wp:post_date>2014-03-30 20:55:41</wp:post_date>
@@ -7444,7 +7444,7 @@ pages a breeze. Check out the interface images below to get a feel for it!</h4>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -9257,7 +9257,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu diam lorem, id
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-frostwave/?page_id=2040</guid>
 		<description></description>
-		<content:encoded><![CDATA[[nectar_blog enable_pagination="true" layout="std-blog-sidebar" category="all" posts_per_page="4"]]]></content:encoded>
+		<content:encoded><![CDATA[[nectar_blog enable_pagination="true" layout="std-blog-sidebar" category="all" blog_standard_style="inherit" posts_per_page="4"]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>2040</wp:post_id>
 		<wp:post_date>2014-03-30 20:56:08</wp:post_date>
@@ -9289,7 +9289,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu diam lorem, id
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -9335,7 +9335,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu diam lorem, id
 		<dc:creator><![CDATA[ThemeNectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-frostwave/?page_id=2043</guid>
 		<description></description>
-		<content:encoded><![CDATA[[nectar_blog enable_pagination="true" layout="std-blog-fullwidth" category="all" posts_per_page="5"]]]></content:encoded>
+		<content:encoded><![CDATA[[nectar_blog enable_pagination="true" layout="std-blog-fullwidth" blog_standard_style="inherit" category="all" posts_per_page="5"]]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
 		<wp:post_id>2043</wp:post_id>
 		<wp:post_date>2014-03-30 20:56:50</wp:post_date>
@@ -9367,7 +9367,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu diam lorem, id
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -9455,7 +9455,7 @@ Aliquam dictum pharetra pretium. Lorem ipsum dolor sit amet, consectetur adipisc
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -9541,7 +9541,7 @@ Accusantium quam, ultri eget tempor id, aliquam eget nibh et. Maecen aliquam, ri
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -9625,7 +9625,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lorem quam, adi
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -9735,7 +9735,7 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>

@@ -80,6 +80,13 @@ if ( !class_exists( 'Radium_Theme_Demo_Data_Importer' ) ) {
 		 *
 		 * @since 0.0.1
 		 */
+		public $active_import_id;
+        public $active_import;
+		public $nectar_import_demo_content;
+        public $nectar_import_theme_option_settings;
+        public $nectar_import_demo_widgets;
+		public $demo_files_path;
+		
 		public function __construct( $parent, $redux_instance ) {
 			$this->parent      = $parent;
 			$this->ReduxParent = $redux_instance;

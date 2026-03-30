@@ -35,7 +35,7 @@
 	<wp:base_site_url>http://localhost/premium_theme_1</wp:base_site_url>
 	<wp:base_blog_url>http://localhost/premium_theme_1</wp:base_blog_url>
 
-	<wp:author><wp:author_id>1</wp:author_id><wp:author_login>themenectar</wp:author_login><wp:author_email>themenectar@gmail.com</wp:author_email><wp:author_display_name><![CDATA[themenectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
+	<wp:author><wp:author_id>1</wp:author_id><wp:author_login>themenectar</wp:author_login><wp:author_email>nectar@themenectar.com</wp:author_email><wp:author_display_name><![CDATA[themenectar]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
 	<wp:category><wp:term_id>8</wp:term_id><wp:category_nicename>fashion</wp:category_nicename><wp:category_parent></wp:category_parent><wp:cat_name><![CDATA[Fashion]]></wp:cat_name></wp:category>
 	<wp:category><wp:term_id>9</wp:term_id><wp:category_nicename>food-for-thought</wp:category_nicename><wp:category_parent></wp:category_parent><wp:cat_name><![CDATA[Food for thought]]></wp:cat_name></wp:category>
@@ -3144,7 +3144,7 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>
@@ -3212,7 +3212,7 @@ Phasellus enim libero, blandit vel sapien vitae, condimentum ultricies magna et.
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display</wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>nectar-metabox-portfolio-display-sortable</wp:meta_key>

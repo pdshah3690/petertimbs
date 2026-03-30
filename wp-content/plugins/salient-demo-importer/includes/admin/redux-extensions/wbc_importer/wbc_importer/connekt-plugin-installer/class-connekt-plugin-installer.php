@@ -232,6 +232,9 @@ if( !class_exists('Connekt_Plugin_Installer') ) {
            <div class="plugin">
   		      <div class="plugin-wrap">
                  <h4 data-slug="<?php echo esc_attr($plugin['slug']); ?>"><?php echo esc_html($plugin['name']); ?></h4>
+                 <?php if( isset($plugin['desc']) && !empty($plugin['desc']) ) {
+                    echo '<span class="plugin-desc">'.esc_html($plugin['desc']).'</span>';
+                 } ?>
   			   </div>
   			   <ul class="activation-row">
                  <li>
@@ -252,6 +255,9 @@ if( !class_exists('Connekt_Plugin_Installer') ) {
          <div class="plugin">
 		      <div class="plugin-wrap">
                <h4 data-slug="<?php echo esc_attr($api->slug); ?>"><?php echo esc_attr($api->name); ?></h4>
+               <?php if( isset($plugin['desc']) && !empty($plugin['desc']) ) {
+                    echo '<span class="plugin-desc">'.esc_html($plugin['desc']).'</span>';
+                 } ?>
 			   </div>
 			   <ul class="activation-row">
                <li>
@@ -519,7 +525,7 @@ if( !class_exists('Connekt_Plugin_Installer') ) {
 		* @since 1.0
 		*/
 		public static function check_file_extension( $filename ) {
-			if( substr( strrchr($filename, '.' ), 1 ) === 'php' ){
+			if( $filename && substr( strrchr($filename, '.' ), 1 ) === 'php' ){
 				// has .php exension
 				return true;
 			} else {
@@ -550,7 +556,7 @@ if( !class_exists('Connekt_Plugin_Installer') ) {
                'installed_btn' => __('Activated', 'salient-demo-importer')
             ));
 		 
-         wp_enqueue_style( 'plugin-installer', SALIENT_CORE_DEMO_INSTALLER_PATH. 'assets/installer.css','','1.0');
+         wp_enqueue_style( 'plugin-installer', SALIENT_CORE_DEMO_INSTALLER_PATH. 'assets/installer.css','','1.1');
       }
 
    }

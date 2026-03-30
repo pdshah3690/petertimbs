@@ -35,7 +35,7 @@
 	<wp:base_site_url>http://themenectar.com/demo/salient-blog-dark</wp:base_site_url>
 	<wp:base_blog_url>http://themenectar.com/demo/salient-blog-dark</wp:base_blog_url>
 
-	<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[nec_author]]></wp:author_login><wp:author_email><![CDATA[themenectar@gmail.com]]></wp:author_email><wp:author_display_name><![CDATA[Phil Martinez]]></wp:author_display_name><wp:author_first_name><![CDATA[Phil]]></wp:author_first_name><wp:author_last_name><![CDATA[Martinez]]></wp:author_last_name></wp:author>
+	<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[themenectar]]></wp:author_login><wp:author_email><![CDATA[nectar@themenectar.com]]></wp:author_email><wp:author_display_name><![CDATA[Phil Martinez]]></wp:author_display_name><wp:author_first_name><![CDATA[Phil]]></wp:author_first_name><wp:author_last_name><![CDATA[Martinez]]></wp:author_last_name></wp:author>
 
 	<wp:category>
 		<wp:term_id>6</wp:term_id>
@@ -129,7 +129,7 @@
 		<title>logo-robot</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/logo-robot/</link>
 		<pubDate>Sat, 02 Sep 2017 21:37:19 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/logo-robot.png</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -160,7 +160,7 @@
 		<title>logo-robot-light</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/logo-robot-light/</link>
 		<pubDate>Sat, 02 Sep 2017 21:37:19 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/logo-robot-light.png</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -191,7 +191,7 @@
 		<title>logo-robot-light-retina</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/logo-robot-light-retina/</link>
 		<pubDate>Sat, 02 Sep 2017 21:37:20 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/logo-robot-light-retina.png</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -222,7 +222,7 @@
 		<title>logo-robot-retina</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/logo-robot-retina/</link>
 		<pubDate>Sat, 02 Sep 2017 21:37:20 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/logo-robot-retina.png</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -253,7 +253,7 @@
 		<title>matheus-ferrero-228716</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/matheus-ferrero-228716/</link>
 		<pubDate>Sat, 02 Sep 2017 21:38:22 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/matheus-ferrero-228716.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -284,7 +284,7 @@
 		<title>katie-moum-258412</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/katie-moum-258412/</link>
 		<pubDate>Sat, 02 Sep 2017 21:59:39 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/katie-moum-258412.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -315,7 +315,7 @@
 		<title>jake-blucker-316192</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/jake-blucker-316192-2/</link>
 		<pubDate>Sat, 02 Sep 2017 22:13:18 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/jake-blucker-316192-1.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -346,7 +346,7 @@
 		<title>felix-russell-saw-251617</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/felix-russell-saw-251617/</link>
 		<pubDate>Sat, 02 Sep 2017 22:48:29 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/felix-russell-saw-251617.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -377,7 +377,7 @@
 		<title>josh-nuttall-271928</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/josh-nuttall-271928/</link>
 		<pubDate>Fri, 01 Sep 2017 19:41:49 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2014/07/josh-nuttall-271928.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -600,7 +600,7 @@
 		<title>scott-walsh-315682</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/scott-walsh-315682/</link>
 		<pubDate>Fri, 01 Sep 2017 15:12:05 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/scott-walsh-315682.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -631,7 +631,7 @@
 		<title>sam-burriss-254311</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/sam-burriss-254311/</link>
 		<pubDate>Fri, 01 Sep 2017 19:41:52 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2014/07/sam-burriss-254311.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -662,7 +662,7 @@
 		<title>austin-neill-247047</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/austin-neill-247047-3/</link>
 		<pubDate>Fri, 01 Sep 2017 19:42:55 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2014/07/austin-neill-247047-1.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -693,7 +693,7 @@
 		<title>jens-johnsson-121803</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/jens-johnsson-121803-2/</link>
 		<pubDate>Fri, 01 Sep 2017 19:43:00 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2014/07/jens-johnsson-121803.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -724,7 +724,7 @@
 		<title>nathan-anderson-291067</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/nathan-anderson-291067-3/</link>
 		<pubDate>Fri, 01 Sep 2017 19:43:09 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2014/07/nathan-anderson-291067.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -755,7 +755,7 @@
 		<title>priscilla-du-preez-341138</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/priscilla-du-preez-341138-2/</link>
 		<pubDate>Fri, 01 Sep 2017 19:43:12 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2014/07/priscilla-du-preez-341138-1.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -786,7 +786,7 @@
 		<title>hide-obara-2034</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/hide-obara-2034/</link>
 		<pubDate>Sat, 02 Sep 2017 01:58:42 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/hide-obara-2034.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -817,7 +817,7 @@
 		<title>rob-bates-306647</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2014/07/15/doing-a-cross-country-road-trip/rob-bates-306647-2/</link>
 		<pubDate>Sun, 03 Sep 2017 13:11:06 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2014/07/rob-bates-306647-1.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -848,7 +848,7 @@
 		<title>alberto-restifo-4508</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/blog-dark-landing/alberto-restifo-4508/</link>
 		<pubDate>Sun, 03 Sep 2017 13:25:02 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/alberto-restifo-4508.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -879,7 +879,7 @@
 		<title>footer</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/blog-dark-landing/footer-3/</link>
 		<pubDate>Sun, 03 Sep 2017 13:50:09 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/09/footer-2.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -910,7 +910,7 @@
 		<title>kimon-maritz-181128</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/02/15/ambrose-redmoon/kimon-maritz-181128/</link>
 		<pubDate>Sun, 03 Sep 2017 14:08:39 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2013/02/kimon-maritz-181128.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -941,7 +941,7 @@
 		<title>We encountered a true paradise</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/04/21/we-encountered-a-true-paradise/</link>
 		<pubDate>Sun, 21 Apr 2013 16:19:14 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=82</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]
@@ -1063,10 +1063,6 @@ far from the countries Vokalia and Consonantia, there live the blind texts. Sepa
 			<wp:meta_value><![CDATA[off]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2013/03/mountains-preview3.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_old_slug]]></wp:meta_key>
 			<wp:meta_value><![CDATA[nulla-fringilla-magna]]></wp:meta_value>
 		</wp:postmeta>
@@ -1111,7 +1107,7 @@ far from the countries Vokalia and Consonantia, there live the blind texts. Sepa
 		<title>Doing a cross country road trip</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2014/07/15/doing-a-cross-country-road-trip/</link>
 		<pubDate>Tue, 15 Jul 2014 16:40:53 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=84</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.
@@ -1243,10 +1239,6 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 			<wp:meta_value><![CDATA[off]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2013/03/bird1.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_old_slug]]></wp:meta_key>
 			<wp:meta_value><![CDATA[auctor-consectetur-ligula]]></wp:meta_value>
 		</wp:postmeta>
@@ -1291,10 +1283,10 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 		<title>A new office location</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/01/10/a-new-office-location/</link>
 		<pubDate>Thu, 10 Jan 2013 17:19:25 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=108</guid>
 		<description></description>
-		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" overlay_strength="0.3"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap color="#3452ff"]S [/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" bottom_padding="30" overlay_strength="0.3"][vc_column column_padding="padding-2-percent" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" overlay_strength="0.3"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap color="#3452ff"]S [/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" bottom_padding="30" overlay_strength="0.3"][vc_column column_padding="padding-2-percent" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h3>But nothing the copy said could convince her</h3>
 <h3>and so it didn’t take long until a few insidious</h3>
 <h3>Copy Writers ambushed her</h3>
@@ -1418,14 +1410,6 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 			<wp:meta_value><![CDATA[off]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-description]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Sed sit amet sem dignissim, sollicitudin ante vel, consequat neque. Nunc justo lacus, rhoncus ut interdum nec, iaculis mattis orci. Donec at blandit augue, nec tristique ligula. Donec euismod nulla at erat fringilla.]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2013/01/Comp-1-0000119.png]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_old_slug]]></wp:meta_key>
 			<wp:meta_value><![CDATA[quisque-sit-amet-sapien-et-lacus]]></wp:meta_value>
 		</wp:postmeta>
@@ -1466,10 +1450,10 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 		<title>Deep down in the water</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/03/23/deep-down-in-the-water/</link>
 		<pubDate>Sat, 23 Mar 2013 17:20:09 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=110</guid>
 		<description></description>
-		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]<iframe src="https://www.youtube.com/embed/4BfKFCOCJe8" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap]S[/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]<iframe src="https://www.youtube.com/embed/4BfKFCOCJe8" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap]S[/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h3>But nothing the copy said could convince her</h3>
 <h3>and so it didn’t take long until a few insidious</h3>
 <h3>Copy Writers ambushed her</h3>
@@ -1605,14 +1589,6 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 			<wp:meta_value><![CDATA[amazing-post-with-all-the-goodies]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-description]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Nulla sed mi leo, sit amet molestie nulla. Phasellus lobortis blandit ipsum, at adipiscing eros porta quis. Phasellus in nisi ipsum, quis dapibus magna]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2013/03/tumblr_n6rzpcsMk41st5lhmo1_12802.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_post_item_masonry_sizing]]></wp:meta_key>
 			<wp:meta_value><![CDATA[regular]]></wp:meta_value>
 		</wp:postmeta>
@@ -1653,14 +1629,14 @@ l using her.Far far away, behind the word mountains, far from the countries Voka
 		<title>Velit Porttito</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/01/11/velit-feugiat-porttito/</link>
 		<pubDate>Fri, 11 Jan 2013 04:31:39 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=1239</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap]S[/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.
 
 The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
 
-Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h3>But nothing the copy said could convince her</h3>
 <h3>and so it didn’t take long until a few insidious</h3>
 <h3>Copy Writers ambushed her</h3>
@@ -1853,7 +1829,7 @@ Separated they live in Bookmarksgrove right at the coast of the Semantics, a lar
 		<title>Ambrose Redmoon</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/02/15/ambrose-redmoon/</link>
 		<pubDate>Fri, 15 Feb 2013 14:18:41 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=106</guid>
 		<description></description>
 		<content:encoded><![CDATA[Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.
@@ -2017,10 +1993,6 @@ She packed her seven versalia, put her initial into the belt and made herself on
 			<wp:meta_value><![CDATA[ambrose-redmoon-2]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-description]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Courage is not the absence of fear, but rather the judgment that something else is more important than fear]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_post_item_masonry_sizing]]></wp:meta_key>
 			<wp:meta_value><![CDATA[regular]]></wp:meta_value>
 		</wp:postmeta>
@@ -2053,7 +2025,7 @@ She packed her seven versalia, put her initial into the belt and made herself on
 		<title>10 Tips for what to do downtown</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/03/21/10-tips-for-what-to-do-downtown/</link>
 		<pubDate>Thu, 21 Mar 2013 17:45:17 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=124</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap color=""]M[/nectar_dropcap]auris vel tortor accumsan, faucibus orci non, varius turpis. Aenean ac eros libero. Quisque quis sapien in ante scelerisque volutpat. Cras et libero iaculis, consequat nisi nec, tristique metus. Praesent eu odio in velit maximus accumsan vitae id lectus. Aenean ullamcorper vitae tortor vitae blandit. Nullam placerat eleifend metus, at tempus lacus suscipit non.
@@ -2263,7 +2235,7 @@ Integer convallis, odio ut rutrum euismod, mi purus pulvinar justo, quis mollis 
 		<title>Every day you learn something new</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/01/23/every-day-you-learn-something-new/</link>
 		<pubDate>Wed, 23 Jan 2013 18:06:42 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=144</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" bottom_padding="50" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap color=""]M [/nectar_dropcap]auris vel tortor accumsan, faucibus orci non, varius turpis. Aenean ac eros libero. Quisque quis sapien in ante scelerisque volutpat. Cras et libero iaculis, consequat nisi nec, tristique metus. Praesent eu odio in velit maximus accumsan vitae id lectus. Aenean ullamcorper vitae tortor vitae blandit. Nullam placerat eleifend metus, at tempus lacus suscipit non.
@@ -2466,10 +2438,10 @@ Integer convallis, odio ut rutrum euismod, mi purus pulvinar justo, quis mollis 
 		<title>The Mountain</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/01/15/ownage-in-the-mountains/</link>
 		<pubDate>Tue, 15 Jan 2013 06:23:38 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog/?p=2671</guid>
 		<description></description>
-		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap color="#1e83ec"]S[/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" bottom_padding="30" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="padding-2-percent" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text][nectar_dropcap color="#1e83ec"]S[/nectar_dropcap]eparated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. l using her.Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="30" bottom_padding="30" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="padding-2-percent" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h3>But nothing the copy said could convince her</h3>
 <h3>and so it didn’t take long until a few insidious</h3>
 <h3>Copy Writers ambushed her</h3>
@@ -2596,14 +2568,6 @@ Integer convallis, odio ut rutrum euismod, mi purus pulvinar justo, quis mollis 
 			<wp:meta_value><![CDATA[38]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_opengraph-image]]></wp:meta_key>
-			<wp:meta_value><![CDATA[http://themenectar.com/demo/salient-blog/wp-content/uploads/2014/07/sky.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key><![CDATA[_yoast_wpseo_google-plus-description]]></wp:meta_key>
-			<wp:meta_value><![CDATA[Sed sit amet sem dignissim, sollicitudin ante vel, consequat neque. Nunc justo lacus, rhoncus ut interdum nec, iaculis mattis orci. Donec at blandit augue, nec tristique ligula.]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
 			<wp:meta_key><![CDATA[_wp_old_slug]]></wp:meta_key>
 			<wp:meta_value><![CDATA[ownage]]></wp:meta_value>
 		</wp:postmeta>
@@ -2640,12 +2604,12 @@ Integer convallis, odio ut rutrum euismod, mi purus pulvinar justo, quis mollis 
 		<title>Be My Guest Concert</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/02/14/be-my-guest-concert/</link>
 		<pubDate>Thu, 14 Feb 2013 06:33:01 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog/?p=2677</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom"][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text]Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia.
 
-It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading]
+It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.[/vc_column_text][/vc_column][/vc_row][vc_row type="in_container" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" top_padding="40" bottom_padding="40" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][split_line_heading animation_type="default"]
 <h3>But nothing the copy said could convince her</h3>
 <h3>and so it didn’t take long until a few insidious</h3>
 <h3>Copy Writers ambushed her</h3>
@@ -2805,7 +2769,7 @@ The Big Oxmox advised her not to do so, because there were thousands of bad Comm
 		<title>We hired a new employee</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/02/22/we-hired-a-new-employee/</link>
 		<pubDate>Fri, 22 Feb 2013 16:24:08 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient/?p=87</guid>
 		<description></description>
 		<content:encoded><![CDATA[Nullam ornare, sem in malesuada sagittis, quam sapien ornare massa, id pulvinar quam augue vel orci. Praesent leo orci, cursus ac malesuada et, sollicitudin eu erat. Pellentesque ornare mi vitae sem consequat ac bibendum neque adipiscing. Donec tellus nunc, tincidunt sed faucibus a, mattis eget purus.
@@ -3020,7 +2984,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>Blog Dark Landing</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/</link>
 		<pubDate>Sun, 03 Sep 2017 03:55:21 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/?page_id=5765</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="full_width_content" full_screen_row_position="middle" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][recent_posts style="single_large_featured" category="all" large_featured_padding="12%" button_color="extra-color-gradient-2" bg_overlay="diagonal_gradient" order="DESC" orderby="date"][/vc_column][/vc_row][vc_row type="full_width_background" full_screen_row_position="middle" bg_color="#0a0a0a" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" top_margin="-5%" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][nectar_blog layout="masonry-blog-fullwidth" blog_masonry_style="auto_meta_overlaid_spaced" auto_masonry_spacing="4px" category="all" load_in_animation="none" order="DESC" orderby="date" posts_per_page="6" post_offset="1"][/vc_column][/vc_row][vc_row type="full_width_background" full_screen_row_position="middle" equal_height="yes" content_placement="middle" bg_color="#0a0a0a" scene_position="center" text_color="light" text_align="left" top_padding="60" bottom_padding="60" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="center" phone_text_alignment="center" column_border_width="none" column_border_style="solid"][nectar_cta btn_style="see-through" heading_tag="h5" link_type="regular" alignment="center" link_text="View All Posts" url="#"][/vc_column][/vc_row][vc_row type="full_width_background" full_screen_row_position="middle" bg_color="#0a0a0a" scene_position="center" text_color="light" text_align="left" top_padding="4%" bottom_padding="3%" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][vc_column_text css=".vc_custom_1504490629058{margin-bottom: 60px !important;}"]
@@ -3053,7 +3017,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -3208,7 +3172,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>diana-macesanu-276771</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/02/22/we-hired-a-new-employee/diana-macesanu-276771/</link>
 		<pubDate>Sun, 03 Sep 2017 14:10:42 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2013/02/diana-macesanu-276771.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -3239,7 +3203,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>hugues-de-buyer-mimeure-313867</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/01/11/velit-feugiat-porttito/hugues-de-buyer-mimeure-313867/</link>
 		<pubDate>Sun, 03 Sep 2017 14:45:06 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2013/01/hugues-de-buyer-mimeure-313867.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -3270,7 +3234,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>iris-papillon-43210</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/01/11/velit-feugiat-porttito/iris-papillon-43210/</link>
 		<pubDate>Sun, 03 Sep 2017 14:45:08 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2013/01/iris-papillon-43210.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -3301,7 +3265,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>nadine-shaabana-291260-big</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/01/11/velit-feugiat-porttito/nadine-shaabana-291260-big/</link>
 		<pubDate>Sun, 03 Sep 2017 14:45:15 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2013/01/nadine-shaabana-291260-big.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -3332,7 +3296,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>steven-pahel-354193</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/2013/03/23/deep-down-in-the-water/steven-pahel-354193/</link>
 		<pubDate>Sun, 03 Sep 2017 14:54:45 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2013/03/steven-pahel-354193.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
@@ -3363,7 +3327,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>Blog Dark All Posts</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/index.php/blog-dark-all-posts/</link>
 		<pubDate>Mon, 02 Oct 2017 15:30:11 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/?page_id=5835</guid>
 		<description></description>
 		<content:encoded><![CDATA[[vc_row type="full_width_background" full_screen_row_position="middle" bg_color="#0a0a0a" scene_position="center" text_color="dark" text_align="left" overlay_strength="0.3" shape_divider_position="bottom" shape_type=""][vc_column column_padding="no-extra-padding" column_padding_position="all" background_color_opacity="1" background_hover_color_opacity="1" column_shadow="none" column_border_radius="none" width="1/1" tablet_text_alignment="default" phone_text_alignment="default" column_border_width="none" column_border_style="solid"][nectar_blog layout="masonry-blog-full-screen-width" blog_masonry_style="auto_meta_overlaid_spaced" auto_masonry_spacing="4px" category="all" enable_pagination="true" pagination_type="default" load_in_animation="fade_in_from_bottom" order="DESC" orderby="date" posts_per_page="20"][/vc_column][/vc_row]]]></content:encoded>
@@ -3394,7 +3358,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display]]></wp:meta_key>
-			<wp:meta_value><![CDATA[a:1:{i:0;s:3:"all";}]]></wp:meta_value>
+			<wp:meta_value><![CDATA[all]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key><![CDATA[nectar-metabox-portfolio-display-sortable]]></wp:meta_key>
@@ -3545,7 +3509,7 @@ Nunc ipsum orci, consectetur in euismod id, adipiscing nec libero. Vivamus sed n
 		<title>alesia-kazantceva-283291</title>
 		<link>http://themenectar.com/demo/salient-blog-dark/alesia-kazantceva-283291/</link>
 		<pubDate>Mon, 02 Oct 2017 15:46:02 +0000</pubDate>
-		<dc:creator><![CDATA[nec_author]]></dc:creator>
+		<dc:creator><![CDATA[themenectar]]></dc:creator>
 		<guid isPermaLink="false">http://themenectar.com/demo/salient-blog-dark/wp-content/uploads/2017/10/alesia-kazantceva-283291.jpg</guid>
 		<description></description>
 		<content:encoded><![CDATA[]]></content:encoded>
