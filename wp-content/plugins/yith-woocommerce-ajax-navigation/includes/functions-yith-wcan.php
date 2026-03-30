@@ -199,7 +199,7 @@ if ( ! function_exists( 'yit_reorder_terms_by_parent' ) ) {
 				$term_parent = $term->parent;
 				while ( true ) {
 					$temp_parent_term = get_term_by( 'id', $term_parent, $taxonomy );
-					if ( $temp_parent_term->parent ) {
+					if ( $temp_parent_term && $temp_parent_term->parent ) {
 						$term_parent = $temp_parent_term->parent;
 					} else {
 						break;
@@ -1179,3 +1179,64 @@ if ( ! function_exists( 'yith_wcan_merge_in_array' ) ) {
 		return array_merge( $part_1, $element, $part_2 );
 	}
 }
+
+if ( ! function_exists( 'yith_wcan_is_known_bot' ) ) {
+	/**
+	 * Checks if current request user agent matches one of the known bot patterns
+	 *
+	 * @return bool Whether user agent matches known bots.
+	 */
+	function yith_wcan_is_known_bot() {
+		/**
+		 * APPLY_FILTERS: yith_wcan_known_bot_pattern
+		 *
+		 * Filters pattern used to determine whether a UserAgent comes from a bot or not.
+		 *
+		 * @param string $pattern Test pattern.
+		 *
+		 * @return bool
+		 */
+		$known_bot_pattern = apply_filters( 'yith_wcan_known_bot_pattern', '/bot|crawl|spider|facebook|amazon|bing/i' );
+		$user_agent        = wc_get_user_agent();
+
+		/**
+		 * APPLY_FILTERS: yith_wcan_is_known_bot
+		 *
+		 * Filters result of the test over user agent, that determines if current user is a known bot
+		 *
+		 * @param string $is_bot            Whether current user is a bot (basing on the user agent).
+		 * @param string $known_bot_pattern Pattern used to recognize bots user agent.
+		 *
+		 * @return bool
+		 */
+		return apply_filters( 'yith_wcan_is_known_bot', preg_match( $known_bot_pattern, $user_agent ), $user_agent );
+	}
+}
+
+if ( ! function_exists( 'yith_wcan_is_excluded' ) ) {
+	/**
+	 * Checks if current request is excluded from filtering action
+	 *
+	 * @return bool Whether current request should be excluded.
+	 */
+	function yith_wcan_is_excluded() {
+		static $is_excluded;
+
+		if ( is_null( $is_excluded ) ) {
+			/**
+			 * APPLY_FILTERS: yith_wcan_is_excluded
+			 *
+			 * Filters result of the test over request, that determines if current one should be excluded from filtering action
+			 *
+			 * @param string $is_excluded Whether current request is excluded.
+			 *
+			 * @return bool
+			 */
+			$is_excluded = apply_filters( 'yith_wcan_is_excluded', yith_wcan_is_known_bot() );
+		}
+
+		return $is_excluded;
+	}
+}
+
+

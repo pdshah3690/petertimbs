@@ -3,22 +3,22 @@
  * Plugin Name: YITH WooCommerce Ajax Product Filter
  * Plugin URI: https://wordpress.org/plugins/yith-woocommerce-ajax-navigation/
  * Description: <code><strong>YITH WooCommerce AJAX Product Filter</strong></code> allows your users to find the product they are looking for as quickly as possible. Thanks to the plugin you will be able to set up one or more search filters for your WooCommerce products and improve the user experience of your shop. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 5.2.0
+ * Version: 5.18.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-ajax-navigation
  * Domain Path: /languages/
- *
- * WC requires at least: 8.8
- * WC tested up to: 9.0
+ * WC requires at least: 10.4
+ * WC tested up to: 10.6
+ * Requires Plugins: woocommerce
  *
  * @author  YITH <plugins@yithemes.com>
  * @package YITH\AjaxProductFilter
- * @version 5.1.0
+ * @version 5.18.0
  */
 
 /**
- * Copyright 2024  YITH  (email : plugins@yithemes.com)
+ * Copyright 2026  YITH  (email : plugins@yithemes.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as
@@ -45,8 +45,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ! defined( 'YITH_WCAN_DIR' ) && define( 'YITH_WCAN_DIR', plugin_dir_path( __FILE__ ) );
 ! defined( 'YITH_WCAN_INC' ) && define( 'YITH_WCAN_INC', YITH_WCAN_DIR . 'includes/' );
 ! defined( 'YITH_WCAN_ASSETS' ) && define( 'YITH_WCAN_ASSETS', YITH_WCAN_URL . 'assets/' );
-! defined( 'YITH_WCAN_VERSION' ) && define( 'YITH_WCAN_VERSION', '5.2.0' );
-! defined( 'YITH_WCAN_DB_VERSION' ) && define( 'YITH_WCAN_DB_VERSION', '5.1.0' );
+! defined( 'YITH_WCAN_VERSION' ) && define( 'YITH_WCAN_VERSION', '5.18.0' );
+! defined( 'YITH_WCAN_DB_VERSION' ) && define( 'YITH_WCAN_DB_VERSION', '5.11.0' );
 ! defined( 'YITH_WCAN_FILE' ) && define( 'YITH_WCAN_FILE', __FILE__ );
 ! defined( 'YITH_WCAN_SLUG' ) && define( 'YITH_WCAN_SLUG', 'yith-woocommerce-ajax-navigation' );
 ! defined( 'YITH_WCAN_INIT' ) && define( 'YITH_WCAN_INIT', plugin_basename( __FILE__ ) );
@@ -108,7 +108,9 @@ if ( ! function_exists( 'yith_wcan_initialize' ) ) {
 	 */
 	function yith_wcan_initialize() {
 		// load plugin text domain.
-		load_plugin_textdomain( 'yith-woocommerce-ajax-navigation', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		if ( function_exists( 'yith_plugin_fw_load_plugin_textdomain' ) ) {
+			yith_plugin_fw_load_plugin_textdomain( 'yith-woocommerce-ajax-navigation', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		}
 
 		// load required classes and functions.
 		require_once YITH_WCAN_INC . 'class-yith-wcan.php';
@@ -135,12 +137,10 @@ if ( ! function_exists( 'yith_wcan_install_plugin_framework' ) ) {
 	 * @since 4.0
 	 */
 	function yith_wcan_install_plugin_framework() {
-		// plugin framework version check.
-		if ( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( YITH_WCAN_DIR . 'plugin-fw/init.php' ) ) {
-			require_once YITH_WCAN_DIR . 'plugin-fw/init.php';
+		// Plugin Framework Loader.
+		if ( file_exists( plugin_dir_path( __FILE__ ) . 'plugin-fw/init.php' ) ) {
+			require_once plugin_dir_path( __FILE__ ) . 'plugin-fw/init.php';
 		}
-
-		yit_maybe_plugin_fw_loader( YITH_WCAN_DIR );
 	}
 }
 

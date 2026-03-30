@@ -90,29 +90,33 @@ if ( ! class_exists( 'YITH_WCAN_Admin' ) ) {
 			wp_localize_script(
 				'yith_wcan_admin',
 				'yith_wcan_admin',
-				array(
-					'nonce'             => array(
-						'change_preset_status' => wp_create_nonce( 'change_preset_status' ),
-						'search_term'          => wp_create_nonce( 'search_term' ),
-						'save_preset_filter'   => wp_create_nonce( 'save_preset_filter' ),
-						'load_more_filters'    => wp_create_nonce( 'load_more_filters' ),
-						'delete_preset_filter' => wp_create_nonce( 'delete_preset_filter' ),
-					),
-					'messages'          => array(
-						'confirm_copy'          => _x( 'Content copied to your clipboard', '[Admin] Copy confirmation message', 'yith-woocommerce-ajax-navigation' ),
-						'confirm_delete'        => _x( 'Are you sure you want to delete this item?', '[Admin] Confirm filter delete message', 'yith-woocommerce-ajax-navigation' ),
-						// translators: 1. Number of items that will be added.
-						'confirm_add_all_terms' => _x( 'Are you sure you want to proceed? This operation will add %s items', '[Admin] Confirm add all terms message', 'yith-woocommerce-ajax-navigation' ),
-						'filter_title_required' => _x( '"Filter title" is a required field', '[Admin] Error message', 'yith-woocommerce-ajax-navigation' ),
-					),
-					'labels'            => array(
-						'no_title'      => _x( '&lt; no title &gt;', '[Admin] Message shown when filter has empty title', 'yith-woocommerce-ajax-navigation' ),
-						'upload_media'  => _x( 'Select media you want to use', '[Admin] Media library title, when selecting images', 'yith-woocommerce-ajax-navigation' ),
-						'confirm_media' => _x( 'Use this media', '[Admin] Media library confirm button, when selecting images', 'yith-woocommerce-ajax-navigation' ),
-					),
-					'yith_wccl_enabled' => defined( 'YITH_WCCL' ),
-					'supported_designs' => YITH_WCAN_Filters_Factory::get_supported_designs(),
-					'terms_per_page'    => YITH_WCAN_Presets::TERMS_PER_PAGE,
+				apply_filters(
+					'yith_wcan_admin_localize',
+					array(
+						'nonce'             => array(
+							'change_preset_status' => wp_create_nonce( 'change_preset_status' ),
+							'search_term'          => wp_create_nonce( 'search_term' ),
+							'save_preset_filter'   => wp_create_nonce( 'save_preset_filter' ),
+							'load_more_filters'    => wp_create_nonce( 'load_more_filters' ),
+							'delete_preset_filter' => wp_create_nonce( 'delete_preset_filter' ),
+						),
+						'messages'          => array(
+							'confirm_copy'          => _x( 'Content copied to your clipboard', '[Admin] Copy confirmation message', 'yith-woocommerce-ajax-navigation' ),
+							'confirm_delete'        => _x( 'Are you sure you want to delete this item?', '[Admin] Confirm filter delete message', 'yith-woocommerce-ajax-navigation' ),
+							// translators: 1. Number of items that will be added.
+							'confirm_add_all_terms' => _x( 'Are you sure you want to proceed? This operation will add %s items', '[Admin] Confirm add all terms message', 'yith-woocommerce-ajax-navigation' ),
+							'filter_title_required' => _x( '"Filter title" is a required field', '[Admin] Error message', 'yith-woocommerce-ajax-navigation' ),
+						),
+						'labels'            => array(
+							'no_title'      => _x( '&lt; no title &gt;', '[Admin] Message shown when filter has empty title', 'yith-woocommerce-ajax-navigation' ),
+							'upload_media'  => _x( 'Select media you want to use', '[Admin] Media library title, when selecting images', 'yith-woocommerce-ajax-navigation' ),
+							'confirm_media' => _x( 'Use this media', '[Admin] Media library confirm button, when selecting images', 'yith-woocommerce-ajax-navigation' ),
+						),
+						'current_lang'      => get_locale(),
+						'yith_wccl_enabled' => defined( 'YITH_WCCL' ),
+						'supported_designs' => YITH_WCAN_Filters_Factory::get_supported_designs(),
+						'terms_per_page'    => YITH_WCAN_Presets::TERMS_PER_PAGE,
+					)
 				)
 			);
 		}
@@ -235,9 +239,9 @@ if ( ! class_exists( 'YITH_WCAN_Admin' ) ) {
 					'main_video' => array(
 						'desc' => _x( 'Check this video to learn how to <b>create a filter preset and show it on the shop page:</b>', '[HELP TAB] Video title', 'yith-woocommerce-ajax-navigation' ),
 						'url'  => array(
-							'en' => 'https://www.youtube.com/embed/o-ZhSVR4HvU',
-							'it' => 'https://www.youtube.com/embed/cgQo2Cxux4M',
-							'es' => 'https://www.youtube.com/embed/KGnJW_zUBRY',
+							'en' => 'https://www.youtube.com/embed/gOJ4zXuNyQ8',
+							'it' => 'https://www.youtube.com/embed/SN1N0s1NdIQ',
+							'es' => 'https://www.youtube.com/embed/vOxeFR0YthI',
 						),
 					),
 					'playlists'  => array(

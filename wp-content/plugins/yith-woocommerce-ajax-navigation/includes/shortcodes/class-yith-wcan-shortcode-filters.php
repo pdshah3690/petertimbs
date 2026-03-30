@@ -38,8 +38,8 @@ if ( ! class_exists( 'YITH_WCAN_Shortcode_Filters' ) ) {
 			// retrieve preset.
 			$preset = YITH_WCAN_Presets_Factory::get_preset( $atts['slug'] );
 
-			if ( ! $preset || ! $preset->is_enabled() || ! $preset->get_filters() ) {
-				return false;
+			if ( ! $preset || ! $preset->is_enabled() || ! $preset->get_filters() || yith_wcan_is_excluded() ) {
+				return '';
 			}
 
 			$atts['preset'] = $preset;

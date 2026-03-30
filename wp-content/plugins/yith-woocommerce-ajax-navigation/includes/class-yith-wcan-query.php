@@ -579,7 +579,10 @@ if ( ! class_exists( 'YITH_WCAN_Query' ) ) {
 		public function should_process_query( $query ) {
 			$result = true;
 
-			if ( ! $query instanceof WP_Query ) {
+			if ( yith_wcan_is_excluded() ) {
+				// skip if request is excluded.
+				$result = false;
+			} elseif ( ! $query instanceof WP_Query ) {
 				// skip if wrong parameter.
 				$result = false;
 			} elseif ( ! in_array( 'product', (array) $query->get( 'post_type' ), true ) && ! in_array( $query->get( 'taxonomy' ), array_keys( $this->get_supported_taxonomies() ), true ) ) {

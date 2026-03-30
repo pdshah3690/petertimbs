@@ -2,7 +2,7 @@
 
 /* global globalThis, jQuery, yith_wcan_shortcodes, accounting */
 
-import { $ } from '../globals.js';
+import { $, keys } from '../globals.js';
 
 export default class YITH_WCAN_Dropdown {
 	// current button
@@ -97,6 +97,8 @@ export default class YITH_WCAN_Dropdown {
 	_initTemplate() {
 		const $mainSpan = $( '<div/>', {
 				class: 'yith-wcan-dropdown closed',
+				'aria-label': this.$originalSelect.attr( 'aria-label' ),
+				tabindex: 0,
 			} ),
 			$labelSpan = $( '<div/>', {
 				class: 'dropdown-label',
@@ -161,36 +163,56 @@ export default class YITH_WCAN_Dropdown {
 
 	// init actions performed over dropdown elements
 	_initActions() {
-		const self = this;
-
 		// main open event
-		this.$_main?.on( 'click', ( ev ) => {
-			ev.stopPropagation();
-			self.toggleDropdown();
-		} );
+		this.$_main
+			?.on( 'click', ( ev ) => {
+				ev.stopPropagation();
+				this.toggleDropdown();
+			} )
+			?.on( 'keyup', ( ev ) => {
+				if ( ! Object.values( keys ).includes( ev.keyCode ) ) {
+					return;
+				}
+
+				ev.preventDefault();
+
+				if ( [ keys.enter, keys.space ].includes( ev.keyCode ) ) {
+					this.toggleDropdown();
+					return false;
+				} else if ( keys.esc === ev.keyCode ) {
+					this.closeDropdown();
+					return false;
+				}
+			} );
 		this.$_dropdown.on( 'click', ( ev ) => {
 			ev.stopPropagation();
 		} );
 
 		// search event
-		this.$_search?.on( 'keyup search change', () => {
-			this.paginate = false;
+		this.$_search
+			?.on( 'keyup search', ( { keyCode } ) => {
+				if ( keyCode && keyCode === keys.esc ) {
+					return;
+				}
 
-			this._populateItems().then( () => {
-				this.needsRefresh = true;
-			} );
-			return false;
-		} );
+				this.paginate = false;
+
+				this._populateItems().then( () => {
+					this.needsRefresh = true;
+				} );
+				return false;
+			} )
+			.on( 'change', () => false );
 
 		// select event
-		this.$_items.on( 'change', ':input', function () {
-			let $li = $( this ).closest( 'li' ),
+		this.$_items.on( 'change', ':input', ( ev ) => {
+			let $li = $( ev.target ).closest( 'li' ),
 				value = $li.data( 'value' ),
 				isActive = false;
 
 			if (
 				$li.hasClass( 'disabled' ) &&
-				! self.isValueSelected( value )
+				! this.isValueSelected( value )
 			) {
 				return false;
 			}
@@ -198,10 +220,11 @@ export default class YITH_WCAN_Dropdown {
 			$li.toggleClass( 'active' );
 			isActive = $li.hasClass( 'active' );
 
-			self._changeItemStatus( value, isActive );
+			this._changeItemStatus( value, isActive );
+			return false;
 		} );
-		this.$_items.on( 'click', 'li:not(.checkbox) a', function ( ev ) {
-			let $li = $( this ).closest( 'li' ),
+		this.$_items.on( 'click', 'li:not(.checkbox) a', ( ev ) => {
+			let $li = $( ev.target ).closest( 'li' ),
 				value = $li.data( 'value' ),
 				isActive = false;
 
@@ -209,7 +232,7 @@ export default class YITH_WCAN_Dropdown {
 
 			if (
 				$li.hasClass( 'disabled' ) &&
-				! self.isValueSelected( value )
+				! this.isValueSelected( value )
 			) {
 				return false;
 			}
@@ -221,10 +244,11 @@ export default class YITH_WCAN_Dropdown {
 				$li.siblings().removeClass( 'active' );
 			}
 
-			self._changeItemStatus( value, isActive );
+			this._changeItemStatus( value, isActive );
+			return false;
 		} );
-		this.$_items.on( 'click', 'label > a', function ( ev ) {
-			const input = $( this ).parent().find( ':input' );
+		this.$_items.on( 'click', 'label > a', ( ev ) => {
+			const input = $( ev.target ).parent().find( ':input' );
 
 			ev.preventDefault();
 
@@ -244,7 +268,7 @@ export default class YITH_WCAN_Dropdown {
 				return;
 			}
 
-			self.updateLabel();
+			this.updateLabel();
 		} );
 
 		// close dropdown on external click; do this handler only once for any dropdown in the page
@@ -282,17 +306,16 @@ export default class YITH_WCAN_Dropdown {
 
 	// close other dropdowns
 	_closeOtherDropdowns() {
-		const self = this,
-			dropdowns = $( document )
-				.find( 'select.enhanced' )
-				.filter( function ( i, select ) {
-					const $el = $( select );
+		const dropdowns = $( document )
+			.find( 'select.enhanced' )
+			.filter( ( i, select ) => {
+				const $el = $( select );
 
-					return (
-						!! $el.data( 'dropdown' ) &&
-						! $el.is( self.$originalSelect )
-					);
-				} );
+				return (
+					!! $el.data( 'dropdown' ) &&
+					! $el.is( this.$originalSelect )
+				);
+			} );
 
 		dropdowns.each( function () {
 			$( this ).data( 'dropdown' ).closeDropdown();
@@ -431,6 +454,7 @@ export default class YITH_WCAN_Dropdown {
 			$item = $( '<li/>', {
 				'data-value': value,
 				class: option.length ? option.attr( 'class' ) : '',
+				tabindex: 0,
 			} ),
 			$anchor;
 
@@ -450,11 +474,29 @@ export default class YITH_WCAN_Dropdown {
 			html: label,
 			rel: 'nofollow',
 			'data-title': option.length ? option.data( 'title' ) : '',
+			tabindex: -1,
+		} );
+
+		$item.on( 'keyup', ( ev ) => {
+			if ( ! Object.values( keys ).includes( ev?.keyCode ) ) {
+				return;
+			}
+
+			ev.preventDefault();
+
+			if ( [ keys.space, keys.enter ].includes( ev?.keyCode ) ) {
+				$anchor.click();
+			} else if ( keys.next === ev.keyCode ) {
+				$item.next().focus();
+			} else if ( keys.prev === ev.keyCode ) {
+				$item.prev().focus();
+			}
 		} );
 
 		if ( this.multiple ) {
 			const $checkbox = $( '<input/>', {
 					type: 'checkbox',
+					tabindex: -1,
 					value,
 				} ),
 				$label = $( '<label>' );

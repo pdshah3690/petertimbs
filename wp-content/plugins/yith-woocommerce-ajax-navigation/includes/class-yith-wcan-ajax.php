@@ -208,7 +208,10 @@ if ( ! class_exists( 'YITH_WCAN_Ajax' ) ) {
 					continue;
 				}
 
-				$items[ $term->slug ] = $term_options['label'];
+				$items[] = array(
+					'value' => $term->slug,
+					'label' => $term_options['label'] ? $term_options['label'] : $term->name,
+				);
 			}
 
 			wp_send_json_success(

@@ -111,6 +111,7 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 		 * @return void
 		 */
 		public static function update_db() {
+			self::maybe_normalize_data();
 			self::maybe_update_tables();
 			self::update_db_version();
 
@@ -141,7 +142,7 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 
 			$db_structure .= "CREATE TABLE {$table} (
 							`ID` BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
-							`group` VARCHAR( 255 ) NOT NULL,
+							`group` VARCHAR( 100 ) NOT NULL,
 							`version` VARCHAR( 10 ) NOT NULL,
 							`index` CHAR( 32 ) NULL DEFAULT NULL,
 							`value` LONGTEXT NOT NULL,
@@ -154,6 +155,15 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 						) $collate;";
 
 			return $db_structure;
+		}
+
+		/**
+		 * Performs normalization operations on data set before updating database structure
+		 *
+		 * @return void
+		 */
+		public static function maybe_normalize_data() {
+			version_compare( self::$stored_db_version, '5.11.0', '<' ) && self::do_5110_db_upgrade();
 		}
 
 		/**
@@ -386,6 +396,22 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 		}
 
 		/**
+		 * Removes from cache table rows that have a group longer than 100 chars
+		 *
+		 * Size of the `group` column was limited for efficiency and better compatibility.
+		 * Application never tries to register entries with `group` value longer than 100 characters,
+		 * so this is just a safeguard in case someone did some custom use of the table.
+		 *
+		 * @return void.
+		 */
+		protected static function do_5110_db_upgrade() {
+			global $wpdb;
+
+			$table = $wpdb->prefix . YITH_WCAN_Cache_Provider_Table::TABLE;
+			$wpdb->query( "DELETE FROM {$table} WHERE CHAR_LENGTH(`group`) > 100" ); // phpcs:ignore
+		}
+
+		/**
 		 * Generates default filters for the preset created on first installation of the plugin
 		 *
 		 * @return array Array of filters.
@@ -468,6 +494,5 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 
 			return $filters;
 		}
-
 	}
 }

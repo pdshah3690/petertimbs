@@ -146,8 +146,11 @@ jQuery( function ( $ ) {
 				ajaxurl,
 				data,
 				function ( response ) {
+					if ( ! response.success ) {
+						return;
+					}
 					spinner.hide();
-					container.html( response.content );
+					container.html( response.data );
 					$( document ).trigger( 'yith_colorpicker' );
 				},
 				'json'

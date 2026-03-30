@@ -97,6 +97,13 @@ const $ = jQuery, // we can do this as WebPack will compact all together inside 
 			.replace( /^(.*>)([^>]+)$/, '$2' )
 			.replace( '&amp;', '&' )
 			.trim();
+	},
+	keys = {
+		esc: 27,
+		enter: 32,
+		space: 13,
+		up: 38,
+		down: 40,
 	};
 
-export { $, $body, block, unblock, serialize, removeHierarchyFromString };
+export { $, $body, block, unblock, serialize, removeHierarchyFromString, keys };

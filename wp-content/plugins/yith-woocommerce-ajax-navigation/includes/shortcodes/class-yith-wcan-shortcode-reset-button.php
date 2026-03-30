@@ -24,7 +24,7 @@ if ( ! class_exists( 'YITH_WCAN_Shortcode_Reset_Button' ) ) {
 		 * @return string Shortcode output
 		 */
 		public static function render() {
-			if ( ! YITH_WCAN()->frontend ) {
+			if ( ! YITH_WCAN()->frontend || yith_wcan_is_excluded() ) {
 				return '';
 			}
 

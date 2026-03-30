@@ -59,6 +59,18 @@ class WPML_Language_Metabox {
 		add_filter( 'wpml_admin_language_switcher_items', array( $this, 'admin_language_switcher_items' ) );
 		add_action( 'icl_make_duplicate', array( $this, 'fix_duplicated_preset' ), 10, 4 );
 		add_action( 'yith_wcan_save_preset', array( $this, 'process_save_post' ), 10, 2 );
+		add_filter( 'yith_wcan_admin_localize', array( $this, 'filter_admin_localize' ) );
+	}
+
+	/**
+	 * Filters localized date for admin script and add current language parameter
+	 *
+	 * @param array $localize Localized data.
+	 * @return array Filtered data to localize.
+	 */
+	public function filter_admin_localize( $localize ) {
+		$localize['current_lang'] = apply_filters( 'wpml_current_language', null );
+		return $localize;
 	}
 
 	/**

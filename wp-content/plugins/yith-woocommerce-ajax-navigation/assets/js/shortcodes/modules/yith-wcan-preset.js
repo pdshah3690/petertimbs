@@ -159,7 +159,7 @@ export default class YITH_WCAN_Preset {
 				// reset active filters.
 				self.activeFilters = false;
 
-				self.maybeFilter( $filter );
+				self.maybeFilter( $currentFilter );
 				self.maybeToggleClearAllFilters();
 				self.maybeToggleClearFilter( $currentFilter );
 			};
@@ -535,9 +535,9 @@ export default class YITH_WCAN_Preset {
 					...this.originalFilters,
 				},
 			} ).then( ( data ) => {
-				const $items = $filter
-					.find( '.filter-content' )
-					.children( '.filter-items' );
+				const $items = $filter.find(
+					'.filter-content .filter-items.level-0'
+				);
 
 				// append new items to filter existing ones.
 				$items.append( data.success ? data?.data?.html : '' );

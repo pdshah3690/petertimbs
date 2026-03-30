@@ -597,40 +597,55 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Tax' ) ) {
 			$hide_empty = yith_plugin_fw_is_true( yith_wcan_get_option( 'yith_wcan_hide_empty_terms', 'no' ) );
 			$terms      = $this->get_terms_options();
 
-			$query_args = array_merge(
-				array(
-					'taxonomy'   => $taxonomy,
-					'order'      => $this->get_order(),
-					/**
-					 * APPLY_FILTERS: yith_wcan_filter_tax_term_limit
-					 *
-					 * Limit applied when retrieving filter's terms.
-					 * 0 used as default, to enforce no specific limit.
-					 *
-					 * @param int $number Term limit.
-					 *
-					 * @return int
-					 */
-					'number'     => apply_filters( 'yith_wcan_filter_tax_term_limit', 0 ),
-					'fields'     => $this->is_hierarchical() ? 'id=>parent' : 'ids',
-					'hide_empty' => $hide_empty,
-					'orderby'    => $this->get_order_by(),
+			/**
+			 * APPLY_FILTERS: yith_wcan_filter_tax_get_sorted_terms_args
+			 *
+			 * Allows third party code to filters parameters used in get_terms, when retrieving terms
+			 * to show in a specific filter
+			 *
+			 * @param array                $args   List of arguments for the get_term() call.
+			 * @param YITH_WCAN_Filter_Tax $filter This object.
+			 *
+			 * @return bool
+			 */
+			$query_args = apply_filters(
+				'yith_wcan_filter_tax_get_sorted_terms_args',
+				array_merge(
+					array(
+						'taxonomy'   => $taxonomy,
+						'order'      => $this->get_order(),
+						/**
+						 * APPLY_FILTERS: yith_wcan_filter_tax_term_limit
+						 *
+						 * Limit applied when retrieving filter's terms.
+						 * 0 used as default, to enforce no specific limit.
+						 *
+						 * @param int $number Term limit.
+						 *
+						 * @return int
+						 */
+						'number'     => apply_filters( 'yith_wcan_filter_tax_term_limit', 0 ),
+						'fields'     => $this->is_hierarchical() ? 'id=>parent' : 'ids',
+						'hide_empty' => $hide_empty,
+					),
+					$this->use_all_terms() ? array() : array(
+						'include' => array_keys( $terms ),
+					),
+					'term_order' === $this->get_order_by() ? array(
+						'orderby'  => 'meta_value_num',
+						'meta_key' => 'order', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					) : array(
+						'orderby' => $this->get_order_by(),
+					),
+					'parents_only' === $this->get_hierarchical() ? array( 'parent' => 0 ) : array(),
 				),
-				$this->use_all_terms() ? array() : array(
-					'include' => array_keys( $terms ),
-				),
-				'term_order' === $this->get_order_by() ? array(
-					'orderby'  => 'meta_value_num',
-					'meta_key' => 'order', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				) : array(
-					'orderby' => $this->get_order_by(),
-				),
-				'parents_only' === $this->get_hierarchical() ? array( 'parent' => 0 ) : array(),
+				$this
 			);
 
 			// retrieve all terms in the correct order.
 			$result = get_terms( $query_args );
 
+			$term_ids = array();
 			if ( $this->is_hierarchical() ) {
 				foreach ( $result as $term_id => $parent_id ) {
 					if ( 0 === $parent_id || ! in_array( $parent_id, array_keys( $result ) ) ) {
@@ -683,27 +698,46 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Tax' ) ) {
 			$children           = array();
 
 			$child_terms = get_terms(
-				array_merge(
-					array(
-						'taxonomy'   => $this->get_taxonomy(),
-						'parent'     => $term_id,
-						'order'      => $this->get_order(),
-						'fields'     => 'ids',
-						'hide_empty' => 'yes' === yith_wcan_get_option( 'yith_wcan_hide_empty_terms', 'no' ),
+				/**
+				 * APPLY_FILTERS: yith_wcan_filter_tax_get_term_children_args
+				 *
+				 * Allows third party code to filters parameters used in get_terms, when retrieving children
+				 * of a specific term
+				 *
+				 * @param array                $args    List of arguments for the get_term() call.
+				 * @param int                  $term_id Id of the term whose children will be retrieved
+				 * @param YITH_WCAN_Filter_Tax $filter  This object.
+				 *
+				 * @return bool
+				 */
+				apply_filters(
+					'yith_wcan_filter_tax_get_term_children_args',
+					array_merge(
+						array(
+							'taxonomy'   => $this->get_taxonomy(),
+							'parent'     => $term_id,
+							'order'      => $this->get_order(),
+							'fields'     => 'ids',
+							'hide_empty' => 'yes' === yith_wcan_get_option( 'yith_wcan_hide_empty_terms', 'no' ),
+						),
+						$this->use_all_terms() ? array() : array(
+							'include' => array_keys( $terms ),
+						),
+						'term_order' === $this->get_order_by() ? array(
+							'orderby'  => 'meta_value_num',
+							'meta_key' => 'order', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+						) : array(
+							'orderby' => $this->get_order_by(),
+						)
 					),
-					$this->use_all_terms() ? array() : array(
-						'include' => array_keys( $terms ),
-					),
-					'term_order' === $this->get_order_by() ? array(
-						'orderby'  => 'meta_value_num',
-						'meta_key' => 'order', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-					) : array(
-						'orderby' => $this->get_order_by(),
-					)
+					$term_id,
+					$this
 				)
 			);
 
 			$count = YITH_WCAN_Cache_Helper::get_for_current_query( 'products_in_term_count', $term_id );
+
+			$count = apply_filters( 'yith_wcan_filter_tax_get_term_children_count', $count, $this->get_taxonomy(), $term_id );
 
 			if ( false === $count ) {
 				$products = $this->get_term_products( $term_id );

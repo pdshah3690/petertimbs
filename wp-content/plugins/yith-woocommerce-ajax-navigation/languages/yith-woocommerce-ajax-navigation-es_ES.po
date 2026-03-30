@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Product Filter\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "ajax-product-filter\n"
-"POT-Creation-Date: 2024-06-24 13:11:13+00:00\n"
+"POT-Creation-Date: 2025-06-09 09:45:51+00:00\n"
 "PO-Revision-Date: 2024-04-22 16:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,13 +16,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#: includes/class-yith-wcan-admin.php:195
+#: includes/class-yith-wcan-admin.php:199
 msgid "The list of all filter sets created and configured for your shop."
 msgstr ""
 "La lista de todos los conjuntos de filtros creados y configurados para tu "
 "tienda."
 
-#: includes/class-yith-wcan-admin.php:218
+#: includes/class-yith-wcan-admin.php:222
 msgid ""
 "<b>100% mobile friendly:</b> Show filters in a modal view which is purposely "
 "designed for users visiting your site by smartphones or tablets"
@@ -31,7 +31,7 @@ msgstr ""
 "ventana emergente diseñada específicamente para usuarios que visitan el "
 "sitio desde teléfonos celulares o tabletas"
 
-#: includes/class-yith-wcan-admin.php:219
+#: includes/class-yith-wcan-admin.php:223
 msgid ""
 "Show filters in the default layout or also in an <b>horizontal toolbar above "
 "products</b> (like Zalando)"
@@ -39,7 +39,7 @@ msgstr ""
 "Muestra filtros en la disposición por defecto o también en una <b>barra "
 "horizontal sobre los productos</b> (como Zalando)"
 
-#: includes/class-yith-wcan-admin.php:220
+#: includes/class-yith-wcan-admin.php:224
 msgid ""
 "Allow customers to <b>filter for price ranges</b> (unlimited ranges and the "
 "last range can show: “& above”) or using the <b>price slider</b>"
@@ -48,7 +48,7 @@ msgstr ""
 "ilimitados, el último rango puede ser “y en adelante”) o con un "
 "<b>deslizador de precios</b>"
 
-#: includes/class-yith-wcan-admin.php:221
+#: includes/class-yith-wcan-admin.php:225
 msgid ""
 "Allow customers to <b>filter for review</b> and <b>for brand</b> (with the "
 "support to YITH WooCommerce Brands plugin)"
@@ -56,7 +56,7 @@ msgstr ""
 "Permite a los usuarios <b>filtrar for valoración</b> y <b>por marca</b> (con "
 "el uso del plugin YITH WooCommerce Brands)"
 
-#: includes/class-yith-wcan-admin.php:222
+#: includes/class-yith-wcan-admin.php:226
 msgid ""
 "Allow users to <b>order products</b> (by popularity, date, price, date of "
 "publishing, average rating, etc) and see only \tproducts in stock/featured/"
@@ -66,7 +66,7 @@ msgstr ""
 "precio, fecha de publicación, promedio de valoración, etc.) y ver solo los "
 "productos en inventario/destacados/rebajados"
 
-#: includes/class-yith-wcan-admin.php:223
+#: includes/class-yith-wcan-admin.php:227
 msgid ""
 "<b>Show the active filters</b> (with X to remove them) and choose their "
 "position (above products, above or under filters area)"
@@ -74,7 +74,7 @@ msgstr ""
 "<b>Muestra los filtros activos</b> (con una X para eliminarlos) y elige la "
 "posición (sobre los productos, arriba or abajo del área de filtros)"
 
-#: includes/class-yith-wcan-admin.php:224
+#: includes/class-yith-wcan-admin.php:228
 msgid ""
 "Create <b>color swatches with image support</b> (to better identify "
 "gradients, textures, patterns, etc.) and with 2 colors"
@@ -82,11 +82,11 @@ msgstr ""
 "Crea <b>muestras de color con imágenes</b> (para identificar mejor "
 "gradientes, texturas, estampados, etc.) y con 2 colores"
 
-#: includes/class-yith-wcan-admin.php:225
+#: includes/class-yith-wcan-admin.php:229
 msgid "Show the options using <b>custom images or icons</b>"
 msgstr "Muestra las opciones con <b>imágenes o iconos personalizados</b>"
 
-#: includes/class-yith-wcan-admin.php:226
+#: includes/class-yith-wcan-admin.php:230
 msgid ""
 "Choose the <b>order of the options</b> (alphabetical, terms order, terms "
 "count, etc.), enable tooltips and show each set of filters in toggle"
@@ -95,7 +95,7 @@ msgstr ""
 "recuento de términos, etc.), activa información emergente y muestra cada "
 "conjunto de filtros como opción desplegable"
 
-#: includes/class-yith-wcan-admin.php:227
+#: includes/class-yith-wcan-admin.php:231
 msgid ""
 "Choose how to manage terms not availables: hide them OR shown them in grey "
 "color and not clickables "
@@ -103,7 +103,7 @@ msgstr ""
 "Decide cómo gestionar los términos que no se encuentran disponibles: puedes "
 "ocultarlos O mostrarlos en color gris y no seleccionables"
 
-#: includes/class-yith-wcan-admin.php:228
+#: includes/class-yith-wcan-admin.php:232
 msgid "<b>Regular updates, Translations and Premium Support</b>"
 msgstr "<b>Actualizaciones constantes, traducciones y soporte premium</b>"
 
@@ -243,69 +243,69 @@ msgstr ""
 "yithemes.com/\" target=\"_blank\">Obtén más plugins para tu comercio "
 "electrónico en <strong>YITH</strong></a>"
 
-#: includes/class-yith-wcan-admin.php:102
+#: includes/class-yith-wcan-admin.php:104
 msgctxt "[Admin] Copy confirmation message"
 msgid "Content copied to your clipboard"
 msgstr "Contenido copiado en tu portapapeles"
 
-#: includes/class-yith-wcan-admin.php:103
+#: includes/class-yith-wcan-admin.php:105
 msgctxt "[Admin] Confirm filter delete message"
 msgid "Are you sure you want to delete this item?"
 msgstr "¿Estás seguro de que quieres eliminar este artículo?"
 
 #. translators: 1. Number of items that will be added.
-#: includes/class-yith-wcan-admin.php:105
+#: includes/class-yith-wcan-admin.php:107
 msgctxt "[Admin] Confirm add all terms message"
 msgid "Are you sure you want to proceed? This operation will add %s items"
 msgstr ""
 "¿Estás seguro de que quieres continuar? Esta operación añadirá %s artículos"
 
-#: includes/class-yith-wcan-admin.php:106
+#: includes/class-yith-wcan-admin.php:108
 msgctxt "[Admin] Error message"
 msgid "\"Filter title\" is a required field"
 msgstr "«Filtrar título» es un campo obligatorio"
 
-#: includes/class-yith-wcan-admin.php:109 templates/admin/preset-filter.php:34
+#: includes/class-yith-wcan-admin.php:111 templates/admin/preset-filter.php:34
 msgctxt "[Admin] Message shown when filter has empty title"
 msgid "&lt; no title &gt;"
 msgstr "&lt; sin título &gt;"
 
-#: includes/class-yith-wcan-admin.php:110
+#: includes/class-yith-wcan-admin.php:112
 msgctxt "[Admin] Media library title, when selecting images"
 msgid "Select media you want to use"
 msgstr "Selecciona los medios que quieres usar"
 
-#: includes/class-yith-wcan-admin.php:111
+#: includes/class-yith-wcan-admin.php:113
 msgctxt "[Admin] Media library confirm button, when selecting images"
 msgid "Use this media"
 msgstr "Utiliza estos medios"
 
-#: includes/class-yith-wcan-admin.php:191
+#: includes/class-yith-wcan-admin.php:195
 msgctxt "[Admin] tab name"
 msgid "Filter presets"
 msgstr "Filtrar prestablecidos"
 
-#: includes/class-yith-wcan-admin.php:198
+#: includes/class-yith-wcan-admin.php:202
 msgctxt "[Admin] tab name"
 msgid "General options"
 msgstr "Opciones generales"
 
-#: includes/class-yith-wcan-admin.php:203
+#: includes/class-yith-wcan-admin.php:207
 msgctxt "[Admin] tab name"
 msgid "SEO"
 msgstr "SEO"
 
-#: includes/class-yith-wcan-admin.php:212
+#: includes/class-yith-wcan-admin.php:216
 msgctxt "[Admin] tab name"
 msgid "Legacy"
 msgstr "Heredado"
 
-#: includes/class-yith-wcan-admin.php:199
+#: includes/class-yith-wcan-admin.php:203
 msgctxt "[Admin] tab description"
 msgid "Configure the general settings of the plugin"
 msgstr "Configura los ajustes generales del plugin"
 
-#: includes/class-yith-wcan-admin.php:204
+#: includes/class-yith-wcan-admin.php:208
 msgctxt "[Admin] Tab description"
 msgid ""
 "Configure options to optimize SEO indexing on any page that includes filters."
@@ -313,7 +313,7 @@ msgstr ""
 "Configura las opciones para optimizar la indexación SEO en cualquier página "
 "que incluya filtros."
 
-#: includes/class-yith-wcan-admin.php:236
+#: includes/class-yith-wcan-admin.php:240
 msgctxt "[HELP TAB] Video title"
 msgid ""
 "Check this video to learn how to <b>create a filter preset and show it on "
@@ -322,7 +322,7 @@ msgstr ""
 "Comprueba este video para entender cómo <b>crear un preajuste de filtro y "
 "mostrarlo en la página de la tienda :</b>"
 
-#: includes/class-yith-wcan-admin.php:293
+#: includes/class-yith-wcan-admin.php:297
 msgctxt "[Admin] Plugin description"
 msgid ""
 "It allows your users to find the product they are looking for as quickly as "
@@ -331,37 +331,37 @@ msgstr ""
 "Permite a tus usuarios encontrar el producto que están buscando lo más "
 "rápido posible."
 
-#: includes/class-yith-wcan-admin.php:416
+#: includes/class-yith-wcan-admin.php:420
 msgctxt "[Admin] Generic item name, in \"You have no x yet\""
 msgid "item"
 msgstr "artículo"
 
-#: includes/class-yith-wcan-admin.php:417
+#: includes/class-yith-wcan-admin.php:421
 msgctxt "[Admin] Preset table empty message second line"
 msgid "But don't worry, here you can create your first one!"
 msgstr "¡Pero no te preocupes, aquí puedes crear el primero!"
 
-#: includes/class-yith-wcan-admin.php:564
+#: includes/class-yith-wcan-admin.php:568
 msgctxt "[ADMIN] WooCommerce Tools tab, name of the tool"
 msgid "Clear Product Filter transients"
 msgstr "Limpiar datos transitorios de filtro de producto"
 
-#: includes/class-yith-wcan-admin.php:570
+#: includes/class-yith-wcan-admin.php:574
 msgctxt "[ADMIN] WooCommerce Tools tab, name of the tool"
 msgid "Run filter widgets upgrade"
 msgstr "Activar actualización de widgets de filtro"
 
-#: includes/class-yith-wcan-admin.php:565
+#: includes/class-yith-wcan-admin.php:569
 msgctxt "[ADMIN] WooCommerce Tools tab, button for the tool"
 msgid "Clear"
 msgstr "Limpìar"
 
-#: includes/class-yith-wcan-admin.php:571
+#: includes/class-yith-wcan-admin.php:575
 msgctxt "[ADMIN] WooCommerce Tools tab, button for the tool"
 msgid "Run"
 msgstr "Activar"
 
-#: includes/class-yith-wcan-admin.php:566
+#: includes/class-yith-wcan-admin.php:570
 msgctxt "[ADMIN] WooCommerce Tools tab, description of the tool"
 msgid ""
 "This will clear all transients related to the YITH WooCommerce AJAX Product "
@@ -373,7 +373,7 @@ msgstr ""
 "configuración del producto y los filtros no muestran los resultados "
 "esperados."
 
-#: includes/class-yith-wcan-admin.php:572
+#: includes/class-yith-wcan-admin.php:576
 msgctxt "[ADMIN] WooCommerce Tools tab, description of the tool"
 msgid ""
 "This will create a preset for any sidebar of your shop containing filter "
@@ -412,6 +412,36 @@ msgstr "Muestras de color"
 msgctxt "[Admin] Filter edit form"
 msgid "Label"
 msgstr "Etiqueta"
+
+#: includes/class-yith-wcan-filters-factory.php:153
+msgctxt "[Admin] Filter edit form"
+msgid "Name"
+msgstr "Nombre"
+
+#: includes/class-yith-wcan-filters-factory.php:154
+msgctxt "[Admin] Filter edit form"
+msgid "Name (numeric)"
+msgstr ""
+
+#: includes/class-yith-wcan-filters-factory.php:155
+msgctxt "[Admin] Filter edit form"
+msgid "Slug"
+msgstr "Slug"
+
+#: includes/class-yith-wcan-filters-factory.php:156
+msgctxt "[Admin] Filter edit form"
+msgid "Term count"
+msgstr "Cuenta de término"
+
+#: includes/class-yith-wcan-filters-factory.php:157
+msgctxt "[Admin] Filter edit form"
+msgid "Term order"
+msgstr "Pedido de término"
+
+#: includes/class-yith-wcan-filters-factory.php:158
+msgctxt "[Admin] Filter edit form"
+msgid "Drag & drop"
+msgstr ""
 
 #: plugin-options/filter-options.php:51
 msgctxt "[Admin] Filter edit form"
@@ -683,13 +713,13 @@ msgctxt ""
 msgid "Clear All"
 msgstr "Limpiar todo"
 
-#: includes/class-yith-wcan-install.php:194
+#: includes/class-yith-wcan-install.php:204
 msgctxt "[ADMIN] Name of default preset that is installed with the plugin"
 msgid "Default preset"
 msgstr "Pre establecimiento predeterminado"
 
 #. translators: 1. Taxonomy name.
-#: includes/class-yith-wcan-install.php:455
+#: includes/class-yith-wcan-install.php:481
 msgctxt "[ADMIN] Name of default taxonomy filter created by plugin"
 msgid "Filter by %s"
 msgstr "Filtrar por %s"
@@ -1875,22 +1905,6 @@ msgstr "Restablecer filtros"
 #~ msgctxt "[Admin] Filter edit form"
 #~ msgid "Order by"
 #~ msgstr "Ordenar por"
-
-#~ msgctxt "[Admin] Filter edit form"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "[Admin] Filter edit form"
-#~ msgid "Slug"
-#~ msgstr "Slug"
-
-#~ msgctxt "[Admin] Filter edit form"
-#~ msgid "Term count"
-#~ msgstr "Cuenta de término"
-
-#~ msgctxt "[Admin] Filter edit form"
-#~ msgid "Term order"
-#~ msgstr "Pedido de término"
 
 #~ msgctxt "[Admin] Filter edit form"
 #~ msgid "Order type"

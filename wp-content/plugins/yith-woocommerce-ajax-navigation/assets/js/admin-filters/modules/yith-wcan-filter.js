@@ -132,6 +132,7 @@ export default class YITH_WCAN_Filter {
 					selected: $termSearch.val(),
 					action: 'yith_wcan_search_term',
 					security: yith_wcan_admin.nonce.search_term,
+					lang: yith_wcan_admin.current_lang,
 				};
 			},
 			select2_args = {
@@ -259,6 +260,9 @@ export default class YITH_WCAN_Filter {
 
 			prevValue !== currentValue && this.afterTaxonomyChange();
 		} );
+		setTimeout( function () {
+			$taxonomySelect.select2();
+		}, 1000 );
 	}
 
 	afterTaxonomyChange() {
@@ -838,8 +842,9 @@ export default class YITH_WCAN_Filter {
 		if ( toRemove.length || toAdd.length ) {
 			toAdd.length && ( this.termsPaginated = false );
 			this.$filter.find( '.terms-wrapper' ).data( 'terms', termsPool );
-			this.updateTerms( ignoreVisibility );
 		}
+
+		this.updateTerms( ignoreVisibility );
 	}
 
 	afterTermChanged( term ) {

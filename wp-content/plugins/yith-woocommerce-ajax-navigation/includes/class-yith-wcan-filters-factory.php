@@ -142,6 +142,25 @@ if ( ! class_exists( 'YITH_WCAN_Filters_Factory' ) ) {
 		}
 
 		/**
+		 * Returns a list of supported orders for terms in the filter
+		 *
+		 * @return array Array of supported orders (id=>name)
+		 */
+		public static function get_supported_terms_orders() {
+			return apply_filters(
+				'yith_wcan_filter_terms_orderby',
+				array(
+					'name'       => _x( 'Name', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
+					'name_num'   => _x( 'Name (numeric)', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
+					'slug'       => _x( 'Slug', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
+					'count'      => _x( 'Term count', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
+					'term_order' => _x( 'Term order', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
+					'include'    => _x( 'Drag & drop', '[Admin] Filter edit form', 'yith-woocommerce-ajax-navigation' ),
+				)
+			);
+		}
+
+		/**
 		 * Returns the number of terms that should be shown on first loading
 		 *
 		 * @return int Number of terms to show on first loading.

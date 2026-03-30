@@ -761,7 +761,7 @@ if ( ! class_exists( 'YITH_WCAN_Filter' ) ) {
 		 * @return string And or or.
 		 */
 		public function get_relation( $context = 'view' ) {
-			return $this->get_prop( 'relation', $context );
+			return $this->is_multiple_allowed( $context ) ? $this->get_prop( 'relation', $context ) : false;
 		}
 
 		/**
@@ -1277,13 +1277,7 @@ if ( ! class_exists( 'YITH_WCAN_Filter' ) ) {
 		 * @param string $order_by Which field should be used to order by.
 		 */
 		public function set_order_by( $order_by ) {
-			$supported_orders = array(
-				'name',
-				'slug',
-				'count',
-				'term_order',
-				'include',
-			);
+			$supported_orders = array_keys( YITH_WCAN_Filters_Factory::get_supported_terms_orders() );
 
 			if ( ! in_array( $order_by, $supported_orders, true ) ) {
 				return;

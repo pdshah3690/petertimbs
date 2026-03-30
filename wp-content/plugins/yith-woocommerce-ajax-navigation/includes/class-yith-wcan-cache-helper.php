@@ -139,6 +139,7 @@ if ( ! class_exists( 'YITH_WCAN_Cache_Helper' ) ) {
 		 */
 		public static function get_query_index( $query_vars = array() ) {
 			$query_vars = $query_vars ? $query_vars : YITH_WCAN_Query()->get_query_vars();
+			$query_vars = apply_filters( 'yith_wcan_query_vars_for_cache_index', $query_vars );
 
 			return md5( http_build_query( $query_vars ) );
 		}
