@@ -7,8 +7,8 @@
 	float: right;
 }
 
-[class^="icon-"],[class*=" icon-"] {
-	color: #333!important;
+#nectar-sc-generator [class^="icon-"], #nectar-sc-generator [class*=" icon-"] {
+	color: #333;
 }
 
 select[name="icon-set-select"] {
@@ -188,6 +188,10 @@ textarea, select, #insert-shortcode{
 #nectar-sc-generator div.content {
 	display: inline-block;
 	width: 69%;
+}
+
+#nectar-sc-generator div.content > .chosen-container {
+	min-width: 300px;
 }
 
 #nectar-sc-generator div.clear {
@@ -395,14 +399,6 @@ select[multiple="multiple"] {
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)!important;
 }
 
-.ui-button {
-	background-image: none!important;
-	background: none repeat scroll 0 0 #F7F7F7!important;
-	border-color: #CCCCCC;
-	box-shadow: 0 1px 0 #FFFFFF inset, 0 1px 0 rgba(0, 0, 0, 0.08);
-	color: #555555;
-	vertical-align: top;
-}
 
 body .button.nectar-shortcode-generator:hover {
 	background-color: #1884c9!Important;

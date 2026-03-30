@@ -30,7 +30,7 @@ if ( ! function_exists( 'nectar_is_edit_page' ) ) {
 		} elseif ( $new_edit == 'new' ) { // check for new post page
 			return in_array( $pagenow, array( 'post-new.php' ) );
 		} else { // check for either new or edit
-			return in_array( $pagenow, array( 'post.php', 'post-new.php' ) );
+			return in_array( $pagenow, array( 'post.php', 'post-new.php', 'term.php' ) );
 		}
 	}
 }

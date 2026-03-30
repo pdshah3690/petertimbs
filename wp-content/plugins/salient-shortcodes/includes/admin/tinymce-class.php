@@ -10,7 +10,7 @@ if( ! function_exists('enqueue_generator_scripts') ) {
 	
 	function enqueue_generator_scripts() {
 
-		wp_enqueue_style('tinymce', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/css/tinymce.css'); 
+		wp_enqueue_style('tinymce', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/css/tinymce.css', array(), '12.0'); 
 		wp_enqueue_style('chosen', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/css/chosen/chosen.css'); 
 		wp_enqueue_style('font-awesome', SALIENT_SHORTCODES_PLUGIN_PATH . '/css/font-awesome.min.css'); 
 		wp_enqueue_style('steadysets', SALIENT_SHORTCODES_PLUGIN_PATH . '/css/steadysets.css');
@@ -21,7 +21,7 @@ if( ! function_exists('enqueue_generator_scripts') ) {
 		wp_enqueue_script('magnific', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/js/magnific-popup.js','jquery','0.9.7 ', TRUE);
 		wp_enqueue_script('magnific', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/js/magnific-popup.js','jquery','0.9.7 ', TRUE);
 		
-		wp_enqueue_script('nectar-shortcode-generator-popup', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/js/popup.js','jquery','0.9.7 ', TRUE);
+		wp_enqueue_script('nectar-shortcode-generator-popup', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/js/popup.js','jquery','1.4 ', TRUE);
 		wp_enqueue_script('nectar-shortcode-generator', SALIENT_SHORTCODES_PLUGIN_PATH . '/includes/assets/js/nectar-shortcode-generator.js','jquery','0.9.7 ', TRUE);
 		
 		// Available only for Salient.
@@ -318,8 +318,10 @@ if (class_exists('Salient_Nectar_Slider')) {
 		$slider_locations = get_terms('slider-locations');
 		$locations = array();
 		
-		foreach($slider_locations as $location) {
-			$locations[$location->slug] = $location->name;
+		if ( $slider_locations && ! is_wp_error( $slider_locations ) ) {
+			foreach($slider_locations as $location) {
+				$locations[$location->slug] = $location->name;
+			} 
 		}
 		
 		if (empty($locations)) {
@@ -4683,8 +4685,10 @@ if (class_exists('Salient_Portfolio')) {
 	
 	$types_options = array("all" => "All");
 	
-	foreach($portfolio_types as $type) {
-		$types_options[$type-> slug] = $type-> name;
+	if ( $portfolio_types && ! is_wp_error( $portfolio_types ) ) { 
+		foreach($portfolio_types as $type) {
+			$types_options[$type-> slug] = $type-> name;
+		}
 	}
 	
 	

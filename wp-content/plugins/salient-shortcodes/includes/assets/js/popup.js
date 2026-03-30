@@ -95,7 +95,7 @@ jQuery(document).ready(function($) {
       $('.shortcode-options[data-name=tabbed_section] .shortcode-dynamic-item-input').each(function() {
         if( $(this).val() != '' ) {
           tabContent = $(this).parent().parent().find('.shortcode-dynamic-item-text').val();
-          code += ' [tab title="'+$(this).val()+'" id="t'+tabID+'"] '+tabContent+' [/tab] '; 
+          code += ' [tab style="default" title="'+$(this).val()+'" id="t'+tabID+'"] '+tabContent+' [/tab] '; 
           tabID++;
         }
       });
@@ -221,7 +221,7 @@ jQuery(document).ready(function($) {
     //last check
     var code = '['+name;
     if( $('#options-'+name).attr('data-type')=='checkbox' ) {
-      if($('#options-'+name+' input.last').attr('checked') == 'checked') {
+      if($('#options-'+name+' input.last').prop('checked') == true) {
         ending = '_last';
       }
     }
@@ -229,7 +229,7 @@ jQuery(document).ready(function($) {
     
     //checkbox loop for extra attrs
     $('#options-'+name+' input[type=checkbox]').each(function() {
-      if($(this).attr('checked') == 'checked' && $(this).attr('class') != 'last') {
+      if($(this).prop('checked') == true && $(this).attr('class') != 'last') {
         extra_attrs += ' ' + $(this).attr('class')+'="true"';
       }	
     });
@@ -245,7 +245,7 @@ jQuery(document).ready(function($) {
     
     //select loop for extra attrs
     $('#options-'+name+' select:not(".dynamic-select, [multiple=multiple], .skip-processing")').each(function() {
-      extra_attrs3 += ' ' + $(this).attr('id')+'="' + $(this).attr('value') + '"';	
+      extra_attrs3 += ' ' + $(this).attr('id')+'="' + $(this).val() + '"';	
     });
     
     code += extra_attrs3;
@@ -260,8 +260,8 @@ jQuery(document).ready(function($) {
     
     //select loop for button conditional
     $('#options-'+name+' select.skip-processing').each(function() {
-      if($(this).attr('value') == 'default-arrow') {
-        extra_attrs3c += ' image="' + $(this).attr('value') + '"';	
+      if($(this).val() == 'default-arrow') {
+        extra_attrs3c += ' image="' + $(this).val() + '"';	
       }
       
     });
@@ -281,7 +281,7 @@ jQuery(document).ready(function($) {
         code += ' '+ $(this).attr('data-attrname')+'="'+ $(this).val()+'"'; 
       }
       else { 
-        if($(this).attr('checked') == 'checked') {
+        if($(this).prop('checked') == true) {
           code += ' '+ $(this).attr('data-attrname')+'="'+ $(this).val()+'"'; 
         }
       }
@@ -558,7 +558,7 @@ jQuery(document).ready(function($) {
   $('.starting_category').next('.clear').hide();
   $('#options-nectar_portfolio #starting_category option:first').remove();
   $('#options-nectar_portfolio #starting_category').prepend('<option value="default">Default</option>')
-  $('#options-nectar_portfolio #starting_category option:first').attr('selected','selected');
+  $('#options-nectar_portfolio #starting_category option:first').prop('selected',true);
   
   $('#options-nectar_portfolio #enable_sortable').on('click', function() {
     var $this = $(this);
@@ -591,7 +591,7 @@ jQuery(document).ready(function($) {
         $('#options-nectar_portfolio #starting_category option[value="' + selectedCats[i] + '"]').removeAttr('disabled').show();
       }
       
-      $('#options-nectar_portfolio #starting_category option:not([disabled])').first().attr('selected','selected');
+      $('#options-nectar_portfolio #starting_category option:not([disabled])').first().prop('selected',true);
       
     }
     
