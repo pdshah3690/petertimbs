@@ -227,7 +227,11 @@ if ( ! function_exists( 'br_get_selected_term' ) ) {
             foreach($filter_data['filters'] as $filter) {
                 $is_checked_correct = $filter['taxonomy'] == $taxonomy;
                 if( apply_filters('br_get_selected_term_checked_each', $is_checked_correct, $filter, $taxonomy, $additional) ) {
-                    $term_ids = array_merge($term_ids, $filter['val_ids']);
+                    if( empty($additional['get_val']) ) {
+                        $term_ids = array_merge($term_ids, $filter['val_ids']);
+                    } else {
+                        $term_ids[] = $filter[$additional['get_val']];
+                    }
                 }
             }
         }
@@ -1850,7 +1854,7 @@ if( ! function_exists('braapf_convert_filter_styles_to_templates') ) {
                     $JQdata_ok = true;
                     if( in_array($data_name, array('image_price', 'image')) ) {
                         $JQdata_ok = false;
-                        $path = plugin_dir_path($style_data['file']) . str_replace(plugin_dir_url($style_data['file']), '', $data_value);
+                        $path = plugin_dir_path(BeRocket_AJAX_filters_file) . str_replace(plugin_dir_url(BeRocket_AJAX_filters_file), '', $data_value);
                         if( file_exists($path) ) {
                             $JQdata_ok = true;
                         }
@@ -1860,6 +1864,7 @@ if( ! function_exists('braapf_convert_filter_styles_to_templates') ) {
                     }
                 }
             }
+            $style_data['specific'] = berocket_isset($style_data['specific']);
             if( ! isset($templates[$style_data['template'].'+'.$style_data['specific']]) ) {
                 $templates[$style_data['template'].'+'.$style_data['specific']] = array(
                     'template' => $style_data['template'],
@@ -1882,5 +1887,19 @@ if( ! function_exists('braapf_convert_filter_styles_to_templates') ) {
             }
         }
         return $templates;
+    }
+}
+if( ! function_exists('braapf_is_shortcode_must_be_filtered') ) {
+    function braapf_is_shortcode_must_be_filtered() {
+        return (! is_shop() && ! is_product_taxonomy() && ! is_product_category() && ! is_product_tag());
+    }
+}
+if( ! function_exists('bapf_set_filter_field_ajax') ) {
+    function bapf_set_filter_field_ajax($filter_string) {
+        global $berocket_parse_page_obj;
+        $filter_string = sanitize_url($filter_string);
+        $data = $berocket_parse_page_obj->parse_filter_line($filter_string);
+        $berocket_parse_page_obj->data_current = $data;
+        $berocket_parse_page_obj->data = $data;
     }
 }

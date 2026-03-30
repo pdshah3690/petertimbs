@@ -5,10 +5,12 @@ class BeRocket_aapf_variations_tables {
         add_filter('berocket_aapf_wcvariation_filtering_total_query', array($this, 'wcvariation_filtering_total_query'), 10, 4);
         add_filter('berocket_aapf_wcvariation_filtering_main_query', array($this, 'wcvariation_filtering_main_query'), 10, 2);
         add_filter('berocket_aapf_wcvariation_filtering_single_attribute', array($this, 'wcvariation_filtering_single_attribute'), 10, 4);
-        add_action( 'woocommerce_variation_set_stock_status', array($this, 'set_stock_status'), 10, 3 );
-        add_action( 'woocommerce_product_set_stock_status', array($this, 'set_stock_status'), 10, 3 );
-        add_action( 'delete_post', array($this, 'delete_post'), 10, 1 );
-        add_action( 'woocommerce_after_product_object_save', array($this, 'variation_object_save'), 10, 1 );
+        if( ! defined('BAPF_DISABLE_TABLE_UPDATES') || ! BAPF_DISABLE_TABLE_UPDATES ) {
+            add_action( 'woocommerce_variation_set_stock_status', array($this, 'set_stock_status'), 10, 3 );
+            add_action( 'woocommerce_product_set_stock_status', array($this, 'set_stock_status'), 10, 3 );
+            add_action( 'delete_post', array($this, 'delete_post'), 10, 1 );
+            add_action( 'woocommerce_after_product_object_save', array($this, 'variation_object_save'), 10, 1 );
+        }
         //hierarhical recount custom table
         add_action('berocket_aapf_recount_terms_initialized', array($this, 'recount_terms_initialized'), 10, 1);
         add_filter('berocket_aapf_recount_stock_status_query', array($this, 'recount_stock_status'), 10, 1);
@@ -164,31 +166,33 @@ class BeRocket_aapf_variations_tables {
             $parent_id = $product->get_parent_id();
             $product_attributes = $product->get_variation_attributes();
             $parent_product = wc_get_product($parent_id);
-            $parent_product_type = $parent_product->get_type();
-            $stock_status = ($product->is_in_stock() ? '1' : '0');
-            $sql = "DELETE FROM {$wpdb->prefix}braapf_product_variation_attributes WHERE post_id={$product_id};";
-            $wpdb->query($sql);
-            foreach($product_attributes as $taxonomy => $attributes) {
-                $taxonomy = str_replace('attribute_', '', $taxonomy);
-                if( empty($attributes) ) {
-                    if( $parent_product_type == 'variable' ) {
-                        $attributes = $parent_product->get_variation_attributes();
-                        if( isset($attributes[$taxonomy]) ) {
-                            $attributes = $attributes[$taxonomy];
+            if( $parent_product != false ) {
+                $parent_product_type = $parent_product->get_type();
+                $stock_status = ($product->is_in_stock() ? '1' : '0');
+                $sql = "DELETE FROM {$wpdb->prefix}braapf_product_variation_attributes WHERE post_id={$product_id};";
+                $wpdb->query($sql);
+                foreach($product_attributes as $taxonomy => $attributes) {
+                    $taxonomy = str_replace('attribute_', '', $taxonomy);
+                    if( empty($attributes) ) {
+                        if( $parent_product_type == 'variable' ) {
+                            $attributes = $parent_product->get_variation_attributes();
+                            if( isset($attributes[$taxonomy]) ) {
+                                $attributes = $attributes[$taxonomy];
+                            } else {
+                                $attributes = array();
+                            }
                         } else {
                             $attributes = array();
                         }
-                    } else {
-                        $attributes = array();
+                    } elseif( ! is_array($attributes) ) {
+                        $attributes = array($attributes);
                     }
-                } elseif( ! is_array($attributes) ) {
-                    $attributes = array($attributes);
-                }
-                foreach($attributes as $attribute) {
-                    $term = get_term_by('slug', $attribute, $taxonomy);
-                    if( $term !== false ) {
-                        $sql = "INSERT IGNORE INTO {$wpdb->prefix}braapf_product_variation_attributes (post_id, parent_id, meta_key, meta_value_id, stock_status) VALUES({$product_id}, {$parent_id}, '{$taxonomy}', {$term->term_id}, '{$stock_status}')";
-                        $wpdb->query($sql);
+                    foreach($attributes as $attribute) {
+                        $term = get_term_by('slug', $attribute, $taxonomy);
+                        if( $term !== false ) {
+                            $sql = "INSERT IGNORE INTO {$wpdb->prefix}braapf_product_variation_attributes (post_id, parent_id, meta_key, meta_value_id, stock_status) VALUES({$product_id}, {$parent_id}, '{$taxonomy}', {$term->term_id}, '{$stock_status}')";
+                            $wpdb->query($sql);
+                        }
                     }
                 }
             }
@@ -270,8 +274,8 @@ class BeRocket_aapf_variations_tables {
                     $wpdb->query($sql);
                 }
             }
-            $wpdb->query($sql);
             $sql = "DELETE FROM {$wpdb->prefix}braapf_variable_attributes WHERE post_id={$product_id};";
+            $wpdb->query($sql);
             $product_attribute = get_post_meta($product_id, '_product_attributes', true);
             $insert_values = array();
             if( is_array($product_attribute) ) {
@@ -463,11 +467,13 @@ class BeRocket_aapf_variations_tables {
     function stock_status_custom_query($result, $instance, $filter, $data) {
         if( $result === null && isset($filter['type']) && $filter['type'] == 'stock_status' ) {
             $status = 'none';
-            foreach($filter['terms'] as $filter_term) {
-                if($status == 'none' ) {
-                    $status = $filter_term->slug;
-                } else {
-                    $status = 'both';
+            if( ! empty($filter['terms']) && is_array($filter['terms']) ) {
+                foreach($filter['terms'] as $filter_term) {
+                    if($status == 'none' ) {
+                        $status = $filter_term->slug;
+                    } else {
+                        $status = 'both';
+                    }
                 }
             }
             if( $status != 'both' && $status != 'none' ) {
