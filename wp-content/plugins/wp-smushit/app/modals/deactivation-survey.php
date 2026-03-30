@@ -3,6 +3,9 @@
  * Deactivation Survey Modal
  */
 use Smush\Core\Helper;
+use Smush\Core\Hub_Connector;
+use Smush\Core\Membership\Membership;
+
 $docs_link = Helper::get_utm_link(
 	array(
 		'utm_campaign' => 'smush_deactivation_survey_help',
@@ -40,7 +43,7 @@ $docs_link = Helper::get_utm_link(
 							printf(
 								/* translators: %s: Support link */
 								esc_html__( 'Please tell us why. Your feedback helps us improve. %s', 'wp-smushit' ),
-								WP_Smush::is_pro() ? '<a id="smush-request-assistance-link" style="text-decoration:underline" target="_blank" href="' . esc_url( $docs_link ) . '">' . esc_html__( 'Need Help?', 'wp-smushit' ) . '</a>' : ''
+								''
 							);
 							?>
 						</p>
@@ -85,6 +88,23 @@ $docs_link = Helper::get_utm_link(
 								<span id="label-smush-breaks-site-field"><?php esc_html_e( 'Breaks the site or other plugins/services', 'wp-smushit' ); ?></span>
 							</label>
 						</div>
+						<?php
+						if ( Hub_Connector::is_logged_in() || Membership::get_instance()->is_api_hub_access_required() ) :
+						?>
+						<div class="smush-deactivation-field-row">
+							<label for="requires-hub-connection" class="sui-radio smush-deactivation-field" data-placeholder="<?php esc_html_e( 'Tell us more (optional)', 'wp-smushit' ); ?>">
+								<input
+									type="radio"
+									name="deactivation_reason"
+									id="requires-hub-connection"
+									aria-labelledby="label-requires-hub-connection"
+									value="requires_hub_connection"
+								/>
+								<span aria-hidden="true"></span>
+								<span id="label-requires-hub-connection"><?php esc_html_e( 'Requires connecting site to Smush API', 'wp-smushit' ); ?></span>
+							</label>
+						</div>
+						<?php endif; ?>
 
 						<div class="smush-deactivation-field-row">
 							<label for="smush-expected-beter-field" class="sui-radio smush-deactivation-field" data-placeholder="<?php esc_html_e( 'What could we do better? (optional)', 'wp-smushit' ); ?>">

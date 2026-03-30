@@ -51,9 +51,7 @@ class Ajax {
 		add_action( 'wp_ajax_skip_smush_setup', array( $this, 'skip_smush_setup' ) );
 		// Ajax request for quick setup.
 		add_action( 'wp_ajax_smush_setup', array( $this, 'smush_setup' ) );
-
-		// Hide tutorials.
-		add_action( 'wp_ajax_smush_hide_tutorials', array( $this, 'hide_tutorials' ) );
+		add_action( 'wp_ajax_smush_free_setup', array( $this, 'smush_free_setup' ) );
 
 		/**
 		 * NOTICES
@@ -69,6 +67,8 @@ class Ajax {
 		add_action( 'wp_ajax_smush_show_warning', array( $this, 'show_warning_ajax' ) );
 		// Detect conflicting plugins.
 		add_action( 'wp_ajax_smush_dismiss_notice', array( $this, 'dismiss_notice' ) );
+		// Hide hub connect notice from media library.
+		add_action( 'wp_ajax_dismiss_media_hub_connect_notice', array( $this, 'dismiss_media_hub_connect_notice' ) );
 
 		/**
 		 * SMUSH
@@ -109,15 +109,15 @@ class Ajax {
 		add_action( 'wp_ajax_smush_apply_config', array( $this, 'apply_config' ) );
 
 		/**
-		 * SETTINGS
-		 */
-		add_action( 'wp_ajax_recheck_api_status', array( $this, 'recheck_api_status' ) );
-
-		/**
 		 * MODALS
 		 */
 		// Hide the new features modal.
 		add_action( 'wp_ajax_hide_new_features', array( $this, 'hide_new_features_modal' ) );
+
+		/**
+		 * Review Prompts Notice.
+		 */
+		add_action( 'wp_ajax_wp_smush_review_prompts_remind_later', array( $this, 'remind_later_review_prompts' ) );
 	}
 
 	/***************************************
@@ -160,7 +160,7 @@ class Ajax {
 		$settings = $this->settings->get();
 
 		// Available settings for free/pro version.
-		$available           = array( 'auto', 'lossy', 'strip_exif', 'original', 'lazy_load', 'usage' );
+		$available           = array( 'auto', 'lossy', 'strip_exif', 'original', 'preload_images', 'lazy_load', 'usage' );
 		$highest_lossy_level = $this->settings->get_highest_lossy_level();
 
 		foreach ( $settings as $name => $values ) {
@@ -169,22 +169,15 @@ class Ajax {
 				continue;
 			}
 
-			// Skip premium features if not a member.
-			if ( ! in_array( $name, Settings::$basic_features, true ) && 'usage' !== $name && ! WP_Smush::is_pro() ) {
-				continue;
-			}
-
 			// Update value in settings.
 			if ( 'lossy' === $name ) {
-				$settings['lossy'] = ! empty( $quick_settings->{$name} ) ? $highest_lossy_level : Settings::LEVEL_LOSSLESS;
+				$settings['lossy'] = ! empty( $quick_settings->{$name} ) ? $highest_lossy_level : Settings::get_level_lossless();
+			} elseif ( 'original' === $name ) {
+				$optimize_originals = ! empty( $quick_settings->{$name} );
+				$settings[ $name ]  = $optimize_originals;
+				$settings['backup'] = $optimize_originals;
 			} else {
 				$settings[ $name ] = (bool) $quick_settings->{$name};
-			}
-
-			// If Smush originals is selected, enable backups.
-			$require_backup = 'original' === $name && ! empty( $settings[ $name ] );
-			if ( $require_backup ) {
-				$settings['backup'] = true;
 			}
 
 			// If lazy load enabled - init defaults.
@@ -202,19 +195,58 @@ class Ajax {
 	}
 
 	/**
-	 * Hide tutorials.
-	 *
-	 * @sinde 3.8.6
+	 * Ajax action to save settings from quick setup.
 	 */
-	public function hide_tutorials() {
-		check_ajax_referer( 'wp-smush-ajax' );
+	public function smush_free_setup() {
+		check_ajax_referer( 'smush_quick_setup', '_wpnonce' );
 
 		// Check capability.
 		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
 			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
 		}
 
-		update_option( 'wp-smush-hide-tutorials', true, false );
+		$quick_settings = array();
+		// Get the settings from $_POST.
+		if ( ! empty( $_POST['smush_settings'] ) ) {
+			// Required $quick_settings data is escaped later on in code.
+			$quick_settings = json_decode( wp_unslash( $_POST['smush_settings'] ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		}
+
+		// Check the last settings stored in db.
+		$settings = $this->settings->get_site_settings();
+
+		// Available settings for free/pro version.
+		$available = array( 'auto', 'lossy', 'strip_exif', 'compress_backup', 'lazy_load', 'usage' );
+
+		foreach ( $quick_settings as $name => $values ) {
+			// Update only specified settings.
+			if ( ! in_array( $name, $available, true ) ) {
+				continue;
+			}
+
+			$setting_enabled = ! empty( $quick_settings[ $name ] );
+
+			// Update value in settings.
+			if ( 'lossy' === $name ) {
+				$settings['lossy'] = $setting_enabled ? Settings::get_level_super_lossy() : Settings::get_level_lossless();
+			} elseif ( 'compress_backup' === $name ) {
+				// If Smush originals is selected, enable backups.
+				$settings['original'] = $setting_enabled;
+				$settings['backup']   = $setting_enabled;
+			} else {
+				$settings[ $name ] = $setting_enabled;
+			}
+
+			// If lazy load enabled - init defaults.
+			if ( 'lazy_load' === $name && $setting_enabled ) {
+				$this->settings->init_lazy_load_defaults();
+			}
+		}
+
+		// Update the resize sizes.
+		$this->settings->set_setting( 'wp-smush-settings', $settings );
+
+		update_option( 'skip-smush-setup', true );
 
 		wp_send_json_success();
 	}
@@ -321,6 +353,18 @@ class Ajax {
 		}
 
 		$this->set_notice_dismissed( sanitize_key( $_REQUEST['key'] ) );
+		wp_send_json_success();
+	}
+
+	public function dismiss_media_hub_connect_notice() {
+		check_ajax_referer( 'wp-smush-ajax' );
+
+		// Check capability.
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
+		}
+
+		$this->set_notice_dismissed( 'media-hub-connect-notice' );
 		wp_send_json_success();
 	}
 
@@ -486,7 +530,7 @@ class Ajax {
 		}
 
 		// If the bulk smush needs to be stopped.
-		if ( ! WP_Smush::is_pro() && ! Core::check_bulk_limit() ) {
+		if ( ! Core::should_continue_smush() ) {
 			wp_send_json_error(
 				array(
 					'error'    => 'limit_exceeded',
@@ -578,7 +622,7 @@ class Ajax {
 		$result['dir_smush'] = $stats;
 
 		// Cumulative Stats.
-		//$result['combined_stats'] = WP_Smush::get_instance()->core()->mod->dir->combine_stats( $stats );
+		// $result['combined_stats'] = WP_Smush::get_instance()->core()->mod->dir->combine_stats( $stats );
 
 		// Store the stats in options table.
 		update_option( 'dir_smush_stats', $result, false );
@@ -691,7 +735,7 @@ class Ajax {
 		 */
 		$file = isset( $_FILES['file'] ) ? wp_unslash( $_FILES['file'] ) : false; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		$configs_handler = new Configs();
+		$configs_handler = Configs::get_instance();
 		$new_config      = $configs_handler->save_uploaded_config( $file );
 
 		if ( ! is_wp_error( $new_config ) ) {
@@ -715,7 +759,7 @@ class Ajax {
 			wp_send_json_error( null, 403 );
 		}
 
-		$configs_handler = new Configs();
+		$configs_handler = Configs::get_instance();
 		wp_send_json_success( $configs_handler->get_config_from_current() );
 	}
 
@@ -740,7 +784,7 @@ class Ajax {
 			);
 		}
 
-		$configs_handler = new Configs();
+		$configs_handler = Configs::get_instance();
 		$response        = $configs_handler->apply_config_by_id( $id );
 
 		if ( ! is_wp_error( $response ) ) {
@@ -758,20 +802,6 @@ class Ajax {
 	 *
 	 * @since 3.2.0.2
 	 */
-
-	/**
-	 * Re-check API status.
-	 *
-	 * @since 3.2.0.2
-	 */
-	public function recheck_api_status() {
-		// Check for permission.
-		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
-		}
-		WP_Smush::get_instance()->validate_install( true );
-		wp_send_json_success();
-	}
 
 	/***************************************
 	 *
@@ -792,7 +822,30 @@ class Ajax {
 		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
 			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
 		}
+
 		delete_site_option( 'wp-smush-show_upgrade_modal' );
+		wp_send_json_success();
+	}
+
+	/**
+	 * Hides the new features modal.
+	 */
+	public function remind_later_review_prompts() {
+		check_ajax_referer( 'wp-smush-ajax' );
+
+		// Check for permission.
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
+		}
+
+		update_option(
+			Admin::get_review_prompts_option_key(),
+			array(
+				'time' => time() + WEEK_IN_SECONDS,
+				'type' => 'remind_later',
+			)
+		);
+
 		wp_send_json_success();
 	}
 }

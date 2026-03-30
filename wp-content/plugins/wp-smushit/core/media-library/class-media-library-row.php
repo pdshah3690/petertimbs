@@ -2,12 +2,13 @@
 
 namespace Smush\Core\Media_Library;
 
-use Smush\Core\CDN\CDN_Helper;
 use Smush\Core\Helper;
 use Smush\Core\Media\Media_Item;
 use Smush\Core\Media\Media_Item_Cache;
+use Smush\Core\Media\Media_Item_Optimization;
 use Smush\Core\Media\Media_Item_Optimizer;
 use Smush\Core\Media\Media_Item_Stats;
+use Smush\Core\Resize\Resize_Optimization;
 use Smush\Core\Settings;
 use Smush\Core\Smush\Smush_Optimization;
 use Smush\Core\Stats\Global_Stats;
@@ -18,30 +19,43 @@ class Media_Library_Row {
 	/**
 	 * @var int
 	 */
-	private $attachment_id;
+	protected $attachment_id;
 
 	/**
 	 * @var WP_Error
 	 */
-	private $errors;
+	protected $errors;
 
 	/**
 	 * @var Media_Item_Optimizer
 	 */
-	private $optimizer;
+	protected $optimizer;
 
 	/**
 	 * @var Media_Item
 	 */
-	private $media_item;
+	protected $media_item;
 	/**
 	 * @var Global_Stats
 	 */
-	private $global_stats;
+	protected $global_stats;
 	/**
 	 * @var Settings
 	 */
-	private $settings;
+	protected $settings;
+
+	protected $total_stats;
+
+	protected $sizes_stats;
+
+	/**
+	 * @var Media_Item_Optimization[]
+	 */
+	protected $applied_optimizations;
+
+	public static function get_instance( $attachment_id ) {
+		return new self( $attachment_id );
+	}
 
 	public function __construct( $attachment_id ) {
 		$this->attachment_id = $attachment_id;
@@ -107,7 +121,7 @@ class Media_Library_Row {
 			return $this->generate_markup_for_unsmushed_item();
 		}
 
-		return $this->generate_markup_for_smushed_item( $this->optimizer->get_total_stats() );
+		return $this->generate_markup_for_smushed_item();
 	}
 
 	private function is_first_optimization_required() {
@@ -121,32 +135,14 @@ class Media_Library_Row {
 		return $this->get_html_markup_for_failed_item_with_utm_link( $error_message, $utm_link );
 	}
 
-	private function get_animated_html_utm_link() {
-		if ( WP_Smush::is_pro() ) {
-			return $this->get_animated_cdn_notice_with_config_link();
-		}
-
+	protected function get_animated_html_utm_link() {
 		return $this->get_html_utm_link(
 			__( 'Upgrade to Serve GIFs faster with CDN.', 'wp-smushit' ),
 			'smush_bulksmush_library_gif_cdn'
 		);
 	}
 
-	private function get_animated_cdn_notice_with_config_link() {
-		if ( CDN_Helper::get_instance()->is_cdn_active() ) {
-			return '<span class="smush-cdn-notice">' . esc_html__( 'GIFs are serving from global CDN', 'wp-smushit' ) . '</span>';
-		}
-		$cdn_link = Helper::get_page_url( 'smush-cdn' );
-
-		return '<span class="smush-cdn-notice">' . sprintf(
-			/* translators: %1$s : Open a link %2$s Close the link */
-			esc_html__( '%1$sEnable CDN%2$s to serve GIFs closer and faster to visitors', 'wp-smushit' ),
-			'<a href="' . esc_url( $cdn_link ) . '" target="_blank">',
-			'</a>'
-		) . '</span>';
-	}
-
-	private function get_html_utm_link( $utm_message, $utm_campain ) {
+	protected function get_html_utm_link( $utm_message, $utm_campain ) {
 		$upgrade_url = 'https://wpmudev.com/project/wp-smush-pro/';
 		$args        = array(
 			'utm_source'   => 'smush',
@@ -242,17 +238,11 @@ class Media_Library_Row {
 			$links = array_splice( $links, count( $links ) - $max_links );
 		}
 
-		return sprintf( '<div class="sui-smush-media smush-status-links">%s</div>', join( $separator, $links ) );
+		return sprintf( '<div class="sui-smush-media smush-status-links">%s</div>', join( $links ) );
 	}
 
 	private function generate_markup_for_size_limited_item() {
-		$utm_link = '';
-		if ( ! WP_Smush::is_pro() ) {
-			$utm_link = $this->get_html_utm_link(
-				__( 'Upgrade to Pro to Smush larger images.', 'wp-smushit' ),
-				'smush_bulksmush_library_filesizelimit'
-			);
-		}
+		$utm_link = $this->get_filesize_limit_utm_link();
 
 		if ( $this->media_item->is_ignored() ) {
 			$error_message = esc_html__( 'Ignored.', 'wp-smushit' );
@@ -261,6 +251,18 @@ class Media_Library_Row {
 		}
 
 		return $this->get_html_markup_for_failed_item_with_utm_link( $error_message, $utm_link );
+	}
+
+	/**
+	 * Get UTM link for file size limit upsell.
+	 *
+	 * @return string
+	 */
+	protected function get_filesize_limit_utm_link() {
+		return $this->get_html_utm_link(
+			__( 'Upgrade to Pro to Smush larger images.', 'wp-smushit' ),
+			'smush_bulksmush_library_filesizelimit'
+		);
 	}
 
 	private function generate_markup_for_ignored_item() {
@@ -358,41 +360,223 @@ class Media_Library_Row {
 		return $html;
 	}
 
-	private function generate_markup_for_smushed_item( Media_Item_Stats $total_stats ) {
+	private function generate_markup_for_smushed_item() {
 		$error_class = $this->errors->has_errors() ? 'smush-warning' : '';
-		$html        = $this->get_html_markup_optimization_status( $this->get_optimization_status( $total_stats ), $error_class );
-		$html        .= $this->get_html_markup_action_links( $this->get_action_links( $total_stats ) );
-		$html        .= $this->get_html_markup_detailed_stats( $total_stats );
+		$html        = $this->get_html_markup_optimization_status( $this->get_optimization_status(), $error_class );
+		$html        .= $this->get_html_markup_action_links( $this->get_action_links() );
+
+		$html .= sprintf( '<div id="smush-stats-%d" class="sui-smush-media smush-stats-wrapper hidden">', $this->attachment_id );
+		$html .= $this->get_html_markup_detailed_stats();
+
+		$html .= '</div>';
 
 		return $html;
 	}
 
-	private function get_optimization_status( Media_Item_Stats $total_stats ) {
+	private function get_optimization_status() {
 		$error_message = $this->errors->get_error_message();
 		if ( $error_message ) {
 			return $error_message;
 		}
 
-		$no_savings = $total_stats->get_size_after() >= $total_stats->get_size_before();
-		if ( $no_savings ) {
+		if ( $this->is_no_savings() ) {
 			return esc_html__( 'Skipped: Image is already optimized.', 'wp-smushit' );
 		}
 
-		return $this->get_savings_status_text( $total_stats );
+		return $this->get_optimized_status_text();
 	}
 
-	private function get_savings_status_text( $total_stats ) {
-		$count_images = $this->optimizer->get_optimized_sizes_count();
+	private function is_no_savings() {
+		$total_stats = $this->get_total_stats();
 
+		return $total_stats->get_size_after() >= $total_stats->get_size_before();
+	}
+
+	private function get_total_stats() {
+		if ( is_null( $this->total_stats ) ) {
+			$this->total_stats = $this->prepare_total_stats();
+		}
+
+		return $this->total_stats;
+	}
+
+	private function prepare_total_stats() {
+		$total_stats   = new Media_Item_Stats();
+		$optimizations = $this->get_applied_optimizations();
+		if ( empty( $optimizations ) ) {
+			return $total_stats;
+		}
+
+		$size_before = $this->get_size_before();
+		$size_after  = $this->get_size_after();
+
+		$total_stats->from_array(
+			array(
+				'size_before' => $size_before,
+				'size_after'  => $size_after,
+			)
+		);
+
+		return $total_stats;
+	}
+
+	private function get_size_before() {
+		$optimizations = $this->get_applied_optimizations();
+		$size_before   = max(
+			array_map(
+				function ( $optimization ) {
+					return $optimization->get_stats()->get_size_before();
+				},
+				$optimizations
+			)
+		);
+
+		return $size_before;
+	}
+
+	private function get_size_after() {
+		$optimizations = $this->get_applied_optimizations();
+		$size_after    = min(
+			array_map(
+				function ( $optimization ) {
+					return $optimization->get_stats()->get_size_after();
+				},
+				$optimizations
+			)
+		);
+
+		return $size_after;
+	}
+
+	private function get_sizes_stats() {
+		if ( is_null( $this->sizes_stats ) ) {
+			$this->sizes_stats = $this->prepare_sizes_stats();
+		}
+
+		return $this->sizes_stats;
+	}
+
+	private function prepare_sizes_stats() {
+		$sizes_stats = array();
+
+		foreach ( $this->media_item->get_sizes() as $size ) {
+			$sizes_stats[ $size->get_key() ] = $this->get_size_stats( $size );
+		}
+
+		return $sizes_stats;
+	}
+
+	private function get_size_stats( $size ) {
+		$optimizations = $this->get_applied_optimizations();
+		$size_stats    = new Media_Item_Stats();
+
+		if ( empty( $optimizations ) ) {
+			return $size_stats;
+		}
+
+		$size_before = max(
+			array_map(
+				function ( $optimization ) use ( $size ) {
+					return $optimization->get_size_stats( $size->get_key() )->get_size_before();
+				},
+				$optimizations
+			)
+		);
+
+		$size_after = min(
+			array_map(
+				function ( $optimization ) use ( $size ) {
+					return $optimization->get_size_stats( $size->get_key() )->get_size_after();
+				},
+				$optimizations
+			)
+		);
+
+		$size_stats->from_array(
+			array(
+				'size_before' => $size_before,
+				'size_after'  => $size_after,
+			)
+		);
+
+		return $size_stats;
+	}
+
+	/**
+	 * @return Media_Item_Optimization
+	 */
+	private function get_primary_optimization() {
+		$optimizations = $this->get_applied_optimizations();
+
+		return array_shift( $optimizations );
+	}
+
+	private function get_applied_optimizations() {
+		if ( is_null( $this->applied_optimizations ) ) {
+			$this->applied_optimizations = $this->prepare_applied_optimizations();
+		}
+
+		return $this->applied_optimizations;
+	}
+
+	private function prepare_applied_optimizations() {
+		$applied_ordered_optimizations = array();
+
+		$nextgen_optimization = $this->get_active_nextgen_optimization();
+		if ( $nextgen_optimization ) {
+			$applied_ordered_optimizations[] = $nextgen_optimization;
+		}
+
+		$applied_ordered_optimizations = array_merge( $applied_ordered_optimizations, $this->get_classic_optimizations() );
+
+		return array_filter(
+			$applied_ordered_optimizations,
+			function ( $optimization ) {
+				return $optimization && $optimization->is_optimized()
+						&& $optimization->get_stats()->get_bytes() > 0;
+			}
+		);
+	}
+
+	private function get_classic_optimizations() {
+		$ordered_optimizations = $this->get_ordered_optimization_keys();
+
+		return array_map( array( $this->optimizer, 'get_optimization' ), $ordered_optimizations );
+	}
+
+	/**
+	 * Get the ordered optimization keys for classic optimizations.
+	 *
+	 * @return array
+	 */
+	protected function get_ordered_optimization_keys() {
+		return array(
+			Smush_Optimization::get_key(),
+			Resize_Optimization::get_key(),
+		);
+	}
+
+	private function get_optimized_status_text() {
+		$total_stats = $this->get_total_stats();
+		$sizes_stats = $this->get_sizes_stats();
+
+		$count_images = 0;
+		foreach ( $sizes_stats as $size_stats ) {
+			if ( ! empty( $size_stats->get_bytes() ) ) {
+				$count_images++;
+			}
+		}
+
+		$status_text = '';
 		if ( 1 < $count_images ) {
-			$status_text = sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings, %3$d: number of images */
+			$status_text .= sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings, %3$d: number of images */
 				esc_html__( '%3$d images reduced by %1$s (%2$s)', 'wp-smushit' ),
 				$total_stats->get_human_bytes(),
 				sprintf( '%01.1f%%', $total_stats->get_percent() ),
 				$count_images
 			);
 		} else {
-			$status_text = sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings */
+			$status_text .= sprintf( /* translators: %1$s: bytes savings, %2$s: percentage savings */
 				esc_html__( 'Reduced by %1$s (%2$s)', 'wp-smushit' ),
 				$total_stats->get_human_bytes(),
 				sprintf( '%01.1f%%', $total_stats->get_percent() )
@@ -400,11 +584,20 @@ class Media_Library_Row {
 		}
 
 		// Do we need to show the main image size?
+		$main_size = $this->media_item->get_scaled_or_full_size();
+		/**
+		 * @var Media_Item_Stats $main_size_stats
+		 */
+		$main_size_stats = $this->get_array_value( $sizes_stats, $main_size->get_key() );
+		$main_file_size  = ( $main_size_stats && $main_size_stats->get_size_after() > 0 )
+			? $main_size_stats->get_size_after()
+			: $main_size->get_filesize();
+
 		$status_text .= sprintf(
-			/* translators: 1: <br/> tag, 2: Image file size */
+		/* translators: 1: <br/> tag, 2: Image file size */
 			esc_html__( '%1$sMain Image size: %2$s', 'wp-smushit' ),
 			'<br />',
-			size_format( $this->media_item->get_scaled_or_full_size()->get_filesize(), 2 )
+			size_format( $main_file_size, 2 )
 		);
 
 		return $status_text;
@@ -413,45 +606,42 @@ class Media_Library_Row {
 	/**
 	 * @return array
 	 */
-	private function get_action_links( Media_Item_Stats $total_stats ) {
+	private function get_action_links() {
 		if ( $this->is_first_optimization_required() ) {
 			return array( $this->get_smush_link(), $this->get_ignore_link() );
 		}
 
 		$links        = array();
-		$resmush_link = $this->get_resmush_link();
-		if ( $resmush_link ) {
-			$links[] = $resmush_link;
-			// Add ignore button while showing resmush button.
-			$links[] = $this->get_ignore_link();
-		}
-
-		$no_savings = $total_stats->get_size_after() >= $total_stats->get_size_before();
-		if ( $no_savings ) {
-			return $links;
-		}
-
 		$restore_link = $this->get_restore_link();
 		if ( $restore_link ) {
 			$links[] = $restore_link;
 		}
 
-		$links[] = $this->get_view_stats_link();
+		$resmush_link = $this->get_resmush_link();
+		if ( $resmush_link ) {
+			$links[] = $resmush_link;
+		}
+
+		if ( ! $this->is_no_savings() ) {
+			$links[] = $this->get_view_stats_link();
+		}
+
+		// Add ignore button while showing resmush button.
+		if ( $resmush_link ) {
+			$links[] = $this->get_ignore_link();
+		}
 
 		return $links;
 	}
 
-	/**
-	 * @return string|void
-	 */
-	private function get_html_markup_detailed_stats( Media_Item_Stats $total_stats ) {
-		$no_savings = $total_stats->get_size_after() >= $total_stats->get_size_before();
-		if ( $no_savings ) {
+	private function get_html_markup_detailed_stats() {
+		if ( $this->is_no_savings() ) {
 			return;
 		}
 
+		$primary_optimization = $this->get_primary_optimization();
 		return sprintf(
-			'<div id="smush-stats-%d" class="sui-smush-media smush-stats-wrapper hidden">
+			'
 				<table class="wp-smush-stats-holder">
 					<thead>
 						<tr>
@@ -461,44 +651,55 @@ class Media_Library_Row {
 					</thead>
 					<tbody>%s</tbody>
 				</table>
-			</div>',
-			$this->attachment_id,
+			',
 			esc_html__( 'Image size', 'wp-smushit' ),
-			esc_html__( 'Savings', 'wp-smushit' ),
+			sprintf(
+				/* translators: %s: Optimization name */
+				esc_html__( '%s Savings', 'wp-smushit' ),
+				$primary_optimization->get_name()
+			),
 			$this->get_detailed_stats_content()
 		);
 	}
 
 	private function get_detailed_stats_content() {
-		$stats_rows    = array();
-		$savings_sizes = array();
+		$primary_optimization = $this->get_primary_optimization();
+		$sizes_stats          = $this->get_sizes_stats();
+		$stats_rows           = array();
+		$savings_sizes        = array();
 
 		// Show Sizes and their compression.
 		foreach ( $this->media_item->get_sizes() as $size_key => $size ) {
-			$total_size_stats = $this->optimizer->get_total_size_stats( $size_key );
+			$size_stats = $this->get_array_value( $sizes_stats, $size_key );
 
-			if ( $total_size_stats->is_empty() || empty( $total_size_stats->get_bytes() ) ) {
+			if ( $size_stats->is_empty() || empty( $size_stats->get_bytes() ) ) {
 				continue;
 			}
 
-			$dimensions = "{$size->get_width()}x{$size->get_height()}";
+			$dimensions         = "{$size->get_width()}x{$size->get_height()}";
+			$optimized_file_url = $primary_optimization->get_optimized_file_url( $size->get_file_url() );
+			if ( empty( $optimized_file_url ) ) {
+				$optimized_file_url = $size->get_file_url();
+			}
 
-			$stats_rows[ $size_key ]    = sprintf(
+			$stats_rows[ $size_key ] = sprintf(
 				'<tr>
-					<td>%s<br/>(%s)</td>
-					<td>%s ( %s%% )</td>
+					<td><a href="%1$s">%2$s</a><br/>(%3$s)</td>
+					<td>%4$s ( %5$s%% )</td>
 				</tr>',
+				$optimized_file_url ? $optimized_file_url : '#',
 				strtoupper( $size_key ),
 				$dimensions,
-				$total_size_stats->get_human_bytes(),
-				$total_size_stats->get_percent(),
+				$size_stats->get_human_bytes(),
+				$size_stats->get_percent()
 			);
-			$savings_sizes[ $size_key ] = $total_size_stats->get_bytes();
+
+			$savings_sizes[ $size_key ] = $size_stats->get_bytes();
 		}
 
 		uksort(
 			$stats_rows,
-			function( $size_key1, $size_key2 ) use ( $savings_sizes ) {
+			function ( $size_key1, $size_key2 ) use ( $savings_sizes ) {
 				return $savings_sizes[ $size_key2 ] - $savings_sizes[ $size_key1 ];
 			}
 		);
@@ -508,16 +709,22 @@ class Media_Library_Row {
 
 	private function get_smush_link() {
 		return sprintf(
-			'<a href="#" class="wp-smush-send" data-id="%d">%s</a>',
+			'<a href="#" class="wp-smush-send button" data-id="%d">%s</a>',
 			$this->attachment_id,
 			esc_html__( 'Smush', 'wp-smushit' )
 		);
 	}
 
 	private function should_reoptimize() {
-		$reoptimize_list = $this->global_stats->get_reoptimize_list();
-		$error_list      = $this->global_stats->get_error_list();
-		return $reoptimize_list->has_id( $this->attachment_id ) || $error_list->has_id( $this->attachment_id );
+		$reoptimize_list   = $this->global_stats->get_reoptimize_list();
+		$error_list        = $this->global_stats->get_error_list();
+		$should_reoptimize = $reoptimize_list->has_id( $this->attachment_id ) || $error_list->has_id( $this->attachment_id );
+
+		if ( $should_reoptimize && $this->optimizer->has_errors() ) {
+			return $this->optimizer->should_reoptimize();
+		}
+
+		return $should_reoptimize;
 	}
 
 	/**
@@ -534,7 +741,7 @@ class Media_Library_Row {
 		}
 
 		return sprintf(
-			'<a href="#" data-tooltip="%s" data-id="%d" data-nonce="%s" class="wp-smush-action wp-smush-title sui-tooltip sui-tooltip-constrained wp-smush-resmush">%s</a>',
+			'<a href="#" data-tooltip="%s" data-id="%d" data-nonce="%s" class="wp-smush-action wp-smush-title sui-tooltip sui-tooltip-constrained wp-smush-resmush button">%s</a>',
 			esc_html__( 'Smush image including original file', 'wp-smushit' ),
 			$this->attachment_id,
 			wp_create_nonce( 'wp-smush-resmush-' . $this->attachment_id ),
@@ -560,7 +767,7 @@ class Media_Library_Row {
 		}
 
 		return sprintf(
-			'<a href="#" class="wp-smush-send" data-id="%d">%s</a>',
+			'<a href="#" class="wp-smush-send button" data-id="%d">%s</a>',
 			$this->attachment_id,
 			$anchor_text
 		);
@@ -578,10 +785,10 @@ class Media_Library_Row {
 	private function get_next_level_smush_anchor_text() {
 		$required_level = $this->settings->get_lossy_level_setting();
 		switch ( $required_level ) {
-			case Settings::LEVEL_ULTRA_LOSSY:
+			case Settings::get_level_ultra_lossy():
 				return esc_html__( 'Ultra Smush', 'wp-smushit' );
 
-			case Settings::LEVEL_SUPER_LOSSY:
+			case Settings::get_level_super_lossy():
 				return esc_html__( 'Super Smush', 'wp-smushit' );
 
 			default:
@@ -596,7 +803,7 @@ class Media_Library_Row {
 		/**
 		 * @var $smush_optimization Smush_Optimization|null
 		 */
-		$smush_optimization = $this->optimizer->get_optimization( Smush_Optimization::KEY );
+		$smush_optimization = $this->optimizer->get_optimization( Smush_Optimization::get_key() );
 		return $smush_optimization;
 	}
 
@@ -604,16 +811,20 @@ class Media_Library_Row {
 	 * @return string|void
 	 */
 	private function get_restore_link() {
-		if ( ! $this->media_item->can_be_restored() ) {
-			return;
+		if ( ! empty( $this->media_item->can_be_restored() ) ) {
+			return sprintf(
+				'<a href="#" data-tooltip="%s" data-id="%d" data-nonce="%s" class="wp-smush-action wp-smush-title sui-tooltip wp-smush-restore button">%s</a>',
+				esc_html__( 'Restore original image', 'wp-smushit' ),
+				$this->attachment_id,
+				wp_create_nonce( 'wp-smush-restore-' . $this->attachment_id ),
+				esc_html__( 'Restore original', 'wp-smushit' )
+			);
 		}
 
 		return sprintf(
-			'<a href="#" data-tooltip="%s" data-id="%d" data-nonce="%s" class="wp-smush-action wp-smush-title sui-tooltip wp-smush-restore">%s</a>',
-			esc_html__( 'Restore original image', 'wp-smushit' ),
-			$this->attachment_id,
-			wp_create_nonce( 'wp-smush-restore-' . $this->attachment_id ),
-			esc_html__( 'Restore', 'wp-smushit' )
+			'<a href="#" data-tooltip="%s" class="wp-smush-title wp-smush-restore sui-tooltip sui-tooltip-constrained button disabled">%s</a>',
+			esc_html__( 'No backup image available. Enable Back up original images to restore them in the future.', 'wp-smushit' ),
+			esc_html__( 'Restore original', 'wp-smushit' )
 		);
 	}
 
@@ -621,11 +832,18 @@ class Media_Library_Row {
 		return sprintf(
 			'<a href="#" class="wp-smush-action smush-stats-details wp-smush-title sui-tooltip sui-tooltip-top-right" data-tooltip="%s">%s</a>',
 			esc_html__( 'Detailed stats for all the image sizes', 'wp-smushit' ),
-			esc_html__( 'View Stats', 'wp-smushit' )
+			'<span class="stats-toggle"></span>'
 		);
 	}
 
 	private function get_array_value( $array, $key ) {
 		return isset( $array[ $key ] ) ? $array[ $key ] : null;
+	}
+
+	/**
+	 * @return Media_Item_Optimization|null
+	 */
+	protected function get_active_nextgen_optimization() {
+		return null;
 	}
 }

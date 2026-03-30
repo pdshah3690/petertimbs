@@ -3,55 +3,69 @@
 namespace Smush\Core\Modules;
 
 use Smush\Core\Array_Utils;
-use Smush\Core\CDN\CDN_Helper;
 use Smush\Core\Helper;
+use Smush\Core\Hub_Connector;
 use Smush\Core\Media\Media_Item_Cache;
 use Smush\Core\Media\Media_Item_Query;
 use Smush\Core\Media_Library\Background_Media_Library_Scanner;
 use Smush\Core\Media_Library\Media_Library_Last_Process;
 use Smush\Core\Media_Library\Media_Library_Scan_Background_Process;
 use Smush\Core\Media_Library\Media_Library_Scanner;
+use Smush\Core\Membership\Membership;
 use Smush\Core\Modules\Background\Background_Pre_Flight_Controller;
 use Smush\Core\Modules\Background\Background_Process;
 use Smush\Core\Product_Analytics;
 use Smush\Core\Server_Utils;
 use Smush\Core\Settings;
 use Smush\Core\Stats\Global_Stats;
-use Smush\Core\Webp\Webp_Configuration;
 use WP_Smush;
 
 class Product_Analytics_Controller {
 	/**
 	 * @var Settings
 	 */
-	private $settings;
+	protected $settings;
 	/**
 	 * @var Media_Library_Scan_Background_Process
 	 */
-	private $scan_background_process;
-	private $scanner_slice_size;
+	protected $scan_background_process;
+	protected $scanner_slice_size;
 
 	/**
 	 * @var Media_Library_Last_Process
 	 */
-	private $media_library_last_process;
+	protected $media_library_last_process;
 
 	/**
 	 * @var bool
 	 */
-	private $scan_background_process_dead = false;
+	protected $scan_background_process_dead = false;
 	/**
 	 * @var Product_Analytics
 	 */
-	private $product_analytics;
+	protected $product_analytics;
+
+	/**
+	 * @var Array_Utils
+	 */
+	protected $array_utils;
 
 	public function __construct() {
 		$this->settings                   = Settings::get_instance();
 		$this->scan_background_process    = Background_Media_Library_Scanner::get_instance()->get_background_process();
 		$this->media_library_last_process = Media_Library_Last_Process::get_instance();
 		$this->product_analytics          = Product_Analytics::get_instance();
+		$this->array_utils                = new Array_Utils();
 
 		$this->hook_actions();
+	}
+
+	public static function get_instance() {
+		return new self();
+	}
+
+	public function __call( $method_name, $arguments ) {
+		_deprecated_function( esc_html( $method_name ), '3.24.0' );
 	}
 
 	private function hook_actions() {
@@ -60,28 +74,19 @@ class Product_Analytics_Controller {
 		add_action( 'wp_smush_settings_updated', array( $this, 'intercept_settings_update' ), 10, 2 );
 		add_action( 'wp_smush_settings_deleted', array( $this, 'intercept_reset' ) );
 		add_action( 'wp_smush_settings_updated', array( $this, 'track_integrations_saved' ), 10, 2 );
-		add_action( 'wp_smush_settings_updated', array( $this, 'track_toggle_local_webp_fallback' ), 10, 2 );
+		add_action( 'wp_smush_settings_updated', array( $this, 'track_resizing_setting_update' ), 10, 2 );
 
 		add_action( 'wp_ajax_smush_track_deactivate', array( $this, 'ajax_track_deactivation_survey' ) );
 		add_action( 'wp_ajax_smush_analytics_track_event', array( $this, 'ajax_handle_track_request' ) );
 
-		if ( ! $this->settings->get( 'usage' ) ) {
+		if ( ! $this->is_usage_tracking_enabled() ) {
 			return;
 		}
 
 		// Other events.
 		add_action( 'wp_smush_directory_smush_start', array( $this, 'track_directory_smush' ) );
 		add_action( 'wp_smush_bulk_smush_start', array( $this, 'track_bulk_smush_start' ), 20 );
-		add_action( 'wp_smush_bulk_smush_completed', array( $this, 'track_background_bulk_smush_completed' ) );
-		add_action( 'wp_smush_bulk_smush_dead', array( $this, 'track_bulk_smush_background_process_death' ) );
 		add_action( 'wp_smush_config_applied', array( $this, 'track_config_applied' ) );
-		add_action( 'wp_smush_webp_method_changed', array( $this, 'track_webp_method_changed' ) );
-		add_action( 'wp_smush_webp_status_changed', array( $this, 'track_webp_status_changed' ) );
-		add_action( 'wp_smush_after_delete_all_webp_files', array(
-			$this,
-			'track_webp_after_deleting_all_webp_files',
-		) );
-		add_action( 'wp_ajax_smush_toggle_webp_wizard', array( $this, 'track_webp_reconfig' ), - 1 );
 
 		$identifier          = $this->scan_background_process->get_identifier();
 		$scan_started_action = "{$identifier}_started";
@@ -102,9 +107,15 @@ class Product_Analytics_Controller {
 		add_action( 'wp_smush_bulk_smush_stuck', array( $this, 'track_bulk_smush_progress_stuck' ) );
 
 		add_action( 'wp_smush_lazy_load_updated', array( $this, 'track_lazy_load_settings_updated' ), 10, 2 );
+
+		add_action( 'wp_smush_bulk_restore_completed', array( $this, 'track_bulk_restore_completed' ) );
 	}
 
-	private function track( $event, $properties = array() ) {
+	protected function is_usage_tracking_enabled() {
+		return $this->settings->get( 'usage' );
+	}
+
+	protected function track( $event, $properties = array() ) {
 		$this->product_analytics->track( $event, $properties );
 	}
 
@@ -122,24 +133,35 @@ class Product_Analytics_Controller {
 		}
 	}
 
-	private function maybe_track_feature_toggle( array $settings ) {
+	private function maybe_track_feature_toggle( $settings ) {
+		$has_tracked = false;
 		foreach ( $settings as $setting_key => $setting_value ) {
 			$handler = "track_{$setting_key}_feature_toggle";
 			if ( method_exists( $this, $handler ) ) {
 				call_user_func( array( $this, $handler ), $setting_value );
 
-				return true;
+				$has_tracked = true;
 			}
 		}
 
-		return false;
+		return $has_tracked;
 	}
 
-	private function remove_unchanged_settings( $old_settings, $settings ) {
+	protected function remove_unchanged_settings( $old_settings, $settings ) {
+		$default_settings  = $this->settings->get_defaults();
+		$not_null_callback = function ( $value ) {
+			return ! is_null( $value );
+		};
+
+		$old_settings = array_filter( $old_settings, $not_null_callback );
+		$old_settings = array_merge( $default_settings, $old_settings );
+
+		$settings = array_filter( $settings, $not_null_callback );
+		$settings = array_merge( $default_settings, $settings );
+
 		$changed = array();
 		foreach ( $settings as $setting_key => $setting_value ) {
 			$old_setting_value = isset( $old_settings[ $setting_key ] ) ? $old_settings[ $setting_key ] : '';
-			$setting_value     = isset( $setting_value ) ? $setting_value : '';
 			if ( $old_setting_value !== $setting_value ) {
 				$changed[ $setting_key ] = $setting_value;
 			}
@@ -150,13 +172,14 @@ class Product_Analytics_Controller {
 
 	public function get_bulk_properties() {
 		$bulk_property_labels = array(
-			'auto'       => 'Automatic Compression',
-			'strip_exif' => 'Metadata',
-			'resize'     => 'Resize Original Images',
-			'original'   => 'Compress original images',
-			'backup'     => 'Backup original images',
-			'png_to_jpg' => 'Auto-convert PNGs to JPEGs (lossy)',
-			'no_scale'   => 'Disable scaled images',
+			'auto'             => 'Automatic Compression',
+			'strip_exif'       => 'Metadata',
+			'resize'           => 'Resize Original Images',
+			'original'         => 'Compress original images',
+			'backup'           => 'Backup original images',
+			'png_to_jpg'       => 'Auto-convert PNGs to JPEGs (lossy)',
+			'no_scale'         => 'Disable scaled images',
+			'background_email' => 'Email notification',
 		);
 
 		$image_sizes     = Settings::get_instance()->get_setting( 'wp-smush-image_sizes' );
@@ -166,6 +189,7 @@ class Product_Analytics_Controller {
 			'Parallel Processing' => $this->get_parallel_processing_status(),
 			'Smush Type'          => $this->get_smush_type(),
 		);
+
 		foreach ( $bulk_property_labels as $bulk_setting => $bulk_property_label ) {
 			$property_value                          = Settings::get_instance()->get( $bulk_setting )
 				? 'Enabled'
@@ -180,19 +204,27 @@ class Product_Analytics_Controller {
 		return defined( 'WP_SMUSH_PARALLEL' ) && WP_SMUSH_PARALLEL ? 'Enabled' : 'Disabled';
 	}
 
-	private function get_smush_type() {
-		return $this->settings->is_webp_module_active() ? 'WebP' : 'Classic';
+	protected function get_smush_type() {
+		if ( $this->settings->is_webp_module_active() ) {
+			return 'WebP';
+		}
+
+		if ( $this->settings->is_avif_module_active() ) {
+			return 'AVIF';
+		}
+
+		return 'Classic';
 	}
 
-	private function get_current_lossy_level_label() {
+	protected function get_current_lossy_level_label() {
 		$lossy_level = $this->settings->get_lossy_level_setting();
 		$smush_modes = array(
-			Settings::LEVEL_LOSSLESS    => 'Basic',
-			Settings::LEVEL_SUPER_LOSSY => 'Super',
-			Settings::LEVEL_ULTRA_LOSSY => 'Ultra',
+			Settings::get_level_lossless()    => 'Basic',
+			Settings::get_level_super_lossy() => 'Super',
+			Settings::get_level_ultra_lossy() => 'Ultra',
 		);
 		if ( ! isset( $smush_modes[ $lossy_level ] ) ) {
-			$lossy_level = Settings::LEVEL_LOSSLESS;
+			$lossy_level = Settings::get_level_lossless();
 		}
 
 		return $smush_modes[ $lossy_level ];
@@ -200,14 +232,6 @@ class Product_Analytics_Controller {
 
 	private function track_detection_feature_toggle( $setting_value ) {
 		return $this->track_feature_toggle( $setting_value, 'Image Resize Detection' );
-	}
-
-	private function track_webp_mod_feature_toggle( $setting_value ) {
-		return $this->track_feature_toggle( $setting_value, 'Local WebP' );
-	}
-
-	private function track_cdn_feature_toggle( $setting_value ) {
-		return $this->track_feature_toggle( $setting_value, 'CDN' );
 	}
 
 	private function track_lazy_load_feature_toggle( $setting_value ) {
@@ -226,35 +250,25 @@ class Product_Analytics_Controller {
 		);
 	}
 
-	private function track_feature_toggle( $active, $feature ) {
+	protected function track_feature_toggle( $active, $feature ) {
 		$event = $active
 			? 'Feature Activated'
 			: 'Feature Deactivated';
 
-		$this->track( $event, array(
-			'Feature'        => $feature,
-			'Triggered From' => $this->identify_referrer(),
-		) );
+		$this->track(
+			$event,
+			array(
+				'Feature'        => $feature,
+				'Triggered From' => $this->identify_referrer(),
+			)
+		);
 
 		return true;
 	}
 
-	private function get_webp_referer() {
-		$page                   = $this->get_referer_page();
-		$webp_configuration     = Webp_Configuration::get_instance();
-		$is_user_on_wizard_webp = 'smush-webp' === $page
-		                          && $webp_configuration->should_show_wizard()
-		                          && ! $webp_configuration->direct_conversion_enabled();
-
-		if ( $is_user_on_wizard_webp ) {
-			return 'Wizard';
-		}
-
-		return $this->identify_referrer();
-	}
-
-	private function identify_referrer() {
-		$onboarding_request = ! empty( $_REQUEST['action'] ) && 'smush_setup' === $_REQUEST['action'];
+	protected function identify_referrer() {
+		$wizard_setup_actions = array( 'smush_setup', 'smush_free_setup' );
+		$onboarding_request   = ! empty( $_REQUEST['action'] ) && in_array( $_REQUEST['action'], $wizard_setup_actions, true );
 		if ( $onboarding_request ) {
 			return 'Wizard';
 		}
@@ -263,10 +277,9 @@ class Product_Analytics_Controller {
 		$triggered_from = array(
 			'smush'              => 'Dashboard',
 			'smush-bulk'         => 'Bulk Smush',
-			'smush-directory'    => 'Directory Smush',
-			'smush-lazy-load'    => 'Lazy Load',
+			'smush-lazy-preload' => 'Lazy Load',
 			'smush-cdn'          => 'CDN',
-			'smush-webp'         => 'Local WebP',
+			'smush-next-gen'     => 'Next-Gen Formats',
 			'smush-integrations' => 'Integrations',
 			'smush-settings'     => 'Settings',
 		);
@@ -276,33 +289,8 @@ class Product_Analytics_Controller {
 			: $triggered_from[ $page ];
 	}
 
-	private function maybe_track_cdn_update( $settings ) {
-		$cdn_properties      = array();
-		$cdn_property_labels = $this->cdn_property_labels();
-		foreach ( $settings as $setting_key => $setting_value ) {
-			if ( array_key_exists( $setting_key, $cdn_property_labels ) ) {
-				$property_label                    = $cdn_property_labels[ $setting_key ];
-				$property_value                    = $setting_value ? 'Enabled' : 'Disabled';
-				$cdn_properties[ $property_label ] = $property_value;
-			}
-		}
-
-		if ( $cdn_properties ) {
-			$this->track( 'CDN Updated', $cdn_properties );
-
-			return true;
-		}
-
+	protected function maybe_track_cdn_update( $settings ) {
 		return false;
-	}
-
-	private function cdn_property_labels() {
-		return array(
-			'background_images' => 'Background Images',
-			'auto_resize'       => 'Automatic Resizing',
-			'webp'              => 'WebP Conversions',
-			'rest_api_support'  => 'Rest API',
-		);
 	}
 
 	public function track_directory_smush() {
@@ -322,32 +310,8 @@ class Product_Analytics_Controller {
 		$this->track( 'Bulk Smush Started', $properties );
 	}
 
-	private function get_process_id() {
+	protected function get_process_id() {
 		return md5( $this->media_library_last_process->get_process_start_time() );
-	}
-
-	/**
-	 * Track the event on background optimization completed.
-	 * Note: For ajax Bulk Smush, we will track it via js.
-	 *
-	 * @return void
-	 */
-	public function track_background_bulk_smush_completed() {
-		$bg_optimization    = WP_Smush::get_instance()->core()->mod->bg_optimization;
-		$total_items        = $bg_optimization->get_total_items();
-		$failed_items       = $bg_optimization->get_failed_items();
-		$failure_percentage = $total_items > 0 ? round( $failed_items * 100 / $total_items ) : 0;
-
-		$properties = array_merge(
-			$this->get_bulk_smush_stats(),
-			array(
-				'Total Enqueued Images' => $total_items,
-				'Failure Percentage'    => $failure_percentage,
-			)
-		);
-		$properties = $this->filter_bulk_smush_completed_properties( $properties );
-
-		$this->track( 'Bulk Smush Completed', $properties );
 	}
 
 	/**
@@ -366,20 +330,6 @@ class Product_Analytics_Controller {
 				'Smush Type'              => $this->get_smush_type(),
 				'Mode'                    => $this->get_current_lossy_level_label(),
 			)
-		);
-	}
-
-	private function get_bulk_smush_stats() {
-		$global_stats = WP_Smush::get_instance()->core()->get_global_stats();
-		$array_util   = new Array_Utils();
-
-		return array(
-			'Total Savings'                 => $this->convert_to_megabytes( (int) $array_util->get_array_value( $global_stats, 'savings_bytes' ) ),
-			'Total Images'                  => (int) $array_util->get_array_value( $global_stats, 'count_images' ),
-			'Media Optimization Percentage' => (float) $array_util->get_array_value( $global_stats, 'percent_optimized' ),
-			'Percentage of Savings'         => (float) $array_util->get_array_value( $global_stats, 'savings_percent' ),
-			'Images Resized'                => (int) $array_util->get_array_value( $global_stats, 'count_resize' ),
-			'Resize Savings'                => $this->convert_to_megabytes( (int) $array_util->get_array_value( $global_stats, 'savings_resize' ) ),
 		);
 	}
 
@@ -457,7 +407,7 @@ class Product_Analytics_Controller {
 	}
 
 	public function intercept_reset() {
-		if ( $this->settings->get( 'usage' ) ) {
+		if ( $this->is_usage_tracking_enabled() ) {
 			$this->track(
 				'Opt Out',
 				array(
@@ -485,11 +435,14 @@ class Product_Analytics_Controller {
 			'Scan Type' => $type,
 		);
 
-		$this->track( 'Scan Started', array_merge(
-			$properties,
-			$this->get_bulk_properties(),
-			$this->get_scan_properties()
-		) );
+		$this->track(
+			'Scan Started',
+			array_merge(
+				$properties,
+				$this->get_bulk_properties(),
+				$this->get_scan_properties()
+			)
+		);
 	}
 
 	/**
@@ -503,11 +456,14 @@ class Product_Analytics_Controller {
 			'Retry Attempts' => $background_process->get_revival_count(),
 			'Time Elapsed'   => $this->media_library_last_process->get_process_elapsed_time(),
 		);
-		$this->track( 'Scan Ended', array_merge(
-			$properties,
-			$this->get_bulk_properties(),
-			$this->get_scan_properties()
-		) );
+		$this->track(
+			'Scan Ended',
+			array_merge(
+				$properties,
+				$this->get_bulk_properties(),
+				$this->get_scan_properties()
+			)
+		);
 	}
 
 	public function track_background_scan_process_death() {
@@ -522,22 +478,6 @@ class Product_Analytics_Controller {
 					'Mode'         => $this->get_current_lossy_level_label(),
 				),
 				$this->get_scan_background_process_properties()
-			)
-		);
-	}
-
-	public function track_bulk_smush_background_process_death() {
-		$this->track(
-			'Background Process Dead',
-			array_merge(
-				array(
-					'Process Type' => 'Smush',
-					'Slice Size'   => 0,
-					'Time Elapsed' => $this->media_library_last_process->get_process_elapsed_time(),
-					'Smush Type'   => $this->get_smush_type(),
-					'Mode'         => $this->get_current_lossy_level_label(),
-				),
-				$this->get_bulk_background_process_properties()
 			)
 		);
 	}
@@ -582,29 +522,15 @@ class Product_Analytics_Controller {
 		return $properties;
 	}
 
-	private function get_bulk_background_process_properties() {
-		$bg_optimization = WP_Smush::get_instance()->core()->mod->bg_optimization;
-		$process_id      = $this->get_process_id();
-
-		if ( ! $bg_optimization->is_background_enabled() ) {
-			return array(
-				'process_id' => $process_id,
-			);
-		}
-
-		$total_items     = $bg_optimization->get_total_items();
-		$processed_items = $bg_optimization->get_processed_items();
+	protected function get_bulk_background_process_properties() {
+		$process_id = $this->get_process_id();
 
 		return array(
-			'process_id'             => $process_id,
-			'Retry Attempts'         => $bg_optimization->get_revival_count(),
-			'Total Enqueued Images'  => $total_items,
-			'Completion Percentage'  => $this->get_background_process_completion_percentage( $total_items, $processed_items ),
-			'Total Processed Images' => $processed_items,
+			'process_id' => $process_id,
 		);
 	}
 
-	private function get_scan_background_process_properties() {
+	protected function get_scan_background_process_properties() {
 		$query                  = new Media_Item_Query();
 		$total_enqueued_images  = $query->get_image_attachment_count();
 		$total_items            = $this->scan_background_process->get_status()->get_total_items();
@@ -622,7 +548,7 @@ class Product_Analytics_Controller {
 		);
 	}
 
-	private function get_background_process_completion_percentage( $total_items, $processed_items ) {
+	protected function get_background_process_completion_percentage( $total_items, $processed_items ) {
 		if ( $total_items < 1 ) {
 			return 0;
 		}
@@ -630,7 +556,7 @@ class Product_Analytics_Controller {
 		return ceil( $processed_items * 100 / $total_items );
 	}
 
-	private function convert_to_megabytes( $size_in_bytes ) {
+	protected function convert_to_megabytes( $size_in_bytes ) {
 		if ( empty( $size_in_bytes ) ) {
 			return 0;
 		}
@@ -638,7 +564,7 @@ class Product_Analytics_Controller {
 		return round( $size_in_bytes / $unit_mb, 2 );
 	}
 
-	private function get_scanner_slice_size() {
+	protected function get_scanner_slice_size() {
 		if ( is_null( $this->scanner_slice_size ) ) {
 			$this->scanner_slice_size = ( new Media_Library_Scanner() )->get_slice_size();
 		}
@@ -646,139 +572,7 @@ class Product_Analytics_Controller {
 		return $this->scanner_slice_size;
 	}
 
-	public function track_toggle_local_webp_fallback( $old_settings, $settings ) {
-		if (
-			empty( $settings['usage'] ) ||
-			empty( $settings['webp_mod'] ) ||
-			did_action( 'wp_smush_webp_status_changed' ) // Tracked.
-		) {
-			return;
-		}
-
-		$modified_settings = $this->remove_unchanged_settings( $old_settings, $settings );
-		if ( ! isset( $modified_settings['webp_fallback'] ) ) {
-			return;
-		}
-
-		$modify_type               = ! empty( $modified_settings['webp_fallback'] ) ? 'browser_support_on' : 'browser_support_off';
-		$direct_conversion_enabled = ! empty( $settings['webp_direct_conversion'] );// WebP method might or might not be changed.
-		$webp_method               = $direct_conversion_enabled ? 'direct' : 'server_redirect';
-		$local_webp_properites     = $this->get_local_webp_properties();
-		$this->track(
-			'local_webp_updated',
-			array_merge(
-				$local_webp_properites,
-				array(
-					'update_type' => 'modify',
-					'modify_type' => $modify_type,
-					'Method'      => $webp_method,
-				)
-			)
-		);
-	}
-
-	public function track_webp_after_deleting_all_webp_files() {
-		$local_webp_properites = $this->get_local_webp_properties();
-		$this->track(
-			'local_webp_updated',
-			array_merge(
-				$local_webp_properites,
-				array(
-					'update_type' => 'modify',
-					'modify_type' => 'delete_files',
-				)
-			)
-		);
-	}
-
-	public function track_webp_method_changed() {
-		$local_webp_properites = $this->get_local_webp_properties();
-		$this->track(
-			'local_webp_updated',
-			array_merge(
-				$local_webp_properites,
-				array(
-					'update_type' => 'switch_method',
-					'modify_type' => 'na',
-				)
-			)
-		);
-	}
-
-	public function track_webp_status_changed() {
-		$local_webp_properites = $this->get_local_webp_properties();
-		$update_type           = $this->settings->is_webp_module_active() ? 'activate' : 'deactivate';
-		$this->track(
-			'local_webp_updated',
-			array_merge(
-				$local_webp_properites,
-				array(
-					'update_type' => $update_type,
-					'modify_type' => 'na',
-				)
-			)
-		);
-	}
-
-	private function get_local_webp_properties() {
-		$location = $this->get_webp_referer();
-		// Directly check webp_direct_conversion option to identify webp method even webp module is disabled.
-		$direct_conversion_enabled = $this->settings->get( 'webp_direct_conversion' );
-		$webp_method               = $direct_conversion_enabled ? 'direct' : 'server_redirect';
-		$webp_status_notice        = $this->get_webp_status_notice();
-
-		return array(
-			'Location'      => $location,
-			'Method'        => $webp_method,
-			'status_notice' => $webp_status_notice,
-		);
-	}
-
-	private function get_webp_status_notice() {
-		if ( ! $this->settings->is_webp_module_active() ) {
-			return 'na';
-		}
-
-		$webp_configuration = Webp_Configuration::get_instance();
-		if ( ! $webp_configuration->is_configured() ) {
-			return $webp_configuration->server_configuration()->get_configuration_error_code();
-		}
-
-		if ( is_multisite() ) {
-			return 'active_subsite';// Activated but required run Bulk Smush on subsites.
-		}
-
-		$required_bulk_smush = Global_Stats::get()->is_outdated() || Global_Stats::get()->get_remaining_count() > 0;
-		if ( $required_bulk_smush ) {
-			return 'active_need_smush';
-		}
-
-		$auto_smush_enabled = $this->settings->is_automatic_compression_active();
-		if ( $auto_smush_enabled ) {
-			return 'active_automatic_enabled';
-		}
-
-		return 'active_automatic_disabled';
-	}
-
-	public function track_webp_reconfig() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-		$local_webp_properites = $this->get_local_webp_properties();
-		$this->track(
-			'local_webp_updated',
-			array_merge(
-				$local_webp_properites,
-				array(
-					'update_type' => 'modify',
-					'modify_type' => 'reconfig',
-				)
-			)
-		);
-	}
-
-	private function get_referer_page() {
+	protected function get_referer_page() {
 		$path       = parse_url( wp_get_referer(), PHP_URL_QUERY );
 		$query_vars = array();
 		parse_str( $path, $query_vars );
@@ -814,8 +608,8 @@ class Product_Analytics_Controller {
 		}
 
 		$is_dashboard_request = wp_doing_ajax() &&
-		                        ! empty( $_REQUEST['action'] ) &&
-		                        'wdp-project-deactivate' === wp_unslash( $_REQUEST['action'] );
+								! empty( $_REQUEST['action'] ) &&
+								'wdp-project-deactivate' === wp_unslash( $_REQUEST['action'] );
 
 		if ( $is_dashboard_request ) {
 			return 'deactivate_dashboard';
@@ -855,9 +649,8 @@ class Product_Analytics_Controller {
 		return $is_cron_healthy ? 'Enabled' : 'Disabled';
 	}
 
-	private function get_background_optimization_status() {
-		$bg_optimization = WP_Smush::get_instance()->core()->mod->bg_optimization;
-		return $bg_optimization->is_background_enabled() ? 'Enabled' : 'Disabled';
+	protected function get_background_optimization_status() {
+		return 'Disabled';
 	}
 
 	public function ajax_handle_track_request() {
@@ -883,11 +676,13 @@ class Product_Analytics_Controller {
 	private function allow_to_track( $event_name, $properties ) {
 		$trackable_events   = array(
 			'Setup Wizard'     => true,
+			'Setup Wizard New' => true,
 			'smush_pro_upsell' => isset( $properties['Location'] ) && 'wizard' === $properties['Location'],
+			'Disconnect Site'  => true,
 		);
 		$is_trackable_event = ! empty( $trackable_events[ $event_name ] );
 
-		return $is_trackable_event || $this->settings->get( 'usage' );
+		return $is_trackable_event || $this->is_usage_tracking_enabled();
 	}
 
 	private function get_event_name() {
@@ -1002,8 +797,9 @@ class Product_Analytics_Controller {
 		$properties = array_merge(
 			$properties,
 			array(
-				'active_features' => $this->get_active_features(),
-				'active_plugins'  => $this->get_active_plugins(),
+				'active_features'      => $this->get_active_features(),
+				'active_plugins'       => $this->get_active_plugins(),
+				'Smush API Connection' => $this->get_api_connection_status(),
 			)
 		);
 
@@ -1015,29 +811,41 @@ class Product_Analytics_Controller {
 		wp_send_json_success();
 	}
 
+	private function get_api_connection_status() {
+		if ( Hub_Connector::is_logged_in() ) {
+			return 'connected';
+		}
+
+		if ( Membership::get_instance()->is_api_hub_access_required() ) {
+			return 'disconnected';
+		}
+
+		return 'na';
+	}
+
 	private function get_active_features() {
-		$lossy_level           = $this->settings->get_lossy_level_setting();
-		$cdn_module_activated  = CDN_Helper::get_instance()->is_cdn_active();
-		$webp_module_activated = ! $cdn_module_activated && $this->settings->is_webp_module_active();
-		$webp_direct_activated = $webp_module_activated && $this->settings->is_webp_direct_conversion_active();
-		$webp_server_activated = $webp_module_activated && ! $webp_direct_activated;
+		$lossy_level = $this->settings->get_lossy_level_setting();
 
 		$features = array(
 			'lazy_load'        => $this->settings->is_lazyload_active(),
-			'cdn'              => $cdn_module_activated,
-			'webp_direct'      => $webp_direct_activated,
-			'webp_server'      => $webp_server_activated,
-			'smush_basic'      => Settings::LEVEL_LOSSLESS === $lossy_level,
-			'smush_super'      => Settings::LEVEL_SUPER_LOSSY === $lossy_level,
-			'smush_ultra'      => Settings::LEVEL_ULTRA_LOSSY === $lossy_level,
-			's3_offload'       => $this->settings->is_s3_active(),
+			'smush_basic'      => Settings::get_level_lossless() === $lossy_level,
+			'smush_super'      => Settings::get_level_super_lossy() === $lossy_level,
 			'wp_bakery'        => $this->settings->get( 'js_builder' ),
 			'gravity_forms'    => $this->settings->get( 'gform' ),
-			'nextgen_gallery'  => $this->settings->get( 'nextgen' ),
 			'gutenberg_blocks' => $this->settings->get( 'gutenberg' ),
 		);
 
+		// Merge in pro features.
+		$features = array_merge(
+			$features,
+			$this->get_active_pro_features()
+		);
+
 		return array_keys( array_filter( $features ) );
+	}
+
+	protected function get_active_pro_features() {
+		return array();
 	}
 
 	private function get_wp_loopback_status( $properties ) {
@@ -1093,16 +901,56 @@ class Product_Analytics_Controller {
 		);
 	}
 
+	public function track_resizing_setting_update( $old_settings, $settings ) {
+		if ( empty( $settings['usage'] ) ) {
+			return;
+		}
+
+		$changed_settings  = $this->remove_unchanged_settings( $old_settings, $settings );
+		if ( 'Lazy Load' !== $this->identify_referrer() ) {
+			return;
+		}
+
+		$modified_settings = 'na';
+
+		if ( ! empty( $changed_settings ) ) {
+			$modified_settings_map = array(
+				'auto_resizing'    => 'auto_resizing',
+				'image_dimensions' => 'image_dimensions',
+			);
+
+			$modified_settings = array_intersect_key( $modified_settings_map, $changed_settings );
+			$modified_settings = ! empty( $modified_settings ) ? array_values( $modified_settings ) : 'na';
+		}
+
+		$properties = array(
+			'update_type'             => 'modify',
+			'modified_settings'        => $modified_settings,
+			'auto_resizing_status'    => $settings['auto_resizing'] ? 'Enabled' : 'Disabled',
+			'image_dimensions_status' => $settings['image_dimensions'] ? 'Enabled' : 'Disabled',
+		);
+		$this->track_lazy_load_updated(
+			$properties,
+			$this->settings->get_setting( 'wp-smush-lazy_load' )
+		);
+	}
+
 	private function track_lazy_load_updated( $properties, $settings ) {
 		$exclusion_enabled         = $this->is_lazy_load_exclusion_enabled( $settings );
 		$native_lazyload_enabled   = ! empty( $settings['native'] );
 		$noscript_fallback_enabled = ! empty( $settings['noscript_fallback'] );
+		$embed_content             = empty( $settings['format']['iframe'] )
+			? 'Disabled'
+			: ( empty( $settings['format']['embed_video'] ) ? 'Enabled' : 'Preview Images' );
 		$properties                = array_merge(
 			array(
-				'Location'           => $this->identify_referrer(),
-				'exclusions'         => $exclusion_enabled ? 'Enabled' : 'Disabled',
-				'native_lazy_status' => $native_lazyload_enabled ? 'Enabled' : 'Disabled',
-				'noscript_status'    => $noscript_fallback_enabled ? 'Enabled' : 'Disabled',
+				'Location'                => $this->identify_referrer(),
+				'embed_content'           => $embed_content,
+				'exclusions'              => $exclusion_enabled ? 'Enabled' : 'Disabled',
+				'native_lazy_status'      => $native_lazyload_enabled ? 'Enabled' : 'Disabled',
+				'noscript_status'         => $noscript_fallback_enabled ? 'Enabled' : 'Disabled',
+				'auto_resizing_status'    => $this->settings->get( 'auto_resizing' ) ? 'Enabled' : 'Disabled',
+				'image_dimensions_status' => $this->settings->get( 'image_dimensions' ) ? 'Enabled' : 'Disabled',
 			),
 			$properties
 		);
@@ -1123,5 +971,40 @@ class Product_Analytics_Controller {
 
 		// By default, we activated for all post types, so this option is changed when any post type is unchecked.
 		return in_array( false, $included_post_types, true );
+	}
+
+	/**
+	 * Track the completion of a bulk restore process.
+	 *
+	 * @param array $args Restore arguments.
+	 */
+	public function track_bulk_restore_completed( $args ) {
+		$this->track(
+			'Bulk Restore Triggered',
+			$this->filter_bulk_restore_triggered_properties(
+				array(
+					'Type'                  => 'Bulk',
+					'Total images restored' => (int) $this->array_utils->get_array_value( $args, 'restored_count', 0 ),
+					'Total images'          => (int) $this->array_utils->get_array_value( $args, 'total_count', 0 ),
+					'Backup not found'      => (int) $this->array_utils->get_array_value( $args, 'missing_backup_count', 0 ),
+				)
+			)
+		);
+	}
+
+	/**
+	 * Filter the properties for the bulk restore triggered event.
+	 *
+	 * @param mixed $properties Properties.
+	 *
+	 * @return array
+	 */
+	public function filter_bulk_restore_triggered_properties( $properties ) {
+		return array_merge(
+			$properties,
+			array(
+				'Backup Status' => $this->settings->is_backup_active() ? 'Enabled' : 'Disabled',
+			)
+		);
 	}
 }

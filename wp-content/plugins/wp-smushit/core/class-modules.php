@@ -11,10 +11,9 @@
 namespace Smush\Core;
 
 use Smush\Core\Backups\Backups_Controller;
-use Smush\Core\CDN\CDN_Controller;
-use Smush\Core\CDN\CDN_Settings_Ui_Controller;
-use Smush\Core\CDN\CDN_Srcset_Controller;
+use Smush\Core\Cache\Cache_Controller;
 use Smush\Core\Lazy_Load\Lazy_Load_Controller;
+use Smush\Core\Lazy_Load\Video_Embed\Video_Thumbnail_Controller;
 use Smush\Core\Media\Attachment_Url_Cache_Controller;
 use Smush\Core\Media\Media_Item_Controller;
 use Smush\Core\Media_Library\Ajax_Media_Library_Scanner;
@@ -25,14 +24,11 @@ use Smush\Core\Media_Library\Media_Library_Watcher;
 use Smush\Core\Modules\Background\Background_Pre_Flight_Controller;
 use Smush\Core\Modules\CDN;
 use Smush\Core\Photon\Photon_Controller;
-use Smush\Core\Png2Jpg\Png2Jpg_Controller;
 use Smush\Core\Resize\Resize_Controller;
-use Smush\Core\S3\S3_Controller;
 use Smush\Core\Security\Security_Controller;
 use Smush\Core\Smush\Smush_Controller;
 use Smush\Core\Stats\Global_Stats_Controller;
 use Smush\Core\Transform\Transformation_Controller;
-use Smush\Core\Webp\Webp_Controller;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -115,6 +111,10 @@ class Modules {
 
 	public $backward_compatibility;
 
+	public static function get_instance() {
+		return new self();
+	}
+
 	/**
 	 * Modules constructor.
 	 */
@@ -130,39 +130,21 @@ class Modules {
 			$this->dir = new Modules\Dir();
 		}
 
-		$this->smush   = new Modules\Smush();
-		$this->backup  = new Modules\Backup();
-		$this->png2jpg = new Modules\Png2jpg();
-		$this->resize  = new Modules\Resize();
+		$this->smush  = $this->get_smush_module();
+		$this->backup = new Modules\Backup();
+		$this->resize = new Modules\Resize();
 
 		$transformation_controller = new Transformation_Controller();
 		$transformation_controller->init();
 
-		$this->cdn = new CDN();
-
-		$cdn_srcset_controller = CDN_Srcset_Controller::get_instance();
-		$cdn_srcset_controller->init();
-
-		$this->webp              = new Modules\WebP();
 		$this->lazy              = new Modules\Lazy();
 		$this->product_analytics = new Modules\Product_Analytics_Controller();
-
-		$this->bg_optimization = Modules\Bulk\Background_Bulk_Smush::get_instance();
 
 		$smush_controller = Smush_Controller::get_instance();
 		$smush_controller->init();
 
-		$png2jpg_controller = Png2Jpg_Controller::get_instance();
-		$png2jpg_controller->init();
-
-		$webp_controller = new Webp_Controller();
-		$webp_controller->init();
-
 		$resize_controller = new Resize_Controller();
 		$resize_controller->init();
-
-		$s3_controller = new S3_Controller();
-		$s3_controller->init();
 
 		$backups_controller = new Backups_Controller();
 		$backups_controller->init();
@@ -197,18 +179,13 @@ class Modules {
 		$photon_controller = new Photon_Controller();
 		$photon_controller->init();
 
-		// CDN
-		$cdn_controller = new CDN_Controller();
-		$cdn_controller->init();
-
-		$cdn_settings_ui_controller = new CDN_Settings_Ui_Controller();
-		$cdn_settings_ui_controller->init();
-
 		$cache_controller = new Cache_Controller();
 		$cache_controller->init();
 
 		$lazy_load_controller = Lazy_Load_Controller::get_instance();
 		$lazy_load_controller->init();
+
+		( new Video_Thumbnail_Controller() )->init();
 
 		$background_health = Background_Pre_Flight_Controller::get_instance();
 		$background_health->init();
@@ -224,6 +201,12 @@ class Modules {
 
 		$attachment_url_cache_controller = new Attachment_Url_Cache_Controller();
 		$attachment_url_cache_controller->init();
+
+		$hub_connector = new Hub_Connector();
+		$hub_connector->init();
 	}
 
+	protected function get_smush_module() {
+		return new Modules\Smush();
+	}
 }

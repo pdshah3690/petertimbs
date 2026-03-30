@@ -247,7 +247,7 @@ a.wp-smush-lossy-enable {
 }
 
 .manage-column.column-smushit {
-	width: 260px;
+	width: 265px;
 }
 
 .smushit [tooltip],
@@ -531,9 +531,10 @@ div.wp-smush-info.notice {
  * @since 3.9.1
  */
 #smush-box-cdn-upsell,
-#smush-box-webp-wizard {
+#smush-box-webp-wizard,
+#smush-box-next-gen-upsell .smush-box-next-gen-upsell {
 	.sui-upsell-list {
-		max-width: 490px;
+		max-width: 495px;
 		text-align: left;
 		margin: 0 auto;
 		li {
@@ -599,8 +600,4 @@ div.wp-smush-info.notice {
 		font-size: 16px;
 		height: 34px;
 	}
-}
-
-.smush-dismissible-notice {
-	position: relative;
 }
