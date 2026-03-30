@@ -4,6 +4,7 @@
  * @package PaymentPlugins\Templates
  * @version 3.0.9
  */
+do_action( 'wc_stripe_cart_before_payment_methods' );
 ?>
 <div class="wc-stripe-cart-checkout-container" <?php if ( $cart_total == 0 ){ ?>style="display: none"<?php } ?>>
     <ul class="wc_stripe_cart_payment_methods" style="list-style: none">

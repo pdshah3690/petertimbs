@@ -4,11 +4,8 @@ return array(
 	'desc'                 => array(
 		'type'        => 'description',
 		'description' => sprintf( '<div class="wc-stripe-register-domain"><button class="button button-secondary api-register-domain">%s</button></div><p>%s</p>', __( 'Register Domain', 'woo-stripe-payment' ),
-				sprintf( __( 'This plugin attemps to add the domain association file to your server automatically when you click the Register Domain button. If that fails due to file permssions, you must add the <strong>%1$s.well-known/apple-developer-merchantid-domain-association%2$s</strong> file to your domain  and register your domain within the Stripe Dashboard.',
-					'woo-stripe-payment' ), '<a href="https://stripe.com/files/apple-pay/apple-developer-merchantid-domain-association">', '</a>' ) ) .
-		                 '<p>' .
-		                 __( 'In order for Apple Pay to display, you must test with an iOS device and have a payment method saved in the Apple Wallet.', 'woo-stripe-payment' ) .
-		                 '</p>',
+			sprintf( __( 'This plugin attempts to add the domain association file to your server automatically when you click the Register Domain button. If that fails due to file permissions, you must add the <strong>%1$s.well-known/apple-developer-merchantid-domain-association%2$s</strong> file to your domain  and register your domain within the Stripe Dashboard.',
+				'woo-stripe-payment' ), '<a href="https://stripe.com/files/apple-pay/apple-developer-merchantid-domain-association">', '</a>' ) )
 	),
 	'enabled'              => array(
 		'title'       => __( 'Enabled', 'woo-stripe-payment' ),
@@ -42,6 +39,13 @@ return array(
 		'default'     => 'yes',
 		'description' => __( 'When enabled, a notice with additional payment instructions is shown in the payment method section of the checkout shortcode.', 'woo-stripe-payment' ),
 		'desc_tip'    => true
+	),
+	'all_browsers'         => array(
+		'title'       => __( 'Enable On All Browsers', 'woo-stripe-payment' ),
+		'type'        => 'checkbox',
+		'default'     => 'yes',
+		'desc_tip'    => true,
+		'description' => __( 'If enabled, Apple Pay will be available on all supported browsers, not just Safari.', 'woo-stripe-payment' )
 	),
 	'method_format'        => array(
 		'title'       => __( 'Credit Card Display', 'woo-stripe-payment' ),
@@ -104,7 +108,7 @@ return array(
 		),
 		'description' => __( 'This is the style for all Apple Pay buttons presented on your store.', 'woo-stripe-payment' ),
 	),
-	'button_design'        => array(
+	/*'button_design'        => array(
 		'title'       => __( 'Button Design', 'woo-stripe-payment' ),
 		'type'        => 'select',
 		'default'     => 'standard',
@@ -114,6 +118,34 @@ return array(
 		),
 		'desc_tip'    => true,
 		'description' => __( 'Choose between the standard button or rounded corners.', 'woo-stripe-payment' )
+	),*/
+	'button_height'        => array(
+		'title'             => __( 'Button Height', 'woo-stripe-payment' ),
+		'type'              => 'number',
+		'default'           => 40,
+		'desc_tip'          => true,
+		'description'       => __( 'Button height for the Apple Pay button. The button height must be between 40px and 55px.', 'woo-stripe-gateway' ),
+		'sanitize_callback' => function ( $value ) {
+			if ( ! is_numeric( $value ) ) {
+				$value = 40;
+			}
+
+			return max( 40, min( 55, $value ) );
+		}
+	),
+	'button_radius'        => array(
+		'title'             => __( 'Button Radius', 'woo-stripe-payment' ),
+		'type'              => 'number',
+		'class'             => 'button-radius',
+		'default'           => '4',
+		'description'       => __( 'The border radius of the button.', 'woo-stripe-payment' ),
+		'sanitize_callback' => function ( $value ) {
+			if ( ! preg_match( '/^[\d]+$/', $value ) ) {
+				$value = 0;
+			}
+
+			return absint( $value );
+		}
 	),
 	'button_type_checkout' => array(
 		'title'   => __( 'Checkout button type', 'woo-stripe-payment' ),

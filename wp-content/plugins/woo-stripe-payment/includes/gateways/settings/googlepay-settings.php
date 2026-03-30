@@ -14,7 +14,7 @@ return array(
 		'description' => sprintf(
 			'<p>%s</p>',
 			sprintf(
-				__( 'If you don\'t want to request a Google Merchant ID, you can use the %1$sPayment Request Gateway%2$s which has a Google Pay integration through Stripe via the Chrome browser.',
+				__( 'If you don\'t want to request a Google Merchant ID, you can use the %1$sPayment Request Gateway%2$s which has a Google Pay integration through Stripe.',
 					'woo-stripe-payment' ),
 				'<a target="_blank" href="' .
 				admin_url( 'admin.php?page=wc-settings&tab=checkout&section=stripe_payment_request' ) . '">',
@@ -171,6 +171,33 @@ return array(
 			return absint( $value );
 		}
 	),
+	'button_height'    => [
+		'type'              => 'number',
+		'title'             => __( 'Button Height', 'woo-stripe-payment' ),
+		'class'             => 'gpay-button-option button-height',
+		'default'           => 40,
+		'custom_attributes' => [
+			'min'  => 40,
+			'max'  => 55,
+			'step' => 1,
+		],
+		'sanitize_callback' => function ( $value ) {
+			if ( ! preg_match( '/^[\d]+$/', $value ) ) {
+				$value = 40;
+			}
+
+			$value = absint( $value );
+
+			// Ensure value is between 40 and 55
+			if ( $value < 40 ) {
+				$value = 40;
+			} elseif ( $value > 55 ) {
+				$value = 55;
+			}
+
+			return $value;
+		}
+	],
 	'button_render'    => array(
 		'type'        => 'button_demo',
 		'title'       => __( 'Button Design', 'woo-stripe-payment' ),

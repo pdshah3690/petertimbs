@@ -1,10 +1,10 @@
 === Payment Plugins for Stripe WooCommerce ===
-Contributors: mr.clayton
+Contributors: paymentplugins, mrclayton
 Tags: stripe, klarna, credit card, apple pay, google pay
 Requires at least: 3.0.1
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 3.3.94
+Stable tag: 3.3.105
 Copyright: Payment Plugins
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,6 +63,59 @@ If your site is not loading over https, then Stripe won't render the Payment Req
 9. Stripe Link for high conversion
 
 == Changelog ==
+= 3.3.105 - 03/24/26 =
+* Fixed - Issue on variation pages where variations were reset for "Any" attribute. [https://wordpress.org/support/topic/bug-variation-dropdowns-for-any-attributes-are-being-reset/](https://wordpress.org/support/topic/bug-variation-dropdowns-for-any-attributes-are-being-reset/)
+= 3.3.104 - 03/13/26 =
+* Added - WC Tested to 10.6
+* Fixed - On the Edit Product page > Stripe Settings panel, if payment method is disabled globally, ensure settings reflect that
+* Updated - Improved express checkout integration with Funnelkit checkout page
+= 3.3.103 - 03/03/26 =
+* Fixed - Improved handling of Apple Pay redacted postal code for "GB" and "CA" country codes. [https://wordpress.org/support/topic/uk-postcode-wildcard-shipping-zones-to-fail-with-apple-pay/](https://wordpress.org/support/topic/uk-postcode-wildcard-shipping-zones-to-fail-with-apple-pay/)
+* Added - The statement descriptor option in the Advanced Settings page now supports dynamic variables like order_id, order_number. [Documentation](https://paymentplugins.com/documentation/stripe/advanced-settings/#statement-descriptor)
+* Added - For card payments, a new "statement descriptor suffix" option has been added to the Advanced Settings page. This option also supports dynamic variables. [Documentation](https://paymentplugins.com/documentation/stripe/advanced-settings/#statement-descriptor-suffix)
+* Updated - If a local payment method return url is revisited, ensure the order notes are not duplicated
+= 3.3.102 - 02/18/26 =
+* Fixed - Syntax errors in the Admin option setting descriptions
+* Fixed - JS error for Apple Pay and GPay via Payment Request Gateway when side cart button clicked on product page
+= 3.3.101 - 02/02/26 =
+* Fixed - Apple Pay was showing on some unsupported devices combined with plugins like Funnelkit
+* Fixed - Checkout block express section appeared disabled due to a bug in WooCommerce. We have added a resolution in this plugin so merchants don't have to wait.
+[https://wordpress.org/support/topic/js-error-for-logged-in-customers-with-a-saved-payment-method/](https://wordpress.org/support/topic/js-error-for-logged-in-customers-with-a-saved-payment-method/)
+= 3.3.100 - 01/28/26 =
+* Added - Option for Payment Request Gateway where you can specify Google Pay availability on all browsers or just Chrome.
+* Fixed - When Germanized for WooCommerce installed, Apple Pay and Google Pay were not re-displaying on the checkout shortcode after the order_update_review request was triggered. This made it
+appear as if they were not available.
+= 3.3.99 - 01/17/26 =
+* Added - Terms Enabled option on Advanced Settings page. This option allows merchants to enable/disable mandate and legal agreement text rendered by Stripe in the payment element. [Terms Enabled](https://paymentplugins.com/documentation/stripe/advanced-settings/#terms-enabled)
+* Updated - Some themes add the "float" property to the place order button on the checkout page. To prevent the Apple Pay button from conflicting with the float property, additional CSS was added to the button.
+* Updated - The Payment Request Gateway now uses the Express Checkout Element. It will render Google Pay on more browsers like Safari, Firefox, and Edge. Be sure and clear any cache plugins
+so the new scripts load.
+* Updated - Increased Afterpay limits for Australia and New Zealand to 4000 AUD and 4000 NZD
+= 3.3.98 - 01/15/26 =
+* Added - Apple Pay is now available on all supported browsers when using product page, cart shortcode, and checkout shortcode.
+* Added - Option where you can specify if you want Apple Pay available only on Safari or all supported browsers.
+= 3.3.97 - 12/29/25 =
+* Added - Checkout page upsell support for new CheckoutWC feature coming out in January
+* Added - Apple Pay button height option. The minimum height is 40px and the maximum height is 55px.
+* Added - The cart block and checkout block Apple Pay integration now uses the new Stripe Express Checkout element. This allows Apple Pay to be available on browsers other than Safari. Support for the checkout shortcode, cart shortcode, and product pages will be added in upcoming releases.
+* Added - Button radius option for the Payment Request Gateway
+* Added - Button radius option for Link Checkout
+* Added - Button radius option for Apple Pay. This option replaces the now deprecated "Button Design" option
+* Added - Automatic registration of payment method domains during plugin update for improved Apple Pay compatibility
+* Updated - Default payment method configurations now automatically enable Apple Pay and Google Pay display preferences
+* Updated - For cart block and checkout block, updated logic for determining if the phone field is required
+* Updated - Improved compatibility with cart and checkout blocks
+= 3.3.96 - 11/30/25 =
+* Added - tested up to WordPress 6.9
+* Updated - Load wc-stripe-functions.php earlier than "init" action. Some 3rd party plugins were causing a conflict which is resolved by earlier loading of Stripe plugin functions.
+* Updated - Modified payment button logic on product variation pages to use the DOM value instead of Javascript variable values. [https://wordpress.org/support/topic/more-than-one-variation-on-a-product-causes-googlepay-error/](https://wordpress.org/support/topic/more-than-one-variation-on-a-product-causes-googlepay-error/)
+= 3.3.95 - 10/29/25 =
+* Added - WC Tested to 10.3
+* Added - Support for Billie payment method
+* Added - Puerto Rico to Klarna supported countries
+* Updated - Changed script handles for WooCommerce to include the "wc-" prefix for WooCommerce 10.3.0.
+* Updated - When express payment is made on product and cart page, ensure attribution data is included in the request.
+* Updated - Removed Giropay and Sofort from payment method options since they have been deprecated by Stripe.
 = 3.3.94 - 10/15/25 =
 * Updated - Merchants using Bluehost reported that payment methods were not showing in settings or checkout page. This was caused by an update to the Bluehost plugin where it triggered the "woocommerce_payment_gateways" too early in the WordPress load sequence.
  We have added additional code to ensure Stripe payment methods are loaded even if the filter "woocommerce_payment_gateways" is called before the WordPress "init" action.

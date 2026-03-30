@@ -26,7 +26,7 @@ class WC_Stripe_Manager {
 	 *
 	 * @var string
 	 */
-	public $version = '3.3.94';
+	public $version = '3.3.105';
 
 	/**
 	 *
@@ -126,8 +126,8 @@ class WC_Stripe_Manager {
 	 * Method that registers vital hooks to the function of the plugin. This method is called early by plugins_loaded
 	 * to ensure 3rd party plugins don't interfere with plugin features.
 	 *
-	 * @since 3.3.94
 	 * @return void
+	 * @since 3.3.94
 	 */
 	private function critical_hooks() {
 		/**
@@ -149,6 +149,16 @@ class WC_Stripe_Manager {
 				}
 			}
 		} );
+
+		/**
+		 * Filter so actions can be added for printing order attribution fields.
+		 * @todo - move to controller class during refactor
+		 */
+		add_filter( 'wc_order_attribution_stamp_checkout_html_actions', function ( $actions ) {
+			return array_merge(
+				$actions,
+				array( 'wc_stripe_product_before_payment_methods', 'wc_stripe_cart_before_payment_methods' ) );
+		} );
 	}
 
 	private function load_payment_gateway_classes() {
@@ -166,11 +176,11 @@ class WC_Stripe_Manager {
 				'WC_Payment_Gateway_Stripe_P24',
 				'WC_Payment_Gateway_Stripe_Klarna',
 				'WC_Payment_Gateway_Stripe_Bancontact',
-				'WC_Payment_Gateway_Stripe_Giropay',
+				//'WC_Payment_Gateway_Stripe_Giropay',
 				'WC_Payment_Gateway_Stripe_EPS',
 				'WC_Payment_Gateway_Stripe_Multibanco',
 				'WC_Payment_Gateway_Stripe_Sepa',
-				'WC_Payment_Gateway_Stripe_Sofort',
+				//'WC_Payment_Gateway_Stripe_Sofort',
 				'WC_Payment_Gateway_Stripe_WeChat',
 				'WC_Payment_Gateway_Stripe_FPX',
 				'WC_Payment_Gateway_Stripe_BECS',
@@ -191,7 +201,8 @@ class WC_Stripe_Manager {
 				'WC_Payment_Gateway_Stripe_Twint',
 				'WC_Payment_Gateway_Stripe_PayByBank',
 				'WC_Payment_Gateway_Stripe_UPM',
-				'WC_Payment_Gateway_Stripe_Link'
+				'WC_Payment_Gateway_Stripe_Link',
+				'WC_Payment_Gateway_Stripe_Billie'
 			)
 		);
 	}
@@ -244,6 +255,10 @@ class WC_Stripe_Manager {
 	}
 
 	public function includes() {
+		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/wc-stripe-functions.php';
+		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/wc-stripe-webhook-functions.php';
+		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/wc-stripe-hooks.php';
+
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/class-wc-stripe-constants.php';
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/class-wc-stripe-install.php';
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/class-wc-stripe-update.php';
@@ -273,10 +288,6 @@ class WC_Stripe_Manager {
 		if ( $this->dependecies_loaded ) {
 			return;
 		}
-		// load functions
-		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/wc-stripe-functions.php';
-		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/wc-stripe-webhook-functions.php';
-		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/wc-stripe-hooks.php';
 
 		// traits
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/traits/wc-stripe-settings-trait.php';
@@ -325,6 +336,7 @@ class WC_Stripe_Manager {
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-stripe-paybybank.php';
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-stripe-upm.php';
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-stripe-link.php';
+		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/gateways/class-wc-payment-gateway-stripe-billie.php';
 
 		// tokens
 		include_once WC_STRIPE_PLUGIN_FILE_PATH . 'includes/abstract/abstract-wc-payment-token-stripe.php';
@@ -391,12 +403,27 @@ class WC_Stripe_Manager {
 		new WC_Stripe_API_Request_Filter( $this->advanced_settings );
 
 		new \PaymentPlugins\Stripe\Link\LinkIntegration( $this->advanced_settings, $this->account_settings, $this->assets(), $this->data_api() );
-		new \PaymentPlugins\Stripe\Controllers\PaymentIntent( WC_Stripe_Gateway::load(), [ 'stripe_cc', 'stripe_upm' ] );
+		new \PaymentPlugins\Stripe\Controllers\PaymentIntent( WC_Stripe_Gateway::load(), [
+			'stripe_cc',
+			'stripe_upm'
+		] );
 		new \PaymentPlugins\Stripe\Messages\MessageController();
 		new \PaymentPlugins\Stripe\Products\ProductController();
-		new \PaymentPlugins\Stripe\Messages\BNPL\CategoryMessageController( [ 'stripe_affirm', 'stripe_afterpay', 'stripe_klarna' ] );
-		new \PaymentPlugins\Stripe\Messages\BNPL\ProductMessageController( [ 'stripe_affirm', 'stripe_afterpay', 'stripe_klarna' ] );
-		new \PaymentPlugins\Stripe\Messages\BNPL\CartMessageController( [ 'stripe_affirm', 'stripe_afterpay', 'stripe_klarna' ] );
+		new \PaymentPlugins\Stripe\Messages\BNPL\CategoryMessageController( [
+			'stripe_affirm',
+			'stripe_afterpay',
+			'stripe_klarna'
+		] );
+		new \PaymentPlugins\Stripe\Messages\BNPL\ProductMessageController( [
+			'stripe_affirm',
+			'stripe_afterpay',
+			'stripe_klarna'
+		] );
+		new \PaymentPlugins\Stripe\Messages\BNPL\CartMessageController( [
+			'stripe_affirm',
+			'stripe_afterpay',
+			'stripe_klarna'
+		] );
 		( new \PaymentPlugins\Stripe\Webhooks\DeferredWebhookHandler() )->initialize();
 
 		$this->dependecies_loaded = true;
@@ -406,8 +433,8 @@ class WC_Stripe_Manager {
 	 * Initializes the REST API. This method is called after WordPress has initialized
 	 * the rewrite rules to prevent errors when get_rest_url() is called.
 	 *
-	 * @since 3.3.94
 	 * @return void
+	 * @since 3.3.94
 	 */
 	public function init_rest_api() {
 		if ( ! is_null( $this->rest_api ) ) {
@@ -505,8 +532,8 @@ class WC_Stripe_Manager {
 	/**
 	 * @param string $type
 	 *
-	 * @since 3.1.9
 	 * @return bool
+	 * @since 3.1.9
 	 */
 	public function is_request( $type ) {
 		if ( ! did_action( 'before_woocommerce_init' ) ) {
@@ -526,8 +553,8 @@ class WC_Stripe_Manager {
  * Returns the global instance of the WC_Stripe_Manager. This function replaces
  * the wc_stripe function as of version 3.2.8
  *
- * @since   3.2.8
  * @return WC_Stripe_Manager
+ * @since   3.2.8
  * @package PaymentPlugins\Functions
  */
 function stripe_wc() {

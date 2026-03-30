@@ -102,7 +102,21 @@ class WC_Payment_Gateway_Stripe_Link extends \WC_Payment_Gateway_Stripe {
 
 					return max( 40, min( 55, $value ) );
 				}
-			)
+			),
+			'button_radius'    => array(
+				'title'             => __( 'Button Radius', 'woo-stripe-payment' ),
+				'type'              => 'number',
+				'class'             => 'button-radius',
+				'default'           => '4',
+				'description'       => __( 'The border radius of the button.', 'woo-stripe-payment' ),
+				'sanitize_callback' => function ( $value ) {
+					if ( ! preg_match( '/^[\d]+$/', $value ) ) {
+						$value = 0;
+					}
+
+					return absint( $value );
+				}
+			),
 		);
 	}
 
@@ -110,7 +124,7 @@ class WC_Payment_Gateway_Stripe_Link extends \WC_Payment_Gateway_Stripe {
 	}
 
 	public function product_fields() {
-		wp_enqueue_script( 'wc-stripe-link-express-product' );
+		$this->enqueue_frontend_scripts( 'product' );
 		$data = $this->get_localized_params();
 
 		wp_localize_script( 'wc-stripe-link-express-product', 'wc_stripe_link_product_params', $this->get_localized_params() );
@@ -123,14 +137,36 @@ class WC_Payment_Gateway_Stripe_Link extends \WC_Payment_Gateway_Stripe {
 	}
 
 	public function cart_fields() {
+		$data       = $this->get_localized_params();
+		$valid_keys = [
+			'currency',
+			'total_cents',
+			'items',
+			'needs_shipping',
+			'shipping_options',
+			'elementOptions'
+		];
+		$params     = array_intersect_key( $data, array_flip( $valid_keys ) );
+		$json       = wc_esc_json( wp_json_encode( $params ) );
+		printf( '<input type="hidden" class="%1$s" data-gateway="%2$s"/>', "woocommerce_{$this->id}_gateway_data {$data['page']}-page", $json );
+		$this->enqueue_frontend_scripts( 'cart' );
+		wp_localize_script( 'wc-stripe-link-express-cart', 'wc_stripe_link_cart_params', $data );
+		?>
+        <div id="wc-stripe-link-checkout-container"></div>
+		<?php
+	}
+
+	public function enqueue_cart_scripts( $scripts ) {
 		wp_enqueue_script( 'wc-stripe-link-express-cart' );
-		if ( wp_doing_ajax() ) {
-			$data = $this->get_localized_params();
-			$json = wc_esc_json( wp_json_encode( $data ) );
-			printf( '<input type="hidden" class="%1$s" data-gateway="%2$s"/>', "woocommerce_{$this->id}_gateway_data {$data['page']}-page", $json );
-		} else {
-			wp_localize_script( 'wc-stripe-link-express-cart', 'wc_stripe_link_cart_params', $this->get_localized_params() );
-		}
+	}
+
+	public function enqueue_product_scripts( $scripts ) {
+		wp_enqueue_script( 'wc-stripe-link-express-product' );
+	}
+
+	public function enqueue_express_checkout_scripts() {
+		wp_localize_script( 'wc-stripe-link-express-checkout', 'wc_stripe_link_checkout_params', $this->get_localized_params() );
+		wp_enqueue_script( 'wc-stripe-link-express-checkout' );
 	}
 
 	/**
@@ -139,8 +175,8 @@ class WC_Payment_Gateway_Stripe_Link extends \WC_Payment_Gateway_Stripe {
 	 * @param string $type
 	 * @param mixed  ...$args
 	 *
-	 * @since 3.2.1
 	 * @return array
+	 * @since 3.2.1
 	 */
 	protected function get_display_item_for_cart( $price, $label, $type, ...$args ) {
 		return [
@@ -166,9 +202,9 @@ class WC_Payment_Gateway_Stripe_Link extends \WC_Payment_Gateway_Stripe {
 	/**
 	 * @param WC_Product $product
 	 *
+	 * @return array
 	 * @since 3.2.1
 	 *
-	 * @return array
 	 */
 	protected function get_display_item_for_product( $product ) {
 		return array(
@@ -196,7 +232,7 @@ class WC_Payment_Gateway_Stripe_Link extends \WC_Payment_Gateway_Stripe {
 
 	public function get_localized_params() {
 		$data = parent::get_localized_params();
-		if ( in_array( $data['page'], array( 'cart', 'checkout' ) ) ) {
+		if ( in_array( $data['page'], array( 'cart', 'checkout', 'shop' ) ) ) {
 			$data['currency']         = get_woocommerce_currency();
 			$data['total_cents']      = (float) wc_stripe_add_number_precision( WC()->cart->get_total( 'float' ) );
 			$data['items']            = $this->get_display_items( $data['page'] );
@@ -207,41 +243,44 @@ class WC_Payment_Gateway_Stripe_Link extends \WC_Payment_Gateway_Stripe {
 			$order                    = wc_get_order( absint( $wp->query_vars['order-pay'] ) );
 			$data['currency']         = get_woocommerce_currency();
 			$data['total_cents']      = (float) wc_stripe_add_number_precision( $order->get_total() );
-			$data['items']            = $this->get_display_items( $data['checkout'], $order );
+			$data['items']            = $this->get_display_items( $data['page'], $order );
 			$data['needs_shipping']   = false;
 			$data['shipping_options'] = array();
 		} elseif ( $data['page'] === 'product' ) {
 			global $product;
-			$price = wc_get_price_to_display( $product );
-			if ( $product->get_type() === 'variable' ) {
-				$data['needs_shipping'] = false;
-				$variations             = \PaymentPlugins\Stripe\Utilities\ProductUtils::get_product_variations( $product );
-				if ( ! empty( $variations ) ) {
-					foreach ( $variations as $variation ) {
-						if ( $variation && $variation->needs_shipping() ) {
-							$data['needs_shipping'] = true;
-							break;
+			if ( $product instanceof WC_Product ) {
+				$price = wc_get_price_to_display( $product );
+				if ( $product->get_type() === 'variable' ) {
+					$data['needs_shipping'] = false;
+					$variations             = \PaymentPlugins\Stripe\Utilities\ProductUtils::get_product_variations( $product );
+					if ( ! empty( $variations ) ) {
+						foreach ( $variations as $variation ) {
+							if ( $variation && $variation->needs_shipping() ) {
+								$data['needs_shipping'] = true;
+								break;
+							}
 						}
 					}
+				} else {
+					$data['needs_shipping'] = $product->needs_shipping();
 				}
-			} else {
-				$data['needs_shipping'] = $product->needs_shipping();
+				$data['currency']         = get_woocommerce_currency();
+				$data['total_cents']      = (float) wc_stripe_add_number_precision( $price, get_woocommerce_currency() );
+				$data['items']            = array( $this->get_display_item_for_product( $product ) );
+				$data['shipping_options'] = array();
+				$data['product']          = array(
+					'id'          => $product->get_id(),
+					'price'       => (float) $price,
+					'price_cents' => (float) wc_stripe_add_number_precision( $price, get_woocommerce_currency() ),
+					'variation'   => false,
+					'is_in_stock' => $product->is_in_stock()
+				);
 			}
-			$data['currency']         = get_woocommerce_currency();
-			$data['total_cents']      = (float) wc_stripe_add_number_precision( $price, get_woocommerce_currency() );
-			$data['items']            = array( $this->get_display_item_for_product( $product ) );
-			$data['shipping_options'] = array();
-			$data['product']          = array(
-				'id'          => $product->get_id(),
-				'price'       => (float) $price,
-				'price_cents' => (float) wc_stripe_add_number_precision( $price, get_woocommerce_currency() ),
-				'variation'   => false,
-				'is_in_stock' => $product->is_in_stock()
-			);
 		}
 
 		$data['button'] = array(
-			'height' => (int) $this->get_option( 'button_height', 40 )
+			'height' => (int) $this->get_option( 'button_height', 40 ),
+			'radius' => $this->get_option( 'button_radius', 4 ) . 'px',
 		);
 
 		return $data;

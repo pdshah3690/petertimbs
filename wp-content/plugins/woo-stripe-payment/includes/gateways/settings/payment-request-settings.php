@@ -3,8 +3,7 @@ return array(
 	'desc'             => array(
 		'type'        => 'description',
 		'description' => __(
-			'The PaymentRequest gateway uses your customer\'s browser to render payment options like Google Pay and Microsoft Pay. You can either use the Google Pay gateway for example, or this gateway.
-						The difference is this gateway uses Stripe\'s PaymentRequest Button rather than render a Google Pay specific button.',
+			'This is a Google Pay integration that does not require a merchant ID.',
 			'woo-stripe-payment'
 		),
 	),
@@ -23,7 +22,7 @@ return array(
 	'title_text'       => array(
 		'type'        => 'text',
 		'title'       => __( 'Title', 'woo-stripe-payment' ),
-		'default'     => __( 'Browser Payments', 'woo-stripe-payment' ),
+		'default'     => __( 'Google Pay', 'woo-stripe-payment' ),
 		'desc_tip'    => true,
 		'description' => __( 'Title of the credit card gateway' ),
 	),
@@ -34,12 +33,19 @@ return array(
 		'description' => __( 'Leave blank if you don\'t want a description to show for the gateway.', 'woo-stripe-payment' ),
 		'desc_tip'    => true,
 	),
-	'notice_enabled'       => array(
+	'notice_enabled'   => array(
 		'title'       => __( 'Show Payment Notice', 'woo-stripe-payment' ),
 		'type'        => 'checkbox',
 		'default'     => 'yes',
 		'description' => __( 'When enabled, a notice with additional payment instructions is shown in the payment method section of the checkout shortcode.', 'woo-stripe-payment' ),
 		'desc_tip'    => true
+	),
+	'all_browsers'     => array(
+		'title'       => __( 'Enable On All Browsers', 'woo-stripe-payment' ),
+		'type'        => 'checkbox',
+		'default'     => 'yes',
+		'desc_tip'    => true,
+		'description' => __( 'If enabled, Google Pay will be available on all supported browsers, not just Chrome.', 'woo-stripe-payment' )
 	),
 	'method_format'    => array(
 		'title'       => __( 'Credit Card Display', 'woo-stripe-payment' ),
@@ -93,9 +99,11 @@ return array(
 		'type'        => 'select',
 		'title'       => __( 'Type', 'woo-stripe-payment' ),
 		'options'     => array(
-			'default' => __( 'default', 'woo-stripe-payment' ),
-			// 'donate' => __ ( 'donate', 'woo-stripe-payment' ),
-			'buy'     => __( 'buy', 'woo-stripe-payment' ),
+			'default'  => __( 'default', 'woo-stripe-payment' ),
+			'checkout' => __( 'Checkout', 'woo-stripe-payment' ),
+			'buy'      => __( 'Buy', 'woo-stripe-payment' ),
+			'order'    => __( 'Order', 'woo-stripe-payment' ),
+			'pay'      => __( 'Pay', 'woo-stripe-payment' ),
 		),
 		'default'     => 'buy',
 		'desc_tip'    => true,
@@ -105,9 +113,8 @@ return array(
 		'type'        => 'select',
 		'title'       => __( 'Theme', 'woo-stripe-payment' ),
 		'options'     => array(
-			'dark'          => __( 'dark', 'woo-stripe-payment' ),
-			'light'         => __( 'light', 'woo-stripe-payment' ),
-			'light-outline' => __( 'light-outline', 'woo-stripe-payment' ),
+			'dark'  => __( 'dark', 'woo-stripe-payment' ),
+			'light' => __( 'light', 'woo-stripe-payment' )
 		),
 		'default'     => 'dark',
 		'desc_tip'    => true,
@@ -119,5 +126,19 @@ return array(
 		'default'     => '40',
 		'desc_tip'    => true,
 		'description' => __( 'The height of the button. Max height is 64', 'woo-stripe-payment' ),
+	),
+	'button_radius'    => array(
+		'title'             => __( 'Button Radius', 'woo-stripe-payment' ),
+		'type'              => 'number',
+		'class'             => 'button-radius',
+		'default'           => '4',
+		'description'       => __( 'The border radius of the button.', 'woo-stripe-payment' ),
+		'sanitize_callback' => function ( $value ) {
+			if ( ! preg_match( '/^[\d]+$/', $value ) ) {
+				$value = 0;
+			}
+
+			return absint( $value );
+		}
 	),
 );
