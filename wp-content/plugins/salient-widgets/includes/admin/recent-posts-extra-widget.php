@@ -31,27 +31,13 @@ if( ! class_exists('Recent_Posts_Extra_Widget') ) {
 				 add_action('wp_enqueue_scripts', 'nectar_load_recent_posts_css');
 			}
 
-			add_action( 'save_post', array(&$this, 'flush_widget_cache') );
-			add_action( 'deleted_post', array(&$this, 'flush_widget_cache') );
-			add_action( 'switch_theme', array(&$this, 'flush_widget_cache') );
 		}
 
 		function widget($args, $instance) {
 			
-			$cache = wp_cache_get('recent_posts_extra_widget', 'widget');
-
-			if ( !is_array($cache) )
-				$cache = array();
-
-			if ( isset($cache[$args['widget_id']]) ) {
-				echo wp_kses_post( $cache[$args['widget_id']] ); // WPCS: XSS ok.
-				return;
-			}
-
-			ob_start();
 			extract($args);
 
-			$title = apply_filters('widget_title', empty($instance['title']) ? esc_html__('Recent Posts Extra','salient-widgets') : $instance['title']);
+			$title = apply_filters('widget_title', empty($instance['title']) ? '' : $instance['title']);
 			$post_style = isset($instance['style']) ? $instance['style'] : 'Featured Image Left';
 			if(!empty($post_style)) $post_style = strtolower(preg_replace('/[\s-]+/', '-',$post_style));
 
@@ -69,18 +55,29 @@ if( ! class_exists('Recent_Posts_Extra_Widget') ) {
 
 			if(!empty($category) && $category != 'All') {
 				
-				$r = new WP_Query(array( 
+				$recent_post_widget_query = array( 
 					'post_type' => 'post', 
 					'category_name' => $category, 
 					'showposts' => $number, 
 					'nopaging' => 0, 
-					'post_status' => 'publish'));
+					'post_status' => 'publish'
+				);
+
+				$recent_post_widget_query = apply_filters('salient_recent_posts_widget_query', $recent_post_widget_query);
+
+				$r = new WP_Query($recent_post_widget_query);
 					
 			} else {
-				$r = new WP_Query(array(
+
+				$recent_post_widget_query = array(
 					'showposts' => $number, 
 					'nopaging' => 0, 
-					'post_status' => 'publish'));
+					'post_status' => 'publish'
+				);
+
+				$recent_post_widget_query = apply_filters('salient_recent_posts_widget_query', $recent_post_widget_query);
+
+				$r = new WP_Query($recent_post_widget_query);
 			}
 
 			
@@ -100,7 +97,7 @@ if( ! class_exists('Recent_Posts_Extra_Widget') ) {
 					if(has_post_thumbnail()) {
 						
 						if($post_style === 'hover-featured-image') {
-							$post_featured_img = '<div class="popular-featured-img" style="background-image: url(' . get_the_post_thumbnail_url($post->ID, 'small', array('title' => '')) . ');"></div>';
+							$post_featured_img = '<div class="popular-featured-img" style="background-image: url(' . get_the_post_thumbnail_url($post->ID, 'portfolio-thumb', array('title' => '')) . ');"></div>';
 				
 						} else if($post_style === 'featured-image-left') {
 							$post_featured_img = '<span class="popular-featured-img">'. get_the_post_thumbnail($post->ID, 'portfolio-widget', array('title' => '')) . '</span>';
@@ -108,8 +105,23 @@ if( ! class_exists('Recent_Posts_Extra_Widget') ) {
 						}
 					}
 					
-					$post_border_circle = ($post_style === 'minimal-counter') ? '<div class="arrow-circle"> <svg width="38" height="38"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="19" cy="19" r="18"></circle> </svg>  </div>' : null;
-					echo '<li '.$post_featured_img_class.'><a href="'. esc_url(get_permalink()) .'"> '.$post_featured_img. $post_border_circle. '<span class="meta-wrap"><span class="post-title">' . get_the_title() . '</span> <span class="post-date">' . get_the_date() . '</span></span></a></li>';  // WPCS: XSS ok.
+					$post_border_circle = ($post_style === 'minimal-counter') ? '<div class="arrow-circle"> <svg aria-hidden="true" width="38" height="38"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="19" cy="19" r="18"></circle> </svg>  </div>' : null;
+					
+					$post_link = get_permalink();
+					$target_markup = '';
+					
+					if( get_post_format() === 'link' ) {
+						
+						$post_link_format_url = get_post_meta( $post->ID, '_nectar_link', true );
+						$post_link_text = get_the_content();
+						
+						if ( empty($post_link_text) && !empty($post_link_format_url) ) {
+							$post_link = esc_url($post_link_format_url);
+							$target_markup = ' target="_blank"';
+						}
+						
+					}
+					echo '<li '.$post_featured_img_class.'><a href="'. esc_url($post_link) .'"'.$target_markup.'> '.$post_featured_img. $post_border_circle. '<span class="meta-wrap"><span class="post-title">' . get_the_title() . '</span> <span class="post-date">' . get_the_date() . '</span></span></a></li>';  // WPCS: XSS ok.
 
 			 endwhile; ?>
 			</ul>
@@ -118,8 +130,6 @@ if( ! class_exists('Recent_Posts_Extra_Widget') ) {
 				wp_reset_query();  // Restore global post data stomped by the_post().
 			endif;
 
-			$cache[$args['widget_id']] = ob_get_flush();
-			wp_cache_add('recent_posts_extra_widget', $cache, 'widget');
 		}
 
 		function update( $new_instance, $old_instance ) {
@@ -128,18 +138,8 @@ if( ! class_exists('Recent_Posts_Extra_Widget') ) {
 			$instance['style']    = strip_tags($new_instance['style']);
 			$instance['category'] = strip_tags($new_instance['category']);
 			$instance['number']   = (int) $new_instance['number'];
-			$this->flush_widget_cache();
-
-			$alloptions = wp_cache_get( 'alloptions', 'options' );
-			if ( isset($alloptions['recent_posts_extra_widget']) ) {
-				delete_option('recent_posts_extra_widget');
-			}
 
 			return $instance;
-		}
-
-		function flush_widget_cache() {
-			wp_cache_delete('recent_posts_extra_widget', 'widget');
 		}
 
 		function form( $instance ) {

@@ -133,6 +133,7 @@ if( ! class_exists('Nectar_Popular_Posts') ) {
 				    ),
 				    'meta_key' => 'nectar_blog_post_view_count',
 				    'orderby' => 'meta_value_num',
+						'order' => 'DESC',
 				    'ignore_sticky_posts' => 1,
 				    'posts_per_page' => $number_of_posts,
 				);
@@ -145,6 +146,7 @@ if( ! class_exists('Nectar_Popular_Posts') ) {
 				        $date_query_ar
 				    ),
 				    'orderby' => 'comment_count',
+						'order' => 'DESC',
 				    'ignore_sticky_posts' => 1,
 				    'posts_per_page' => $number_of_posts,
 				);
@@ -166,7 +168,7 @@ if( ! class_exists('Nectar_Popular_Posts') ) {
 						
 						if( $post_style === 'hover-featured-image' || $post_style === 'hover-featured-image-gradient-and-counter' ) {
 
-							$post_featured_img = '<div class="popular-featured-img" style="background-image: url(' . get_the_post_thumbnail_url($post->ID, 'small', array('title' => '')) . ');"></div>';
+							$post_featured_img = '<div class="popular-featured-img" style="background-image: url(' . get_the_post_thumbnail_url($post->ID, 'portfolio-thumb', array('title' => '')) . ');"></div>';
 						
 						} else if( $post_style === 'featured-image-left' ) {
 
@@ -178,9 +180,15 @@ if( ! class_exists('Nectar_Popular_Posts') ) {
 						$post_featured_img = '<span class="popular-featured-img"></span>';
 					}
 					
+					$data_views = '';
+					if( $orderby === 'Highest Views' ) {
+						$the_view_count = get_post_meta( $post->ID, 'nectar_blog_post_view_count', true );
+						$data_views = ' data-views="'.esc_attr($the_view_count).'"';
+					}
 					
-					$post_border_circle = ($post_style === 'minimal-counter') ? '<div class="arrow-circle"> <svg width="38" height="38"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="19" cy="19" r="18"></circle> </svg>  </div>' : null;
-					echo '<li '.$post_featured_img_class.'><a href="'. esc_url(get_permalink()) .'"> '.$post_featured_img. $post_border_circle. '<span class="meta-wrap"><span class="post-title">' . get_the_title() . '</span> <span class="post-date">' . get_the_date() . '</span></span></a></li>'; // WPCS: XSS ok.
+					
+					$post_border_circle = ($post_style === 'minimal-counter') ? '<div class="arrow-circle"> <svg aria-hidden="true" width="38" height="38"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="19" cy="19" r="18"></circle> </svg>  </div>' : null;
+					echo '<li '.$post_featured_img_class.$data_views.'><a href="'. esc_url(get_permalink()) .'"> '.$post_featured_img. $post_border_circle. '<span class="meta-wrap"><span class="post-title">' . get_the_title() . '</span> <span class="post-date">' . get_the_date() . '</span></span></a></li>'; // WPCS: XSS ok.
 
 			    endwhile;
 			endif;
