@@ -50,31 +50,16 @@ function salient_child_enqueue_styles() {
     $disabled_dates = get_deliery_cut_off_dates();
     $pickup_disabled_dates = [
         date("Y/m/d"),
-        "2025/12/16",
-        "2025/12/17",
-        "2025/12/18",
-        "2025/12/19",
-        "2025/12/20",
-        "2025/12/21",
-        "2025/12/22",
-        "2025/12/23",
-        "2025/12/24",
-        "2025/12/25",
-        "2025/12/26",
-        "2025/12/27",
-        "2026/01/01",
-        "2026/01/02",
-        "2026/01/03",
-        "2026/02/06",
-        "2026/04/18",
-        "2026/04/21",
+        "2026/04/03",
+        "2026/04/06",
         "2026/04/25",
-        "2026/06/02",
-        "2026/06/20",
-        "2026/10/27",
+        "2026/04/27",
+        "2026/06/01",
+        "2026/07/10",
+        "2026/10/26",
         "2026/11/13",
         "2026/12/25",
-        "2026/12/26"
+        "2026/12/26",
     ];
 
     // $is_disabled = 1;
@@ -475,7 +460,6 @@ function get_earlier_pickup_time() {
         } else {
             $post_id = empty($item['variation_id']) ? $item['product_id'] : $item['variation_id'];
             $preparation_time = get_post_meta($post_id, "preparation_time", true);
-            $preparation_time = empty($preparation_time) ? 0 : $preparation_time;
             $total_prep_time = $total_prep_time + ($preparation_time * $item['quantity']);
         }
         if(empty($preparation_time)) {
@@ -999,31 +983,16 @@ function get_deliery_cut_off_dates() {
                 WHERE p.post_type = 'shop_order' AND pm.meta_value >= CURDATE()  GROUP BY pm.meta_value";
     $orders = $wpdb->get_results($sql, ARRAY_A);
     $dates = [
-        "2025/12/16",
-        "2025/12/17",
-        "2025/12/18",
-        "2025/12/19",
-        "2025/12/20",
-        "2025/12/21",
-        "2025/12/22",
-        "2025/12/23",
-        "2025/12/24",
-        "2025/12/25",
-        "2025/12/26",
-        "2025/12/27",
-        "2026/01/01",
-        "2026/01/02",
-        "2026/01/03",
-        "2026/02/06",
-        "2026/04/18",
-        "2026/04/21",
+        "2026/04/03",
+        "2026/04/06",
         "2026/04/25",
-        "2026/06/02",
-        "2026/06/20",
-        "2026/10/27",
+        "2026/04/27",
+        "2026/06/01",
+        "2026/07/10",
+        "2026/10/26",
         "2026/11/13",
         "2026/12/25",
-        "2026/12/26"
+        "2026/12/26",
     ];
     foreach ($orders as $o) {
         $day = strtolower(date("l", strtotime($o['date'])));
@@ -1383,17 +1352,3 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 
 
 //Edit User Profile Add Checkbox
-
-add_filter('walker_nav_menu_start_el', function($item_output, $item, $depth, $args) {
-
-    if (in_array('no-click', $item->classes)) {
-        $item_output = preg_replace(
-            '/<a[^>]*>(.*?)<\/a>/',
-            '<span class="menu-label">$1</span>',
-            $item_output
-        );
-    }
-
-    return $item_output;
-
-}, 10, 4);
