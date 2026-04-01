@@ -58,20 +58,6 @@
             }
         });
     }
-    var _app_product_settings = function(type = "variable") {
-        $.ajax({
-            url: ajaxurl,
-            type: 'post',
-            data: {
-                action : 'get_app_product',
-                type : type,
-                product_id  : woocommerce_admin_meta_boxes.post_id
-            },
-            success : function(html){
-                $('.app-product-container').html(html);
-            }
-        });
-    }
 
     var _shipping_type_settings = function(type = "variable") {
         console.log("_shipping_type_settings");
@@ -100,7 +86,6 @@
             },
             success : function(html){
                 $('.date-product-container').html(html);
-                console.log('here');
                 $("#date_product_from").datepicker({ dateFormat: 'dd-mm-yy', minDate: 0 });
                 $("#date_product_to").datepicker({ dateFormat: 'dd-mm-yy', minDate: 0 });
             }
@@ -140,7 +125,6 @@
     $(document.body).on('woocommerce_variations_saved woocommerce_variations_removed', function(){
         _preparation_time_settings();
         _site_product_settings();
-        _app_product_settings();
         _shipping_type_settings();
         _date_product_settings();
         _product_free_delivery_settings();
@@ -150,7 +134,6 @@
         var type = $(this).val();
         _preparation_time_settings(type);
         _site_product_settings(type);
-        _app_product_settings(type);
         _shipping_type_settings(type);
         _date_product_settings();
         _product_free_delivery_settings(type);
@@ -174,7 +157,6 @@
         });
         custom_uploader.on('select', function() {
             var attachment = custom_uploader.state().get( 'selection' ).first().toJSON();
-            // console.log(attachment.id);
             $input_field.val( attachment.id );
             $('.uploaded_image').attr('src', attachment.url);
             $image.html( '<img src="' + attachment.url + '" />' );

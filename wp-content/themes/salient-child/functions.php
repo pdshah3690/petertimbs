@@ -3,7 +3,7 @@ define('Delivery_Fee', 10);
 
 $zone = get_option('timezone_string');
 date_default_timezone_set($zone);
-date_default_timezone_set('Pacific/Auckland');
+// date_default_timezone_set('Pacific/Auckland');
 
 require_once 'classes/class-butcher-box-admin.php';
 require_once 'classes/class-butcher-box-public.php';
@@ -23,7 +23,7 @@ add_action( 'wp_enqueue_scripts', 'salient_child_enqueue_styles', 100);
 
 add_action('init', 'set_default_time_zone');
 function set_default_time_zone() {
-    date_default_timezone_set('Pacific/Auckland');
+    // date_default_timezone_set('Pacific/Auckland');
 }
 
 function salient_child_enqueue_styles() {
@@ -44,7 +44,7 @@ function salient_child_enqueue_styles() {
     $option = get_option("peter_timbs");
     $cut_off = empty($option['delivery_cut_off_time']) ? "12:00" : $option['delivery_cut_off_time'];
     $cut_off_day = empty($option['delivery_cut_off_day']) ? 0 : $option['delivery_cut_off_day'];
-    // $cut_off_day = 4;
+    // $cut_off_day = 2;
     $now = strtotime("now");
     $cut_off = strtotime($cut_off);
     $disabled_dates = get_deliery_cut_off_dates();
@@ -108,7 +108,7 @@ function salient_child_enqueue_styles() {
         "pick_up_range_from"  => $from,
         "pick_up_range_to"  => $to
     ]);
-    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom1.js', array('jquery'), '2.8', true);
+    wp_enqueue_script('custom', get_stylesheet_directory_uri() . '/js/custom.js', array('jquery'), '3.0.3', true);
     if ( is_rtl() ) {
         wp_enqueue_style(  'salient-rtl',  get_template_directory_uri(). '/rtl.css', array(), '1', 'screen' );
     }
